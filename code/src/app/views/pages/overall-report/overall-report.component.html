@@ -1,0 +1,250 @@
+<div class="pageContainer">
+	<!-- <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" class="form-control"/> -->
+	<div class="pageTopBar">
+		<h2 style="padding: 10px 0px; float: left">Overall Revenue Report</h2>
+		<div ngbDropdown class="dropdown searcBar">
+			<input
+				type="text"
+				class="btn btn-default dropdown-toggle"
+				ngxDaterangepickerMd
+				startKey="start"
+				endKey="end"
+				[(ngModel)]="model1"
+			/>
+			<input
+				type="text"
+				class="btn btn-default dropdown-toggle"
+				ngxDaterangepickerMd
+				startKey="start"
+				endKey="end"
+				[ranges]="ranges"
+				[(ngModel)]="model1"
+			/> 
+			<select
+				class="form-control dropdown-select-box"
+				(change)="ChangingValue($event)"
+				*ngIf="report_type == 2"
+			>
+				<option value="undefined">Search By Source</option>
+				<option
+					*ngFor="let item of metasourceListingData"
+					value="{{ item.id }}"
+				>
+				<div *ngIf="item.name!=null">	{{ item.name }}</div>
+				</option>
+			</select>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="searchRange()"
+			>
+				Search
+			</button>
+		</div>
+	</div>
+
+	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
+		<button
+			class="btn btn-default dropdown-toggle"
+			id="ddllogout"
+			type="button"
+			(click)="
+				exporter.exportTable('csv', {
+					fileName: 'Acquirely  Dashboard '
+				})
+			"
+		>
+			CSV
+		</button>
+		<button
+			class="btn btn-default dropdown-toggle"
+			id="ddllogout"
+			type="button"
+			(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
+		>
+			PDF
+		</button>
+		<button
+			class="btn btn-default dropdown-toggle"
+			id="ddllogout"
+			type="button"
+			[useExistingCss]="true"
+			printSectionId="pdfTable"
+			ngxPrint
+		>
+			Print
+		</button>
+		<button
+			class="btn btn-default dropdown-toggle"
+			id="ddllogout"
+			type="button"
+			(click)="
+				exporter.exportTable('xls', {
+					fileName: 'Acquirely  Dashboard '
+				})
+			"
+		>
+			Excel
+		</button>
+		<div fxLayout fxLayoutAlign="right right" class="div-right-align">
+			<mat-form-field fxFlex="40%">
+				<input
+					matInput
+					type="text"
+					(keyup)="doFilter($event.target.value)"
+					placeholder="Search:"
+				/>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<div class="mat-table__wrapper" id="pdfTable" #pdfTable>
+		<kendo-pdf-export #pdf margin="2cm">
+			<mat-table
+				class="lmat-elevation-z8"
+				matTableExporter
+				#table
+				[dataSource]="dataSource"
+				matSort
+				#matSort="matSort"
+				matSortActive="id"
+				matSortDirection="asc"
+				matSortDisableClear
+				#exporter="matTableExporter"
+				matSort
+				(matSortChange)="sortColumn($event)"
+			>
+				<ng-container matColumnDef="Sr.No">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Sr.No</mat-header-cell
+					>
+					<mat-cell *matCellDef="let element; let i = index">
+						{{ i + 1 }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="campaign_name">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Campaigns
+						<!-- <input matInput type="text" [ngModel]="globalFilter" (keyup)="doFilterAffilateName($event.target.value)"
+                        placeholder="Search:"> -->
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.campaign_name }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="totalcountuniq">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Unique Email
+						<!-- <input matInput type="text" [ngModel]="totalcountFilter"
+                        (keyup)="doFilterEmailName($event.target.value)" placeholder="Search:"> -->
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.totalcountuniq }}
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="camptotal">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Campaign Count
+						<!-- <input matInput type="text" [ngModel]="signUpFilter" (keyup)="doFilterSignupName($event.target.value)"
+                        placeholder="Search:"> -->
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.camptotal }}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="sumofleads">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Revenue (A$)
+						<!-- <input matInput type="text" [ngModel]="revtotalFilter" (keyup)="doFilterRevtotal($event.target.value)"
+                        placeholder="Search:"> -->
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.sumofleads }}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="payout">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						Cost (A$)
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.payout }}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="gp">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						GP (A$)
+						<!-- <input matInput type="text" [ngModel]="payoutFilter" (keyup)="doFilterPayout($event.target.value)"
+                        placeholder="Search:"> -->
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.gp }}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="gpper">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						GP%
+						<!-- <input matInput type="text" [ngModel]="revtotalFilter" (keyup)="doFilterRevtotal($event.target.value)"
+                        placeholder="Search:"> -->
+					</mat-header-cell>
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						<input
+							matInput
+							type="text"
+							(keyup)="doFilterRevtotal($event.target.value)"
+							placeholder="Search:"
+						/>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.gpper }}
+					</mat-cell>
+				</ng-container>
+				<ng-container matColumnDef="arpecoreg">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>
+						ARPE
+						<!-- <input matInput type="text" [ngModel]="allprofitFilter" (keyup)="doFilteAllProfit($event.target.value)"
+                        placeholder="Search:"> -->
+					</mat-header-cell>
+					<mat-cell *matCellDef="let element">
+						{{ element.arpecoreg }}
+					</mat-cell>
+				</ng-container>
+
+				<mat-header-row
+					*matHeaderRowDef="displayedColumns"
+				></mat-header-row>
+				<div>
+					<mat-row
+						*matRowDef="let row; columns: displayedColumns"
+					></mat-row>
+				</div>
+			</mat-table>
+			<div *ngIf="loading" style="text-align: center">
+				<img
+					style="padding: 10px; height: 100px"
+					src="assets/images/loader.gif"
+				/>
+			</div>
+		</kendo-pdf-export>
+
+		<!-- Message for empty data  -->
+		<!-- <div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>
+        <div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">Please wait....</div> -->
+	</div>
+
+	<!-- start: BOTTOM -->
+	<div class="mat-table__bottom">
+		<!-- MATERIAL SPINNER | Url: 'https://material.angular.io/components/progress-spinner/overview' -->
+		<!-- <mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner> -->
+		<!-- MATERIAL PAGINATOR | Binded to dasources -->
+		<!-- See off.documentations 'https://material.angular.io/components/paginator/overview' -->
+		<mat-paginator
+			[pageSize]="10"
+			[pageSizeOptions]="[10, 20, 25, 100]"
+			[showFirstLastButtons]="true"
+		></mat-paginator>
+	</div>
+</div>

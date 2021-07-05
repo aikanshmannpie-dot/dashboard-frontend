@@ -1,0 +1,74 @@
+<!-- begin:: Brand -->
+<div
+	class="kt-header__brand kt-grid__item"
+	[ngClass]="htmlClassService.getClasses('brand', true)"
+	id="kt_header_brand"
+>
+	<div class="kt-header__brand-logo">
+		<a href="javascript:;" routerLink="/overall/1">
+			<img
+				alt="logo"
+				src="assets/images/logo.png"
+				class="kt-header__brand-logo-default"
+			/>
+			<img
+				alt="logo"
+				src="assets/images/logo.png"
+				class="kt-header__brand-logo-sticky"
+			/>
+		</a>
+	</div>
+	<div class="kt-header__brand-nav">
+		<div ngbDropdown class="dropdown">
+			<button
+				class="btn btn-default dropdown-toggle"
+				[ngStyle]="{
+					'background-color': this.is_mhi == true ? '#3d94fb' : '',
+					color: this.is_mhi == true ? '#fff' : ''
+				}"
+				id="btnVicidialPush"
+				(click)="redirectToDashboard('/overall/1')"
+			>
+				{{ this.mhi_text }}
+			</button>
+			<button
+				style="margin-left: 10px"
+				class="btn btn-default dropdown-toggle"
+				[ngStyle]="{
+					'background-color':
+						this.is_teleconnex == true ? '#3d94fb' : '',
+					color: this.is_teleconnex == true ? '#fff' : ''
+				}"
+				id="btnVicidialPush"
+				(click)="redirectToDashboard('/overall/2')"
+			>
+				{{ this.teleconnex_text }}
+			</button>
+
+			<button
+				style="margin-left: 10px"
+				[ngStyle]="{
+					'background-color':
+						this.is_vicidial == true ? '#3d94fb' : '',
+					color: this.is_vicidial == true ? '#fff' : ''
+				}"
+				class="btn btn-default dropdown-toggle"
+				id="btnVicidialPush"
+				(click)="redirectToDashboard('/vicidial-leads')"
+			>
+				Push to Vicidial
+			</button>
+			<button
+				style="margin-left: 10px"
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="logout()"
+			>
+				Logout
+			</button>
+		</div>
+	</div>
+</div>
+
+<!-- end:: Brand -->

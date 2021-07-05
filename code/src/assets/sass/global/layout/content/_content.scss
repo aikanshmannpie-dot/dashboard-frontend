@@ -1,0 +1,243 @@
+//
+// Content
+//
+
+@include kt-desktop {
+	// Content
+	.kt-content {
+		padding: kt-get($kt-page-padding, desktop) 0;
+
+		// Subheader enabled
+		.kt-subheader--enabled.kt-subheader--transparent:not(.kt-subheader--fixed)
+			& {
+			padding-top: 0;
+		}
+
+		// Fixed footer
+		.kt-footer--fixed & {
+			padding-bottom: kt-get($kt-footer-config, self, fixed, height);
+		}
+
+		// Fluid container
+		.kt-container.kt-container--fluid {
+			.kt-aside--enabled & {
+				padding-left: kt-get($kt-page-padding, desktop);
+			}
+		}
+
+		// Content fit
+		&.kt-content--fit-top {
+			padding-top: 0;
+		}
+
+		&.kt-content--fit-bottom {
+			padding-bottom: 0;
+		}
+	}
+}
+
+@include kt-tablet-and-mobile {
+	.kt-content {
+		padding: kt-get($kt-page-padding, mobile) 0;
+
+		// Content fit
+		&.kt-content--fit-top {
+			padding-top: 0;
+		}
+
+		&.kt-content--fit-bottom {
+			padding-bottom: 0;
+		}
+
+		// Subheader enabled
+		.kt-subheader--enabled.kt-subheader--transparent & {
+			padding-top: 0;
+		}
+	}
+}
+
+//new css september 2020
+.pageContainer {
+	margin-top: 20px;
+	background: #fff;
+	padding: 20px;
+	box-shadow: 0px 0px 56px 16px rgba(74, 57, 111, 0.04);
+	border-radius: 5px;
+	.kt-portlet {
+		border-bottom: 1px solid rgba(74, 57, 111, 0.09);
+		border-left: 1px solid rgba(74, 57, 111, 0.09);
+		border-right: 1px solid rgba(74, 57, 111, 0.09);
+		box-shadow: none;
+	}
+	.pageTopBar {
+		width: 100%;
+		display: inline-block;
+		h2 {
+			color: #383e5f;
+		}
+		.searcBar {
+			float: right;
+		}
+	}
+
+	.dropdown {
+		input {
+			text-align: left;
+			margin-right: 10px;
+			border-color: #ddd;
+			&:hover {
+				background: transparent;
+				color: #383e5f;
+				border-color: #383e5f;
+			}
+		}
+		button.dropdown-toggle {
+			background: #383e5f;
+			color: #fff;
+			height: 39px;
+			border: none;
+		}
+	}
+	.topBarList {
+		padding: 10px 0px;
+		button.dropdown-toggle {
+			background: #f1f4ff;
+			color: #74788d;
+			border: 1px solid #e8ecfa;
+			&:hover {
+				background: #383e5f;
+				color: #fff;
+				border-color: #383e5f;
+			}
+		}
+	}
+
+	.mat-table__wrapper {
+		.mat-table {
+			border: 1px solid #eee;
+			.mat-header-row {
+				background: #ededff;
+				border: none;
+				.mat-sort-header-button {
+					color: #333;
+					font-weight: 400;
+					font-family: Roboto, "Helvetica Neue", sans-serif;
+				}
+			}
+			.mat-row {
+				border: none;
+				&:nth-child(2n + 1) {
+					background: #f8f9ff;
+				}
+			}
+		}
+	}
+	.mat-paginator {
+		width: 100%;
+		.mat-paginator-container {
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+}
+.pageContainer .dropdown .dropdown-select-box {
+	margin-right: 5px;
+}
+
+//mobile responsive
+@media only screen and (max-width: 1024px) {
+	.kt-header-mobile {
+		background: #383e5f;
+	}
+	.kt-header-menu-wrapper {
+		background: #383e5f;
+	}
+	.kt-header-menu-mobile {
+		background: transparent;
+	}
+	.kt-header-menu-mobile .kt-menu__nav {
+		padding: 0px 0 0px 0;
+	}
+	.kt-header-menu-mobile .kt-menu__nav > .kt-menu__item > .kt-menu__link {
+		text-decoration: none !important;
+		background-color: transparent;
+		color: #fff !important;
+		border: none;
+		border-bottom: 1px solid #252b4f;
+	}
+	.kt-header-menu-mobile
+		.kt-menu__nav
+		> .kt-menu__item
+		> .kt-menu__link
+		.kt-menu__link-text {
+		color: #fff;
+	}
+	.kt-header-menu-wrapper--on .kt-header-menu-wrapper-close {
+		left: 274px;
+	}
+	.kt-header-menu-wrapper-close {
+		width: 40px;
+		height: 40px;
+		top: 0px;
+		left: -40px;
+		background: #009de5;
+		color: #fff;
+		i {
+			color: #fff;
+		}
+	}
+	.pageContainer .dropdown input {
+		width: 165px;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.pageContainer .pageTopBar .searcBar {
+		width: 60%;
+		&.threeColumn {
+			width: 100%;
+		}
+	}
+	.pageContainer .dropdown input {
+		width: 165px;
+	}
+	.pageTopBar h2 {
+		font-size: 1.5rem;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.pageContainer .pageTopBar .searcBar {
+		width: auto;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	.pageContainer .pageTopBar .searcBar {
+		width: 100%;
+	}
+	.pageContainer .dropdown input {
+		width: 30%;
+	}
+	.pageContainer .pageTopBar .searcBar button.dropdown-toggle {
+		width: 30%;
+	}
+}
+
+@media only screen and (max-width: 420px) {
+	.pageContainer .dropdown input {
+		width: 100%;
+		margin-bottom: 5px;
+	}
+	.pageContainer .pageTopBar .searcBar button.dropdown-toggle {
+		width: 100%;
+	}
+	.topBarList .div-right-align {
+		width: 100%;
+		margin-top: 15px;
+	}
+	.pageContainer .mat-paginator .mat-paginator-container {
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+}
