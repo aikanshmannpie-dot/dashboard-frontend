@@ -1,0 +1,52 @@
+:host {
+	width: 100%;
+
+	.kt-header-menu-wrapper {
+		height: 100%;
+	}
+	ul{
+		li{
+			a{
+				text-decoration: underline;
+			}
+		}
+	} 
+	// {
+		.kt-header .kt-header__bottom {
+			border-bottom:5px solid yellow;
+		}
+
+		.kt-menu__link{
+			background-color: #dedbdb;
+			color: #000 !important;
+			border: 1px solid #d6c3c3;
+		}
+	// }
+	// li:first-child {
+	// 	border-bottom:5px solid yellow;
+	//   }
+	//   li:nth-child(2) {
+	// 	border-bottom:5px solid rgb(0, 255, 242);
+	//   }
+	//   li:nth-child(3) {
+	// 	border-bottom:5px solid rgb(0, 255, 34);
+	//   }
+	//   li:nth-child(4) {
+	// 	border-bottom:5px solid rgb(255, 38, 0);
+	//   }
+	//   li:nth-child(5) {
+	// 	border-bottom:5px solid rgb(47, 0, 255);
+	//   }
+	//   li:nth-child(6) {
+	// 	border-bottom:5px solid rgb(255, 0, 200);
+	//   }
+	//   li:nth-child(7) {
+	// 	border-bottom:5px solid rgb(91, 170, 2);
+	//   }
+	//   li:nth-child(8) {
+	// 	border-bottom:5px solid rgb(162, 0, 255);
+	//   }
+	//   li:nth-child(9) {
+	// 	border-bottom:5px solid rgb(149, 140, 3);
+	//   }
+}

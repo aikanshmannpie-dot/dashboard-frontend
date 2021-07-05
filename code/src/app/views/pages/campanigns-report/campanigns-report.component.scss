@@ -1,0 +1,57 @@
+.mat-table {
+	width: 100%;
+}
+mat-header-cell {
+	font-size: 14px;
+	font-weight: 600;
+}
+.redCol {
+	background: #fd397a;
+	margin: 10px 0px;
+	display: table;
+	border-radius: 5px;
+	color: #fff;
+	padding: 5px 11px;
+}
+.div-right-align {
+	float: right;
+}
+
+mat-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+mat-header-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+.mat-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+.mat-header-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+table {
+	text-align: center !important;
+	width: 100%;
+}
+
+.mat-header-cell {
+	text-align: center;
+}
+.mat-table__wrapper .mat-table .mat-cell,
+.mat-table__wrapper .mat-table .mat-footer-cell,
+.mat-table__wrapper .mat-table .mat-header-cell {
+	text-align: center !important;
+	padding-right: 10px;
+	justify-content: center;
+}
+
+.dropdown-select-box {
+	float: left;
+	width: 300px;
+}

@@ -1,0 +1,44 @@
+#  Bitbucket Pipeline for Dashboard
+image: node:12.14.0
+
+pipelines:
+  branches:
+    feature-*:
+      - step:
+          name: 1.Created Feature Branch 
+          script:
+            - echo "Installing Git Secrets"
+            - ls -la
+
+    develop:
+      - step:
+          name: 1.Pushing Develop Code 
+          script:
+            - echo "Pushing Develop Code"
+
+
+    uat-*:
+      - step:
+          name: 1.Running Initial Tests 
+          script:
+            - apt-get update -y
+            - apt-get install -y zip
+            - apt-get install sshpass -y
+            - apt-get install -y rsync
+            - pwd
+            - ls -la
+            - cd code
+            - npm install
+            - npm install -g @angular/cli
+            - npm i ngx-daterangepicker-material@2.1.7
+            - npm run build
+            - ng build --prod
+            - cd dist
+            - ls -la
+            - sshpass -p "${UAT_SERVER_TESTER_PASSWORD}" rsync -O --exclude='.git/' --exclude='.gitlab-ci.yml' -rav -e 'ssh -o StrictHostKeyChecking=no -p 22' .  ${UAT_SERVER_TESTER_USER_NAME}@${UAT_SERVER_TESTER_HOST}:${UAT_SERVER_BUILD_PATH}
+ 
+    master:
+      - step:
+          name: 1.Master Code
+          script:
+            - echo "Master Code"

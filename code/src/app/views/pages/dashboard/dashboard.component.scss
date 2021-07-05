@@ -1,0 +1,131 @@
+:host {
+	::ng-deep {
+		ngb-tabset > .nav-tabs {
+			display: none;
+		}
+	}
+}
+.img-loader {
+	margin: auto;
+	width: 300px;
+	text-align: center;
+}
+
+.kt-portlet.kt-portlet--height-fluid {
+	max-height: 640px;
+}
+
+.mat-table__wrapper .mat-table {
+	min-width: auto !important;
+}
+
+.mat-table {
+	width: 100%;
+}
+mat-header-cell {
+	font-size: 14px;
+	font-weight: 600;
+}
+.mat-Not__found {
+	h2 {
+		text-align: center;
+	}
+}
+// .coustom-width-row{
+//   word-wrap: break-word !important;
+//   white-space: unset !important;
+//   flex: 0 0 10% !important;
+//   width: 10% !important;
+//   overflow-wrap: break-word;
+//   word-wrap: break-word;
+//   word-break: break-word;
+//   -ms-hyphens: auto;
+//   -moz-hyphens: auto;
+//   -webkit-hyphens: auto;
+//   hyphens: auto;
+// }
+.div-right-align {
+	float: right;
+}
+.main10-padding {
+	// padding:10px;
+	margin-bottom: 15px;
+}
+.redCol {
+	background: #fd397a;
+	margin: 10px 0px;
+	display: table;
+	border-radius: 5px;
+	color: #fff;
+	padding: 5px 11px;
+}
+// .div-right-align{
+//     float: right;
+// }
+mat-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+mat-header-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+.mat-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+.mat-header-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+table {
+	text-align: center !important;
+	width: 100%;
+}
+
+.mat-header-cell {
+	text-align: center;
+}
+.mat-table__wrapper .mat-table .mat-cell,
+.mat-table__wrapper .mat-table .mat-footer-cell,
+.mat-table__wrapper .mat-table .mat-header-cell {
+	text-align: center !important;
+	padding-right: 10px;
+	justify-content: center;
+}
+
+.top-border-1 {
+	border-top: 5px solid #808084;
+}
+.top-border-2 {
+	border-top: 5px solid rgb(0, 255, 242);
+}
+.top-border-3 {
+	border-top: 5px solid rgb(0, 255, 34);
+}
+.top-border-4 {
+	border-top: 5px solid rgb(255, 38, 0);
+}
+.top-border-5 {
+	border-top: 5px solid rgb(47, 0, 255);
+}
+.top-border-6 {
+	border-top: 5px solid rgb(255, 0, 200);
+}
+.top-border-7 {
+	border-top: 5px solid rgb(91, 170, 2);
+}
+.top-border-8 {
+	border-top: 5px solid rgb(162, 0, 255);
+}
+.top-border-9 {
+	border-top: 5px solid rgb(149, 140, 3);
+}
+.top-border-10 {
+	border-top: 5px solid rgb(47, 0, 255);
+}
+.top-border-11 {
+	border-top: 5px solid rgb(47, 0, 255);
+}
