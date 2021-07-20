@@ -215,8 +215,8 @@ export class MicrositeLeadsComponent implements OnInit {
 			(data) => {
 				if (data) {
 					console.log("data +++_-=_+", data.data);
-					
-					this.siteListingData = data.data.sort((a,b) => a.name.localeCompare(b.name));
+
+					this.siteListingData = data.data;
 				} else {
 				}
 			},
