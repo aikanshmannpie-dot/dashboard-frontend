@@ -150,7 +150,14 @@ export class MenuConfig {
 					title: "Source-Report",
 					root: true,
 					alignment: "left",
-					page: "/microsite-report/1",
+					page: "/microsite-source-report/1",
+					translate: "MENU.DASHBOARD",
+				},
+				{
+					title: "Affiliate-Report",
+					root: true,
+					alignment: "left",
+					page: "/microsite-affiliate-report/1",
 					translate: "MENU.DASHBOARD",
 				}
 			],
