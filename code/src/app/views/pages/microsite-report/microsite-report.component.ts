@@ -105,8 +105,6 @@ export class MicrositeReportComponent implements OnInit {
 			.subscribe(
 				(data) => {
 					if (data) {
-						console.log("data : bhanu +++_-=_+", data.apiData);
-						// console.log("data +++_-=_+",this.offset);
 						this.avaible = true;
 						this.dataSource = new MatTableDataSource(data.apiData);
 						this.dataSource1 = data.body;
