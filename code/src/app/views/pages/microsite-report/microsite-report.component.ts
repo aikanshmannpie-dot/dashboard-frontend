@@ -100,7 +100,6 @@ export class MicrositeReportComponent implements OnInit {
 		this.avaible = false;
 		this.dataSource = new MatTableDataSource([]);
 		this.siteName = this.isSelected ? this.isSelected : undefined;
-		debugger;
 		this.auth
 			.getMicrositeSourceLeads(start, end)
 			.subscribe(
