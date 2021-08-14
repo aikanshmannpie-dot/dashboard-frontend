@@ -44,8 +44,21 @@
 			>
 				{{ this.teleconnex_text }}
 			</button>
-
 			<button
+				style="margin-left: 10px"
+				class="btn btn-default dropdown-toggle"
+				[ngStyle]="{
+					'background-color':
+						this.is_microsite_report == true ? '#3d94fb' : '',
+					color: this.is_microsite_report == true ? '#fff' : ''
+				}"
+				id="btnMicrositeReports"
+				(click)="redirectToDashboard('/microsite-leads/1')"
+			>
+				{{ this.microsite_reporting_text }}
+			</button>
+
+			<!-- <button
 				style="margin-left: 10px"
 				[ngStyle]="{
 					'background-color':
@@ -57,7 +70,7 @@
 				(click)="redirectToDashboard('/vicidial-leads')"
 			>
 				Push to Vicidial
-			</button>
+			</button> -->
 			<button
 				style="margin-left: 10px"
 				class="btn btn-default dropdown-toggle"

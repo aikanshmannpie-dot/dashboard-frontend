@@ -421,6 +421,34 @@ export class AuthService {
 		);
 	}
 
+	getMicrositeSourceLeads(startDate, endDate): Observable<any> {
+		console.log("startDate, endDate +++", startDate, " " + endDate);
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get<any>(
+			`${environment.baseUrl}/microsite-source-report/${startDate}/${endDate}`,
+			{ headers: httpHeaders }
+		);
+	}
+
+	getMicrositeAffiliateReport(startDate, endDate): Observable<any> {
+		console.log("startDate, endDate +++", startDate, " " + endDate);
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get<any>(
+			`${environment.baseUrl}/microsite-affiliate-report/${startDate}/${endDate}`,
+			{ headers: httpHeaders }
+		);
+	}
+
 	postListOfVicidial(startDate, endDate, leadType): Observable<any> {
 		var authToken = localStorage.getItem("authToken");
 		const httpHeaders = new HttpHeaders({
