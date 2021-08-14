@@ -18,12 +18,14 @@ export class BrandComponent implements OnInit, AfterViewInit {
 	is_teleconnex: boolean;
 	is_mhi: boolean;
 	is_vicidial: boolean;
+	microsite_reporting_text: string;
 
 	toggleOptions: ToggleOptions = {
 		target: "body",
 		targetState: "kt-aside--minimize",
 		togglerState: "kt-aside__brand-aside-toggler--active",
 	};
+	is_microsite_report: boolean;
 
 	/**
 	 * Component constructor
@@ -35,7 +37,7 @@ export class BrandComponent implements OnInit, AfterViewInit {
 		private layoutConfigService: LayoutConfigService,
 		public htmlClassService: HtmlClassService,
 		private router: Router
-	) {}
+	) { }
 
 	/**
 	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
@@ -53,8 +55,13 @@ export class BrandComponent implements OnInit, AfterViewInit {
 		this.mhi_text = this.router.url.includes("/1")
 			? "MHI Reporting"
 			: "Switch to MHI";
+		this.microsite_reporting_text = this.router.url.includes("/microsite")
+			? "Microsite Reporting"
+			: "Switch to Microsite Reporting";
 		this.is_teleconnex = this.router.url.includes("/2");
-		this.is_mhi = this.router.url.includes("/1");
+		this.is_microsite_report = this.router.url.includes("microsite");
+		this.is_mhi = this.router.url.includes("/1") && !this.router.url.includes("microsite");
+
 
 		this.is_vicidial = this.router.url.includes("/vicidial-leads");
 	}
@@ -62,7 +69,7 @@ export class BrandComponent implements OnInit, AfterViewInit {
 	/**
 	 * On after view init
 	 */
-	ngAfterViewInit(): void {}
+	ngAfterViewInit(): void { }
 
 	logout() {
 		localStorage.clear();

@@ -59,13 +59,13 @@ export class MenuConfig {
 					page: "/clickout-report/1",
 					translate: "MENU.DASHBOARD",
 				},
-				{
-					title: "Microsite-leads",
-					root: true,
-					alignment: "left",
-					page: "/microsite-leads/1",
-					translate: "MENU.DASHBOARD",
-				},
+				// {
+				// 	title: "Microsite-leads",
+				// 	root: true,
+				// 	alignment: "left",
+				// 	page: "/microsite-leads/1",
+				// 	translate: "MENU.DASHBOARD",
+				// },
 			],
 		},
 	};
@@ -135,6 +135,28 @@ export class MenuConfig {
 		},
 	};
 
+	public micrositeReporting_defaults: any = {
+		header: {
+			self: {},
+			items: [
+				{
+					title: "Microsite-leads",
+					root: true,
+					alignment: "left",
+					page: "/microsite-leads/1",
+					translate: "MENU.DASHBOARD",
+				},
+				{
+					title: "Microsite-reports",
+					root: true,
+					alignment: "left",
+					page: "/microsite-report/1",
+					translate: "MENU.DASHBOARD",
+				}
+			],
+		},
+	}
+
 	public get configs(): any {
 		return this.defaults;
 	}
@@ -143,5 +165,9 @@ export class MenuConfig {
 	}
 	public get vicidial_configs(): any {
 		return this.vicidial_defaults;
+	}
+
+	public get micrositeReporting_configs(): any{
+		return this.micrositeReporting_defaults;
 	}
 }

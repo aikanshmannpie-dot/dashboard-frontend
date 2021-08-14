@@ -62,6 +62,13 @@ const routes: Routes = [
 					).then((m) => m.MicrositeLeadsModule),
 			},
 			{
+				path: "microsite-report/:type",
+				loadChildren: () =>
+					import(
+						"./views/pages/microsite-report/microsite-report.module"
+					).then((m) => m.MicrositeReportModule),
+			},
+			{
 				path: "overall-ques-tick-report/:type",
 				loadChildren: () =>
 					import(
