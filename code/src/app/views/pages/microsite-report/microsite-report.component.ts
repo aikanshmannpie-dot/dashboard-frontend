@@ -49,16 +49,17 @@ export class MicrositeReportComponent implements OnInit {
 
 	@ViewChild(MatSort, { static: false }) sort: MatSort;
 	displayedColumns: string[] = [
+		"index",
 		"Site_name",
 		"source",
-		"leads"
+		"conversion"
 	];
 	columnIds = [];
 	offsetPlus = 0;
 	constructor(private auth: AuthService, private cdr: ChangeDetectorRef) { }
 	
 	ngOnInit(): void {
-		this.dataSource = new MatTableDataSource([{ Site_name: "A" }, { Site_name: "B" }, { Site_name: "V" }]);
+		this.dataSource = new MatTableDataSource([]);
 		this.dataSource.paginator = this.paginator;
 		this.dataSource.sort = this.sort;
 		this.startDate = moment(new Date()).format("YYYY-MM-DD");

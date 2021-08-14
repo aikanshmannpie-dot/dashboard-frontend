@@ -147,7 +147,7 @@ export class MenuConfig {
 					translate: "MENU.DASHBOARD",
 				},
 				{
-					title: "Microsite-reports",
+					title: "Source-Report",
 					root: true,
 					alignment: "left",
 					page: "/microsite-report/1",
