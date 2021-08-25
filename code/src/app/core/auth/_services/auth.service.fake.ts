@@ -456,7 +456,37 @@ export class AuthService {
 			Authorization: authToken,
 		});
 
-		return this.http.get<number>(`${environment.baseUrl}/analytics/getTotalLeadsByPhone?source=${source}`);
+		return this.http.get<any>(`${environment.baseUrl}/analytics/getTotalLeadsByPhone?source=${source}`);
+	}
+
+	getActiveMonthly(): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getActiveMonthly`);
+	}
+
+	getRepeatWeekly(): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getRepeatWeekly`);
+	}
+
+	getActiveLastWeek(): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getActiveLastWeek`);
 	}
 
 	postListOfVicidial(startDate, endDate, leadType): Observable<any> {

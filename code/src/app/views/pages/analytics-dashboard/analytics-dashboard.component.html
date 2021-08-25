@@ -7,28 +7,60 @@
 
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-6">
-                    <h4>Number of Leads by Phone:
-                        <span *ngIf="!totalLeadsByPhoneIsLoading"
-                            class="badge badge-primary">{{totalLeadsByPhoneEmitter$ | async | number}}</span>
-                        <div *ngIf="totalLeadsByPhoneIsLoading" class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </h4>
-                    <h4>Number of Leads by Phone (Partner):
-                        <span *ngIf="!totalLeadsPartnerByPhoneIsLoading"
-                            class="badge badge-primary">{{totalLeadsByPhonePartnerEmitter$ | async | number}}</span>
-                        <div *ngIf="totalLeadsPartnerByPhoneIsLoading" class="spinner-border text-primary"
-                            role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </h4>
-                    <h4>Number of Leads by Phone (Acquirely):
-                        <span *ngIf="!totalLeadsAcqByPhoneIsLoading"
-                            class="badge badge-primary">{{totalLeadsByPhoneAcqEmitter$ | async | number}}</span>
-                        <div *ngIf="totalLeadsAcqByPhoneIsLoading" class="spinner-border text-primary" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </h4>
+                    <div>
+                        <h4>Number of Leads by Phone:
+                            <span *ngIf="!totalLeadsByPhoneIsLoading"
+                                class="badge badge-primary">{{totalLeadsByPhoneEmitter$ | async | number}}</span>
+                            <div *ngIf="totalLeadsByPhoneIsLoading" class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </h4>
+                        <h4>Number of Leads by Phone (Partner):
+                            <span *ngIf="!totalLeadsPartnerByPhoneIsLoading"
+                                class="badge badge-primary">{{totalLeadsByPhonePartnerEmitter$ | async | number}}</span>
+                            <div *ngIf="totalLeadsPartnerByPhoneIsLoading" class="spinner-border text-primary"
+                                role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </h4>
+                        <h4>Number of Leads by Phone (Acquirely):
+                            <span *ngIf="!totalLeadsAcqByPhoneIsLoading"
+                                class="badge badge-primary">{{totalLeadsByPhoneAcqEmitter$ | async | number}}</span>
+                            <div *ngIf="totalLeadsAcqByPhoneIsLoading" class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </h4>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="activeLastWeekLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="activeLastWeek"></div>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="activeMonthlyLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="activeMonthly"></div>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="repeatWeeklyLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="repeatWeekly"></div>
+                        </figure>
+                    </div>
                 </div>
             </div>
         </div>
