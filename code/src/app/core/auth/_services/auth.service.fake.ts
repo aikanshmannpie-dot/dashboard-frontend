@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 // RxJS
 
 import { Observable, of, forkJoin } from "rxjs";
-import { map, catchError, mergeMap, tap } from "rxjs/operators";
+import { map, catchError, mergeMap, tap, take } from "rxjs/operators";
 // Lodash
 import { filter, some, find, each } from "lodash";
 // Environment
@@ -447,6 +447,16 @@ export class AuthService {
 			`${environment.baseUrl}/microsite-affiliate-report/${startDate}/${endDate}`,
 			{ headers: httpHeaders }
 		);
+	}
+
+	getTotalLeadsByPhone(source): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get<number>(`${environment.baseUrl}/analytics/getTotalLeadsByPhone?source=${source}`);
 	}
 
 	postListOfVicidial(startDate, endDate, leadType): Observable<any> {

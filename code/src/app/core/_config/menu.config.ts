@@ -162,7 +162,21 @@ export class MenuConfig {
 				}
 			],
 		},
-	}
+	};
+
+
+	public analytics_defaults: any = {
+		header: {
+			self: {},
+			items: [{
+				title: "Analytics Dashboard",
+				root: true,
+				alignment: "left",
+				page: "/acquirely-analytics",
+				translate: "MENU.DASHBOARD",
+			}]
+		}
+	};
 
 	public get configs(): any {
 		return this.defaults;
@@ -174,7 +188,11 @@ export class MenuConfig {
 		return this.vicidial_defaults;
 	}
 
-	public get micrositeReporting_configs(): any{
+	public get micrositeReporting_configs(): any {
 		return this.micrositeReporting_defaults;
+	}
+
+	public get analytics_configs(): any {
+		return this.analytics_defaults;
 	}
 }

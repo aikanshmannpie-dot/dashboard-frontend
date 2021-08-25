@@ -148,6 +148,12 @@ const routes: Routes = [
 					).then((m) => m.TeleconnexRevenueBySuppliersModule),
 			},
 			{
+				path: "acquirely-analytics",
+				loadChildren: () =>
+					import("./views/pages/analytics-dashboard/analytics-dashboard.module")
+						.then((m) => m.AnalyticsDashboardModule)
+			},
+			{
 				path: "error/403",
 				component: ErrorPageComponent,
 				data: {
@@ -171,4 +177,4 @@ const routes: Routes = [
 	imports: [RouterModule.forRoot(routes)],
 	exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

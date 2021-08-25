@@ -1,0 +1,36 @@
+<div class="pageContainer">
+    <div class="row">
+        <div class="col-12">
+            <div class="pageTopBar">
+                <h2 style="padding: 10px 0px; float: left">Analytics Dashboard</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <h4>Number of Leads by Phone:
+                        <span *ngIf="!totalLeadsByPhoneIsLoading"
+                            class="badge badge-primary">{{totalLeadsByPhoneEmitter$ | async | number}}</span>
+                        <div *ngIf="totalLeadsByPhoneIsLoading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </h4>
+                    <h4>Number of Leads by Phone (Partner):
+                        <span *ngIf="!totalLeadsPartnerByPhoneIsLoading"
+                            class="badge badge-primary">{{totalLeadsByPhonePartnerEmitter$ | async | number}}</span>
+                        <div *ngIf="totalLeadsPartnerByPhoneIsLoading" class="spinner-border text-primary"
+                            role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </h4>
+                    <h4>Number of Leads by Phone (Acquirely):
+                        <span *ngIf="!totalLeadsAcqByPhoneIsLoading"
+                            class="badge badge-primary">{{totalLeadsByPhoneAcqEmitter$ | async | number}}</span>
+                        <div *ngIf="totalLeadsAcqByPhoneIsLoading" class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
