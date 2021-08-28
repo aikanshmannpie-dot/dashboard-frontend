@@ -67,9 +67,9 @@ export class BaseComponent implements OnInit, OnDestroy {
 		this.menuConfigService.loadConfigs(
 			router.url.includes("/2")
 				? new MenuConfig().teleconnex_configs :
-				router.url.includes('analytics') ?
+				router.url.includes('/4') ?
 					new MenuConfig().analytics_configs
-					: router.url.includes("microsite")
+					: router.url.includes("/3")
 						? new MenuConfig().micrositeReporting_configs
 						: router.url.includes("/1")
 							? new MenuConfig().configs

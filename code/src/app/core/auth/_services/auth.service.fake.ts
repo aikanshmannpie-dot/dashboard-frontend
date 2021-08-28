@@ -1,4 +1,3 @@
-// Angular
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 // RxJS
@@ -481,6 +480,64 @@ export class AuthService {
     return this.http.get(`${environment.baseUrl}/analytics/getRepeatWeekly`);
   }
 
+  getGenderCount(): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get(`${environment.baseUrl}/analytics/getGenderCount`);
+  }
+
+  getTotalUniqueLeadsAcquirely(): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get(
+      `${environment.baseUrl}/analytics/getTotalUniqueLeadsAcquirely`
+    );
+  }
+
+  getTotalUniqueLeadsAcquirelyAll(): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get(
+      `${environment.baseUrl}/analytics/getTotalUniqueLeadsAcquirelyAll`
+    );
+  }
+
+  getTotalUniqueLeadsAcquirelyPartners(): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get(
+      `${environment.baseUrl}/analytics/getTotalUniqueLeadsAcquirelyPartners`
+    );
+  }
+
+  getTotalUniqueLeadsTeleconnex(): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get(
+      `${environment.baseUrl}/analytics/getTotalUniqueLeadsTeleconnex`
+    );
+  }
+
   getActiveLastWeek(): Observable<any> {
     var authToken = localStorage.getItem("authToken");
     const httpHeaders = new HttpHeaders({
@@ -505,20 +562,6 @@ export class AuthService {
     return this.http.post(
       `${environment.baseUrl}/import/teleconnexvicidial`,
       data,
-      {
-        headers: httpHeaders,
-      }
-    );
-  }
-  getListOfLeads(startDate, endDate): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
-    return this.http.get(
-      `${environment.baseUrl}/import/getmhitoteleconnex/${startDate}/${endDate}`,
       {
         headers: httpHeaders,
       }
