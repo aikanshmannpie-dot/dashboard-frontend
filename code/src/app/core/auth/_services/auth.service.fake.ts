@@ -604,7 +604,7 @@ export class AuthService {
     });
 
     return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getmhitoteleconnex/${startDate}/${endDate}`,
+      `${environment.baseUrl}/import/getmhitoteleconnex/${startDate}/${endDate}`,
       {
         headers: httpHeaders,
       }
