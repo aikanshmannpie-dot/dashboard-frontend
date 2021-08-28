@@ -175,6 +175,13 @@ export class MenuConfig {
           page: "/acquirely-analytics/4",
           translate: "MENU.DASHBOARD",
         },
+        {
+          title: "Lead Conversion Summary Report",
+          root: true,
+          alignment: "left",
+          page: "/lead-conversion-summary/4",
+          translate: "MENU.DASHBOARD",
+        },
       ],
     },
   };

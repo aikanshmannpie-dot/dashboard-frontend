@@ -146,6 +146,14 @@ const routes: Routes = [
       },
 
       {
+        path: "lead-conversion-summary",
+        loadChildren: () =>
+          import(
+            "./views/pages/mhi-to-teleconnex/mhi-to-teleconnex.module"
+          ).then((m) => m.MHIToTeleconnexModule),
+      },
+
+      {
         path: "teleconnex-dashboard/:type",
 
         loadChildren: () =>
