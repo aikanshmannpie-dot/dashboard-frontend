@@ -148,7 +148,7 @@ const routes: Routes = [
 					).then((m) => m.TeleconnexRevenueBySuppliersModule),
 			},
 			{
-				path: "acquirely-analytics",
+				path: "acquirely-analytics/:type",
 				loadChildren: () =>
 					import("./views/pages/analytics-dashboard/analytics-dashboard.module")
 						.then((m) => m.AnalyticsDashboardModule)

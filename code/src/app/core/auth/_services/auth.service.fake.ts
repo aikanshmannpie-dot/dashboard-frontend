@@ -479,6 +479,56 @@ export class AuthService {
 		return this.http.get(`${environment.baseUrl}/analytics/getRepeatWeekly`);
 	}
 
+	getGenderCount() : Observable<any>{
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getGenderCount`);
+	}
+
+	getTotalUniqueLeadsAcquirely(): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getTotalUniqueLeadsAcquirely`);
+	}
+
+	getTotalUniqueLeadsAcquirelyAll(): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getTotalUniqueLeadsAcquirelyAll`);
+	}
+
+	getTotalUniqueLeadsAcquirelyPartners(): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getTotalUniqueLeadsAcquirelyPartners`);
+	}
+
+	getTotalUniqueLeadsTeleconnex(): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getTotalUniqueLeadsTeleconnex`);
+	}
+
 	getActiveLastWeek(): Observable<any> {
 		var authToken = localStorage.getItem("authToken");
 		const httpHeaders = new HttpHeaders({

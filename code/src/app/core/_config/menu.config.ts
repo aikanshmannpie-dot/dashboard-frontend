@@ -143,21 +143,21 @@ export class MenuConfig {
 					title: "Microsite-leads",
 					root: true,
 					alignment: "left",
-					page: "/microsite-leads/1",
+					page: "/microsite-leads/3",
 					translate: "MENU.DASHBOARD",
 				},
 				{
 					title: "Source-Report",
 					root: true,
 					alignment: "left",
-					page: "/microsite-source-report/1",
+					page: "/microsite-source-report/3",
 					translate: "MENU.DASHBOARD",
 				},
 				{
 					title: "Affiliate-Report",
 					root: true,
 					alignment: "left",
-					page: "/microsite-affiliate-report/1",
+					page: "/microsite-affiliate-report/3",
 					translate: "MENU.DASHBOARD",
 				}
 			],
@@ -172,7 +172,7 @@ export class MenuConfig {
 				title: "Analytics Dashboard",
 				root: true,
 				alignment: "left",
-				page: "/acquirely-analytics",
+				page: "/acquirely-analytics/4",
 				translate: "MENU.DASHBOARD",
 			}]
 		}
