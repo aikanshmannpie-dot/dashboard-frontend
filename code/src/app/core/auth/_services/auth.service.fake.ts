@@ -578,6 +578,21 @@ export class AuthService {
     });
   }
 
+  getListOfLeads(startDate, endDate): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get(
+      `${environment.baseUrl}/import/getmhitoteleconnex/${startDate}/${endDate}`,
+      {
+        headers: httpHeaders,
+      }
+    );
+  }
+
   register(user: User): Observable<any> {
     user.roles = [2]; // Manager
     user.accessToken = "access-token-" + Math.random();

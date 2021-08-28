@@ -146,14 +146,6 @@ const routes: Routes = [
       },
 
       {
-        path: "lead-conversion-summary",
-        loadChildren: () =>
-          import(
-            "./views/pages/mhi-to-teleconnex/mhi-to-teleconnex.module"
-          ).then((m) => m.MHIToTeleconnexModule),
-      },
-
-      {
         path: "teleconnex-dashboard/:type",
 
         loadChildren: () =>
@@ -205,6 +197,13 @@ const routes: Routes = [
           import(
             "./views/pages/analytics-dashboard/analytics-dashboard.module"
           ).then((m) => m.AnalyticsDashboardModule),
+      },
+      {
+        path: "lead-conversion-summary/:type",
+        loadChildren: () =>
+          import(
+            "./views/pages/mhi-to-teleconnex/mhi-to-teleconnex.module"
+          ).then((m) => m.MHIToTeleconnexModule),
       },
 
       {
