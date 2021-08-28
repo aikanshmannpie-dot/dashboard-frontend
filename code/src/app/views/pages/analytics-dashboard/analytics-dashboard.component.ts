@@ -24,18 +24,93 @@ export class AnalyticsDashboardComponent implements OnInit {
   repeatWeeklyLoading = false;
   funnelLoading = false;
   genderGraphLoading = false;
-
+  ageGraphLoading = false;
   constructor(
     private auth: AuthService,
     private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
+    this.getAllLeads();
+    this.getGenderData();
+    this.getAgeData();
     this.getActiveLastWeek();
     this.getActiveMonthly();
     this.getRepeatWeekly();
-    this.getAllLeads();
-    this.getGenderData();
+  }
+
+  getAgeData() {
+    this.ageGraphLoading = true;
+    this.auth.getAgeData().pipe(tap((res) => {
+      if (res && res.status === 200) {
+        let total = 0;
+        Object.keys(res.apiData[0]).map(x => {
+          total += Number(res.apiData[0][x]);
+        });
+        let seriesData = Object.keys(res.apiData[0]).map(x => {
+          let split = x.split('_');
+          let nameString = `${split[1]} ${isNaN(Number(split[2])) ? 'and' : 'to'} ${split[2]}`;
+          return { name: nameString, y: (100 * Number(res.apiData[0][x] / total)) }
+        });
+
+        Highcharts.chart("ageGraph", {
+          chart: {
+            type: "pie",
+            options3d: {
+              enabled: true,
+              alpha: 45,
+              beta: 0,
+            },
+          },
+          title: {
+            text: "Age wise spread",
+          },
+          tooltip: {
+            pointFormat:
+              "{point.name}:<b>{point.y:.1f}%</b>",
+          },
+          accessibility: {
+            point: {
+              valueSuffix: "%",
+            },
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: "pointer",
+              depth: 35,
+              dataLabels: {
+                enabled: true,
+                format:
+                  "<b>{point.name}</b>: {point.y:.1f} %",
+              },
+              point: {
+                events: {
+                  // click: function () {
+                  // 	window.open("demoreport-betaDAS7.php");
+                  // }
+                },
+              },
+            },
+          },
+          series: [
+            {
+              name: "Age",
+              colorByPoint: true,
+              data: seriesData,
+              type: undefined,
+            },
+          ],
+          credits: {
+            enabled: false,
+          },
+        });
+      }
+    }),
+      finalize(() => {
+        this.ageGraphLoading = false;
+        this.cdr.detectChanges();
+      })).subscribe();
   }
 
   getGenderData() {
@@ -55,7 +130,6 @@ export class AnalyticsDashboardComponent implements OnInit {
           }]
         })[0];
 
-        console.log(seriesData);
         Highcharts.chart("genderGraph", {
           chart: {
             type: "pie",
@@ -70,7 +144,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           },
           tooltip: {
             pointFormat:
-              "{point.label}:<b>{point.y:.1f}%</b>",
+              "{point.name}:<b>{point.y:.1f}%</b>",
           },
           accessibility: {
             point: {
@@ -85,7 +159,7 @@ export class AnalyticsDashboardComponent implements OnInit {
               dataLabels: {
                 enabled: true,
                 format:
-                  "<b>{point.label}</b>: {point.y:.1f} %",
+                  "<b>{point.name}</b>: {point.y:.1f} %",
               },
               point: {
                 events: {
@@ -98,7 +172,7 @@ export class AnalyticsDashboardComponent implements OnInit {
           },
           series: [
             {
-              name: "Ticks",
+              name: "Gender",
               colorByPoint: true,
               data: seriesData,
               type: undefined,
@@ -274,7 +348,7 @@ export class AnalyticsDashboardComponent implements OnInit {
             },
           },
           title: {
-            text: 'Highcharts Funnel3D Chart'
+            text: 'Unique Leads'
           },
           plotOptions: {
             funnel3d: {

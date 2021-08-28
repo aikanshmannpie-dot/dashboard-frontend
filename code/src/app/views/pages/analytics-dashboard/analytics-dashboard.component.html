@@ -54,6 +54,15 @@
                     </div>
                 </div>
 
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="ageGraphLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="ageGraph"></div>
+                        </figure>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

@@ -479,7 +479,16 @@ export class AuthService {
 		return this.http.get(`${environment.baseUrl}/analytics/getRepeatWeekly`);
 	}
 
-	getGenderCount() : Observable<any>{
+	getAgeData(): Observable<any> {
+		var authToken = localStorage.getItem("authToken");
+		const httpHeaders = new HttpHeaders({
+			"Content-Type": "application/json",
+			Authorization: authToken,
+		});
+
+		return this.http.get(`${environment.baseUrl}/analytics/getAgeData`);
+	}
+	getGenderCount(): Observable<any> {
 		var authToken = localStorage.getItem("authToken");
 		const httpHeaders = new HttpHeaders({
 			"Content-Type": "application/json",
