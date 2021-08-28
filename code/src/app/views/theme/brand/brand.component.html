@@ -1,60 +1,39 @@
 <!-- begin:: Brand -->
-<div
-	class="kt-header__brand kt-grid__item"
-	[ngClass]="htmlClassService.getClasses('brand', true)"
-	id="kt_header_brand"
->
+<div class="kt-header__brand kt-grid__item" [ngClass]="htmlClassService.getClasses('brand', true)" id="kt_header_brand">
 	<div class="kt-header__brand-logo">
 		<a href="javascript:;" routerLink="/overall/1">
-			<img
-				alt="logo"
-				src="assets/images/logo.png"
-				class="kt-header__brand-logo-default"
-			/>
-			<img
-				alt="logo"
-				src="assets/images/logo.png"
-				class="kt-header__brand-logo-sticky"
-			/>
+			<img alt="logo" src="assets/images/logo.png" class="kt-header__brand-logo-default" />
+			<img alt="logo" src="assets/images/logo.png" class="kt-header__brand-logo-sticky" />
 		</a>
 	</div>
 	<div class="kt-header__brand-nav">
 		<div ngbDropdown class="dropdown">
-			<button
-				class="btn btn-default dropdown-toggle"
-				[ngStyle]="{
+			<button class="btn btn-default dropdown-toggle" [ngStyle]="{
+				'background-color':
+					this.is_analytics == true ? '#3d94fb' : '',
+				color: this.is_analytics == true ? '#fff' : ''
+			}" id="btnMicrositeReports" (click)="redirectToDashboard('/acquirely-analytics/4')">
+				{{ this.analytics_dashboard_text }}
+			</button>
+
+			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngStyle]="{
 					'background-color': this.is_mhi == true ? '#3d94fb' : '',
 					color: this.is_mhi == true ? '#fff' : ''
-				}"
-				id="btnVicidialPush"
-				(click)="redirectToDashboard('/overall/1')"
-			>
+				}" id="btnVicidialPush" (click)="redirectToDashboard('/overall/1')">
 				{{ this.mhi_text }}
 			</button>
-			<button
-				style="margin-left: 10px"
-				class="btn btn-default dropdown-toggle"
-				[ngStyle]="{
+			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngStyle]="{
 					'background-color':
 						this.is_teleconnex == true ? '#3d94fb' : '',
 					color: this.is_teleconnex == true ? '#fff' : ''
-				}"
-				id="btnVicidialPush"
-				(click)="redirectToDashboard('/overall/2')"
-			>
+				}" id="btnVicidialPush" (click)="redirectToDashboard('/overall/2')">
 				{{ this.teleconnex_text }}
 			</button>
-			<button
-				style="margin-left: 10px"
-				class="btn btn-default dropdown-toggle"
-				[ngStyle]="{
+			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngStyle]="{
 					'background-color':
 						this.is_microsite_report == true ? '#3d94fb' : '',
 					color: this.is_microsite_report == true ? '#fff' : ''
-				}"
-				id="btnMicrositeReports"
-				(click)="redirectToDashboard('/microsite-leads/1')"
-			>
+				}" id="btnMicrositeReports" (click)="redirectToDashboard('/microsite-leads/3')">
 				{{ this.microsite_reporting_text }}
 			</button>
 
@@ -71,13 +50,8 @@
 			>
 				Push to Vicidial
 			</button> -->
-			<button
-				style="margin-left: 10px"
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="logout()"
-			>
+			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" id="ddllogout" type="button"
+				(click)="logout()">
 				Logout
 			</button>
 		</div>

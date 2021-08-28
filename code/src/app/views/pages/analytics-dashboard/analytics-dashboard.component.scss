@@ -1,0 +1,16 @@
+:host {
+	::ng-deep {
+		ngb-tabset > .nav-tabs {
+			display: none;
+		}
+	}
+}
+.img-loader {
+	margin: auto;
+	width: 300px;
+	text-align: center;
+}
+
+.kt-portlet.kt-portlet--height-fluid {
+	max-height: 640px;
+}

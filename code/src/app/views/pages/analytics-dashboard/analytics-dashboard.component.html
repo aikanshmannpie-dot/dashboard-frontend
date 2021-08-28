@@ -1,0 +1,69 @@
+<div class="pageContainer">
+    <div class="row">
+        <div class="col-12">
+            <div class="pageTopBar">
+                <h2 style="padding: 10px 0px; float: left">Analytics Dashboard</h2>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="funnelLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure class="highcharts-figure">
+                            <div id="container"></div>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="activeLastWeekLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="activeLastWeek"></div>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="activeMonthlyLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="activeMonthly"></div>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="repeatWeeklyLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="repeatWeekly"></div>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="genderGraphLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="genderGraph"></div>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
+                        <img *ngIf="ageGraphLoading" src="assets/images/ldr.gif" class="img-loader" />
+                        <figure Sclass="highcharts-figure">
+                            <div id="ageGraph"></div>
+                        </figure>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

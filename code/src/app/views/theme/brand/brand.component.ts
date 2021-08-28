@@ -19,6 +19,7 @@ export class BrandComponent implements OnInit, AfterViewInit {
 	is_mhi: boolean;
 	is_vicidial: boolean;
 	microsite_reporting_text: string;
+	analytics_dashboard_text: string;
 
 	toggleOptions: ToggleOptions = {
 		target: "body",
@@ -26,6 +27,7 @@ export class BrandComponent implements OnInit, AfterViewInit {
 		togglerState: "kt-aside__brand-aside-toggler--active",
 	};
 	is_microsite_report: boolean;
+	is_analytics: boolean;
 
 	/**
 	 * Component constructor
@@ -49,21 +51,26 @@ export class BrandComponent implements OnInit, AfterViewInit {
 	ngOnInit(): void {
 		this.headerLogo = this.layoutConfigService.getLogo();
 		this.headerStickyLogo = this.layoutConfigService.getStickyLogo();
+
 		this.teleconnex_text = this.router.url.includes("/2")
 			? "Teleconnex Reporting"
 			: "Switch to Teleconnex";
 		this.mhi_text = this.router.url.includes("/1")
 			? "MHI Reporting"
 			: "Switch to MHI";
-		this.microsite_reporting_text = this.router.url.includes("/microsite")
+		this.microsite_reporting_text = this.router.url.includes("/3")
 			? "Microsite Reporting"
-			: "Switch to Microsite Reporting";
+			: "Switch to Microsite";
+
+		this.analytics_dashboard_text = this.router.url.includes("/4")
+			? "Acquirely Analytics"
+			: "Switch to Acquirely";
+
+		this.is_analytics = this.router.url.includes('/4');
 		this.is_teleconnex = this.router.url.includes("/2");
-		this.is_microsite_report = this.router.url.includes("microsite");
-		this.is_mhi = this.router.url.includes("/1") && !this.router.url.includes("microsite");
-
-
-		this.is_vicidial = this.router.url.includes("/vicidial-leads");
+		this.is_microsite_report = this.router.url.includes("/3");
+		this.is_mhi = this.router.url.includes("/1");
+		this.is_vicidial = this.router.url.includes("/vicidial-leads") && !this.is_analytics;
 	}
 
 	/**

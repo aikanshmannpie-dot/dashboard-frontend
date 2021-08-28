@@ -1,0 +1,126 @@
+.mat-table {
+	width: 100%;
+}
+.dropdown-select-box {
+	float: left;
+	width: 200px;
+}
+
+.date-select-box {
+	float: left;
+}
+
+.button-next-pre {
+	padding: 6px;
+	border-radius: 10px;
+	margin: 6px;
+}
+
+.search-site-input {
+	width: 200px;
+	padding: 9px;
+	border: 1px solid #ebeef9;
+}
+
+.sec-mat-tab {
+	display: none;
+}
+mat-header-cell {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.mat-Not__found {
+	h2 {
+		text-align: center;
+	}
+}
+.coustom-width-row {
+	word-wrap: break-word !important;
+	white-space: unset !important;
+	flex: 0 0 10% !important;
+	width: 10% !important;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}
+
+.redCol {
+	background: #fd397a;
+	margin: 10px 0px;
+	display: table;
+	border-radius: 5px;
+	color: #fff;
+	padding: 5px 11px;
+}
+.div-right-align {
+	float: right;
+}
+mat-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+mat-header-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+.mat-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+
+.mat-header-cell {
+	display: flex !important;
+	justify-content: center !important;
+}
+table {
+	text-align: center !important;
+	width: 100%;
+}
+
+.mat-header-cell {
+	text-align: center;
+}
+.mat-table__wrapper .mat-table .mat-cell,
+.mat-table__wrapper .mat-table .mat-footer-cell,
+.mat-table__wrapper .mat-table .mat-header-cell {
+	text-align: center !important;
+	padding-right: 10px;
+	justify-content: center;
+}
+.mat-cell-question {
+	white-space: unset !important;
+	flex: 0 0 15% !important;
+	width: 15% !important;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}
+// .rowcol {
+// 	display: flex;
+// 	flex-direction: column;
+// }
+// .dropdown {
+// 	position: relative;
+// 	display: flex;
+// }
+.row_response {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: space-between;
+	font-size: medium;
+	color: #737373;
+}
+.col_response {
+	width: 23%;
+}
+.pageContainer .pageTopBar .searcBar {
+	float: right;
+	display: flex;
+}

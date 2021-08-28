@@ -100,7 +100,7 @@ export class DashboardComponent implements OnInit {
 		private auth: AuthService,
 		private cdr: ChangeDetectorRef,
 		private router: Router
-	) {}
+	) { }
 
 	ngOnInit(): void {
 		var newDate = moment(this.model1.start).format("YYYY-MM-DD");
@@ -267,7 +267,6 @@ export class DashboardComponent implements OnInit {
 					if (data) {
 						document.getElementById("container8").style.display =
 							"block";
-
 						this.gpGraphData = data.graphData;
 
 						Highcharts.chart("container8", {

@@ -1,0 +1,47 @@
+<div class="pageContainer">
+  <div class="pageTopBar">
+    <h2 style="padding: 10px 0px; float: left">
+      Lead Conversion Summary Report
+    </h2>
+    <div ngbDropdown class="dropdown searcBar threeColumn">
+      <div>
+        <input
+          type="text"
+          class="btn btn-default dropdown-toggle date-select-box"
+          ngxDaterangepickerMd
+          startKey="start"
+          endKey="end"
+          [(ngModel)]="model1"
+        />
+        <input
+          type="text"
+          class="btn btn-default dropdown-toggle date-select-box"
+          ngxDaterangepickerMd
+          startKey="start"
+          endKey="end"
+          [ranges]="ranges"
+          [(ngModel)]="model1"
+        />
+      </div>
+      <button
+        style="margin-left: 5px"
+        class="btn btn-default dropdown-toggle"
+        id="ddllogout"
+        type="button"
+        (click)="searchRange()"
+        [disabled]="!this.model1?.start || !this.model1?.end"
+      >
+        Download
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" style="text-align: center">
+    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
+  </div>
+
+  <div style="text-align: center">
+    <h3>{{ message }}</h3>
+    <span>{{ apiresposne }}</span>
+  </div>
+</div>
