@@ -321,7 +321,7 @@ export class AnalyticsDashboardComponent implements OnInit {
                   type: "funnel3d",
                   animation: {
                     duration: 3000,
-                    //defer: 100,
+                    defer: 100,
                   },
                   options3d: {
                     enabled: true,
@@ -341,9 +341,9 @@ export class AnalyticsDashboardComponent implements OnInit {
                       allowOverlap: true,
                       y: 10,
                     },
-                    // animation: {
-                    //   defer: 100,
-                    // },
+                    animation: {
+                      defer: 100,
+                    },
                     neckWidth: "30%",
                     neckHeight: "25%",
                     width: "80%",
@@ -355,10 +355,10 @@ export class AnalyticsDashboardComponent implements OnInit {
                     name: "Unique users",
                     data: funnelData,
                     type: "funnel3d",
-                    // animation: {
-                    //   duration: 2500,
-                    //   defer: 100,
-                    // },
+                    animation: {
+                      duration: 2500,
+                      defer: 100,
+                    },
                   },
                 ],
                 credits: {
