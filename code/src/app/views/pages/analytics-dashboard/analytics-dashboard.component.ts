@@ -67,7 +67,7 @@ export class AnalyticsDashboardComponent implements OnInit {
                 },
               },
               title: {
-                text: "Age wise spread",
+                text: "Acquirely Age wise spread",
               },
               tooltip: {
                 pointFormat: "{point.name}:<b>{point.y:.1f}%</b>",
@@ -151,7 +151,7 @@ export class AnalyticsDashboardComponent implements OnInit {
                 },
               },
               title: {
-                text: "Gender wise spread",
+                text: "Acquirely Gender wise report",
               },
               tooltip: {
                 pointFormat: "{point.name}:<b>{point.y:.1f}%</b>",
@@ -218,7 +218,7 @@ export class AnalyticsDashboardComponent implements OnInit {
                 type: "line",
               },
               title: {
-                text: "Repeat signups per week",
+                text: "Acquirely Repeat signups per week",
               },
               xAxis: {
                 categories: res.apiData.map((x: { date: any }) => {
@@ -277,7 +277,7 @@ export class AnalyticsDashboardComponent implements OnInit {
                 type: "line",
               },
               title: {
-                text: "Month wise unique active users",
+                text: "Acquirely Month wise unique active users",
               },
               xAxis: {
                 categories: res.apiData.map((x: { date: any }) => {
@@ -336,7 +336,7 @@ export class AnalyticsDashboardComponent implements OnInit {
                 type: "line",
               },
               title: {
-                text: "Weekly Unique active users",
+                text: "Acquirely Weekly Unique active users",
               },
               xAxis: {
                 categories: res.apiData.map((x: { date: any }) => {

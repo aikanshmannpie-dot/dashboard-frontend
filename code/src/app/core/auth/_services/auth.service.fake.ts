@@ -456,7 +456,7 @@ export class AuthService {
     });
 
     return this.http.get<any>(
-      `https://helathinsurancefind.com.au/api/analyt/getTotalLeadsByPhone?source=${source}`
+      `${environment.baseUrl}/import/gettotalleads/${source}`
     );
   }
 
@@ -467,9 +467,7 @@ export class AuthService {
       Authorization: authToken,
     });
 
-    return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getActiveMonthly`
-    );
+    return this.http.get(`${environment.baseUrl}/import/getActiveMonthly`);
   }
 
   getRepeatWeekly(): Observable<any> {
@@ -479,9 +477,7 @@ export class AuthService {
       Authorization: authToken,
     });
 
-    return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getRepeatWeekly`
-    );
+    return this.http.get(`${environment.baseUrl}/import/getRepeatWeekly`);
   }
 
   getAgeData(): Observable<any> {
@@ -491,9 +487,7 @@ export class AuthService {
       Authorization: authToken,
     });
 
-    return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getAgeData`
-    );
+    return this.http.get(`${environment.baseUrl}/import/getAgeData`);
   }
   getGenderCount(): Observable<any> {
     var authToken = localStorage.getItem("authToken");
@@ -502,9 +496,7 @@ export class AuthService {
       Authorization: authToken,
     });
 
-    return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getGenderCount`
-    );
+    return this.http.get(`${environment.baseUrl}/import/getGenderCount`);
   }
 
   getTotalUniqueLeadsAcquirely(): Observable<any> {
@@ -515,7 +507,7 @@ export class AuthService {
     });
 
     return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getTotalUniqueLeadsAcquirely`
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirely`
     );
   }
 
@@ -527,7 +519,7 @@ export class AuthService {
     });
 
     return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getTotalUniqueLeadsAcquirelyAll`
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyAll`
     );
   }
 
@@ -539,7 +531,7 @@ export class AuthService {
     });
 
     return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getTotalUniqueLeadsAcquirelyPartners`
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyPartners`
     );
   }
 
@@ -551,7 +543,7 @@ export class AuthService {
     });
 
     return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getTotalUniqueLeadsTeleconnex`
+      `${environment.baseUrl}/import/getTotalUniqueLeadsTeleconnex`
     );
   }
 
@@ -562,9 +554,7 @@ export class AuthService {
       Authorization: authToken,
     });
 
-    return this.http.get(
-      `https://helathinsurancefind.com.au/api/analyt/getActiveLastWeek`
-    );
+    return this.http.get(`${environment.baseUrl}/import/getactivelastweek`);
   }
 
   postListOfVicidial(startDate, endDate, leadType): Observable<any> {
