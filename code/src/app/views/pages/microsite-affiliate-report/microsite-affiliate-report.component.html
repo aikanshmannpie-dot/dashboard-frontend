@@ -79,6 +79,64 @@
 				</div>
 			</mat-table>
 
+			<mat-table
+        class="lmat-elevation-z8 sec-mat-tab"
+        matTableExporter
+        #table
+        [dataSource]="dataSourceExport"
+        matSort
+        #matSort="matSort"
+        matSortActive="id"
+        matSortDirection="asc"
+        matSortDisableClear
+        #exporter="matTableExporter"
+        (matSortChange)="sortColumn($event)"
+      >
+        <ng-container matColumnDef="index">
+          <mat-header-cell *matHeaderCellDef> Index </mat-header-cell>
+          <mat-cell *matCellDef="let element; let i = index">{{
+            i + 1
+          }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Site_name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
+            >Site Name</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element">
+            {{ element.site_name }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="affiliate">
+			<mat-header-cell *matHeaderCellDef mat-sort-header>
+				Affiliate
+			</mat-header-cell>
+			<mat-cell *matCellDef="let element" style="overflow-wrap: anywhere;">
+				{{ element.affiliate }}
+			</mat-cell>
+		</ng-container>
+        <ng-container matColumnDef="conversion">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Conversion
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.conversion }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="query_string">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Full Url
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.query_string }}
+          </mat-cell>
+          <!-- {{element.created_at}} -->
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
+        <div>
+          <mat-row *matRowDef="let row; columns: displayedColumns1"></mat-row>
+        </div>
+      </mat-table>
 			<div *ngIf="loading" style="text-align: center">
 				<img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
 			</div>
