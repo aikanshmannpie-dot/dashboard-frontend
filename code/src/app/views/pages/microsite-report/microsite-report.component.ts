@@ -52,6 +52,8 @@ export class MicrositeReportComponent implements OnInit {
   displayedColumns1: string[] = [
     "index",
     "Site_name",
+    "email",
+    "phone",
     "source",
     "conversion",
     "query_string",

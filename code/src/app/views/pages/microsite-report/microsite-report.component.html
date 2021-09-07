@@ -157,6 +157,22 @@
             {{ element.site_name }}
           </mat-cell>
         </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
+            >Email</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element">
+            {{ element.email }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="phone">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
+            >Phone</mat-header-cell
+          >
+          <mat-cell *matCellDef="let element">
+            {{ element.phone }}
+          </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="source">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             Source

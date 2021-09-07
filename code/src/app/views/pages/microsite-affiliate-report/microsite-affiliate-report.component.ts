@@ -57,6 +57,8 @@ export class MicrositeAffiliateReportComponent implements OnInit {
   displayedColumns1: string[] = [
     "index",
     "Site_name",
+    "email",
+    "phone",
     "affiliate",
     "conversion",
     "query_string",
