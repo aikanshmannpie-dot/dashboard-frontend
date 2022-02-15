@@ -1,88 +1,95 @@
 <div class="pageContainer">
 	<div class="pageTopBar">
 		<h2 style="padding: 10px 0px; float: left">Microsite lead Report</h2>
-		<div ngbDropdown class="dropdown searcBar threeColumn">
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle date-select-box"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[(ngModel)]="model1"
-			/>
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle date-select-box"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[ranges]="ranges"
-				[(ngModel)]="model1"
-			/>
-			<select
-				class="form-control dropdown-select-box"
-				(change)="ChangingValue($event)"
-			>
-				<option value="undefined">Search By Site Name</option>
-				<option
-					*ngFor="let item of siteListingData"
-					value="{{ item.id }}"
+		<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
+		<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+			<div ngbDropdown class="dropdown searcBar threeColumn">
+				<h3>Search lead Report <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
+				<input
+					type="text"
+					class="btn btn-default dropdown-toggle date-select-box"
+					ngxDaterangepickerMd
+					startKey="start"
+					endKey="end"
+					[(ngModel)]="model1"
+				/>
+				<input
+					type="text"
+					class="btn btn-default dropdown-toggle date-select-box"
+					ngxDaterangepickerMd
+					startKey="start"
+					endKey="end"
+					[ranges]="ranges"
+					[(ngModel)]="model1"
+				/>
+				<select
+					class="form-control dropdown-select-box"
+					(change)="ChangingValue($event)"
 				>
-					{{ item.name }}
-				</option>
-			</select>
-			<!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="searchRange()"
-			>
-				Search
-			</button>
+					<option value="undefined">Search By Site Name</option>
+					<option
+						*ngFor="let item of siteListingData"
+						value="{{ item.id }}"
+					>
+						{{ item.name }}
+					</option>
+				</select>
+				<!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
+				<button
+					class="btn btn-default dropdown-toggle"
+					id="ddllogout"
+					type="button"
+					(click)="searchRange()"
+				>
+					Search
+				</button>
+			</div>
 		</div>
 	</div>
 
 	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="
-				exporter.exportTable('csv', { fileName: 'AcquirelyLeads ' })
-			"
-		>
-			CSV
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			kendo-button
-			(click)="pdf.saveAs('AcquirelyLeads.pdf')"
-		>
-			PDF
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			[useExistingCss]="true"
-			printSectionId="pdfTable"
-			ngxPrint
-		>
-			Print
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="
-				exporter.exportTable('xls', { fileName: 'AcquirelyLeads ' })
-			"
-		>
-			Excel
-		</button>
+		<button class="downloadIconBtn" (click)="downloadButton()"><img src="assets/images/download.svg" /></button>
+		<div class="downloadBtnsBox" [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'">
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="
+					exporter.exportTable('csv', { fileName: 'AcquirelyLeads ' })
+				"
+			>
+			<img src="assets/images/csv.svg" /> CSV
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				kendo-button
+				(click)="pdf.saveAs('AcquirelyLeads.pdf')"
+			>
+			<img src="assets/images/pdf.svg" /> PDF
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				[useExistingCss]="true"
+				printSectionId="pdfTable"
+				ngxPrint
+			>
+			<img src="assets/images/print.svg" /> Print
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="
+					exporter.exportTable('xls', { fileName: 'AcquirelyLeads ' })
+				"
+			>
+			<img src="assets/images/excel.svg" /> Excel
+			</button>
+		</div>
 		<div fxLayout fxLayoutAlign="right right" class="div-right-align">
 			<mat-form-field fxFlex="40%">
 				<input
@@ -95,7 +102,7 @@
 		</div>
 	</div>
 
-	<div class="mat-table__wrapper" id="pdfTable" #pdfTable>
+	<div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
 		<kendo-pdf-export #pdf margin="2cm">
 			<mat-table
 				class="lmat-elevation-z8"
@@ -113,8 +120,9 @@
 					<mat-header-cell *matHeaderCellDef mat-sort-header
 						>Site Name</mat-header-cell
 					>
-					<mat-cell *matCellDef="let element; let i = index">
+					<mat-cell *matCellDef="let element; let i = index" class="firstCellCollumn column100">
 						{{ element.site_name }}
+						<span class="d-print-none">Site Name</span>
 					</mat-cell>
 				</ng-container>
 
@@ -123,8 +131,9 @@
 						Form Type
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
-						<span *ngIf="element.form_type == 1">Standard</span>
-						<span *ngIf="element.form_type == 2">Survey</span>
+						<span *ngIf="element.form_type == 1" class="standardtext">Standard</span>
+						<span *ngIf="element.form_type == 2"  class="standardtext">Survey</span>
+						<span class="d-print-none">Form Type</span>
 					</mat-cell>
 				</ng-container>
 
@@ -135,6 +144,7 @@
 
 					<mat-cell *matCellDef="let element">
 						{{ element.email }}
+						<span class="d-print-none">Email</span>
 					</mat-cell>
 				</ng-container>
 
@@ -144,6 +154,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.full_name }}
+						<span class="d-print-none">Full Name</span>
 					</mat-cell>
 				</ng-container>
 
@@ -153,6 +164,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.phone_number }}
+						<span class="d-print-none">Phone Number</span>
 					</mat-cell>
 				</ng-container>
 
@@ -162,6 +174,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ getFormat(element) }}
+						<span class="d-print-none">Created At</span>
 					</mat-cell>
 				</ng-container>
 				<mat-header-row

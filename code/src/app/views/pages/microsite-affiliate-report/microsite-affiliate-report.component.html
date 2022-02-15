@@ -1,72 +1,79 @@
 <div class="pageContainer">
   <div class="pageTopBar">
     <h2 style="padding: 10px 0px; float: left">Report by Affiliate</h2>
-    <div ngbDropdown class="dropdown searcBar threeColumn">
-      <input
-        type="text"
-        class="btn btn-default dropdown-toggle date-select-box"
-        ngxDaterangepickerMd
-        startKey="start"
-        endKey="end"
-        [(ngModel)]="model1"
-      />
-      <input
-        type="text"
-        class="btn btn-default dropdown-toggle date-select-box"
-        ngxDaterangepickerMd
-        startKey="start"
-        endKey="end"
-        [ranges]="ranges"
-        [(ngModel)]="model1"
-      />
-      <!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
-      <button
-        class="btn btn-default dropdown-toggle"
-        id="ddllogout"
-        type="button"
-        (click)="searchRange()"
-      >
-        Search
-      </button>
+    <button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
+    <div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+      <div ngbDropdown class="dropdown searcBar threeColumn">
+        <h3>Search Affiliate Report <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
+        <input
+          type="text"
+          class="btn btn-default dropdown-toggle date-select-box"
+          ngxDaterangepickerMd
+          startKey="start"
+          endKey="end"
+          [(ngModel)]="model1"
+        />
+        <input
+          type="text"
+          class="btn btn-default dropdown-toggle date-select-box"
+          ngxDaterangepickerMd
+          startKey="start"
+          endKey="end"
+          [ranges]="ranges"
+          [(ngModel)]="model1"
+        />
+        <!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
+        <button
+          class="btn btn-default dropdown-toggle"
+          id="ddllogout"
+          type="button"
+          (click)="searchRange()"
+        >
+          Search
+        </button>
+      </div>
     </div>
   </div>
 
   <div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
-    <button
-      class="btn btn-default dropdown-toggle"
-      id="ddllogout"
-      type="button"
-      (click)="exporter.exportTable('csv', { fileName: 'AffiliateReport' })"
-    >
-      CSV
-    </button>
-    <button
-      class="btn btn-default dropdown-toggle"
-      id="ddllogout"
-      type="button"
-      kendo-button
-      (click)="pdf.saveAs('AffiliateReport.pdf')"
-    >
-      PDF
-    </button>
-    <button
-      class="btn btn-default dropdown-toggle"
-      id="ddllogout"
-      type="button"
-      [useExistingCss]="true"
-      printSectionId="pdfTable"
-      ngxPrint
-    >
-      Print
-    </button>
-    <button
-      class="btn btn-default dropdown-toggle"
-      id="ddllogout"
-      type="button"
-      (click)="exporter.exportTable('xls', { fileName: 'AffiliateReport ' })"
-    >
-      Excel
-    </button>
+    <button class="downloadIconBtn" (click)="downloadButton()"><img src="assets/images/download.svg" /></button>
+    <div class="downloadBtnsBox" [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'">
+      <button
+        class="btn btn-default dropdown-toggle"
+        id="ddllogout"
+        type="button"
+        (click)="exporter.exportTable('csv', { fileName: 'AffiliateReport' })"
+      >
+      <img src="assets/images/csv.svg" /> CSV
+      </button>
+      <button
+        class="btn btn-default dropdown-toggle"
+        id="ddllogout"
+        type="button"
+        kendo-button
+        (click)="pdf.saveAs('AffiliateReport.pdf')"
+      >
+      <img src="assets/images/pdf.svg" /> PDF
+      </button>
+      <button
+        class="btn btn-default dropdown-toggle"
+        id="ddllogout"
+        type="button"
+        [useExistingCss]="true"
+        printSectionId="pdfTable"
+        ngxPrint
+      >
+      <img src="assets/images/print.svg" /> Print
+      </button>
+      <button
+        class="btn btn-default dropdown-toggle"
+        id="ddllogout"
+        type="button"
+        (click)="exporter.exportTable('xls', { fileName: 'AffiliateReport ' })"
+      >
+      <img src="assets/images/excel.svg" /> Excel
+      </button>
+    </div>
     <div fxLayout fxLayoutAlign="right right" class="div-right-align">
       <mat-form-field fxFlex="40%">
         <input
@@ -79,7 +86,7 @@
     </div>
   </div>
 
-  <div class="mat-table__wrapper" id="pdfTable" #pdfTable>
+  <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
     <kendo-pdf-export #pdf margin="2cm">
       <mat-table
         class="lmat-elevation-z8"
@@ -96,24 +103,26 @@
       >
         <ng-container matColumnDef="index">
           <mat-header-cell *matHeaderCellDef> Index </mat-header-cell>
-          <mat-cell *matCellDef="let element; let i = index">{{
+          <mat-cell *matCellDef="let element; let i = index" class="firstCellCollumn">{{
             i + 1
-          }}</mat-cell>
+          }}<span class="d-print-none">Index</span></mat-cell>
         </ng-container>
         <ng-container matColumnDef="Site_name">
           <mat-header-cell *matHeaderCellDef mat-sort-header
             >Site Name</mat-header-cell
           >
-          <mat-cell *matCellDef="let element">
+          <mat-cell *matCellDef="let element" class="secondCellCollumn">
             {{ element.site_name }}
+            <span class="d-print-none">Site Name</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="affiliate">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             Affiliate
           </mat-header-cell>
-          <mat-cell *matCellDef="let element" style="overflow-wrap: anywhere">
+          <mat-cell *matCellDef="let element" style="overflow-wrap: anywhere" class="column100">
             {{ element.affiliate }}
+            <span class="d-print-none">Affiliate</span>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="conversion">
@@ -122,6 +131,7 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.conversion }}
+            <span class="d-print-none">Conversion</span>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

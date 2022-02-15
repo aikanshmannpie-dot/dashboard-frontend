@@ -3,32 +3,36 @@
 		<div class="col-12">
 			<div class="pageTopBar">
 				<h2 style="padding: 10px 0px; float: left">Dashboard</h2>
-				<div ngbDropdown class="dropdown searcBar">
-					<input
-						type="text"
-						class="btn btn-default dropdown-toggle"
-						ngxDaterangepickerMd
-						startKey="start"
-						endKey="end"
-						[(ngModel)]="model1"
-					/>
-					<input
-						type="text"
-						class="btn btn-default dropdown-toggle"
-						ngxDaterangepickerMd
-						startKey="start"
-						endKey="end"
-						[ranges]="ranges"
-						[(ngModel)]="model1"
-					/>
-					<button
-						class="btn btn-default dropdown-toggle"
-						id="ddllogout"
-						type="button"
-						(click)="searchRange()"
-					>
-						Search
-					</button>
+				<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
+				<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+					<div ngbDropdown class="dropdown searcBar">
+						<h3>Search <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
+						<input
+							type="text"
+							class="btn btn-default dropdown-toggle"
+							ngxDaterangepickerMd
+							startKey="start"
+							endKey="end"
+							[(ngModel)]="model1"
+						/>
+						<input
+							type="text"
+							class="btn btn-default dropdown-toggle"
+							ngxDaterangepickerMd
+							startKey="start"
+							endKey="end"
+							[ranges]="ranges"
+							[(ngModel)]="model1"
+						/>
+						<button
+							class="btn btn-default dropdown-toggle"
+							id="ddllogout"
+							type="button"
+							(click)="searchRange()"
+						>
+							Search
+						</button>
+					</div>
 				</div>
 			</div>
 			<div class="row">

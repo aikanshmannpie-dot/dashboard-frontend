@@ -33,6 +33,14 @@ export class ClickoutReportComponent implements OnInit {
 	endDate;
 	startDate;
 	globalFilter = "";
+	search = true;
+	download = true;
+	searchButton() {
+		this.search = !this.search;
+	};
+	downloadButton() {
+		this.download = !this.download;
+	};
 
 	ranges: any = {
 		Today: [moment(), moment()],

@@ -69,6 +69,14 @@ export class DashboardComponent implements OnInit {
 	loading1 = false;
 	globalFilter = "";
 	avaible1 = true;
+	search = true;
+	  download = true;
+	  searchButton() {
+		  this.search = !this.search;
+	  };
+	  downloadButton() {
+		  this.download = !this.download;
+	  };
 
 	// Exporting(Highcharts);
 

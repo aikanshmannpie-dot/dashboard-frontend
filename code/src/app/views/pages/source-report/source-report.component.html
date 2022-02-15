@@ -2,34 +2,39 @@
 <div class="pageContainer">
 	<div class="pageTopBar">
 		<h2 style="padding: 10px 0px; float: left">Report By Source</h2>
-		<div ngbDropdown class="dropdown searcBar">
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[(ngModel)]="model1"
-			/>
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[ranges]="ranges"
-				[(ngModel)]="model1"
-			/>
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="searchRange()"
-			>
-				Search
-			</button>
+		<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
+		<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+			<div ngbDropdown class="dropdown searcBar">
+				<h3>Search Source Report <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
+				<input
+					type="text"
+					class="btn btn-default dropdown-toggle"
+					ngxDaterangepickerMd
+					startKey="start"
+					endKey="end"
+					[(ngModel)]="model1"
+				/>
+				<input
+					type="text"
+					class="btn btn-default dropdown-toggle"
+					ngxDaterangepickerMd
+					startKey="start"
+					endKey="end"
+					[ranges]="ranges"
+					[(ngModel)]="model1"
+				/>
+				<button
+					class="btn btn-default dropdown-toggle"
+					id="ddllogout"
+					type="button"
+					(click)="searchRange()"
+				>
+					Search
+				</button>
+			</div>
 		</div>
-		<select class="form-control" (change)="ChangingValue($event)">
+
+		<select class="form-control selectBox" (change)="ChangingValue($event)">
 			<option>Filter By Affilate</option>
 			<option
 				*ngFor="let item of affilateListData"
@@ -41,48 +46,51 @@
 	</div>
 
 	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="
-				exporter.exportTable('csv', {
-					fileName: 'Acquirely  Dashboard '
-				})
-			"
-		>
-			CSV
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
-		>
-			PDF
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			[useExistingCss]="true"
-			printSectionId="pdfTable"
-			ngxPrint
-		>
-			Print
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="
-				exporter.exportTable('xls', {
-					fileName: 'Acquirely  Dashboard '
-				})
-			"
-		>
-			Excel
-		</button>
+		<button class="downloadIconBtn" (click)="downloadButton()"><img src="assets/images/download.svg" /></button>
+		<div class="downloadBtnsBox" [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'">
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="
+					exporter.exportTable('csv', {
+						fileName: 'Acquirely  Dashboard '
+					})
+				"
+			>
+			<img src="assets/images/csv.svg" /> CSV
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
+			>
+			<img src="assets/images/pdf.svg" /> PDF
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				[useExistingCss]="true"
+				printSectionId="pdfTable"
+				ngxPrint
+			>
+			<img src="assets/images/print.svg" /> Print
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="
+					exporter.exportTable('xls', {
+						fileName: 'Acquirely  Dashboard '
+					})
+				"
+			>
+			<img src="assets/images/excel.svg" /> Excel
+			</button>
+		</div>
 		<div fxLayout fxLayoutAlign="right right" class="div-right-align">
 			<mat-form-field fxFlex="40%">
 				<input
@@ -94,7 +102,7 @@
 			</mat-form-field>
 		</div>
 	</div>
-	<div class="mat-table__wrapper" id="pdfTable" #pdfTable>
+	<div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
 		<kendo-pdf-export #pdf margin="2cm">
 			<mat-table
 				class="lmat-elevation-z8"
@@ -118,8 +126,9 @@
 					<mat-header-cell *matHeaderCellDef mat-sort-header>
 						Sr.No</mat-header-cell
 					>
-					<mat-cell *matCellDef="let element; let i = index">
+					<mat-cell *matCellDef="let element; let i = index" class="firstCellCollumn">
 						{{ i + 1 }}
+						<span class="d-print-none">Sr.No</span>
 					</mat-cell>
 				</ng-container>
 
@@ -134,9 +143,10 @@
 					</mat-header-cell>
 					<mat-cell
 						*matCellDef="let element"
-						class="coustom-width-row"
+						class="coustom-width-row secondCellCollumn"
 					>
 						{{ element.meta_source }}
+						<span class="d-print-none">Source</span>
 					</mat-cell>
 				</ng-container>
 
@@ -148,6 +158,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.totalcount }}
+						<span class="d-print-none">Emails</span>
 					</mat-cell>
 				</ng-container>
 
@@ -159,6 +170,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.signup }}
+						<span class="d-print-none">Sign ups</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="sumofleads">
@@ -169,6 +181,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.sumofleads }}
+						<span class="d-print-none">Revenue Coreg (A$)</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="payout">
@@ -177,6 +190,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.payout }}
+						<span class="d-print-none">Cost (A$)</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="revtotal">
@@ -187,6 +201,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.revtotal }}
+						<span class="d-print-none">Rev total (A$)</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="allprofit">
@@ -197,6 +212,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.allprofit }}
+						<span class="d-print-none">Profit (A$)</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="allprofitmargin">
@@ -207,6 +223,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.allprofitmargin }}
+						<span class="d-print-none">Profit Margin %</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="arpecoreg">
@@ -217,6 +234,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.arpecoreg }}
+						<span class="d-print-none">ARPE Coreg</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="totalarperev">
@@ -225,7 +243,7 @@
 						<!-- <input matInput type="text" [ngModel]="arpecoregFilter" (keyup)="arpecoreg($event.target.value)"
                     placeholder="Search:"> -->
 					</mat-header-cell>
-					<mat-cell *matCellDef="let element"> 0.00 </mat-cell>
+					<mat-cell *matCellDef="let element"> 0.00 <span class="d-print-none">ARPE Clickout</span></mat-cell>
 				</ng-container>
 
 				<mat-header-row

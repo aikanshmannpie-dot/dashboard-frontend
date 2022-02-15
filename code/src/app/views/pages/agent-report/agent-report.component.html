@@ -1,91 +1,98 @@
 <div class="pageContainer">
 	<div class="pageTopBar">
 		<h2 style="padding: 10px 0px; float: left">Report By Agent</h2>
-		<div ngbDropdown class="dropdown searcBar">
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[(ngModel)]="model1"
-			/>
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[ranges]="ranges"
-				[(ngModel)]="model1"
-			/>
-			<select
-				class="form-control dropdown-select-box"
-				(change)="ChangingValue($event)"
-				*ngIf="report_type == 2"
-			>
-				<option value="undefined">Search By Source</option>
-				<option
-					*ngFor="let item of metasourceListingData"
-					value="{{ item.id }}"
+		<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
+		<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+			<div ngbDropdown class="dropdown searcBar">
+				<h3>Search Agent Report <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
+				<input
+					type="text"
+					class="btn btn-default dropdown-toggle"
+					ngxDaterangepickerMd
+					startKey="start"
+					endKey="end"
+					[(ngModel)]="model1"
+				/>
+				<input
+					type="text"
+					class="btn btn-default dropdown-toggle"
+					ngxDaterangepickerMd
+					startKey="start"
+					endKey="end"
+					[ranges]="ranges"
+					[(ngModel)]="model1"
+				/>
+				<select
+					class="form-control dropdown-select-box"
+					(change)="ChangingValue($event)"
+					*ngIf="report_type == 2"
 				>
-				<div *ngIf="item.name!=null">	{{ item.name }}</div>
-				</option>
-			</select>
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="searchRange()"
-			>
-				Search
-			</button>
+					<option value="undefined">Search By Source</option>
+					<option
+						*ngFor="let item of metasourceListingData"
+						value="{{ item.id }}"
+					>
+					<div *ngIf="item.name!=null">	{{ item.name }}</div>
+					</option>
+				</select>
+				<button
+					class="btn btn-default dropdown-toggle"
+					id="ddllogout"
+					type="button"
+					(click)="searchRange()"
+				>
+					Search
+				</button>
+			</div>
 		</div>
 	</div>
 
 	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="
-				exporter.exportTable('csv', {
-					fileName: 'Acquirely  Dashboard '
-				})
-			"
-		>
-			CSV
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
-		>
-			PDF
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			[useExistingCss]="true"
-			printSectionId="pdfTable"
-			ngxPrint
-		>
-			Print
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="
-				exporter.exportTable('xls', {
-					fileName: 'Acquirely  Dashboard '
-				})
-			"
-		>
-			Excel
-		</button>
+		<button class="downloadIconBtn" (click)="downloadButton()"><img src="assets/images/download.svg" /></button>
+		<div class="downloadBtnsBox" [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'">
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="
+					exporter.exportTable('csv', {
+						fileName: 'Acquirely  Dashboard '
+					})
+				"
+			>
+			<img src="assets/images/csv.svg" /> CSV
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
+			>
+			<img src="assets/images/pdf.svg" /> PDF
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				[useExistingCss]="true"
+				printSectionId="pdfTable"
+				ngxPrint
+			>
+			<img src="assets/images/print.svg" /> Print
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="
+					exporter.exportTable('xls', {
+						fileName: 'Acquirely  Dashboard '
+					})
+				"
+			>
+			<img src="assets/images/excel.svg" /> Excel
+			</button>
+		</div>
 		<div fxLayout fxLayoutAlign="right right" class="div-right-align">
 			<mat-form-field fxFlex="40%">
 				<input

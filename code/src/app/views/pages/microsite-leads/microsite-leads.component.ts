@@ -31,6 +31,14 @@ export class MicrositeLeadsComponent implements OnInit {
 	offset = 0;
 	isSelected;
 	siteListingData;
+	search = true;
+	download = true;
+	searchButton() {
+		this.search = !this.search;
+	};
+	downloadButton() {
+		this.download = !this.download;
+	};
 	ranges: any = {
 		Today: [moment(), moment()],
 		Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],

@@ -1,90 +1,97 @@
 <div class="pageContainer">
 	<div class="pageTopBar">
 		<h2 style="padding: 10px 0px; float: left">Report By Campaigns</h2>
-		<div ngbDropdown class="dropdown searcBar">
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[(ngModel)]="model1"
-			/>
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[ranges]="ranges"
-				[(ngModel)]="model1"
-			/><select
-				class="form-control dropdown-select-box"
-				(change)="ChangingValue($event)"
-				*ngIf="report_type == 2"
-			>
-				<option value="undefined">Search By Source</option>
-				<option
-					*ngFor="let item of metasourceListingData"
-					value="{{ item.id }}"
+		<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
+		<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+			<div ngbDropdown class="dropdown searcBar">
+				<h3>Search Campaigns Report <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
+				<input
+					type="text"
+					class="btn btn-default dropdown-toggle"
+					ngxDaterangepickerMd
+					startKey="start"
+					endKey="end"
+					[(ngModel)]="model1"
+				/>
+				<input
+					type="text"
+					class="btn btn-default dropdown-toggle"
+					ngxDaterangepickerMd
+					startKey="start"
+					endKey="end"
+					[ranges]="ranges"
+					[(ngModel)]="model1"
+				/><select
+					class="form-control dropdown-select-box"
+					(change)="ChangingValue($event)"
+					*ngIf="report_type == 2"
 				>
-				<div *ngIf="item.name!=null">	{{ item.name }}</div>
-				</option>
-			</select>
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="searchRange()"
-			>
-				Search
-			</button>
+					<option value="undefined">Search By Source</option>
+					<option
+						*ngFor="let item of metasourceListingData"
+						value="{{ item.id }}"
+					>
+					<div *ngIf="item.name!=null">	{{ item.name }}</div>
+					</option>
+				</select>
+				<button
+					class="btn btn-default dropdown-toggle"
+					id="ddllogout"
+					type="button"
+					(click)="searchRange()"
+				>
+					Search
+				</button>
+			</div>
 		</div>
 	</div>
 
 	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="
-				exporter.exportTable('csv', {
-					fileName: 'Acquirely  Dashboard '
-				})
-			"
-		>
-			CSV
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
-		>
-			PDF
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			[useExistingCss]="true"
-			printSectionId="pdfTable"
-			ngxPrint
-		>
-			Print
-		</button>
-		<button
-			class="btn btn-default dropdown-toggle"
-			id="ddllogout"
-			type="button"
-			(click)="
-				exporter.exportTable('xls', {
-					fileName: 'Acquirely  Dashboard '
-				})
-			"
-		>
-			Excel
-		</button>
+		<button class="downloadIconBtn" (click)="downloadButton()"><img src="assets/images/download.svg" /></button>
+		<div class="downloadBtnsBox" [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'">
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="
+					exporter.exportTable('csv', {
+						fileName: 'Acquirely  Dashboard '
+					})
+				"
+			>
+			<img src="assets/images/csv.svg" /> CSV
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
+			>
+			<img src="assets/images/pdf.svg" /> PDF
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				[useExistingCss]="true"
+				printSectionId="pdfTable"
+				ngxPrint
+			>
+			<img src="assets/images/print.svg" /> Print
+			</button>
+			<button
+				class="btn btn-default dropdown-toggle"
+				id="ddllogout"
+				type="button"
+				(click)="
+					exporter.exportTable('xls', {
+						fileName: 'Acquirely  Dashboard '
+					})
+				"
+			>
+			<img src="assets/images/excel.svg" /> Excel
+			</button>
+		</div>
 		<div fxLayout fxLayoutAlign="right right" class="div-right-align">
 			<mat-form-field fxFlex="40%">
 				<input
@@ -97,7 +104,7 @@
 		</div>
 	</div>
 
-	<div class="mat-table__wrapper" id="pdfTable" #pdfTable>
+	<div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
 		<kendo-pdf-export #pdf margin="2cm">
 			<mat-table
 				class="lmat-elevation-z8"
@@ -116,8 +123,9 @@
 					<mat-header-cell *matHeaderCellDef mat-sort-header>
 						Sr.No</mat-header-cell
 					>
-					<mat-cell *matCellDef="let element; let i = index">
+					<mat-cell *matCellDef="let element; let i = index" class="hideColumn">
 						{{ i + 1 }}
+						<span class="d-print-none">Sr.No</span>
 					</mat-cell>
 				</ng-container>
 
@@ -127,8 +135,9 @@
 						<!-- <input matInput type="text" [ngModel]="globalFilter" (keyup)="doFilterAffilateName($event.target.value)"
                     placeholder="Search:"> -->
 					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
+					<mat-cell *matCellDef="let element" class="idCollumn">
 						{{ element.campaignid }}
+						<span class="d-print-none">Campaign ID</span>
 					</mat-cell>
 				</ng-container>
 
@@ -138,8 +147,9 @@
 						<!-- <input matInput type="text" [ngModel]="totalcountFilter"
                     (keyup)="doFilterEmailName($event.target.value)" placeholder="Search:"> -->
 					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
+					<mat-cell *matCellDef="let element" class="nameCellCollumn">
 						{{ element.campaign_name }}
+						<span class="d-print-none">Campaign Name</span>
 					</mat-cell>
 				</ng-container>
 
@@ -151,6 +161,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.totalcount }}
+						<span class="d-print-none">Unique Leads</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="sumofleads">
@@ -167,6 +178,7 @@
 							}"
 							>{{ element.sumofleads }}</span
 						>
+						<span class="d-print-none">Total Revenue (A$)</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="arpeall">
@@ -175,6 +187,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.arpeall }}
+						<span class="d-print-none">ARPE</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="gp">
@@ -185,6 +198,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.gp }}
+						<span class="d-print-none">GP (A$)</span>
 					</mat-cell>
 				</ng-container>
 				<ng-container matColumnDef="gpper">
@@ -195,6 +209,7 @@
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.gpper }}
+						<span class="d-print-none">GP%</span>
 					</mat-cell>
 				</ng-container>
 

@@ -42,7 +42,15 @@ export class SourceReportComponent implements OnInit {
 	payoutFilter = "";
 	allprofitFilter = "";
 	allprofitmarginFilter = "";
-	arpecoregFilter = "";
+	arpecoregFilter = "";	
+	search = true;
+	download = true;
+	searchButton() {
+		this.search = !this.search;
+	  };
+	  downloadButton() {
+		this.download = !this.download;
+	  };
 
 	ranges: any = {
 		Today: [moment(), moment()],

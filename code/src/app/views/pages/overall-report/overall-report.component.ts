@@ -36,7 +36,14 @@ export class OverallReportComponent implements OnInit {
 	metasourceListingData = [];
 	selectedValue = "undefined";
 	report_type;
-
+	search = true;
+	download = true;
+	searchButton() {
+		this.search = !this.search;
+	  };
+	  downloadButton() {
+		this.download = !this.download;
+	  };
 	ranges: any = {
 		Today: [moment(), moment()],
 		Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],

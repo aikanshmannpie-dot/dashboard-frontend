@@ -53,6 +53,14 @@ export class TeleconnexRevenueBySuppliersComponent implements OnInit {
 	selectedValue = "undefined";
 	report_type;
 	areNoRecords = false;
+	search = true;
+	download = true;
+	searchButton() {
+		this.search = !this.search;
+	};
+	downloadButton() {
+		this.download = !this.download;
+	};
 
 	ranges: any = {
 		Today: [moment(), moment()],
