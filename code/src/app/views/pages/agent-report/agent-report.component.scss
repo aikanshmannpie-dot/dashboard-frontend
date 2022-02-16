@@ -46,7 +46,7 @@ table {
 .mat-table__wrapper .mat-table .mat-cell,
 .mat-table__wrapper .mat-table .mat-footer-cell,
 .mat-table__wrapper .mat-table .mat-header-cell {
-	text-align: center !important;
+	text-align: left !important;
 	padding-right: 10px;
 	justify-content: center;
 }
@@ -247,3 +247,4 @@ tr.example-element-row:not(.example-expanded-row):active {
 	float: left;
 	width: 300px;
 }
+

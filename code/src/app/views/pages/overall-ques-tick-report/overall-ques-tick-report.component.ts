@@ -35,7 +35,15 @@ export class OverallQuesTickReportComponent implements OnInit {
 	globalFilter = "";
 	switchToSeptNov = "0";
 	switchToSeptNovText = "Show September to 3rd November";
-	isDataSource = true;
+	isDataSource = true;		
+	search = true;
+	download = true;
+	searchButton() {
+		this.search = !this.search;
+	  };
+	  downloadButton() {
+		this.download = !this.download;
+	  };
 
 	ranges: any = {
 		Today: [moment(), moment()],

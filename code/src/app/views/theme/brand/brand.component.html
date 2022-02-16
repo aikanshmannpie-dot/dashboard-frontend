@@ -8,33 +8,38 @@
 	</div>
 	<div class="kt-header__brand-nav">
 		<div ngbDropdown class="dropdown">
-			<button class="btn btn-default dropdown-toggle" [ngStyle]="{
-				'background-color':
-					this.is_analytics == true ? '#3d94fb' : '',
-				color: this.is_analytics == true ? '#fff' : ''
-			}" id="btnMicrositeReports" (click)="redirectToDashboard('/acquirely-analytics/4')">
-				{{ this.analytics_dashboard_text }}
+			<button class="btn btn-default dropdown-toggle" [ngClass]="{'activeBtn': this.is_analytics == true}" id="btnMicrositeReports" (click)="redirectToDashboard('/acquirely-analytics/4')">
+				<span class="webText">{{ this.analytics_dashboard_text }}</span>
+				<span class="mobileText">
+					<span class="imgIcon iconNonActive"><img src="assets/images/acq-icon.svg" /></span>
+					<span class="imgIcon iconActive"><img src="assets/images/acq-icon-active.svg" /></span>
+					Acquirely
+				</span>
 			</button>
 
-			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngStyle]="{
-					'background-color': this.is_mhi == true ? '#3d94fb' : '',
-					color: this.is_mhi == true ? '#fff' : ''
-				}" id="btnVicidialPush" (click)="redirectToDashboard('/overall/1')">
-				{{ this.mhi_text }}
+			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngClass]="{'activeBtn': this.is_mhi == true}" id="btnVicidialPush" (click)="redirectToDashboard('/overall/1')">
+				<span class="webText">{{ this.mhi_text }}</span>
+				<span class="mobileText">
+					<span class="imgIcon iconNonActive"><img src="assets/images/mhi-icon.svg" /></span>
+					<span class="imgIcon iconActive"><img src="assets/images/mhi-icon-active.svg" /></span>
+					MustHaveIt
+				</span>
 			</button>
-			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngStyle]="{
-					'background-color':
-						this.is_teleconnex == true ? '#3d94fb' : '',
-					color: this.is_teleconnex == true ? '#fff' : ''
-				}" id="btnVicidialPush" (click)="redirectToDashboard('/overall/2')">
-				{{ this.teleconnex_text }}
+			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngClass]="{'activeBtn': this.is_teleconnex == true}"  id="btnVicidialPush" (click)="redirectToDashboard('/overall/2')">
+				<span class="webText">{{ this.teleconnex_text }}</span>
+				<span class="mobileText">
+					<span class="imgIcon iconNonActive"><img src="assets/images/teleconnex-icon.svg" /></span>
+					<span class="imgIcon iconActive"><img src="assets/images/teleconnex-icon-active.svg" /></span>
+					Teleconnex
+				</span>
 			</button>
-			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngStyle]="{
-					'background-color':
-						this.is_microsite_report == true ? '#3d94fb' : '',
-					color: this.is_microsite_report == true ? '#fff' : ''
-				}" id="btnMicrositeReports" (click)="redirectToDashboard('/microsite-leads/3')">
-				{{ this.microsite_reporting_text }}
+			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngClass]="{'activeBtn': this.is_microsite_report == true}"  id="btnMicrositeReports" (click)="redirectToDashboard('/microsite-leads/3')">
+				<span class="webText">{{ this.microsite_reporting_text }}</span>
+				<span class="mobileText">
+					<span class="imgIcon iconNonActive"><img src="assets/images/microsites-icon.svg" /></span>
+					<span class="imgIcon iconActive"><img src="assets/images/microsites-icon-active.svg" /></span>
+					Microsites
+				</span>
 			</button>
 
 			<!-- <button
@@ -52,7 +57,12 @@
 			</button> -->
 			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" id="ddllogout" type="button"
 				(click)="logout()">
-				Logout
+				<span class="webText">Logout</span>
+				<span class="mobileText">
+					<span class="imgIcon iconNonActive"><img src="assets/images/logout-icon.svg" /></span>
+					<span class="imgIcon iconActive"><img src="assets/images/logout-icon-active.svg" /></span>
+					Logout
+				</span>
 			</button>
 		</div>
 	</div>

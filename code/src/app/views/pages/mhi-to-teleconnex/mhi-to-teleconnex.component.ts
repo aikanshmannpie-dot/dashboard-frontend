@@ -67,7 +67,6 @@ export class MHIToTeleconnexComponent implements OnInit {
       this.endDate = moment(this.model1.end._d).format("YYYY-MM-DD");
       this.startDate = moment(this.model1.start._d).format("YYYY-MM-DD");
       if (this.startDate && this.endDate) {
-        console.log("***", this.startDate, this.endDate);
         this.getListOfLeads(this.startDate, this.endDate);
       } else {
         //this.getListOfVicidial(this.startDate, this.endDate);
@@ -87,7 +86,6 @@ export class MHIToTeleconnexComponent implements OnInit {
             var fromD =
               moment(start).format("D") + "" + moment(start).format("MMM");
             var toD = moment(end).format("D") + "" + moment(end).format("MMM");
-            console.log("data.apiData", data.apiData);
             this.message = data.message;
             this.apiresposne = "";
             if (Array.isArray(data.apiData) && data.apiData.length > 0) {
