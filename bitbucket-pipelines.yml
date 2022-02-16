@@ -1,25 +1,24 @@
 #  Bitbucket Pipeline for Dashboard
-image: node:12.14.0
+image: node:14.15
 
 pipelines:
   branches:
     feature-*:
       - step:
-          name: 1.Created Feature Branch 
+          name: 1.Created Feature Branch
           script:
             - echo "Installing Git Secrets"
             - ls -la
 
     develop:
       - step:
-          name: 1.Pushing Develop Code 
+          name: 1.Pushing Develop Code
           script:
             - echo "Pushing Develop Code"
 
-
     uat-*:
       - step:
-          name: 1.Running Initial Tests 
+          name: 1.Running Initial Tests
           script:
             - apt-get update -y
             - apt-get install -y zip
@@ -36,7 +35,7 @@ pipelines:
             - cd dist
             - ls -la
             - sshpass -p "${UAT_SERVER_TESTER_PASSWORD}" rsync -O --exclude='.git/' --exclude='.gitlab-ci.yml' -rav -e 'ssh -o StrictHostKeyChecking=no -p 22' .  ${UAT_SERVER_TESTER_USER_NAME}@${UAT_SERVER_TESTER_HOST}:${UAT_SERVER_BUILD_PATH}
- 
+
     master:
       - step:
           name: 1.Master Code
