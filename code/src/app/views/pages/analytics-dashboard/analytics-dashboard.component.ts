@@ -372,7 +372,6 @@ export class AnalyticsDashboardComponent implements OnInit {
         }),
         finalize(() => {
           this.activeLastWeekLoading = false;
-          console.log("activeLastWeekLoading", this.activeLastWeekLoading);
 
           this.cdr.detectChanges();
         })
@@ -503,7 +502,6 @@ export class AnalyticsDashboardComponent implements OnInit {
         }),
         finalize(() => {
           this.activeLastWeekLoading = false;
-          console.log("activeLastWeekLoading", this.activeLastWeekLoading);
           this.cdr.detectChanges();
         })
       )

@@ -407,7 +407,6 @@ export class AuthService {
   }
 
   getListOfMicrosite(startDate, endDate, offSet, siteName): Observable<any> {
-    console.log("offset +++", offSet);
     var authToken = localStorage.getItem("authToken");
     const httpHeaders = new HttpHeaders({
       "Content-Type": "application/json",
@@ -421,7 +420,6 @@ export class AuthService {
   }
 
   getMicrositeSourceLeads(startDate, endDate): Observable<any> {
-    console.log("startDate, endDate +++", startDate, " " + endDate);
     var authToken = localStorage.getItem("authToken");
     const httpHeaders = new HttpHeaders({
       "Content-Type": "application/json",
@@ -435,7 +433,6 @@ export class AuthService {
   }
 
   getMicrositeAffiliateReport(startDate, endDate): Observable<any> {
-    console.log("startDate, endDate +++", startDate, " " + endDate);
     var authToken = localStorage.getItem("authToken");
     const httpHeaders = new HttpHeaders({
       "Content-Type": "application/json",
