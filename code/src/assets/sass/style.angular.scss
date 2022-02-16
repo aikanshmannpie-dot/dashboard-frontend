@@ -275,7 +275,7 @@
                 top: 0px;
                 left: 0px;
                 justify-content: center;
-                align-items: center;
+                align-items: baseline;
                 z-index: 99;
                 padding:15px;
                 .searcBar {
@@ -363,6 +363,7 @@
                             font-size: 14px;
                             font-weight: 500;
                             line-height:normal;
+                            word-break: break-all;
                             span{
                                 display: inline-block;
                                 width: 100%;
@@ -483,5 +484,112 @@
         text-align:left !important;
     }
     
+    body{
+        .pageContainer{
+        background-color: transparent;
+        box-shadow: none;
+        border: none;
+        .mat-table__wrapper{
+            &.agentReportTable{
+                overflow: inherit;
+                .mat-table{
+                    display:block;
+                    min-width: auto;
+                    width: 100%;
+                    background: transparent;
+                    border:none;
+                    thead{
+                        display:none;
+                    }
+                    & > tbody{
+                        & > tr{
+                            display: flex;
+                            border-width: 0;
+                            border-bottom-width: 1px;
+                            border-style: solid;
+                            align-items: inherit;
+                            box-sizing: border-box;
+                            flex-wrap: wrap;
+                            text-align: left;
+                            margin: 5px 0px;
+                            border-radius: 5px;
+                            border:none;
+                            box-shadow:0px 0px 5px rgba(0, 0, 0, 0.05);
+                            height: auto;
+                            background-color: #fff;
+                            &.example-detail-row{
+                                display: inherit;
+                                box-shadow: none;
+                                border-radius:5px;
+                                thead{
+                                    display: table-header-group;
+                                }
+                            }
+                            &.example-expanded-row{
+                                box-shadow:none;
+                            }
+                            td{
+                                flex-wrap: wrap;
+                                text-align: left !important;
+                                justify-content: left !important;
+                                flex:0 0 50%;
+                                max-width:50%;
+                                padding:5px 15px;
+                                font-size: 14px;
+                                font-weight: 500;
+                                line-height:normal;
+                                word-break: break-all;
+                                span{
+                                    display: inline-block;
+                                    width: 100%;
+                                    text-align: left;
+                                    font-size: 10px;
+                                    color:#AAAAAA;
+                                }
+                                &.hideColumn{
+                                    display:none;
+                                }
+                                &.firstCellCollumn{
+                                    flex:0 0 100px !important;
+                                    max-width:100px;
+                                    background: #DBE3FF;
+                                    font-size: 18px;
+                                    font-weight: 500;
+                                    color:#383E5F;
+                                    align-content: baseline;
+                                    span{
+                                        color:#707070;
+                                    }
+                                    
+                                }
+                                &.secondCellCollumn {
+                                    flex:0 0 calc(100% - 100px) !important;
+                                    max-width:calc(100% - 100px) ;
+                                    background: #DBE3FF;
+                                    font-size: 18px;
+                                    font-weight: 500;
+                                    color:#383E5F;
+                                    text-align: left !important;
+                                    word-break: break-all;
+                                    span{
+                                        color:#707070;
+                                    }
+                                    &.column100{
+                                        flex:0 0 100% !important;
+                                        max-width: 100%;
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    }
+    .pageContainer .mat-paginator .mat-paginator-container{
+        justify-content: center;
+    }
 
 }

@@ -105,7 +105,7 @@
 		</div>
 	</div>
 
-	<div class="mat-table__wrapper" id="pdfTable" #pdfTable>
+	<div class="mat-table__wrapper agentReportTable" id="pdfTable" #pdfTable>
 		<kendo-pdf-export #pdf margin="2cm">
 			<table
 				mat-table
@@ -118,25 +118,34 @@
 			>
 				<ng-container matColumnDef="Sr.No">
 					<th mat-header-cell *matHeaderCellDef>Sr.No</th>
-					<td mat-cell *matCellDef="let element; let j = dataIndex">
+					<td mat-cell *matCellDef="let element; let j = dataIndex" class="hideColumn">
 						{{ j + 1 }}
+						<span class="d-print-none">Sr.No</span>
 					</td>
 				</ng-container>
 
 				<ng-container matColumnDef="agentname">
 					<th mat-header-cell *matHeaderCellDef>Agent Id</th>
-					<td mat-cell *matCellDef="let element">
+					<td mat-cell *matCellDef="let element" class="firstCellCollumn">
 						{{ element.agentname }}
-					</td> </ng-container
-				><ng-container matColumnDef="name">
+						<span class="d-print-none">Agent Id</span>
+					</td> 
+				</ng-container>
+
+				<ng-container matColumnDef="name">
 					<th mat-header-cell *matHeaderCellDef>Agent Name</th>
-					<td mat-cell *matCellDef="let element">
+					<td mat-cell *matCellDef="let element" class="secondCellCollumn">
 						{{ element.name }}
-					</td> </ng-container
-				><ng-container matColumnDef="slackname">
+						<span class="d-print-none">Agent Name</span>
+					</td> 
+				</ng-container>
+				
+				
+				<ng-container matColumnDef="slackname">
 					<th mat-header-cell *matHeaderCellDef>Slack Name</th>
 					<td mat-cell *matCellDef="let element">
 						{{ element.slackname }}
+						<span class="d-print-none">Slack Name</span>
 					</td>
 				</ng-container>
 
@@ -144,6 +153,7 @@
 					<th mat-header-cell *matHeaderCellDef>Unique Leads</th>
 					<td mat-cell *matCellDef="let element">
 						{{ element.totalcountuniq }}
+						<span class="d-print-none">Unique Leads</span>
 					</td>
 				</ng-container>
 
