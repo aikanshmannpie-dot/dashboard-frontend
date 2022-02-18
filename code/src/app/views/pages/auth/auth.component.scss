@@ -13,3 +13,19 @@ kt-auth, .kt-login {
 		padding-right: 3rem !important;
 	}
 }
+@media only screen and (max-width: 540px) {
+
+	.kt-login.kt-login--v1 .kt-login__wrapper .kt-login__body{
+		margin-top: 0rem;
+	}
+	.kt-login.kt-login--v1 .kt-login__aside .kt-login__logo{
+		justify-content: center;
+	}
+	.kt-login.kt-login--v1 .kt-login__aside .kt-login__title{
+		font-size: 2rem;
+		margin-top:20px;
+		span{
+			font-size: 4rem;
+		}
+	}
+}
