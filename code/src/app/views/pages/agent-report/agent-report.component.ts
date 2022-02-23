@@ -96,6 +96,7 @@ export class AgentReportComponent implements OnInit {
     "name",
     "slackname",
     "totalcountuniq",
+    "totalrevenue"
     //"signup",
   ];
   displayedColumnsNested: string[] = [
@@ -104,6 +105,7 @@ export class AgentReportComponent implements OnInit {
     "slackname",
     "campaign_name",
     "totalcountuniq",
+    "totalrevenue"
     //"signup",
   ];
 
