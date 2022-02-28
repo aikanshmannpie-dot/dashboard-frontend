@@ -8,9 +8,8 @@ import {
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { AuthNoticeService, AuthService, Login } from "../../../core/auth";
-import { Observable, Subject } from "rxjs";
-import { finalize, takeUntil, tap } from "rxjs/operators";
+import { AuthService } from "../../../core/auth";
+import { finalize } from "rxjs/operators";
 import moment from "moment";
 
 @Component({

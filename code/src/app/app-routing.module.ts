@@ -74,7 +74,7 @@ const routes: Routes = [
       },
 
       {
-        path: "microsite-leads/:type",
+        path: "microsite/:type",
 
         loadChildren: () =>
           import("./views/pages/microsite-leads/microsite-leads.module").then(

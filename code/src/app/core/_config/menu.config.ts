@@ -143,7 +143,7 @@ export class MenuConfig {
           title: "Microsite-leads",
           root: true,
           alignment: "left",
-          page: "/microsite-leads/3",
+          page: "/microsite/3",
           translate: "MENU.DASHBOARD",
         },
         {
