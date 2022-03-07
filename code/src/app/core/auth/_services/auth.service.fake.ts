@@ -320,7 +320,7 @@ export class AuthService {
       Authorization: authToken,
     });
     return this.http.get<User>(
-      `${environment.baseUrl}/report1/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
+      `${environment.baseUrl}/teleconnexdailyprogress/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
       { headers: httpHeaders }
     );
   }
@@ -332,7 +332,7 @@ export class AuthService {
       Authorization: authToken,
     });
     return this.http.get<User>(
-      `${environment.baseUrl}/report2/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
+      `${environment.baseUrl}/teleconnexdailyprogressco/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
       { headers: httpHeaders }
     );
   }

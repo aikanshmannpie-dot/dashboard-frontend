@@ -7,7 +7,7 @@ import { MatSortModule } from "@angular/material/sort";
 // Core Module
 import { CoreModule } from "../../../core/core.module";
 import { PartialsModule } from "../../partials/partials.module";
-import { Report2Component } from "./report2.component";
+import { TeleconnexDailyProgressReportComponent } from "./teleconnex-daily-progress-report.component";
 import { NgxDaterangepickerMd } from "ngx-daterangepicker-material";
 import { FormsModule } from "@angular/forms";
 // import { BrowserModule } from '@angular/platform-browser';
@@ -24,37 +24,37 @@ import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NgxDateRangeModule } from 'ngx-daterange';
 @NgModule({
-	imports: [
-		// DaterangepickerModule,
-		CommonModule,
-		PartialsModule,
-		CoreModule,
-		MatTableModule,
-		MatPaginatorModule,
-		MatSortModule,
-		MatFormFieldModule,
-		MatInputModule,
-		PDFExportModule,
-		// FormsModule,
-		// FormsModule,
-		// NgxDateRangeModule,
-		// ReactiveFormsModule,
-		FormsModule,
-		NgxPrintModule,
-		NgxDaterangepickerMd.forRoot({
-			separator: " - ",
-			applyLabel: "Okay",
-		}),
-		RouterModule.forChild([
-			{
-				path: "",
-				component: Report2Component,
-			},
-		]),
-		MatTableExporterModule,
-		// NgxDaterangepickerMd.forRoot()
-	],
-	providers: [],
-	declarations: [Report2Component],
+  imports: [
+    // DaterangepickerModule,
+    CommonModule,
+    PartialsModule,
+    CoreModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    PDFExportModule,
+    // FormsModule,
+    // FormsModule,
+    // NgxDateRangeModule,
+    // ReactiveFormsModule,
+    FormsModule,
+    NgxPrintModule,
+    NgxDaterangepickerMd.forRoot({
+      separator: " - ",
+      applyLabel: "Okay",
+    }),
+    RouterModule.forChild([
+      {
+        path: "",
+        component: TeleconnexDailyProgressReportComponent,
+      },
+    ]),
+    MatTableExporterModule,
+    // NgxDaterangepickerMd.forRoot()
+  ],
+  providers: [],
+  declarations: [TeleconnexDailyProgressReportComponent],
 })
-export class Report2Module {}
+export class TeleconnexDailyProgressReportModule {}

@@ -16,23 +16,21 @@ import html2canvas from "html2canvas";
 import * as jspdf from "jspdf";
 import { Router } from "@angular/router";
 
-
 @Component({
   selector: "table-expandable-rows-example",
-  templateUrl: "./report1.component.html",
-  styleUrls: ["./report1.component.scss"],
+  templateUrl: "./teleconnex-daily-progress-co-report.component.html",
+  styleUrls: ["./teleconnex-daily-progress-co-report.component.scss"],
 })
-export class Report1Component implements OnInit {
+export class TeleconnexDailyProgressCoReportComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   dataSource1;
-  dataSourceExport: MatTableDataSource<any>;
-  dataSource1Export;
   avaible = false;
   loading = false;
   model1;
   endDate;
   startDate;
   globalFilter = "";
+  //metasourceListingData = [];
   callcenterListingData = [];
   selectedValue = "undefined";
   report_type;
@@ -58,11 +56,13 @@ export class Report1Component implements OnInit {
     ],
   };
   filteredValues = {
-    dateperiod:"",
+    dateperiod: "",
     totalleads: "",
     totalrevenue: "",
     operationalcost: "",
-    
+    cosponsorcost: "",
+    gp: "",
+    gppercentage: "",
   };
 
   @ViewChild("pdfTable", { static: false }) pdfTable: ElementRef;
@@ -76,9 +76,13 @@ export class Report1Component implements OnInit {
     "totalleads",
     "totalrevenue",
     "operationalcost",
-    
+    "cosponsorcost",
+    "gp",
+    "gppercentage",
   ];
+
   columnIds = [];
+
   constructor(
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
@@ -91,9 +95,9 @@ export class Report1Component implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.getReport1(
+    this.getReport2(
       moment(new Date()).subtract(7, "days").format("YYYY-MM-DD"),
-      moment(new Date()).format("YYYY-MM-DD"),
+      moment(new Date()).format("YYYY-MM-DD")
     );
     this.dataSource.filterPredicate = this.customFilterPredicate();
   }
@@ -107,7 +111,6 @@ export class Report1Component implements OnInit {
     this.auth.getCallcenterList().subscribe(
       (data) => {
         if (data) {
-          console.log("ajggasgadcacfcfca",data)
           this.callcenterListingData = data.apiData;
         } else {
         }
@@ -161,20 +164,20 @@ export class Report1Component implements OnInit {
   searchRange() {
     this.endDate = this.model1.end
       ? moment(this.model1.end._d).format("YYYY-MM-DD")
-      : moment(new Date()).subtract(7, "days").format("YYYY-MM-DD");
+      : moment(new Date()).format("YYYY-MM-DD");
     this.startDate = this.model1.start
       ? moment(this.model1.start._d).format("YYYY-MM-DD")
-      : moment(new Date()).format("YYYY-MM-DD");
+      : moment(new Date()).subtract(7, "days").format("YYYY-MM-DD");
     if (this.startDate) {
-      this.getReport1(this.startDate, this.endDate);
+      this.getReport2(this.startDate, this.endDate);
     } else {
-      this.getReport1(this.startDate, this.endDate);
+      this.getReport2(this.startDate, this.endDate);
     }
   }
 
   customFilterPredicate() {
     const myFilterPredicate = (data: any, filter: any): boolean => {
-      var globalMatch = !this.globalFilter
+      var globalMatch = !this.globalFilter;
 
       if (!globalMatch) {
         return;
@@ -183,33 +186,42 @@ export class Report1Component implements OnInit {
       return (
         data.dateperiod.toString().trim().indexOf(searchString.dateperiod) !==
           -1 &&
-        data.totalleads
+        data.totalleads.toString().trim().indexOf(searchString.totalleads) !==
+          -1 &&
+        data.totalrevenue
           .toString()
           .trim()
-          .indexOf(searchString.totalleads) !== -1&&
-           data.totalrevenue
+          .indexOf(searchString.totalrevenue) !== -1 &&
+        data.operationalcost
           .toString()
           .trim()
-          .indexOf(searchString.totalrevenue) !== -1&&
-           data.operationalcost
+          .indexOf(searchString.operationalcost) !== -1 &&
+        data.cosponsorcost
           .toString()
           .trim()
-          .indexOf(searchString.operationalcost) !== -1
-        
+          .indexOf(searchString.cosponsorcost) !== -1 &&
+        data.gp.toString().trim().indexOf(searchString.gp) !== -1 &&
+        data.gppercentage
+          .toString()
+          .trim()
+          .indexOf(searchString.gppercentage) !== -1
       );
     };
     return myFilterPredicate;
   }
 
-  getReport1(start, end) {
+  getReport2(start, end) {
     this.loading = true;
     this.avaible = false;
     this.dataSource = new MatTableDataSource([]);
+
     this.auth
-      .getReport1(start, end, this.report_type, this.selectedValue)
+      .getReport2(start, end, this.report_type, this.selectedValue)
       .subscribe(
         (data) => {
-          {console.log(data)}
+          {
+            console.log(data);
+          }
           if (data) {
             this.avaible = true;
             this.dataSource = new MatTableDataSource(data.apiData);

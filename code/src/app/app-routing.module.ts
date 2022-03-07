@@ -162,21 +162,21 @@ const routes: Routes = [
             (m) => m.AgentReportModule
           ),
       },
-       {
-        path: "report1/:type",
+      {
+        path: "teleconnexdailyprogress/:type",
 
         loadChildren: () =>
-          import("./views/pages/report1/report1.module").then(
-            (m) => m.Report1Module
-          ),
+          import(
+            "./views/pages/teleconnex-daily-progress-report/teleconnex-daily-progress-report.module"
+          ).then((m) => m.TeleconnexDailyProgressReportModule),
       },
       {
-        path: "report2/:type",
+        path: "teleconnexdailyprogressco/:type",
 
         loadChildren: () =>
-          import("./views/pages/report2/report2.module").then(
-            (m) => m.Report2Module
-          ),
+          import(
+            "./views/pages/teleconnex-daily-progress-co-report/teleconnex-daily-progress-co-report.module"
+          ).then((m) => m.TeleconnexDailyProgressCoReportModule),
       },
       {
         path: "teleconnex-revenue-report/:type",
