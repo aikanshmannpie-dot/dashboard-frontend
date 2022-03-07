@@ -117,6 +117,20 @@ export class MenuConfig {
           page: "/teleconnex-revenue-by-suppliers/2",
           translate: "MENU.DASHBOARD",
         },
+        {
+          title: "Report1",
+          root: true,
+          alignment: "left",
+          page: "/report1/2",
+          translate: "MENU.DASHBOARD",
+        },
+         {
+          title: "Report2",
+          root: true,
+          alignment: "left",
+          page: "/report2/2",
+          translate: "MENU.DASHBOARD",
+        },
       ],
     },
   };

@@ -162,7 +162,22 @@ const routes: Routes = [
             (m) => m.AgentReportModule
           ),
       },
+       {
+        path: "report1/:type",
 
+        loadChildren: () =>
+          import("./views/pages/report1/report1.module").then(
+            (m) => m.Report1Module
+          ),
+      },
+      {
+        path: "report2/:type",
+
+        loadChildren: () =>
+          import("./views/pages/report2/report2.module").then(
+            (m) => m.Report2Module
+          ),
+      },
       {
         path: "teleconnex-revenue-report/:type",
 
