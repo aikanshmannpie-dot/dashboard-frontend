@@ -312,6 +312,30 @@ export class AuthService {
       { headers: httpHeaders }
     );
   }
+  getReport1(startDate, endDate, type, selectedValue): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+    return this.http.get<User>(
+      `${environment.baseUrl}/teleconnexdailyprogress/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
+      { headers: httpHeaders }
+    );
+  }
+  getReport2(startDate, endDate, type, selectedValue): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+    return this.http.get<User>(
+      `${environment.baseUrl}/teleconnexdailyprogressco/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
+      { headers: httpHeaders }
+    );
+  }
 
   getTeleconnex(startDate, endDate, type, selectedValue): Observable<any> {
     var authToken = localStorage.getItem("authToken");
@@ -391,6 +415,21 @@ export class AuthService {
       }
     );
   }
+  getCallcenterList(): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get<User>(
+      `${environment.baseUrl}/import/getcallcenterlist`,
+      {
+        headers: httpHeaders,
+      }
+    );
+  }
+
   getSupplierList(): Observable<any> {
     var authToken = localStorage.getItem("authToken");
     const httpHeaders = new HttpHeaders({

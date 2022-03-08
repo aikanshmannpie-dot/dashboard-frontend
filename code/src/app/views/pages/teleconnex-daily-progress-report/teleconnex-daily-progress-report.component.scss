@@ -1,0 +1,250 @@
+.mat-table {
+	width: 100%;
+}
+mat-header-cell {
+	font-size: 14px;
+	font-weight: 600;
+}
+.redCol {
+	background: #fd397a;
+	margin: 10px 0px;
+	display: table;
+	border-radius: 5px;
+	color: #fff;
+	padding: 5px 11px;
+}
+.div-right-align {
+	float: right;
+}
+
+mat-cell {
+	// display: flex !important;
+	justify-content: center !important;
+}
+
+mat-header-cell {
+	// display: flex !important;
+	justify-content: center !important;
+}
+.mat-cell {
+	// display: flex !important;
+	justify-content: center !important;
+}
+
+.mat-header-cell {
+	// display: flex !important;
+	justify-content: center !important;
+}
+table {
+	text-align: center !important;
+	width: 100%;
+}
+
+.mat-header-cell {
+	text-align: center;
+}
+.mat-table__wrapper .mat-table .mat-cell,
+.mat-table__wrapper .mat-table .mat-footer-cell,
+.mat-table__wrapper .mat-table .mat-header-cell {
+	text-align: left !important;
+	padding-right: 10px;
+	justify-content: center;
+}
+
+//************************
+table {
+	width: 100%;
+}
+
+tr.example-detail-row {
+	height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+	background: #777;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+	background: #efefef;
+}
+
+.example-element-row td {
+	border-bottom-width: 0;
+}
+
+.example-element-detail {
+	overflow: hidden;
+	display: flex;
+}
+
+.example-element-diagram {
+	min-width: 80px;
+	border: 2px solid black;
+	padding: 8px;
+	font-weight: lighter;
+	margin: 8px 0;
+	height: 104px;
+}
+
+.example-element-symbol {
+	font-weight: bold;
+	font-size: 40px;
+	line-height: normal;
+}
+
+.example-element-description {
+	padding: 16px;
+}
+
+.example-element-description-attribution {
+	opacity: 0.5;
+}
+
+.inner-table {
+	width: 100%;
+}
+
+.inner-table mat-form-field {
+	margin-top: 15px;
+	width: 100%;
+}
+.example-element-description {
+	padding: 16px;
+	width: 100%;
+}
+.mat-table {
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.mat-header-cell {
+	font-size: 14px;
+	font-weight: 600;
+}
+
+.pageContainer .mat-table__wrapper .mat-table .mat-row {
+	background: #f8f9ff;
+}
+.pageContainer .mat-table__wrapper .mat-table .example-element-row {
+	cursor: pointer;
+}
+.pageContainer .mat-table__wrapper .mat-table .mat-row:nth-child(4n + 1) {
+	background: #fff;
+}
+.pageContainer .mat-table__wrapper .mat-table .example-detail-row.mat-row {
+	background: #fff;
+}
+.pageContainer .mat-table__wrapper .mat-table .mat-row td:first-child {
+	text-align: left !important;
+}
+.pageContainer .mat-table__wrapper .mat-table .mat-header-row th:first-child {
+	text-align: left !important;
+}
+.pageContainer .mat-table__wrapper .mat-table .mat-header-row th {
+	color: #333;
+	font-weight: 400;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.mat-table__wrapper .mat-table .mat-cell,
+.mat-table__wrapper .mat-table .mat-footer-cell,
+.mat-table__wrapper .mat-table .mat-header-cell {
+	border: none;
+}
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	table {
+	border: 1px solid #eee;
+}
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	table
+	thead
+	tr {
+	background: #ededff;
+}
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	table
+	thead
+	tr
+	th {
+	padding: 15px;
+	color: #333;
+	font-weight: 400;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	table
+	thead
+	tr
+	th:first-child {
+	text-align: left;
+}
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	table
+	tbody
+	tr {
+	background: #fff;
+}
+
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	table
+	tbody
+	tr
+	td {
+	padding: 15px;
+}
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	table
+	tbody
+	tr
+	td:first-child {
+	text-align: left;
+}
+.pageContainer .mat-table__wrapper .mat-table .mat-row.example-expanded-row {
+	background: #dde2ff;
+}
+.pageContainer .mat-table__wrapper .mat-table .example-detail-row.mat-row {
+	background: #fff;
+}
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	.cdk-column-expandedDetail {
+	padding: 0px;
+	// border-bottom: 1px solid #eee;
+}
+.pageContainer
+	.mat-table__wrapper
+	.mat-table
+	.example-detail-row.mat-row
+	table
+	tbody
+	tr:nth-child(2n + 2) {
+	background: #fffdfd;
+}
+.sec-mat-tab {
+	display: none;
+}
+.dropdown-select-box {
+	float: left;
+	width: 300px;
+}
+
