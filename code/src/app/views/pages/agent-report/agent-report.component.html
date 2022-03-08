@@ -130,9 +130,16 @@
         matTableExporter
         #exporter="matTableExporter"
         #table
+        matSort
+				#matSort="matSort"
+				matSortActive="id"
+				matSortDirection="asc"
+				matSortDisableClear
+			
+				(matSortChange)="sortColumn($event)"
       >
         <ng-container matColumnDef="Sr.No">
-          <th mat-header-cell *matHeaderCellDef>Sr.No</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sr.No</th>
           <td
             mat-cell
             *matCellDef="let element; let j = dataIndex"
@@ -144,7 +151,7 @@
         </ng-container>
 
         <ng-container matColumnDef="agentname">
-          <th mat-header-cell *matHeaderCellDef>Agent Id</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Agent Id</th>
           <td mat-cell *matCellDef="let element" class="firstCellCollumn">
             {{ element.agentname }}
             <span class="d-print-none">Agent Id</span>
@@ -152,7 +159,7 @@
         </ng-container>
 
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Agent Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Agent Name</th>
           <td mat-cell *matCellDef="let element" class="secondCellCollumn">
             {{ element.name }}
             <span class="d-print-none">Agent Name</span>
@@ -160,7 +167,7 @@
         </ng-container>
 
         <ng-container matColumnDef="slackname">
-          <th mat-header-cell *matHeaderCellDef>Slack Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Slack Name</th>
           <td mat-cell *matCellDef="let element">
             {{ element.slackname }}
             <span class="d-print-none">Slack Name</span>
@@ -168,14 +175,14 @@
         </ng-container>
 
         <ng-container matColumnDef="totalcountuniq">
-          <th mat-header-cell *matHeaderCellDef>Unique Leads</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Unique Leads</th>
           <td mat-cell *matCellDef="let element">
             {{ element.totalcountuniq }}
             <span class="d-print-none">Unique Leads</span>
           </td>
         </ng-container>
         <ng-container matColumnDef="totalrevenue">
-          <th mat-header-cell *matHeaderCellDef>Total Revenue($)</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Revenue($)</th>
           <td mat-cell *matCellDef="let element">
             {{ element.totalrevenue }}
             <span class="d-print-none">Total Revenue($)</span>

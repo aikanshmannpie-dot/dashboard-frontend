@@ -28,7 +28,7 @@ export class TeleconnexDailyProgressReportComponent implements OnInit {
   dataSource1Export;
   avaible = false;
   loading = false;
-  model1;
+  model1= { start: moment().subtract(7, "days"), end: moment() };
   endDate;
   startDate;
   globalFilter = "";
@@ -157,10 +157,10 @@ export class TeleconnexDailyProgressReportComponent implements OnInit {
 
   searchRange() {
     this.endDate = this.model1.end
-      ? moment(this.model1.end._d).format("YYYY-MM-DD")
+      ? moment(this.model1.end).format("YYYY-MM-DD")
       : moment(new Date()).subtract(7, "days").format("YYYY-MM-DD");
     this.startDate = this.model1.start
-      ? moment(this.model1.start._d).format("YYYY-MM-DD")
+      ? moment(this.model1.start).format("YYYY-MM-DD")
       : moment(new Date()).format("YYYY-MM-DD");
     if (this.startDate) {
       this.getReport1(this.startDate, this.endDate);
