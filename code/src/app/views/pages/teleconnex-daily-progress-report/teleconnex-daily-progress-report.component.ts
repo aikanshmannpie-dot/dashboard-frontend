@@ -33,7 +33,7 @@ export class TeleconnexDailyProgressReportComponent implements OnInit {
   startDate;
   globalFilter = "";
   callcenterListingData = [];
-  selectedValue = "undefined";
+  selectedValue ="8";
   report_type;
   areNoRecords = false;
   search = true;

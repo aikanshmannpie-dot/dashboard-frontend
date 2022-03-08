@@ -37,7 +37,7 @@
           (change)="ChangingValue($event)"
           *ngIf="report_type == 2"
         >
-          <option value="undefined">Search By Call Center</option>
+          
           <option
             *ngFor="let item of callcenterListingData"
             value="{{ item.id }}"
