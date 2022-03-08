@@ -39,7 +39,6 @@
           (change)="ChangingValue($event)"
           *ngIf="report_type == 2"
         >
-          
           <option
             *ngFor="let item of callcenterListingData"
             value="{{ item.id }}"
@@ -132,12 +131,12 @@
         [dataSource]="dataSource"
         #table
         matSort
-				#matSort="matSort"
-				matSortActive="id"
-				matSortDirection="asc"
-				matSortDisableClear
-			  #exporter="matTableExporter"
-				(matSortChange)="sortColumn($event)"
+        #matSort="matSort"
+        matSortActive="id"
+        matSortDirection="asc"
+        matSortDisableClear
+        #exporter="matTableExporter"
+        (matSortChange)="sortColumn($event)"
       >
         <ng-container matColumnDef="Sr.No">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Sr.No</th>
@@ -152,7 +151,7 @@
         </ng-container>
 
         <ng-container matColumnDef="dateperiod">
-          <th mat-header-cell *matHeaderCellDef>Date</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
           <td mat-cell *matCellDef="let element" class="firstCellCollumn">
             {{ element.dateperiod }}
             <span class="d-print-none">Date</span>
@@ -167,7 +166,9 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="totalrevenue">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Revenue($)</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Total Revenue($)
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.totalrevenue }}
             <span class="d-print-none">Total Revenue($)</span>
@@ -175,7 +176,9 @@
         </ng-container>
 
         <ng-container matColumnDef="operationalcost">
-          <th mat-header-cell *matHeaderCellDef>Operational Cost($)</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Operational Cost($)
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.operationalcost }}
             <span class="d-print-none">Operational Cost($)</span>
@@ -183,21 +186,23 @@
         </ng-container>
 
         <ng-container matColumnDef="cosponsorcost">
-          <th mat-header-cell *matHeaderCellDef>Cosponsor Cost($)</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Cosponsor Cost($)
+          </th>
           <td mat-cell *matCellDef="let element">
             {{ element.cosponsorcost }}
             <span class="d-print-none">Cosponsor Cost($)</span>
           </td>
         </ng-container>
         <ng-container matColumnDef="gp">
-          <th mat-header-cell *matHeaderCellDef>GP($)</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>GP($)</th>
           <td mat-cell *matCellDef="let element">
             {{ element.gp }}
             <span class="d-print-none">GP($)</span>
           </td>
         </ng-container>
         <ng-container matColumnDef="gppercentage">
-          <th mat-header-cell *matHeaderCellDef>GP(%)</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>GP(%)</th>
           <td mat-cell *matCellDef="let element">
             {{ element.gppercentage }}
             <span class="d-print-none">GP(%)</span>
