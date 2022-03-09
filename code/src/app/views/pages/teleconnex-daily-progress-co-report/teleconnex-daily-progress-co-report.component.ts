@@ -26,7 +26,7 @@ export class TeleconnexDailyProgressCoReportComponent implements OnInit {
   dataSource1;
   avaible = false;
   loading = false;
-  model1 = { start: moment().subtract(1, "days"), end: moment() };
+  model1 = { start: moment().subtract(3, "days"), end: moment() };
   endDate;
   startDate;
   globalFilter = "";
@@ -96,7 +96,7 @@ export class TeleconnexDailyProgressCoReportComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.getReport2(
-      moment(new Date()).subtract(1, "days").format("YYYY-MM-DD"),
+      moment(new Date()).subtract(3, "days").format("YYYY-MM-DD"),
       moment(new Date()).format("YYYY-MM-DD")
     );
     this.dataSource.filterPredicate = this.customFilterPredicate();
