@@ -37,10 +37,10 @@
           (change)="ChangingValue($event)"
           *ngIf="report_type == 2"
         >
-          <option value="undefined">Search By Group</option>
+          <option value="undefined">All</option>
           <option
-            *ngFor="let item of metasourceListingData"
-            value="{{ item.value }}"
+            *ngFor="let item of callcenterListingData"
+            value="{{ item.id }}"
           >
             <div *ngIf="item.name != null">{{ item.name }}</div>
           </option>

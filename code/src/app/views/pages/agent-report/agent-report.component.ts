@@ -50,11 +50,12 @@ export class AgentReportComponent implements OnInit {
   startDate;
   globalFilter = "";
   //metasourceListingData = [];
-  metasourceListingData = [
-    { name: "All", value: 1 },
-    { name: "Packleader", value: 2 },
-    { name: "Centrecom", value: 3 },
-  ];
+  callcenterListingData = [];
+  // metasourceListingData = [
+  //   { name: "All", value: 1 },
+  //   { name: "Packleader", value: 2 },
+  //   { name: "Centrecom", value: 3 },
+  // ];
   selectedValue = "undefined";
   report_type;
   areNoRecords = false;
@@ -124,6 +125,7 @@ export class AgentReportComponent implements OnInit {
   ngOnInit() {
     this.report_type = this.router.url.includes("/2") ? "2" : "1";
     //this.getMetaSourceList();
+    this.getCallcenterList();
     this.dataSource = new MatTableDataSource();
     this.dataSourceExport = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
@@ -138,6 +140,28 @@ export class AgentReportComponent implements OnInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+    getCallcenterList() {
+    this.auth.getCallcenterList().subscribe(
+      (data) => {
+        if (data) {
+         
+          this.callcenterListingData = data.apiData;
+        } else {
+        }
+      },
+      (error) => {
+        this.loading = false;
+        this.cdr.markForCheck();
+      }
+    ),
+      finalize(() => {
+        this.avaible = true;
+        this.loading = false;
+        this.dataSource.paginator = this.paginator;
+        this.cdr.markForCheck();
+      });
   }
 
   // getMetaSourceList() {
