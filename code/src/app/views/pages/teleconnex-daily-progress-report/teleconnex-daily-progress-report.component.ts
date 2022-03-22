@@ -158,7 +158,7 @@ export class TeleconnexDailyProgressReportComponent implements OnInit {
   searchRange() {
     this.endDate = this.model1.end
       ? moment(this.model1.end).format("YYYY-MM-DD")
-      : moment(new Date()).subtract(7, "days").format("YYYY-MM-DD");
+      : moment(new Date()).format("YYYY-MM-DD");
     this.startDate = this.model1.start
       ? moment(this.model1.start).format("YYYY-MM-DD")
       : moment(new Date()).format("YYYY-MM-DD");
