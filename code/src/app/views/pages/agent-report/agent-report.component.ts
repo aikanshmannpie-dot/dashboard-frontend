@@ -187,6 +187,7 @@ export class AgentReportComponent implements OnInit {
 
   ChangingValue(data) {
     this.selectedValue = data.target.value;
+    this.searchRange();
   }
 
   public downloadAsPDF() {
