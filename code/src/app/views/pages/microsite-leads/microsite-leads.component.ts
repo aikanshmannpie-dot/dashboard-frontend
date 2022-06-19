@@ -68,12 +68,16 @@ export class MicrositeLeadsComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   // Sr.No	Offer Name	Affiliate Name	Revenue (A$)	Impressions	CTR	Conversion Rate	ARPE Total (A$)	GP (A$)	GP%
   displayedColumns: string[] = [
-    "site_name",
-    "form_type",
-    "email",
+    "domain",
+    // "form_type",
+
     "full_name",
+    "email",
     "phone_number",
     "created_at",
+    "api_status",
+    "api_response",
+    "sms_body",
   ];
   displayedColumns1: string[] = [
     "site_name",
@@ -243,7 +247,9 @@ export class MicrositeLeadsComponent implements OnInit {
       .subscribe(
         (data) => {
           if (data) {
+            console.log("data", data);
             this.avaible = true;
+
             this.dataSource = new MatTableDataSource(data.apiData);
             this.dataSource1 = data.body;
             this.dataSource.paginator = this.paginator;
