@@ -64,19 +64,14 @@ export class MicrositeLeadsComponent implements OnInit {
 
   @ViewChild("pdfTable", { static: false }) pdfTable: ElementRef;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  // @ViewChild('sort1', { static: true }) sort: MatSort;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
-  // Sr.No	Offer Name	Affiliate Name	Revenue (A$)	Impressions	CTR	Conversion Rate	ARPE Total (A$)	GP (A$)	GP%
   displayedColumns: string[] = [
     "domain",
-    // "form_type",
-
     "full_name",
     "email",
     "phone_number",
     "created_at",
     "api_status",
-    "api_response",
     "sms_body",
   ];
   displayedColumns1: string[] = [
@@ -94,12 +89,9 @@ export class MicrositeLeadsComponent implements OnInit {
     "town_city",
     "postcode",
     "state",
-    // "interested_in",
     "data",
     "created_at",
   ];
-
-  // displayedColumns2: string[] = ["Sr.No", "offername", "affliatename", "revenue", "impressions", "ctr", "conversionrate", "arpetotal", "profit", "profitper"];
 
   columnIds = [];
   offsetPlus = 0;

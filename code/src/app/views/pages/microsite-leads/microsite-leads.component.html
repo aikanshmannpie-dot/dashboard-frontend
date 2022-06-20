@@ -192,33 +192,44 @@
             API Status
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            <div *ngIf="element.api_status === true" class="statusTrue">
-              True
+            <div
+              *ngIf="element.api_status === true"
+              class="statusTrue"
+              title=" {{ element.api_response }}"
+            >
+              Accepted
             </div>
-            <div *ngIf="element.api_status === false" class="statusFalse">
-              False
+            <div
+              *ngIf="element.api_status === false"
+              class="statusFalse"
+              title=" {{ element.api_response }}"
+            >
+              Rejected
             </div>
             <span class="d-print-none">API Status</span>
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="api_response">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            API Response
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="response">
-            {{ element.api_response }}
-            <span class="d-print-none"> API Response</span>
-          </mat-cell>
-        </ng-container>
-
         <ng-container matColumnDef="sms_body">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
-            SMS Response
+            Sent SMS
           </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="response">
-            {{ element.sms_body }}
-            <span class="d-print-none"> SMS Response</span>
+          <mat-cell *matCellDef="let element" class="">
+            <div
+              *ngIf="element.sms_body !== 'No SMS'"
+              class="statusTrue"
+              title=" {{ element.sms_body }}"
+            >
+              Yes
+            </div>
+            <div
+              *ngIf="element.sms_body === 'No SMS'"
+              class="statusFalse"
+              title=" {{ element.sms_body }}"
+            >
+              No
+            </div>
+            <span class="d-print-none"> SMS Status</span>
           </mat-cell>
         </ng-container>
 
