@@ -101,6 +101,15 @@ const routes: Routes = [
       },
 
       {
+        path: "microsite-layouts/:type",
+
+        loadChildren: () =>
+          import(
+            "./views/pages/microsite-layouts/microsite-layouts.module"
+          ).then((m) => m.MicrositeLayoutsModule),
+      },
+
+      {
         path: "overall-ques-tick-report/:type",
 
         loadChildren: () =>

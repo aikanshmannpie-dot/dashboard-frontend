@@ -154,6 +154,13 @@ export class MenuConfig {
       self: {},
       items: [
         {
+          title: "Microsite-Layouts",
+          root: true,
+          alignment: "left",
+          page: "/microsite-layouts/3",
+          translate: "MENU.DASHBOARD",
+        },
+        {
           title: "Microsite-leads",
           root: true,
           alignment: "left",
