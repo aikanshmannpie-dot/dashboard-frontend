@@ -41,13 +41,12 @@ export class MicrositeLayoutsComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.getMicrositeSourceReport();
   }
-
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
-  sortColumn() {
+  sortColumn(data) {
     this.dataSource.sort = this.sort;
   }
 
