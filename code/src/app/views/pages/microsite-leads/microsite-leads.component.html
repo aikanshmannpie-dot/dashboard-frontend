@@ -212,7 +212,7 @@
 
         <ng-container matColumnDef="sms_body">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Sent SMS
+            Confirmation SMS
           </mat-header-cell>
           <mat-cell *matCellDef="let element" class="">
             <div
@@ -229,7 +229,30 @@
             >
               No
             </div>
-            <span class="d-print-none"> SMS Status</span>
+            <span class="d-print-none"> Confirmation Status</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="section_second_header">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            Validation SMS
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="">
+            <div
+              *ngIf="element.section_second_header === 'yes'"
+              class="statusTrue"
+              title=" {{ element.section_second_header }}"
+            >
+              Yes
+            </div>
+            <div
+              *ngIf="element.section_second_header !== 'yes'"
+              class="statusFalse"
+              title=" {{ element.section_second_header }}"
+            >
+              No
+            </div>
+            <span class="d-print-none"> Validation Status</span>
           </mat-cell>
         </ng-container>
 

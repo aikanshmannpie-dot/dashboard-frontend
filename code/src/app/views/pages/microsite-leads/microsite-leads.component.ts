@@ -73,6 +73,7 @@ export class MicrositeLeadsComponent implements OnInit {
     "created_at",
     "api_status",
     "sms_body",
+    "section_second_header",
   ];
   displayedColumns1: string[] = [
     "site_name",
