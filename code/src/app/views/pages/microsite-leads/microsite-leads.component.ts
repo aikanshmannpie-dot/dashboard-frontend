@@ -92,11 +92,33 @@ export class MicrositeLeadsComponent implements OnInit {
     "state",
     "data",
     "created_at",
+    "question_0",
+    "answer_0",
+    "question_1",
+    "answer_1",
+    "question_2",
+    "answer_2",
+    "question_3",
+    "answer_3",
+    "question_4",
+    "answer_4",
+    "question_5",
+    "answer_5",
+    "question_6",
+    "answer_6",
+    "question_7",
+    "answer_7",
+    "question_8",
+    "answer_8",
+    "question_9",
+    "answer_9",
+    "question_10",
+    "answer_10",
   ];
 
   columnIds = [];
   offsetPlus = 0;
-  constructor(private auth: AuthService, private cdr: ChangeDetectorRef) {}
+  constructor(private auth: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource();
@@ -185,12 +207,12 @@ export class MicrositeLeadsComponent implements OnInit {
           .trim()
           .indexOf(searchString.meta_sub_affid) !== -1 &&
         data.totalcount.toString().trim().indexOf(searchString.totalcount) !==
-          -1 &&
+        -1 &&
         data.signup.toString().trim().indexOf(searchString.signup) !== -1 &&
         data.revtotal.toString().trim().indexOf(searchString.revtotal) !== -1 &&
         data.payout.toString().trim().indexOf(searchString.payout) !== -1 &&
         data.allprofit.toString().trim().indexOf(searchString.allprofit) !==
-          -1 &&
+        -1 &&
         data.allprofitmargin
           .toString()
           .trim()
@@ -240,10 +262,27 @@ export class MicrositeLeadsComponent implements OnInit {
       .subscribe(
         (data) => {
           if (data) {
-            console.log("data", data);
+
+            const apiData = data.apiData.map((lead) => {
+              const answer = JSON.parse(lead.data);
+              let answers = [];
+               const leadd= answer.map((ans, index) => ({
+                ['question_' + index]: ans.label,
+                ['answer_' + index]: ans.value}
+               ));
+               const leads = leadd.reduce(((r, c) => Object.assign(r, c)), {})
+               lead = {
+                 ...lead,
+                 ...leads
+               };
+              return lead;
+            });
+
+            // console.log("apidata", apiData);
+            // console.log("data", data.apiData);
             this.avaible = true;
 
-            this.dataSource = new MatTableDataSource(data.apiData);
+            this.dataSource = new MatTableDataSource(apiData);
             this.dataSource1 = data.body;
             this.dataSource.paginator = this.paginator;
             this.loading = false;
