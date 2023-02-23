@@ -428,7 +428,7 @@
             >Form Data
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
-            {{ createSurveyQuestion(element.data) }}
+            {{ createSurveyQuestion(element.data,element.site_id) }}
           </mat-cell>
         </ng-container>
 

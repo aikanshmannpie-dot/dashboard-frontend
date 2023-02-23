@@ -140,9 +140,10 @@ export class MicrositeLeadsComponent implements OnInit {
     return moment(activeTeam.created_at).format("YYYY-MM-DD hh:mm:ss");
   }
 
-  createSurveyQuestion(data) {
-    var formdata = data && JSON.parse(data);
+  createSurveyQuestion(data,siteId) {
     var str = ``;
+    if(siteId!==137){
+    var formdata = data && JSON.parse(data);
     formdata.map((item, index) => {
       str =
         str +
@@ -153,6 +154,9 @@ export class MicrositeLeadsComponent implements OnInit {
         item.value +
         "\n\n";
     });
+  }else{
+    str=data;
+  }
     return str;
   }
 
@@ -264,6 +268,7 @@ export class MicrositeLeadsComponent implements OnInit {
           if (data) {
 
             const apiData = data.apiData.map((lead) => {
+              if(lead.site_id!==137){
               const answer = JSON.parse(lead.data);
               let answers = [];
                const leadd= answer.map((ans, index) => ({
@@ -274,7 +279,7 @@ export class MicrositeLeadsComponent implements OnInit {
                lead = {
                  ...lead,
                  ...leads
-               };
+               };}
               return lead;
             });
 
