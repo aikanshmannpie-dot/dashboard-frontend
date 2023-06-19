@@ -181,6 +181,13 @@ export class MenuConfig {
           page: "/microsite-affiliate-report/3",
           translate: "MENU.DASHBOARD",
         },
+        {
+          title: "Lead Report By Domains",
+          root: true,
+          alignment: "left",
+          page: "/microsite-lead-report-by-domains/3",
+          translate: "MENU.DASHBOARD",
+        },
       ],
     },
   };

@@ -99,6 +99,14 @@ const routes: Routes = [
             "./views/pages/microsite-affiliate-report/microsite-affiliate-report.module"
           ).then((m) => m.MicrositeAffiliateReportModule),
       },
+      {
+        path: "microsite-lead-report-by-domains/:type",
+
+        loadChildren: () =>
+          import(
+            "./views/pages/microsite-lead-report-by-domains/microsite-lead-report-by-domains.module"
+          ).then((m) => m.MicrositeLeadReportByDomainModule),
+      },
 
       {
         path: "microsite-layouts/:type",

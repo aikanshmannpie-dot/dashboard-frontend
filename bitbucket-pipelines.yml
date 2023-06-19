@@ -1,5 +1,5 @@
 #  Bitbucket Pipeline for Dashboard
-image: node:14.20
+image: node:14.15
 
 pipelines:
   branches:

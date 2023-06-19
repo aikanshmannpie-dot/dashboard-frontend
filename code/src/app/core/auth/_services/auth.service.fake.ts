@@ -401,6 +401,17 @@ export class AuthService {
       headers: httpHeaders,
     });
   }
+  getLeadReportByDomain(): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get(`${environment.baseUrl}/microsite/getleadsbydomain`, {
+      headers: httpHeaders,
+    });
+  }
   getMetaSourceList(): Observable<any> {
     var authToken = localStorage.getItem("authToken");
     const httpHeaders = new HttpHeaders({
