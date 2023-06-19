@@ -4,7 +4,7 @@
     <button class="calendarBtn">
       <img src="assets/images/calendar.svg" />
     </button>
-    <div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+    <div class="searchBox" [ngClass]="searchBoxShow">
       <div ngbDropdown class="dropdown searcBar threeColumn">
         <select class="form-control dropdown-select-box" (change)="getLeadsOfDomain($event)">
           <option value="undefined">Search By Site Name</option>
