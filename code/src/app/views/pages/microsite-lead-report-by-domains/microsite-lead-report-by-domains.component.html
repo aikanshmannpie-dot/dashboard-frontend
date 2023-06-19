@@ -4,28 +4,28 @@
     <button class="calendarBtn">
       <img src="assets/images/calendar.svg" />
     </button>
-    <!-- <div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+    <div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
       <div ngbDropdown class="dropdown searcBar threeColumn">
-        <select class="form-control dropdown-select-box" (change)="ChangingValue($event)">
+        <select class="form-control dropdown-select-box" (change)="getLeadsOfDomain($event)">
           <option value="undefined">Search By Site Name</option>
           <option *ngFor="let item of siteListingData" value="{{ item.id }}">
             {{ item.name }}
           </option>
         </select>
       </div>
-    </div> -->
+    </div>
   </div>
   <div class="accordion" id="accordionExample">
-    <div class="card" *ngFor="let item of siteListingData">
+    <!-- <div class="card" *ngFor="let item of siteListingData">
       <div class="card-header" id="headingOne">
         <h5 class="mb-0 p-4">
           {{item.name}}
           <span *ngIf="item.status" class="badge badge-success">Active</span>
           <span *ngIf="!item.status" class="badge badge-danger">In-Active</span>
         </h5>
-      </div>
+      </div> -->
 
-      <div id={{item.id}} class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
           <table class="table">
             <thead>
@@ -35,10 +35,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngIf="getLeadsOfDomain(item.id).length === 0">
+              <!-- <tr *ngIf="getLeadsOfDomain(item.id).length === 0">
                 <td colspan="2">No Record Available</td>
-              </tr>
-              <tr *ngFor="let lead of getLeadsOfDomain(item.id)">
+              </tr> -->
+              <tr *ngFor="let lead of returnedLeads">
                 <td [ngClass]="{'table-danger': lead.c<1}">{{lead.day}}</td>
                 <td [ngClass]="{'table-danger': lead.c<1}">{{lead.c}}</td>
               </tr>
@@ -46,7 +46,7 @@
           </table>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 
   <div *ngIf="loading" style="text-align: center">

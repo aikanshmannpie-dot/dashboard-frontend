@@ -27,6 +27,7 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
   siteListingData;
 
   leadsReportByDomain;
+  returnedLeads = [];
 
   ranges: any = {
     Today: [moment(), moment()],
@@ -80,26 +81,27 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
       });
   }
 
-  getLeadsOfDomain(domainId) {
+  getLeadsOfDomain(event) {
+    const domainId = event.target.value;
     let fromDate = moment().add(-7, 'days');
 
     const dates = this.getDates(fromDate, new Date());
-    const leads = this.leadsReportByDomain.apiData.filter(lead => lead.id === domainId);
-    let returnedLeads = [];
+    const leads = this.leadsReportByDomain.apiData.filter(lead => lead.id === parseInt(domainId));
+    this.returnedLeads = [];
 
     dates.map(date => {
       const lead = leads.filter(lead => lead.day === date);
-      console.log(lead)
-      if (lead.length) returnedLeads.push(lead[0]);
-      else returnedLeads.push({
+      if (lead.length) this.returnedLeads.push(lead[0]);
+      else this.returnedLeads.push({
         "day": date,
         "id": domainId,
         "createdat": date,
         "c": "0"
       });
     });
+    console.log(this.returnedLeads);
     // console.log("dates",leads, returnedLeads)
-    return returnedLeads;
+    this.cdr.markForCheck();
   }
 
   getDates(startDate, stopDate) {
