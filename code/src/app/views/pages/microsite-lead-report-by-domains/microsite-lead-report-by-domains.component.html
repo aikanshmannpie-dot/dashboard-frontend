@@ -8,48 +8,45 @@
       <div ngbDropdown class="dropdown searcBar threeColumn">
         <select class="form-control dropdown-select-box" (change)="getLeadsOfDomain($event)">
           <option value="undefined">Search By Site Name</option>
-          <option *ngFor="let item of siteListingData" value="{{ item.id }}">
+          <option *ngFor="let item of siteListingData" value="{{ item?.id }}">
             {{ item.name }}
+            <span *ngIf="item.status" class="badge badge-success">Active</span>
+            <span *ngIf="!item.status" class="badge badge-danger">In-Active</span>
           </option>
         </select>
       </div>
     </div>
   </div>
-  <div class="accordion" id="accordionExample">
-    <!-- <div class="card" *ngFor="let item of siteListingData">
-      <div class="card-header" id="headingOne">
-        <h5 class="mb-0 p-4">
-          {{item.name}}
-          <span *ngIf="item.status" class="badge badge-success">Active</span>
-          <span *ngIf="!item.status" class="badge badge-danger">In-Active</span>
-        </h5>
-      </div> -->
-
-      <div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-        <div class="card-body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Leads</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- <tr *ngIf="getLeadsOfDomain(item.id).length === 0">
+  <!-- <div class="accordion" id="accordionExample">
+    
+    <div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Leads</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!- <tr *ngIf="getLeadsOfDomain(item.id).length === 0">
                 <td colspan="2">No Record Available</td>
               </tr> -->
-              <tr *ngFor="let lead of returnedLeads">
-                <td [ngClass]="{'table-danger': lead.c<1}">{{lead.day}}</td>
-                <td [ngClass]="{'table-danger': lead.c<1}">{{lead.c}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+            <!-- <tr *ngFor="let lead of returnedLeads">
+              <td [ngClass]="{'table-danger': lead.c<1}">{{lead.day}}</td>
+              <td [ngClass]="{'table-danger': lead.c<1}">{{lead.c}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    <!-- </div> -->
-  </div>
+    </div> -->
+    <!-- </div> ->
+  </div> -->
 
   <div *ngIf="loading" style="text-align: center">
     <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
   </div>
+  <figure Sclass="highcharts-figure">
+    <div id="activeLastWeek"></div>
+  </figure>
 </div>
