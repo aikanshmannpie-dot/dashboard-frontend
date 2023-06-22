@@ -24,7 +24,7 @@ f3d(Highcharts);
   styleUrls: ["./microsite-lead-report-by-domains.component.scss"],
 })
 export class MicrositeLeadReportByDomainsComponent implements OnInit {
-  avaible = false;
+  isAvaible = false;
   loading = false;
   model1;
   siteName;
@@ -32,7 +32,7 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
   startDate;
   globalFilter = "";
   offset = 0;
-  isSelected;
+  selectedDomainValue;
   siteListingData;
 
   leadsReportByDomain;
@@ -54,20 +54,34 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getLeadReportByDomain();
+    this.startDate = moment(new Date()).subtract(7, "days").format("YYYY-MM-DD");
+    this.endDate = moment(new Date()).format("YYYY-MM-DD");
+    this.getLeadReportByDomain(this.startDate, this.endDate);
     this.getSiteNameList();
   }
 
+  searchRange() {
+    this.endDate = this.model1.end
+      ? moment(this.model1.end._d).format("YYYY-MM-DD")
+      : moment(new Date()).format("YYYY-MM-DD");
+    this.startDate = this.model1.start
+      ? moment(this.model1.start._d).format("YYYY-MM-DD")
+      : moment(new Date()).format("YYYY-MM-DD");
 
+    this.getLeadReportByDomain(this.startDate, this.endDate);
+
+  }
   getFormat(activeTeam) {
     return moment(activeTeam.created_at).format("YYYY-MM-DD hh:mm:ss");
   }
 
-  getLeadReportByDomain() {
-    this.auth.getLeadReportByDomain().subscribe((res) => {
+  getLeadReportByDomain(startDate, endDate) {
+    this.loading = true;
+    this.auth.getLeadReportByDomain(startDate, endDate).subscribe((res) => {
       if (res) console.log(res);
       this.leadsReportByDomain = res;
       this.loading = false;
+      this.getLeadsOfDomain();
       this.cdr.markForCheck();
     });
   }
@@ -81,27 +95,31 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
             a.name.localeCompare(b.name)
           );
         }
+        this.loading = false;
+        this.cdr.markForCheck();
       },
       (error) => {
         this.loading = false;
-        this.cdr.markForCheck();
       }
     ),
       finalize(() => {
-        this.avaible = true;
+        this.isAvaible = true;
         this.loading = false;
         this.cdr.markForCheck();
       });
   }
-
-  getLeadsOfDomain(event) {
+  onDomainChanged(event) { 
+    this.selectedDomainValue = event.target.value;
+    this.getLeadsOfDomain();
+  }
+  getLeadsOfDomain() {
     this.loading = true;
-    const domainId = event.target.value;
+    const domainId = this.selectedDomainValue;
     if (domainId != "undefined") {
-      let fromDate = moment().add(-7, 'days');
+      let fromDate = this.startDate ? moment(this.startDate) : moment().add(-7, 'days');
 
       const domainDetail = this.siteListingData.filter(domain => domain.id === parseInt(domainId))[0];
-      const dates = this.getDates(fromDate, new Date());
+      const dates = this.getDates(fromDate, this.endDate ? moment(this.endDate) : new Date());
       const leads = this.leadsReportByDomain.apiData.filter(lead => lead.id === parseInt(domainId));
       this.returnedLeads = [];
 
@@ -115,7 +133,7 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
           "c": "0"
         });
       });
-      console.log(this.returnedLeads);
+      console.log(this.startDate, fromDate, dates, this.returnedLeads);
       // console.log("dates",leads, returnedLeads)
       let seriesData: Array<number> = this.returnedLeads.map(
         (x: { c: any }) => {
@@ -161,6 +179,7 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
       });
     }
     this.loading = false;
+    this.isAvaible = true;
     this.cdr.markForCheck();
   }
 
