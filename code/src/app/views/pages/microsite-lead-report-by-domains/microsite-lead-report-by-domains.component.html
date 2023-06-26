@@ -4,9 +4,28 @@
     <button class="calendarBtn">
       <img src="assets/images/calendar.svg" />
     </button>
+    <div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
+      <div ngbDropdown class="dropdown searcBar threeColumn">
+        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
+          endKey="end" [(ngModel)]="model1" />
+        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
+          endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
+
+        <!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
+        <button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="searchRange()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" style="text-align: center">
+    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
+  </div>
+  <div ngbDropdown class="dropdown topBarList">
     <div class="searchBox searchBoxShow">
       <div ngbDropdown class="dropdown searcBar threeColumn">
-        <select class="form-control dropdown-select-box" (change)="getLeadsOfDomain($event)">
+        <select class="form-control dropdown-select-box" (change)="onDomainChanged($event)">
           <option value="undefined">Search By Site Name</option>
           <option *ngFor="let item of siteListingData" value="{{ item?.id }}">
             {{ item.name }}
@@ -17,36 +36,9 @@
       </div>
     </div>
   </div>
-  <!-- <div class="accordion" id="accordionExample">
-    
-    <div class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-      <div class="card-body">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Leads</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!- <tr *ngIf="getLeadsOfDomain(item.id).length === 0">
-                <td colspan="2">No Record Available</td>
-              </tr> -->
-            <!-- <tr *ngFor="let lead of returnedLeads">
-              <td [ngClass]="{'table-danger': lead.c<1}">{{lead.day}}</td>
-              <td [ngClass]="{'table-danger': lead.c<1}">{{lead.c}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div> -->
-    <!-- </div> ->
-  </div> -->
-
-  <div *ngIf="loading" style="text-align: center">
-    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
+  <div class="row col-12">
+    <figure Sclass="highcharts-figure" class="col-12">
+      <div id="activeLastWeek"></div>
+    </figure>
   </div>
-  <figure Sclass="highcharts-figure">
-    <div id="activeLastWeek"></div>
-  </figure>
 </div>
