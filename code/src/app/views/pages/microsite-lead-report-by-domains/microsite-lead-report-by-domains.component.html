@@ -27,7 +27,7 @@
       <div ngbDropdown class="dropdown searcBar threeColumn">
         <select class="form-control dropdown-select-box" (change)="onDomainChanged($event)">
           <option value="undefined">Search By Site Name</option>
-          <option *ngFor="let item of siteListingData" value="{{ item?.id }}">
+          <option *ngFor="let item of siteListingData"   value="{{ item?.id }}">
             {{ item.name }}
             <span *ngIf="item.status" class="badge badge-success">Active</span>
             <span *ngIf="!item.status" class="badge badge-danger">In-Active</span>

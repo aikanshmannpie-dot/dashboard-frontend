@@ -34,10 +34,10 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
   offset = 0;
   selectedDomainValue;
   siteListingData;
-
+  domains;
   leadsReportByDomain;
   returnedLeads = [];
-
+  domainIds = ['146', '92', '86', '150', '83', '161', '98', '82', '156', '64'];
   ranges: any = {
     Today: [moment(), moment()],
     Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
@@ -54,10 +54,10 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.startDate = moment(new Date()).subtract(7, "days").format("YYYY-MM-DD");
+    this.startDate = moment().startOf('month').format('YYYY-MM-DD hh:mm');
     this.endDate = moment(new Date()).format("YYYY-MM-DD");
-    this.getLeadReportByDomain(this.startDate, this.endDate);
     this.getSiteNameList();
+    this.getLeadReportByDomain(this.startDate, this.endDate);
   }
 
   searchRange() {
@@ -91,9 +91,14 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
     this.auth.getSiteNameList().subscribe(
       (data) => {
         if (data) {
-          this.siteListingData = data.data.sort((a, b) =>
+          this.domains = data.data.sort((a, b) =>
             a.name.localeCompare(b.name)
           );
+          this.siteListingData = this.domains.filter((site) => {
+            if (!this.domainIds.includes(site.id)) {
+              return site;
+            }
+          })
         }
         this.loading = false;
         this.cdr.markForCheck();
@@ -108,76 +113,45 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
         this.cdr.markForCheck();
       });
   }
-  onDomainChanged(event) { 
+  onDomainChanged(event) {
     this.selectedDomainValue = event.target.value;
+
+    console.log(this.selectedDomainValue, event.target.value)
     this.getLeadsOfDomain();
   }
   getLeadsOfDomain() {
     this.loading = true;
     const domainId = this.selectedDomainValue;
-    if (domainId != "undefined") {
-      let fromDate = this.startDate ? moment(this.startDate) : moment().add(-7, 'days');
 
-      const domainDetail = this.siteListingData.filter(domain => domain.id === parseInt(domainId))[0];
-      const dates = this.getDates(fromDate, this.endDate ? moment(this.endDate) : new Date());
-      const leads = this.leadsReportByDomain.apiData.filter(lead => lead.id === parseInt(domainId));
-      this.returnedLeads = [];
-
-      dates.map(date => {
-        const lead = leads.filter(lead => lead.day === date);
-        if (lead.length) this.returnedLeads.push(lead[0]);
-        else this.returnedLeads.push({
-          "day": date,
-          "id": domainId,
-          "createdat": date,
-          "c": "0"
-        });
-      });
-      console.log(this.startDate, fromDate, dates, this.returnedLeads);
-      // console.log("dates",leads, returnedLeads)
-      let seriesData: Array<number> = this.returnedLeads.map(
-        (x: { c: any }) => {
-          return Number(x.c);
-        }
-      );
-      Highcharts.chart("activeLastWeek", {
-        chart: {
-          type: "line",
-        },
-        title: {
-          text: `Lead Counts for ${domainDetail.name}`,
-        },
-        xAxis: {
-          categories: this.returnedLeads.map((x: { day: any }) => {
-            return x.day;
-          }),
-        },
-        yAxis: {
-          title: {
-            text: "Lead Counts",
-          },
-        },
-        series: [
-          {
-            name: "Count",
-            data: seriesData,
-            type: undefined,
-          },
-          {
-            name: "Average",
-            data: Array.from({ length: seriesData.length }).map(
-              (x) =>
-                seriesData.reduce((a, b) => a + b) / seriesData.length
-            ),
-            type: undefined,
-            lineColor: "red",
-          },
-        ],
-        credits: {
-          enabled: false,
-        },
-      });
+    const allSeries = this.domainIds.map((siteId) => {
+      return this.getDomainDetailAndSeriesData(siteId);
+    });
+    if (domainId) {
+      allSeries.push(this.getDomainDetailAndSeriesData(domainId));
     }
+    Highcharts.chart("activeLastWeek", {
+      chart: {
+        type: "line",
+      },
+      title: {
+        text: `Lead Counts`,
+      },
+      xAxis: {
+        categories: this.returnedLeads.map((x: { day: any }) => {
+          return x.day;
+        }),
+      },
+      yAxis: {
+        title: {
+          text: "Lead Counts",
+        },
+      },
+      series:
+        allSeries,
+      credits: {
+        enabled: false,
+      },
+    });
     this.loading = false;
     this.isAvaible = true;
     this.cdr.markForCheck();
@@ -191,5 +165,37 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
       currentDate = currentDate.add(1, 'days');
     }
     return dateArray;
+  }
+
+
+  getDomainDetailAndSeriesData(domainId) {
+    let fromDate = this.startDate ? moment(this.startDate) : moment().startOf('month').format('YYYY-MM-DD hh:mm');
+    const domainDetail = this.domains.filter(domain => domain.id === parseInt(domainId))[0];
+    const dates = this.getDates(fromDate, this.endDate ? moment(this.endDate) : new Date());
+    const leads = this.leadsReportByDomain.apiData.filter(lead => lead.id === parseInt(domainId));
+    this.returnedLeads = [];
+
+    dates.map(date => {
+      const lead = leads.filter(lead => lead.day === date);
+      if (lead.length) this.returnedLeads.push(lead[0]);
+      else this.returnedLeads.push({
+        "day": date,
+        "id": domainId,
+        "createdat": date,
+        "c": "0"
+      });
+    });
+
+    let seriesData: Array<number> = this.returnedLeads.map(
+      (x: { c: any }) => {
+        return Number(x.c);
+      }
+    );
+
+    return {
+      name: domainDetail.name,
+      data: seriesData,
+      type: undefined,
+    }
   }
 }
