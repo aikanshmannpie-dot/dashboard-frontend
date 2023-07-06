@@ -32,7 +32,7 @@ export class TeleconnexDailyProgressCoReportComponent implements OnInit {
   globalFilter = "";
   //metasourceListingData = [];
   callcenterListingData = [];
-  selectedValue = "8";
+  selectedValue = "9";
   report_type;
   areNoRecords = false;
   search = true;
@@ -87,7 +87,7 @@ export class TeleconnexDailyProgressCoReportComponent implements OnInit {
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.report_type = this.router.url.includes("/2") ? "2" : "1";
@@ -111,6 +111,7 @@ export class TeleconnexDailyProgressCoReportComponent implements OnInit {
     this.auth.getCallcenterList().subscribe(
       (data) => {
         if (data) {
+          this.selectedValue = data.apiData.length > 0 ? data.apiData[0].id : this.selectedValue;
           this.callcenterListingData = data.apiData;
         } else {
         }
@@ -185,9 +186,9 @@ export class TeleconnexDailyProgressCoReportComponent implements OnInit {
       let searchString = JSON.parse(filter);
       return (
         data.dateperiod.toString().trim().indexOf(searchString.dateperiod) !==
-          -1 &&
+        -1 &&
         data.totalleads.toString().trim().indexOf(searchString.totalleads) !==
-          -1 &&
+        -1 &&
         data.totalrevenue
           .toString()
           .trim()

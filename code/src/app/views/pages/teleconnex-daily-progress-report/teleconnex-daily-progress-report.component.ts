@@ -33,7 +33,7 @@ export class TeleconnexDailyProgressReportComponent implements OnInit {
   startDate;
   globalFilter = "";
   callcenterListingData = [];
-  selectedValue = "8";
+  selectedValue = "9";
   report_type;
   areNoRecords = false;
   search = true;
@@ -105,6 +105,7 @@ export class TeleconnexDailyProgressReportComponent implements OnInit {
       (data) => {
         if (data) {
           console.log("ajggasgadcacfcfca", data);
+          this.selectedValue = data.apiData.length>0? data.apiData[0].id: this.selectedValue;
           this.callcenterListingData = data.apiData;
         } else {
         }
