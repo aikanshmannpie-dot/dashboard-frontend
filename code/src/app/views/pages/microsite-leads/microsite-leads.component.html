@@ -266,7 +266,15 @@
             <span class="d-print-none"> Validation Status</span>
           </mat-cell>
         </ng-container>
-
+        <ng-container matColumnDef="api_client_name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
+            >API Client Name
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.api_client_name }}
+            <span class="d-print-none">API Client Name</span>
+          </mat-cell>
+        </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <div>
           <mat-row
@@ -620,7 +628,14 @@
             {{ element.answer_10 }}
           </mat-cell>
         </ng-container>
-
+        <ng-container matColumnDef="api_client_name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header
+            >API Client Name
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.api_client_name }}
+          </mat-cell>
+        </ng-container>
         <!--  end question and answers -->
         <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
         <div>

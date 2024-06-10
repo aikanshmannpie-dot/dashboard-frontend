@@ -469,6 +469,19 @@ export class AuthService {
     );
   }
 
+  getLeadsAccordingToApiClient(startDate, endDate, siteName): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.get<User>(
+      `${environment.baseUrl}/microsite/get-leads-by-api-name/${startDate}/${endDate}/${siteName}`,
+      { headers: httpHeaders }
+    );
+  }
+
   getMicrositeSourceLeads(startDate, endDate): Observable<any> {
     var authToken = localStorage.getItem("authToken");
     const httpHeaders = new HttpHeaders({

@@ -14,10 +14,10 @@ import moment from "moment";
 
 @Component({
   selector: "kt-microsite-leads",
-  templateUrl: "./microsite-leads.component.html",
-  styleUrls: ["./microsite-leads.component.scss"],
+  templateUrl: "./microsite-leads-by-api.component.html",
+  styleUrls: ["./microsite-leads-by-api.component.scss"],
 })
-export class MicrositeLeadsComponent implements OnInit {
+export class MicrositeLeadsByApiComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   dataSource1;
   avaible = false;
@@ -49,73 +49,21 @@ export class MicrositeLeadsComponent implements OnInit {
       moment().subtract(1, "month").endOf("month"),
     ],
   };
-  filteredValues = {
-    meta_sub_affid: "",
-    totalcount: "",
-    signup: "",
-    revtotal: "",
-    payout: "",
-    allprofit: "",
-    allprofitmargin: "",
-    arpecoreg: "",
-  };
-
+ 
   @ViewChild("content", { static: true }) content: ElementRef;
 
   @ViewChild("pdfTable", { static: false }) pdfTable: ElementRef;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   displayedColumns: string[] = [
-    "domain",
-    "full_name",
-    "email",
-    "phone_number",
-    "created_at",
-    "api_status",
-    "sms_body",
-    "section_second_header",
-    "api_client_name"
+    "name",
+    "api_client_name",
+    "count"
   ];
   displayedColumns1: string[] = [
-    "site_name",
-    "page_id",
-    "domain",
-    "client_name",
-    "form_type",
-    "email",
-    "full_name",
-    "phone_number",
-    "dob",
-    "gender",
-    "age",
-    "town_city",
-    "postcode",
-    "state",
-    "data",
-    "created_at",
-    "question_0",
-    "answer_0",
-    "question_1",
-    "answer_1",
-    "question_2",
-    "answer_2",
-    "question_3",
-    "answer_3",
-    "question_4",
-    "answer_4",
-    "question_5",
-    "answer_5",
-    "question_6",
-    "answer_6",
-    "question_7",
-    "answer_7",
-    "question_8",
-    "answer_8",
-    "question_9",
-    "answer_9",
-    "question_10",
-    "answer_10",
-    "api_client_name"
+    "name",
+    "api_client_name",
+    "count"
   ];
 
   columnIds = [];
@@ -128,7 +76,7 @@ export class MicrositeLeadsComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.startDate = moment(new Date()).format("YYYY-MM-DD");
     this.endDate = moment(new Date()).format("YYYY-MM-DD");
-    this.getListOfMicrosite(this.startDate, this.startDate);
+    this.getApiLeadCount(this.startDate, this.startDate);
     this.dataSource.filterPredicate = this.customFilterPredicate();
     this.getSiteNameList();
   }
@@ -142,23 +90,23 @@ export class MicrositeLeadsComponent implements OnInit {
     return moment(activeTeam.created_at).format("YYYY-MM-DD hh:mm:ss");
   }
 
-  createSurveyQuestion(data,siteId) {
+  createSurveyQuestion(data, siteId) {
     var str = ``;
-    if(siteId!==137){
-    var formdata = data && JSON.parse(data);
-    formdata.map((item, index) => {
-      str =
-        str +
-        `Question ${index + 1}: ` +
-        item.label +
-        "\n" +
-        "Answer: " +
-        item.value +
-        "\n\n";
-    });
-  }else{
-    str=data;
-  }
+    if (siteId !== 137) {
+      var formdata = data && JSON.parse(data);
+      formdata.map((item, index) => {
+        str =
+          str +
+          `Question ${index + 1}: ` +
+          item.label +
+          "\n" +
+          "Answer: " +
+          item.value +
+          "\n\n";
+      });
+    } else {
+      str = data;
+    }
     return str;
   }
 
@@ -167,7 +115,6 @@ export class MicrositeLeadsComponent implements OnInit {
   }
 
   showTable() {
-    var vm = this;
     this.avaible = true;
     this.dataSource = new MatTableDataSource(this.dataSource1);
   }
@@ -184,9 +131,9 @@ export class MicrositeLeadsComponent implements OnInit {
       ? moment(this.model1.start._d).format("YYYY-MM-DD")
       : moment(new Date()).format("YYYY-MM-DD");
     if (this.startDate) {
-      this.getListOfMicrosite(this.startDate, this.endDate);
+      this.getApiLeadCount(this.startDate, this.endDate);
     } else {
-      this.getListOfMicrosite(this.startDate, this.endDate);
+      this.getApiLeadCount(this.startDate, this.endDate);
     }
   }
 
@@ -256,46 +203,23 @@ export class MicrositeLeadsComponent implements OnInit {
     this.isSelected = data.target.value;
   }
 
-  getListOfMicrosite(start, end) {
-    var vm = this;
+  getApiLeadCount(start, end) {
     this.loading = true;
     this.avaible = false;
     this.dataSource = new MatTableDataSource([]);
-    this.siteName = this.isSelected ? this.isSelected : undefined;
+    this.siteName = this.isSelected ? this.isSelected : 0;
 
     this.auth
-      .getListOfMicrosite(start, end, this.offset, this.siteName)
+      .getLeadsAccordingToApiClient(start, end, this.siteName)
       .subscribe(
         (data) => {
           if (data) {
-
-            const apiData = data.apiData.map((lead) => {
-              if(lead.site_id!==137){
-              const answer = JSON.parse(lead.data);
-              let answers = [];
-               const leadd= answer.map((ans, index) => ({
-                ['question_' + index]: ans.label,
-                ['answer_' + index]: ans.value}
-               ));
-               const leads = leadd.reduce(((r, c) => Object.assign(r, c)), {})
-               lead = {
-                 ...lead,
-                 ...leads
-               };}
-              return lead;
-            });
-
-            // console.log("apidata", apiData);
-            // console.log("data", data.apiData);
             this.avaible = true;
-
-            this.dataSource = new MatTableDataSource(apiData);
+            this.dataSource = new MatTableDataSource(data.apiData);
             this.dataSource1 = data.body;
             this.dataSource.paginator = this.paginator;
             this.loading = false;
-          } else {
           }
-          // Main page
         },
         (error) => {
           this.loading = false;
