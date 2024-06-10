@@ -35,7 +35,6 @@ pipelines:
             - npm install -g @angular/cli
             - npm i ngx-daterangepicker-material@2.1.7
             - npm run build
-            - ng build --prod
             - cd dist
             - ls -la
             - sshpass -p "${UAT_SERVER_TESTER_PASSWORD}" rsync -O --exclude='.git/' --exclude='.gitlab-ci.yml' -rav -e 'ssh -o StrictHostKeyChecking=no -p 22' .  ${UAT_SERVER_TESTER_USER_NAME}@${UAT_SERVER_TESTER_HOST}:${UAT_SERVER_BUILD_PATH}

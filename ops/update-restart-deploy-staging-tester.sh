@@ -2,6 +2,7 @@
 set -e
 
 source ~/.nvm/nvm.sh
+
 # go to the directory
 echo "Going to directory"
 cd <SERVER_BUILD_PATH>
