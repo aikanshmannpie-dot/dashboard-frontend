@@ -2,7 +2,13 @@
 set -e
 
 source ~/.nvm/nvm.sh
+nvm install 18.19
+# nvm use --delete-prefix v18.15.0 --silent
+# nvm list
 
+nvm alias default 18.19
+
+nvm use 18.19
 # go to the directory
 echo "Going to directory"
 cd <SERVER_BUILD_PATH>
