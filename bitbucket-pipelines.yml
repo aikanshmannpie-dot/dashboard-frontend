@@ -15,7 +15,11 @@ pipelines:
           name: 1.Pushing Develop Code
           script:
             - echo "Pushing Develop Code"
-
+            - source ~/.nvm/nvm.sh
+            - nvm install 18.19
+            - nvm alias default 18.19
+            - nvm use 18.19
+            - npm -v
     uat-*:
       - step:
           name: 1.Running Initial Tests
