@@ -19,18 +19,13 @@ const routes: Routes = [
     loadChildren: () =>
       import("./views/pages/auth/auth.module").then((m) => m.AuthModule),
   },
-
   {
     path: "",
-
     component: BaseComponent,
-
     canActivate: [AuthGuard],
-
     children: [
       {
         path: "dashboard/:type",
-
         loadChildren: () =>
           import("./views/pages/dashboard/dashboard.module").then(
             (m) => m.DashboardModule
@@ -39,7 +34,6 @@ const routes: Routes = [
 
       {
         path: "overall/:type",
-
         loadChildren: () =>
           import("./views/pages/overall-report/overall-report.module").then(
             (m) => m.OverallReportModule
@@ -48,7 +42,6 @@ const routes: Routes = [
 
       {
         path: "affilate/:type",
-
         loadChildren: () =>
           import("./views/pages/affilate-report/affilate-report.module").then(
             (m) => m.AffilateReportModule
@@ -245,7 +238,14 @@ const routes: Routes = [
             "./views/pages/mhi-to-teleconnex/mhi-to-teleconnex.module"
           ).then((m) => m.MHIToTeleconnexModule),
       },
+      {
+        path: "settings",
+        loadChildren: () =>
+          import(
+            "./views/pages/settings/setting.module"
+          ).then((m) => m.SettingModule),
 
+      },
       {
         path: "error/403",
 
@@ -278,4 +278,4 @@ const routes: Routes = [
 
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

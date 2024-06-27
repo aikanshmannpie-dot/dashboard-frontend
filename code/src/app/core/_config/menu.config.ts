@@ -70,6 +70,13 @@ export class MenuConfig {
     },
   };
 
+  public settings: any = {
+    header: {
+      self: {},
+      items: [],
+    },
+  }
+
   public teleconnex_defaults: any = {
     header: {
       self: {},
@@ -237,5 +244,9 @@ export class MenuConfig {
 
   public get analytics_configs(): any {
     return this.analytics_defaults;
+  }
+
+  public get settings_config(): any {
+    return this.settings;
   }
 }

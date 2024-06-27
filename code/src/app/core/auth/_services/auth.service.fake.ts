@@ -15,7 +15,7 @@ import {
   HttpUtilsService,
 } from "../../_base/crud";
 // Models
-import { User } from "../_models/user.model";
+import { User, UserMfaModel } from "../_models/user.model";
 import { Permission } from "../_models/permission.model";
 import { Role } from "../_models/role.model";
 import jstz from "jstz";
@@ -936,5 +936,18 @@ export class AuthService {
       // Let the app keep running by returning an empty result.
       return of(result);
     };
+  }
+
+
+  checkMfaEnabled(userid: string): Observable<any> {
+    var authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: authToken,
+    });
+
+    return this.http.post<UserMfaModel>(`${environment.baseUrl}/check-mfa-enabled`,{userid:userid}, {
+      headers: httpHeaders,
+    });
   }
 }

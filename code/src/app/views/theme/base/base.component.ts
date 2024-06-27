@@ -74,6 +74,8 @@ export class BaseComponent implements OnInit, OnDestroy {
         ? new MenuConfig().configs
         : router.url.includes("/vicidial-leads")
         ? new MenuConfig().vicidial_configs
+        : router.url.includes("/settings")
+        ? new MenuConfig().settings_config
         : new MenuConfig().configs
     );
     this.pageConfigService.loadConfigs(new PageConfig().configs);

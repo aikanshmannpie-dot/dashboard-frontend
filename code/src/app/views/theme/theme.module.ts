@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 // Angular Material
-import { MatButtonModule, MatProgressBarModule, MatTabsModule, MatTooltipModule } from '@angular/material';
+import { MatMenuModule,MatButtonModule, MatProgressBarModule, MatTabsModule, MatTooltipModule, MatDividerModule } from '@angular/material';
 // NgBootstrap
 import { NgbProgressbarModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 // Translation
@@ -42,7 +42,7 @@ import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from
 	declarations: [
 		BaseComponent,
 		FooterComponent,
-
+		
 		// headers
 		HeaderComponent,
 		BrandComponent,
@@ -101,6 +101,8 @@ import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from
 		PerfectScrollbarModule,
 		FormsModule,
 		MatProgressBarModule,
+		MatMenuModule,
+		MatDividerModule,
 		MatTabsModule,
 		MatButtonModule,
 		MatTooltipModule,
