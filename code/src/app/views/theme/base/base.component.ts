@@ -116,6 +116,10 @@ export class BaseComponent implements OnInit, OnDestroy {
       }
     );
     this.unsubscribe.push(subscr);
+
+    if(sessionStorage.getItem("mfa") !== 'asSDFxcsdASDEWAScw12edSDFsdDSFdf4514'){
+      this.router.navigateByUrl("verify");
+    }
   }
 
   /**

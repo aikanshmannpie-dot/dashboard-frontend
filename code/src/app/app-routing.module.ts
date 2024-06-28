@@ -20,6 +20,13 @@ const routes: Routes = [
       import("./views/pages/auth/auth.module").then((m) => m.AuthModule),
   },
   {
+    path: "verify",
+    loadChildren: () =>
+      import(
+        "./views/pages/verify/verify.module"
+      ).then((m) => m.VerifyModule),
+  },
+  {
     path: "",
     component: BaseComponent,
     canActivate: [AuthGuard],
@@ -246,36 +253,27 @@ const routes: Routes = [
           ).then((m) => m.SettingModule),
 
       },
+      
       {
         path: "error/403",
-
         component: ErrorPageComponent,
-
         data: {
           type: "error-v6",
-
           code: 403,
-
           title: "403... Access forbidden",
-
           desc: "Looks like you don't have permission to access for requested page.<br> Please, contact administrator",
         },
       },
-
       { path: "error/:type", component: ErrorPageComponent },
-
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
-
       { path: "**", redirectTo: "dashboard", pathMatch: "full" },
     ],
   },
-
   { path: "**", redirectTo: "error/403", pathMatch: "full" },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-
   exports: [RouterModule],
 })
 export class AppRoutingModule { }

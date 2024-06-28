@@ -45,3 +45,12 @@ export class UserMfaModel extends BaseModel {
         ismfaactive: boolean
     }
 }
+
+export class UserQrCodeModel extends BaseModel {
+    error: boolean;
+    message: string;
+}
+export class UserVerifyModel extends BaseModel {
+    error: boolean;
+    message: boolean;
+}

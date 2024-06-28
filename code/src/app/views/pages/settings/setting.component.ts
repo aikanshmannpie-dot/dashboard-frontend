@@ -13,26 +13,34 @@ export class SettingComponent implements OnInit {
   //dataSource: MatTableDataSource<any>;
   avaible = false;
   loading = false;
+  gsLoading = false;
+  qrData: string = '';
   isChecked = false;
   message = "";
   apiresposne = "";
 
-  settingInit;
+  settingInit = {
+    ismfaactive: false
+  };
 
   constructor(private auth: AuthService, private cdr: ChangeDetectorRef) { }
 
   onSwitchChange(item: any) {
-    console.log(`${item} is now ${this.isChecked ? 'On' : 'Off'}`);
+    if (this.isChecked) {
+      this.generateSecret();
+    }
   }
   ngOnInit() {
     this.checkMfaEnabled();
   }
   checkMfaEnabled() {
-    this.auth.checkMfaEnabled("ea52ba70-c1d0-11ea-9016-6bed9e1b6464").subscribe(
+    this.auth.checkMfaEnabled().subscribe(
       (data) => {
         this.loading = false;
-        console.log("data", data);
         this.settingInit = data;
+        if (data.message.ismfaactive) {
+          this.getQrCode();
+        }
       },
       (error) => {
         this.loading = false;
@@ -47,7 +55,47 @@ export class SettingComponent implements OnInit {
   }
   ngAfterViewInit(): void { }
 
+  getQrCode() {
+    this.gsLoading = true;
+    this.auth.getQrCode().subscribe(
+      (data) => {
+        this.gsLoading = false;
+        if (!data.error) {
+          this.settingInit = {
+            ismfaactive: true
+          };
+          this.qrData = data.message;
+        }
+        this.cdr.markForCheck();
+      },
+      (error) => {
+        this.gsLoading = false;
+        this.cdr.markForCheck();
+      }
+    ),
+      finalize(() => {
+        this.gsLoading = false;
+        this.cdr.markForCheck();
+      });
+  }
 
-
-  
+  generateSecret() {
+    this.gsLoading = true;
+    this.auth.generateSecret().subscribe(
+      (data) => {
+        this.gsLoading = false;
+        if (!data.error) {
+          this.getQrCode();
+        }
+      },
+      (error) => {
+        this.gsLoading = false;
+        this.cdr.markForCheck();
+      }
+    ),
+      finalize(() => {
+        this.gsLoading = false;
+        this.cdr.markForCheck();
+      });
+   }
 }
