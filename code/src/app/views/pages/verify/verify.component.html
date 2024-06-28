@@ -1,0 +1,14 @@
+<div class="otp-container card">
+    <h2>Verify OTP</h2>
+    <form (ngSubmit)="onSubmit()">
+        <div>
+            <label for="otp">Enter OTP:</label>
+            <input class="form form-control" type="text" id="otp" [(ngModel)]="otp" name="otp" required>
+        </div>
+        <span *ngIf="loading">Submitting</span>
+        <button *ngIf="!loading" type="submit" class="btn btn-success">Verify</button>
+    </form>
+    <div *ngIf="verificationMessage.type" class=" mt-2 alert alert-{{verificationMessage.type}}">
+        {{ verificationMessage.message }}
+    </div>
+</div>

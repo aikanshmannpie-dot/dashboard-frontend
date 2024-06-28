@@ -5,4 +5,5 @@ export const environment = {
   // baseUrl: 'http://localhost:8034/api'
   // baseUrl :'http://203.129.220.85:8034/api'
   baseUrl: "http://13.237.196.237:8034/api",
+  micrositeApiUrl: "https://helathinsurancefind.com.au/api"
 };

@@ -37,3 +37,20 @@ export class User extends BaseModel {
         this.socialNetworks.clear();
     }
 }
+
+
+export class UserMfaModel extends BaseModel {
+    error: boolean;
+    message: {
+        ismfaactive: boolean
+    }
+}
+
+export class UserQrCodeModel extends BaseModel {
+    error: boolean;
+    message: string;
+}
+export class UserVerifyModel extends BaseModel {
+    error: boolean;
+    message: boolean;
+}

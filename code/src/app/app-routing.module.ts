@@ -19,18 +19,20 @@ const routes: Routes = [
     loadChildren: () =>
       import("./views/pages/auth/auth.module").then((m) => m.AuthModule),
   },
-
+  {
+    path: "verify",
+    loadChildren: () =>
+      import(
+        "./views/pages/verify/verify.module"
+      ).then((m) => m.VerifyModule),
+  },
   {
     path: "",
-
     component: BaseComponent,
-
     canActivate: [AuthGuard],
-
     children: [
       {
         path: "dashboard/:type",
-
         loadChildren: () =>
           import("./views/pages/dashboard/dashboard.module").then(
             (m) => m.DashboardModule
@@ -39,7 +41,6 @@ const routes: Routes = [
 
       {
         path: "overall/:type",
-
         loadChildren: () =>
           import("./views/pages/overall-report/overall-report.module").then(
             (m) => m.OverallReportModule
@@ -48,7 +49,6 @@ const routes: Routes = [
 
       {
         path: "affilate/:type",
-
         loadChildren: () =>
           import("./views/pages/affilate-report/affilate-report.module").then(
             (m) => m.AffilateReportModule
@@ -245,37 +245,35 @@ const routes: Routes = [
             "./views/pages/mhi-to-teleconnex/mhi-to-teleconnex.module"
           ).then((m) => m.MHIToTeleconnexModule),
       },
+      {
+        path: "settings",
+        loadChildren: () =>
+          import(
+            "./views/pages/settings/setting.module"
+          ).then((m) => m.SettingModule),
 
+      },
+      
       {
         path: "error/403",
-
         component: ErrorPageComponent,
-
         data: {
           type: "error-v6",
-
           code: 403,
-
           title: "403... Access forbidden",
-
           desc: "Looks like you don't have permission to access for requested page.<br> Please, contact administrator",
         },
       },
-
       { path: "error/:type", component: ErrorPageComponent },
-
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
-
       { path: "**", redirectTo: "dashboard", pathMatch: "full" },
     ],
   },
-
   { path: "**", redirectTo: "error/403", pathMatch: "full" },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,0 +1,23 @@
+<div class="pageContainer">
+  <div class="pageTopBar">
+    <h2 style="padding: 10px 0px; float: left">
+      Settings
+    </h2>
+  </div>
+  <div class="container mt-5">
+    <div  class="d-flex justify-content-between align-items-center mb-2">
+      <h4 class="text-bold">2-Factor Authentication</h4>
+      <div class="custom-control custom-switch" *ngIf="!settingInit.ismfaactive">
+        <input type="checkbox" class="custom-control-input" id="2_fa" [(ngModel)]="isChecked" (change)="onSwitchChange(isChecked)">
+        <label class="custom-control-label" for="2_fa"></label>
+      </div>
+      <div *ngIf="gsLoading" >
+        <img style="padding: 10px; height: 10px" src="assets/images/loader.gif" alt="loader" />
+      </div>
+    </div>
+    <img *ngIf="settingInit.ismfaactive" [src]="qrData" alt="QrCode" />
+  </div>
+  <div *ngIf="loading" style="text-align: center">
+    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" alt="loader" />
+  </div>
+</div>

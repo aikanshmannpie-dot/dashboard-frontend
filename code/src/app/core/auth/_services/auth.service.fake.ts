@@ -15,7 +15,7 @@ import {
   HttpUtilsService,
 } from "../../_base/crud";
 // Models
-import { User } from "../_models/user.model";
+import { User, UserMfaModel, UserQrCodeModel, UserVerifyModel } from "../_models/user.model";
 import { Permission } from "../_models/permission.model";
 import { Role } from "../_models/role.model";
 import jstz from "jstz";
@@ -936,5 +936,53 @@ export class AuthService {
       // Let the app keep running by returning an empty result.
       return of(result);
     };
+  }
+
+
+  checkMfaEnabled(): Observable<any> {
+    const userid = localStorage.getItem("user_id");
+    const authToken = localStorage.getItem("authToken");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: "Bearer "+authToken,
+    });
+
+    return this.http.post<UserMfaModel>(`${environment.baseUrl}/check-mfa-enabled`,{userid:userid}, {
+      headers: httpHeaders,
+    });
+  }
+
+  getQrCode(): Observable<any> {
+    const userid = localStorage.getItem("user_id");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNoZWV0YWwgRGhhZGlhbCIsImlhdCI6MTUxNjIzOTAyMn0.cYfB4I92ZPHOWGx-HefWFY_oGxhsB8xBP5-X58ccZ-U",
+    });
+
+    return this.http.post<UserQrCodeModel>(`${environment.micrositeApiUrl}/generate-qr-code`,{userid:userid}, {
+      headers: httpHeaders,
+    });
+  }
+  generateSecret(): Observable<any> {
+    const userid = localStorage.getItem("user_id");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNoZWV0YWwgRGhhZGlhbCIsImlhdCI6MTUxNjIzOTAyMn0.cYfB4I92ZPHOWGx-HefWFY_oGxhsB8xBP5-X58ccZ-U",
+    });
+
+    return this.http.post<UserQrCodeModel>(`${environment.micrositeApiUrl}/generate-secret`,{userid:userid}, {
+      headers: httpHeaders,
+    });
+  }
+  verifyOtp(otp:string): Observable<any> {
+    const userid = localStorage.getItem("user_id");
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNoZWV0YWwgRGhhZGlhbCIsImlhdCI6MTUxNjIzOTAyMn0.cYfB4I92ZPHOWGx-HefWFY_oGxhsB8xBP5-X58ccZ-U",
+    });
+
+    return this.http.post<UserVerifyModel>(`${environment.micrositeApiUrl}/verify-otp`,{userid:userid,token:otp}, {
+      headers: httpHeaders,
+    });
   }
 }

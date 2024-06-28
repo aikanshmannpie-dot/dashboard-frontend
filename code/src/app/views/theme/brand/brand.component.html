@@ -8,39 +8,85 @@
 	</div>
 	<div class="kt-header__brand-nav">
 		<div ngbDropdown class="dropdown">
-			<button class="btn btn-default dropdown-toggle" [ngClass]="{'activeBtn': this.is_analytics == true}" id="btnMicrositeReports" (click)="redirectToDashboard('/acquirely-analytics/4')">
-				<span class="webText">{{ this.analytics_dashboard_text }}</span>
-				<span class="mobileText">
-					<span class="imgIcon iconNonActive"><img src="assets/images/acq-icon.svg" /></span>
-					<span class="imgIcon iconActive"><img src="assets/images/acq-icon-active.svg" /></span>
-					Acquirely
-				</span>
-			</button>
+			<button mat-raised-button [matMenuTriggerFor]="menu" class="btn btn-success">Menu</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item [ngClass]="{'activeBtn': this.is_analytics == true}" id="btnMicrositeReports"
+					(click)="redirectToDashboard('/acquirely-analytics/4')">
+					<span class="webText">{{ this.analytics_dashboard_text }}</span>
+					<span class="mobileText">
+						<span class="imgIcon iconNonActive">
+							<img src="assets/images/acq-icon.svg" alt="Acquirely" /></span>
+						<span class="imgIcon iconActive">
+							<img src="assets/images/acq-icon-active.svg" alt="Acquirely" /></span>
+						Acquirely
+					</span>
+				</button>
+				<mat-divider></mat-divider>
+				<button mat-menu-item [ngClass]="{'activeBtn': this.is_mhi == true}" id="btnVicidialPush"
+					(click)="redirectToDashboard('/overall/1')">
+					<span class="webText">{{ this.mhi_text }}</span>
+					<span class="mobileText">
+						<span class="imgIcon iconNonActive">
+							<img src="assets/images/mhi-icon.svg" alt="MHI" /></span>
+						<span class="imgIcon iconActive">
+							<img src="assets/images/mhi-icon-active.svg" alt="MHI" /></span>
+						MustHaveIt
+					</span>
+				</button>
+				<mat-divider></mat-divider>
+				<button mat-menu-item [ngClass]="{'activeBtn': this.is_teleconnex == true}" id="btnVicidialPush"
+					(click)="redirectToDashboard('/overall/2')">
+					<span class="webText">{{ this.teleconnex_text }}</span>
+					<span class="mobileText">
+						<span class="imgIcon iconNonActive">
+							<img src="assets/images/teleconnex-icon.svg" alt="teleconnex" /></span>
+						<span class="imgIcon iconActive">
+							<img src="assets/images/teleconnex-icon-active.svg" alt="teleconnex" /></span>
+						Teleconnex
+					</span>
+				</button>
+				<mat-divider></mat-divider>
+				<button mat-menu-item [ngClass]="{'activeBtn': this.is_microsite_report == true}"
+					id="btnMicrositeReports" (click)="redirectToDashboard('/microsite/3')">
+					<span class="webText">{{ this.microsite_reporting_text }}</span>
+					<span class="mobileText">
+						<span class="imgIcon iconNonActive">
+							<img src="assets/images/microsites-icon.svg" alt="microsite" /></span>
+						<span class="imgIcon iconActive">
+							<img src="assets/images/microsites-icon-active.svg" alt="microsite" /></span>
+						Microsites
+					</span>
+				</button>
+				<mat-divider></mat-divider>
+				<button mat-menu-item [ngClass]="{'activeBtn': this.is_analytics == true}" id="btnMicrositeReports"
+					(click)="redirectToDashboard('/settings')">
+					<span class="webText">Settings</span>
+					<span class="mobileText">
+						<span class="imgIcon iconNonActive">
+							<img src="assets/images/acq-icon.svg" alt="Settings" /></span>
+						<span class="imgIcon iconActive">
+							<img src="assets/images/acq-icon-active.svg" alt="Settings" /></span>
+						Settings
+					</span>
+				</button>
+				<mat-divider></mat-divider>
+				<button mat-menu-item id="ddllogout" type="button" (click)="logout()">
+					<span class="webText">Logout</span>
+					<span class="mobileText">
+						<span class="imgIcon iconNonActive">
+							<img src="assets/images/logout-icon.svg" alt="logout" />
+						</span>
+						<span class="imgIcon iconActive">
+							<img src="assets/images/logout-icon-active.svg" alt="logout" />
+						</span>
+						Logout
+					</span>
+				</button>
+			</mat-menu>
 
-			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngClass]="{'activeBtn': this.is_mhi == true}" id="btnVicidialPush" (click)="redirectToDashboard('/overall/1')">
-				<span class="webText">{{ this.mhi_text }}</span>
-				<span class="mobileText">
-					<span class="imgIcon iconNonActive"><img src="assets/images/mhi-icon.svg" /></span>
-					<span class="imgIcon iconActive"><img src="assets/images/mhi-icon-active.svg" /></span>
-					MustHaveIt
-				</span>
-			</button>
-			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngClass]="{'activeBtn': this.is_teleconnex == true}"  id="btnVicidialPush" (click)="redirectToDashboard('/overall/2')">
-				<span class="webText">{{ this.teleconnex_text }}</span>
-				<span class="mobileText">
-					<span class="imgIcon iconNonActive"><img src="assets/images/teleconnex-icon.svg" /></span>
-					<span class="imgIcon iconActive"><img src="assets/images/teleconnex-icon-active.svg" /></span>
-					Teleconnex
-				</span>
-			</button>
-			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" [ngClass]="{'activeBtn': this.is_microsite_report == true}"  id="btnMicrositeReports" (click)="redirectToDashboard('/microsite/3')">
-				<span class="webText">{{ this.microsite_reporting_text }}</span>
-				<span class="mobileText">
-					<span class="imgIcon iconNonActive"><img src="assets/images/microsites-icon.svg" /></span>
-					<span class="imgIcon iconActive"><img src="assets/images/microsites-icon-active.svg" /></span>
-					Microsites
-				</span>
-			</button>
+
+
+
 
 			<!-- <button
 				style="margin-left: 10px"
@@ -55,15 +101,7 @@
 			>
 				Push to Vicidial
 			</button> -->
-			<button style="margin-left: 10px" class="btn btn-default dropdown-toggle" id="ddllogout" type="button"
-				(click)="logout()">
-				<span class="webText">Logout</span>
-				<span class="mobileText">
-					<span class="imgIcon iconNonActive"><img src="assets/images/logout-icon.svg" /></span>
-					<span class="imgIcon iconActive"><img src="assets/images/logout-icon-active.svg" /></span>
-					Logout
-				</span>
-			</button>
+
 		</div>
 	</div>
 </div>

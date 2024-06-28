@@ -159,16 +159,29 @@ export class LoginComponent implements OnInit, OnDestroy {
           "authToken",
           "uiu85_*n4999rkfld+_=yeu-y6i9-489h585g-bbyt75"
         );
-
+        localStorage.setItem("user_id", data.response.user_id);
+        this.auth.checkMfaEnabled().subscribe(
+          (data) => {
+            if (data.message.ismfaactive) {
+              this.router.navigateByUrl("verify");
+            }
+            else {
+              this.router.navigateByUrl("overall/1");
+            }
+          },
+          (error) => {
+            this.cdr.markForCheck();
+          }
+        ),
+          finalize(() => {
+            this.cdr.markForCheck();
+          });
         // "uiu85_*n4999rkfld+_=yeu-y6i9-489h585g-bbyt75"
-        this.router.navigateByUrl("overall/1");
-
         // Main page
       },
       (error) => {
         this.loading = false;
         this.loading1 = true;
-        console.log("error", error);
         this.cdr.markForCheck();
       }
     ),
