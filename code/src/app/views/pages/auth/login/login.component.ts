@@ -163,6 +163,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.auth.checkMfaEnabled().subscribe(
           (data) => {
             if (data.message.ismfaactive) {
+              localStorage.setItem("ismfaactive",data.message.ismfaactive);
               this.router.navigateByUrl("verify");
             }
             else {
