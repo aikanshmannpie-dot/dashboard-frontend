@@ -115,6 +115,7 @@ export class MicrositeLeadsComponent implements OnInit {
     "answer_9",
     "question_10",
     "answer_10",
+    "api_status",
     "api_client_name"
   ];
 
