@@ -1,6 +1,6 @@
 <div class="pageContainer">
   <div class="pageTopBar">
-    <h2 style="padding: 10px 0px; float: left">Microsite lead Report</h2>
+    <h2 style="padding: 10px 0px; float: left">Microsite lead Report </h2>
     <button class="calendarBtn" (click)="searchButton()">
       <img src="assets/images/calendar.svg" />
     </button>
@@ -626,6 +626,27 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.answer_10 }}
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="api_status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            API Status
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <div
+              *ngIf="element.api_status === true"
+              class="statusTrue"
+              title=" {{ element.api_response }}"
+            >
+              Accepted
+            </div>
+            <div
+              *ngIf="element.api_status === false"
+              class="statusFalse"
+              title=" {{ element.api_response }}"
+            >
+              Rejected
+            </div>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="api_client_name">
