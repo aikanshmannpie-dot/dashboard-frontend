@@ -11,6 +11,7 @@ import { MatTableDataSource } from "@angular/material/table";
 import { AuthService } from "../../../core/auth";
 import { finalize } from "rxjs/operators";
 import moment from "moment";
+import { FormControl } from "@angular/forms";
 
 @Component({
   selector: "kt-microsite-leads",
@@ -28,10 +29,11 @@ export class MicrositeLeadsComponent implements OnInit {
   startDate;
   globalFilter = "";
   offset = 0;
-  isSelected;
+
   siteListingData;
   search = true;
   download = true;
+  micrositeIds= new FormControl();
   searchButton() {
     this.search = !this.search;
   }
@@ -143,23 +145,23 @@ export class MicrositeLeadsComponent implements OnInit {
     return moment(activeTeam.created_at).format("YYYY-MM-DD hh:mm:ss");
   }
 
-  createSurveyQuestion(data,siteId) {
+  createSurveyQuestion(data, siteId) {
     var str = ``;
-    if(siteId!==137){
-    var formdata = data && JSON.parse(data);
-    formdata.map((item, index) => {
-      str =
-        str +
-        `Question ${index + 1}: ` +
-        item.label +
-        "\n" +
-        "Answer: " +
-        item.value +
-        "\n\n";
-    });
-  }else{
-    str=data;
-  }
+    if (siteId !== 137) {
+      var formdata = data && JSON.parse(data);
+      formdata.map((item, index) => {
+        str =
+          str +
+          `Question ${index + 1}: ` +
+          item.label +
+          "\n" +
+          "Answer: " +
+          item.value +
+          "\n\n";
+      });
+    } else {
+      str = data;
+    }
     return str;
   }
 
@@ -253,16 +255,28 @@ export class MicrositeLeadsComponent implements OnInit {
       });
   }
 
-  ChangingValue(data) {
-    this.isSelected = data.target.value;
-  }
+  // ChangingValue(data) {
+  //   const selectElement = event.target as HTMLSelectElement;
+  //   const options = selectElement.options;
+  //   const selectedValues: string[] = [];
+
+  //   for (let i = 0; i < options.length; i++) {
+  //     if (options[i].selected) {
+  //       if (options[i].value !== 'undefined')
+  //         selectedValues.push(options[i].value);
+  //     }
+  //   }
+
+  //   this.isSelected = selectedValues;
+  //   console.log(this.isSelected);
+  // }
 
   getListOfMicrosite(start, end) {
     var vm = this;
     this.loading = true;
     this.avaible = false;
     this.dataSource = new MatTableDataSource([]);
-    this.siteName = this.isSelected ? this.isSelected : undefined;
+    this.siteName = this.micrositeIds.value ? this.micrositeIds.value : undefined;
 
     this.auth
       .getListOfMicrosite(start, end, this.offset, this.siteName)
@@ -271,18 +285,20 @@ export class MicrositeLeadsComponent implements OnInit {
           if (data) {
 
             const apiData = data.apiData.map((lead) => {
-              if(lead.site_id!==137){
-              const answer = JSON.parse(lead.data);
-              let answers = [];
-               const leadd= answer.map((ans, index) => ({
-                ['question_' + index]: ans.label,
-                ['answer_' + index]: ans.value}
-               ));
-               const leads = leadd.reduce(((r, c) => Object.assign(r, c)), {})
-               lead = {
-                 ...lead,
-                 ...leads
-               };}
+              if (lead.site_id !== 137) {
+                const answer = JSON.parse(lead.data);
+                let answers = [];
+                const leadd = answer.map((ans, index) => ({
+                  ['question_' + index]: ans.label,
+                  ['answer_' + index]: ans.value
+                }
+                ));
+                const leads = leadd.reduce(((r, c) => Object.assign(r, c)), {})
+                lead = {
+                  ...lead,
+                  ...leads
+                };
+              }
               return lead;
             });
 
