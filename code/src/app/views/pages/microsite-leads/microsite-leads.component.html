@@ -32,7 +32,8 @@
           [ranges]="ranges"
           [(ngModel)]="model1"
         />
-        <select
+        <!-- <select
+        multiple
           class="form-control dropdown-select-box"
           (change)="ChangingValue($event)"
         >
@@ -40,7 +41,13 @@
           <option *ngFor="let item of siteListingData" value="{{ item.id }}">
             {{ item.name }}
           </option>
-        </select>
+        </select> -->
+        <mat-form-field>
+          <mat-label>Microsites</mat-label>
+          <mat-select multiple [formControl]="micrositeIds">
+            <mat-option *ngFor="let item of siteListingData" value="{{item.id}}">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
         <!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
         <button
           class="btn btn-default dropdown-toggle"

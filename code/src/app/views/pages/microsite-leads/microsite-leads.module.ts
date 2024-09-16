@@ -16,6 +16,8 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableExporterModule } from 'mat-table-exporter';
+import { MatSelectModule } from '@angular/material/select'; 
+import { ReactiveFormsModule } from '@angular/forms';
 import {NgxPrintModule} from 'ngx-print';
 // import { FlexLayoutModule } from '@angular/flex-layout';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,10 +31,12 @@ import {NgxPrintModule} from 'ngx-print';
 		MatTableModule,
 		MatPaginatorModule,
 		MatSortModule,
+		MatSelectModule,
 		MatFormFieldModule,
 		MatInputModule,
 		NgxPrintModule,
 		PDFExportModule,
+		ReactiveFormsModule,
 		// FormsModule,
 		// FormsModule,
 		// NgxDateRangeModule,
