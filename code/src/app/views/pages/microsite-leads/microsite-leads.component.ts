@@ -276,7 +276,7 @@ export class MicrositeLeadsComponent implements OnInit {
     this.loading = true;
     this.avaible = false;
     this.dataSource = new MatTableDataSource([]);
-    this.siteName = this.micrositeIds.value ? this.micrositeIds.value : undefined;
+    this.siteName = this.micrositeIds.value && this.micrositeIds.value.length ? this.micrositeIds.value : undefined;
 
     this.auth
       .getListOfMicrosite(start, end, this.offset, this.siteName)
