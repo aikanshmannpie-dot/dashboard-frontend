@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 // RxJS
 
-import { Observable, of, forkJoin } from "rxjs";
+import { Observable, of, forkJoin, throwError } from "rxjs";
 import { map, catchError, mergeMap, tap, take } from "rxjs/operators";
 // Lodash
 import { filter, some, find, each } from "lodash";
@@ -20,6 +21,9 @@ import { Permission } from "../_models/permission.model";
 import { Role } from "../_models/role.model";
 import jstz from "jstz";
 import { environment } from "../../../../environments/environment";
+import { currentAuthToken } from "../_selectors/auth.selectors";
+import { select, Store } from "@ngrx/store";
+import { AppState } from "../../reducers";
 
 // import {configUrl} from './urlDev';
 
@@ -36,12 +40,48 @@ const API_ROLES_URL = "api/roles";
 export class AuthService {
   timeZome1;
   timeZomeValue;
+  private currentToken: string | null = null;
   // baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient, private httpUtils: HttpUtilsService) {
+  constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private router: Router,
+    private store: Store<AppState>
+
+  ) {
     let timezone = jstz.determine();
     this.timeZome1 = timezone.name();
     this.timeZomeValue = this.timeZome1 == "Asia/Calcutta" ? 1 : 2;
+
+    this.store.select(currentAuthToken).subscribe(token => {
+      this.currentToken = token;
+    });
+  }
+
+  // private handleError(error: HttpErrorResponse) {
+  //   if (error.status === 401) {
+  //     localStorage.clear();
+  //     this.router.navigate(["/auth/login"]);
+  //   }
+  //   return throwError(() => error);
+  // }
+  private handleError<T>(operation = "operation", result?: any) {
+    return (error: any): Observable<any> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // Let the app keep running by returning an empty result.
+      return of(result);
+    };
+  }
+  private getBaseHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      "Content-Type": "application/json",
+    });
+  }
+  private getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${this.currentToken}`,
+    });
   }
 
   // Authentication/Authorization
@@ -54,10 +94,8 @@ export class AuthService {
       password: password,
       user_role: "dashboard_user",
     };
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set("Content-Type", "application/json");
     return this.http.post<User>(`${environment.baseUrl}/login`, data, {
-      headers: httpHeaders,
+      headers: this.getBaseHeaders(),
     });
   }
 
@@ -66,24 +104,16 @@ export class AuthService {
       user_role: "dashboard_user",
     };
 
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set("Content-Type", "application/json");
     return this.http.post<User>(`${environment.baseUrl}/logout`, data, {
-      headers: httpHeaders,
+      headers: this.getBaseHeaders(),
     });
   }
 
   getAffilateList(report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http
       .get<User>(
         `${environment.baseUrl}/dashboard/1/1/${this.timeZomeValue}/${report_type}`,
-        { headers: httpHeaders }
+        { headers: this.getAuthHeaders() }
       )
       .pipe(
         map((res: User) => {
@@ -102,15 +132,9 @@ export class AuthService {
     dashboard,
     report_type
   ): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/source-by-report/${startDate}/${endDate}/${isSelected}/${this.timeZomeValue}/${dashboard}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -121,106 +145,58 @@ export class AuthService {
     dashboard,
     report_type
   ): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/source-by-report-graph/${startDate}/${endDate}/${isSelected}/${this.timeZomeValue}/${dashboard}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getAffilate(startDate, endDate, dashboard, report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/affiliate-by-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getLineChart(startDate, endDate, report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/line-chart-data/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getAllApiData(startDate, endDate, report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/get-all-report/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getLeftSideDataTable(startDate, endDate, report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/left-dashboard/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getGpCorag(startDate, endDate, report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/gpReport/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getTicksGraph(startDate, endDate, report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/overall-tick-graph/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getTicksGraphAc(startDate, endDate, report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/overall-tick-ac/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -231,15 +207,9 @@ export class AuthService {
     type,
     selectedValue
   ): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/over-all-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -250,15 +220,9 @@ export class AuthService {
     type,
     selectedValue
   ): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/campaigns-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -269,15 +233,9 @@ export class AuthService {
     type,
     selectedValue
   ): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/campaigns-revenue-by-suppliers-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
@@ -288,77 +246,41 @@ export class AuthService {
     type,
     selectedValue
   ): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/campaigns-revenue-by-suppliers-report-grouped/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getAgents(startDate, endDate, type, selectedValue): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/agent-report/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
   getReport1(startDate, endDate, type, selectedValue): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/teleconnexdailyprogress/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
   getReport2(startDate, endDate, type, selectedValue): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/teleconnexdailyprogressco/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getTeleconnex(startDate, endDate, type, selectedValue): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/agent-report/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
   getTeleconnex2(startDate, endDate, type, selectedValue): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/agent-report/${startDate}/${endDate}/${this.timeZomeValue}/${type}/${selectedValue}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
   getOverAllClick(
@@ -367,262 +289,153 @@ export class AuthService {
     report_type,
     isSeptToNov
   ): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/overall-ticks/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${isSeptToNov}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getClickOutReport(startDate, endDate, report_type): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get<User>(
       `${environment.baseUrl}/clickout-report/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getSiteNameList(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<User>(`${environment.baseUrl}/get-site-list`, {
-      headers: httpHeaders,
+      headers: this.getAuthHeaders(),
     });
   }
   getLeadReportByDomain(startDate, endDate): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get(`${environment.baseUrl}/microsite/getleadsbydomain/${startDate}/${endDate}`, {
-      headers: httpHeaders,
+      headers: this.getAuthHeaders(),
     });
   }
   getMetaSourceList(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<User>(
       `${environment.baseUrl}/import/getmetasourcelist`,
       {
-        headers: httpHeaders,
+        headers: this.getAuthHeaders(),
       }
     );
   }
   getCallcenterList(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<User>(
       `${environment.baseUrl}/import/getcallcenterlist`,
       {
-        headers: httpHeaders,
+        headers: this.getAuthHeaders(),
       }
     );
   }
 
   getSupplierList(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<User>(
       `${environment.baseUrl}/import/getsupplierlist`,
       {
-        headers: httpHeaders,
+        headers: this.getAuthHeaders(),
       }
     );
   }
 
   getListOfMicrosite(startDate, endDate, offSet, siteName): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<User>(
       `${environment.baseUrl}/micrositelisting/${startDate}/${endDate}/${offSet}/${siteName}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getLeadsAccordingToApiClient(startDate, endDate, siteName): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<User>(
       `${environment.baseUrl}/microsite/get-leads-by-api-name/${startDate}/${endDate}/${siteName}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getMicrositeSourceLeads(startDate, endDate): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<any>(
       `${environment.baseUrl}/microsite-source-report/${startDate}/${endDate}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getMicrositeAffiliateReport(startDate, endDate): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<any>(
       `${environment.baseUrl}/microsite-affiliate-report/${startDate}/${endDate}`,
-      { headers: httpHeaders }
+      { headers: this.getAuthHeaders() }
     );
   }
 
   getTotalLeadsByPhone(source): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get<any>(
-      `${environment.baseUrl}/import/gettotalleads/${source}`
+      `${environment.baseUrl}/import/gettotalleads/${source}`,{
+        headers:this.getAuthHeaders()
+      }
     );
   }
 
   getActiveMonthly(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
+    return this.http.get(`${environment.baseUrl}/import/getActiveMonthly`,{
+      headers:this.getAuthHeaders()
     });
-
-    return this.http.get(`${environment.baseUrl}/import/getActiveMonthly`);
   }
 
   getRepeatWeekly(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
+     return this.http.get(`${environment.baseUrl}/import/getRepeatWeekly`,{
+      headers:this.getAuthHeaders()
     });
-
-    return this.http.get(`${environment.baseUrl}/import/getRepeatWeekly`);
   }
 
   getAgeData(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
+    return this.http.get(`${environment.baseUrl}/import/getAgeData`,{
+      headers:this.getAuthHeaders()
     });
-
-    return this.http.get(`${environment.baseUrl}/import/getAgeData`);
   }
   getGenderCount(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
+    return this.http.get(`${environment.baseUrl}/import/getGenderCount`,{
+      headers:this.getAuthHeaders()
     });
-
-    return this.http.get(`${environment.baseUrl}/import/getGenderCount`);
   }
 
   getTotalUniqueLeadsAcquirely(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get(
-      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirely`
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirely`,{
+        headers:this.getAuthHeaders()
+      }
     );
   }
 
   getTotalUniqueLeadsAcquirelyAll(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get(
-      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyAll`
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyAll`,{
+        headers:this.getAuthHeaders()
+      }
     );
   }
 
   getTotalUniqueLeadsAcquirelyPartners(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get(
-      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyPartners`
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyPartners`,{
+        headers:this.getAuthHeaders()
+      }
     );
   }
 
   getTotalUniqueLeadsTeleconnex(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
-    return this.http.get(
-      `${environment.baseUrl}/import/getTotalUniqueLeadsTeleconnex`
+     return this.http.get(
+      `${environment.baseUrl}/import/getTotalUniqueLeadsTeleconnex`,{
+        headers:this.getAuthHeaders()
+      }
     );
   }
 
   getActiveLastWeek(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
+    return this.http.get(`${environment.baseUrl}/import/getactivelastweek`,{
+      headers:this.getAuthHeaders()
     });
-
-    return this.http.get(`${environment.baseUrl}/import/getactivelastweek`);
   }
 
   postListOfVicidial(startDate, endDate, leadType): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     var data = {
       startDate: startDate,
       endDate: endDate,
@@ -632,31 +445,20 @@ export class AuthService {
       `${environment.baseUrl}/import/teleconnexvicidial`,
       data,
       {
-        headers: httpHeaders,
+        headers: this.getAuthHeaders(),
       }
     );
   }
   getVicidialResponses(): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
     return this.http.get(`${environment.baseUrl}/import/getvicidialresponses`, {
-      headers: httpHeaders,
+      headers: this.getAuthHeaders(),
     });
   }
   getListOfLeads(startDate, endDate): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: authToken,
-    });
-
     return this.http.get(
       `${environment.baseUrl}/import/getmhitoteleconnex/${startDate}/${endDate}`,
       {
-        headers: httpHeaders,
+        headers: this.getAuthHeaders(),
       }
     );
   }
@@ -667,12 +469,9 @@ export class AuthService {
     user.pic = "./assets/media/users/default.jpg";
     user["user_role"] = "dashboard_user";
 
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set("Content-Type", "application/json");
-
     return this.http
-      .post<User>(`http://localhost:8034/api/register`, user, {
-        headers: httpHeaders,
+      .post<User>(`${environment.baseUrl}/register`, user, {
+        headers: this.getBaseHeaders(),
       })
       .pipe(
         map((res: User) => {
@@ -736,17 +535,16 @@ export class AuthService {
 
   // CREATE =>  POST: add a new user to the server
   createUser(user: User): Observable<User> {
-    const httpHeaders = new HttpHeaders();
-    // Note: Add headers if needed (tokens/bearer)
-    httpHeaders.set("Content-Type", "application/json");
     return this.http.post<User>(environment.baseUrl, user, {
-      headers: httpHeaders,
+      headers: this.getBaseHeaders(),
     });
   }
 
   // READ
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(environment.baseUrl);
+    return this.http.get<User[]>(environment.baseUrl, {
+      headers: this.getBaseHeaders(),
+    });
   }
 
   getUserById(userId: number): Observable<User> {
@@ -754,21 +552,23 @@ export class AuthService {
       return of(null);
     }
 
-    return this.http.get<User>(environment.baseUrl + `/${userId}`);
+    return this.http.get<User>(environment.baseUrl + `/${userId}`, {
+      headers: this.getBaseHeaders(),
+    });
   }
 
   // DELETE => delete the user from the server
   deleteUser(userId: number) {
     const url = `${environment.baseUrl}/${userId}`;
-    return this.http.delete(url);
+    return this.http.delete(url, {
+      headers: this.getBaseHeaders(),
+    });
   }
 
   // UPDATE => PUT: update the user on the server
   updateUser(_user: User): Observable<any> {
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set("Content-Type", "application/json");
     return this.http
-      .put(environment.baseUrl, _user, { headers: httpHeaders })
+      .put(environment.baseUrl, _user, { headers: this.getBaseHeaders() })
       .pipe(
         catchError((err) => {
           return of(null);
@@ -790,11 +590,15 @@ export class AuthService {
 
   // Permissions
   getAllPermissions(): Observable<Permission[]> {
-    return this.http.get<Permission[]>(API_PERMISSION_URL);
+    return this.http.get<Permission[]>(API_PERMISSION_URL, {
+      headers: this.getBaseHeaders(),
+    });
   }
 
   getRolePermissions(roleId: number): Observable<Permission[]> {
-    const allRolesRequest = this.http.get<Permission[]>(API_PERMISSION_URL);
+    const allRolesRequest = this.http.get<Permission[]>(API_PERMISSION_URL, {
+      headers: this.getBaseHeaders(),
+    });
     const roleRequest = roleId ? this.getRoleById(roleId) : of(null);
     return forkJoin(allRolesRequest, roleRequest).pipe(
       map((res) => {
@@ -871,39 +675,43 @@ export class AuthService {
 
   // Roles
   getAllRoles(): Observable<Role[]> {
-    return this.http.get<Role[]>(API_ROLES_URL);
+    return this.http.get<Role[]>(API_ROLES_URL, {
+      headers: this.getBaseHeaders(),
+    });
   }
 
   getRoleById(roleId: number): Observable<Role> {
-    return this.http.get<Role>(API_ROLES_URL + `/${roleId}`);
+    return this.http.get<Role>(API_ROLES_URL + `/${roleId}`, {
+      headers: this.getBaseHeaders(),
+    });
   }
 
   // CREATE =>  POST: add a new role to the server
   createRole(role: Role): Observable<Role> {
     // Note: Add headers if needed (tokens/bearer)
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set("Content-Type", "application/json");
     return this.http.post<Role>(API_ROLES_URL, role, {
-      headers: httpHeaders,
+      headers: this.getAuthHeaders(),
     });
   }
 
   // UPDATE => PUT: update the role on the server
   updateRole(role: Role): Observable<any> {
-    const httpHeaders = new HttpHeaders();
-    httpHeaders.set("Content-Type", "application/json");
-    return this.http.put(API_ROLES_URL, role, { headers: httpHeaders });
+    return this.http.put(API_ROLES_URL, role, { headers: this.getAuthHeaders() });
   }
 
   // DELETE => delete the role from the server
   deleteRole(roleId: number): Observable<Role> {
     const url = `${API_ROLES_URL}/${roleId}`;
-    return this.http.delete<Role>(url);
+    return this.http.delete<Role>(url, {
+      headers: this.getBaseHeaders(),
+    });
   }
 
   findRoles(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
     // This code imitates server calls
-    return this.http.get<Role[]>(API_ROLES_URL).pipe(
+    return this.http.get<Role[]>(API_ROLES_URL, {
+      headers: this.getBaseHeaders(),
+    }).pipe(
       mergeMap((res) => {
         const result = this.httpUtils.baseFilter(res, queryParams, []);
         return of(result);
@@ -928,61 +736,29 @@ export class AuthService {
     );
   }
 
-  private handleError<T>(operation = "operation", result?: any) {
-    return (error: any): Observable<any> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // Let the app keep running by returning an empty result.
-      return of(result);
-    };
-  }
-
-
   checkMfaEnabled(): Observable<any> {
     const userid = localStorage.getItem("user_id");
-    const authToken = localStorage.getItem("authToken");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      Authorization: "Bearer "+authToken,
-    });
-
-    return this.http.post<UserMfaModel>(`${environment.baseUrl}/check-mfa-enabled`,{userid:userid}, {
-      headers: httpHeaders,
+    return this.http.post<UserMfaModel>(`${environment.baseUrl}/check-mfa-enabled`, { userid: userid }, {
+      headers: this.getAuthHeaders(),
     });
   }
 
   getQrCode(): Observable<any> {
     const userid = localStorage.getItem("user_id");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNoZWV0YWwgRGhhZGlhbCIsImlhdCI6MTUxNjIzOTAyMn0.cYfB4I92ZPHOWGx-HefWFY_oGxhsB8xBP5-X58ccZ-U",
-    });
-
-    return this.http.post<UserQrCodeModel>(`${environment.micrositeApiUrl}/generate-qr-code`,{userid:userid}, {
-      headers: httpHeaders,
+    return this.http.post<UserQrCodeModel>(`${environment.micrositeApiUrl}/generate-qr-code`, { userid: userid }, {
+      headers: this.getBaseHeaders(),
     });
   }
   generateSecret(): Observable<any> {
     const userid = localStorage.getItem("user_id");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNoZWV0YWwgRGhhZGlhbCIsImlhdCI6MTUxNjIzOTAyMn0.cYfB4I92ZPHOWGx-HefWFY_oGxhsB8xBP5-X58ccZ-U",
-    });
-
-    return this.http.post<UserQrCodeModel>(`${environment.micrositeApiUrl}/generate-secret`,{userid:userid}, {
-      headers: httpHeaders,
+    return this.http.post<UserQrCodeModel>(`${environment.micrositeApiUrl}/generate-secret`, { userid: userid }, {
+      headers: this.getBaseHeaders(),
     });
   }
-  verifyOtp(otp:string): Observable<any> {
+  verifyOtp(otp: string): Observable<any> {
     const userid = localStorage.getItem("user_id");
-    const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/json",
-      "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNoZWV0YWwgRGhhZGlhbCIsImlhdCI6MTUxNjIzOTAyMn0.cYfB4I92ZPHOWGx-HefWFY_oGxhsB8xBP5-X58ccZ-U",
-    });
-
-    return this.http.post<UserVerifyModel>(`${environment.micrositeApiUrl}/verify-otp`,{userid:userid,token:otp}, {
-      headers: httpHeaders,
+    return this.http.post<UserVerifyModel>(`${environment.micrositeApiUrl}/verify-otp`, { userid: userid, token: otp }, {
+      headers: this.getBaseHeaders(),
     });
   }
 }
