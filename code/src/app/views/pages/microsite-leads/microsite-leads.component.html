@@ -279,6 +279,10 @@
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.api_client_name }}
+            <div *ngIf="element.delivery_status" class="badge badge-success">
+              <span class="icon">&#10003;</span> <!-- Unicode for checkmark -->
+            </div>
+            <!-- <span *ngIf="element.delivery_status">Yes</span> -->
             <span class="d-print-none">API Client Name</span>
           </mat-cell>
         </ng-container>

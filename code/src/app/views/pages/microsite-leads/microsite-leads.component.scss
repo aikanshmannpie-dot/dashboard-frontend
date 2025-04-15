@@ -121,3 +121,48 @@ table {
   word-wrap: break-word;
   word-break: break-word;
 }
+/* Base styling for the badge */
+.badge {
+  margin-left: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4em 0.8em;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.badge-success {
+  background-color: #28a745;
+}
+
+.badge-secondary {
+  background-color: #6c757d;
+}
+
+/* Add hover effect */
+.badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Styling for the tick icon */
+.badge .icon {
+  margin-right: 0.4em;
+  font-size: 1.1em;
+  display: flex;
+  align-items: center;
+}
+
+/* Optional media query for responsiveness */
+@media (max-width: 600px) {
+  .badge {
+    font-size: 0.8rem;
+    padding: 0.3em 0.6em;
+  }
+}
