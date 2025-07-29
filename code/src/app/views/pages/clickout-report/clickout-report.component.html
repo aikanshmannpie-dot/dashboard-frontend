@@ -5,6 +5,10 @@
 		<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
 			<div ngbDropdown class="dropdown searcBar">
 				<h3>Search Offers Report <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
+				<select class="form-control mb-2 selectBox" (change)="CountryChangingValue($event)">
+					<option value="au">AU</option>
+					<option value="nz">NZ</option>
+				</select>
 				<input
 					type="text"
 					class="btn btn-default dropdown-toggle"

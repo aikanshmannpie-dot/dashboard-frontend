@@ -36,6 +36,7 @@ export class CampanignsReportComponent implements OnInit {
   areNoRecords = false;
   search = true;
   download = true;
+  countrySelected = "au";
   searchButton() {
     this.search = !this.search;
   }
@@ -104,7 +105,9 @@ export class CampanignsReportComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
-
+  CountryChangingValue(data){
+    this.countrySelected = data.target.value;
+  }
   getMetaSourceList() {
     this.auth.getMetaSourceList().subscribe(
       (data) => {

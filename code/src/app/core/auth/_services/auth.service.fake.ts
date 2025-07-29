@@ -130,10 +130,11 @@ export class AuthService {
     endDate,
     isSelected,
     dashboard,
-    report_type
+    report_type,
+    country
   ): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/source-by-report/${startDate}/${endDate}/${isSelected}/${this.timeZomeValue}/${dashboard}/${report_type}`,
+      `${environment.baseUrl}/source-by-report/${startDate}/${endDate}/${isSelected}/${this.timeZomeValue}/${dashboard}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }

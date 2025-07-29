@@ -5,134 +5,78 @@
 		<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
 		<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
 			<div ngbDropdown class="dropdown searcBar">
-				<h3>Search Report <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
-				<input
-					type="text"
-					class="btn btn-default dropdown-toggle"
-					ngxDaterangepickerMd
-					startKey="start"
-					endKey="end"
-					[(ngModel)]="model1"
-				/>
-				<input
-					type="text"
-					class="btn btn-default dropdown-toggle"
-					ngxDaterangepickerMd
-					startKey="start"
-					endKey="end"
-					[ranges]="ranges"
-					[(ngModel)]="model1"
-				/> 
-				<select
-					class="form-control dropdown-select-box"
-					(change)="ChangingValue($event)"
-					*ngIf="report_type == 2"
-				>
+				<h3>Search Report <button (click)="searchButton()" class="closeBtbn"><img
+							src="assets/images/close.svg" /></button></h3>
+				<select class="form-control mb-2 selectBox" (change)="CountryChangingValue($event)">
+					<option value="au">AU</option>
+					<option value="nz">NZ</option>
+				</select>
+				<input type="text" class="btn btn-default dropdown-toggle" ngxDaterangepickerMd startKey="start"
+					endKey="end" [(ngModel)]="model1" />
+				<input type="text" class="btn btn-default dropdown-toggle" ngxDaterangepickerMd startKey="start"
+					endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
+				<select class="form-control dropdown-select-box" (change)="ChangingValue($event)"
+					*ngIf="report_type == 2">
 					<option value="undefined">Search By Source</option>
-					<option
-						*ngFor="let item of metasourceListingData"
-						value="{{ item.id }}"
-					>
-					<div *ngIf="item.name!=null">	{{ item.name }}</div>
+					<option *ngFor="let item of metasourceListingData" value="{{ item.id }}">
+						<div *ngIf="item.name!=null"> {{ item.name }}</div>
 					</option>
 				</select>
-				<button
-					class="btn btn-default dropdown-toggle"
-					id="ddllogout"
-					type="button"
-					(click)="searchRange()"
-					(click)="searchButton()"
-				>
+				<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="searchRange()"
+					(click)="searchButton()">
 					Search
-				</button>				
+				</button>
 			</div>
 		</div>
-		  
-		
 
 
-		
+
+
+
 	</div>
 
 	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
 
 		<button class="downloadIconBtn" (click)="downloadButton()"><img src="assets/images/download.svg" /></button>
 		<div class="downloadBtnsBox" [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'">
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="
+			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="
 					exporter.exportTable('csv', {
 						fileName: 'Acquirely  Dashboard '
 					})
-				"
-			>
+				">
 				<img src="assets/images/csv.svg" /> CSV
 			</button>
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
-			>
-			<img src="assets/images/pdf.svg" /> PDF
+			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button"
+				(click)="pdf.saveAs('Acquirely  Dashboard.pdf')">
+				<img src="assets/images/pdf.svg" /> PDF
 			</button>
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				[useExistingCss]="true"
-				printSectionId="pdfTable"
-				ngxPrint
-			>
-			<img src="assets/images/print.svg" /> Print
+			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" [useExistingCss]="true"
+				printSectionId="pdfTable" ngxPrint>
+				<img src="assets/images/print.svg" /> Print
 			</button>
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="
+			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="
 					exporter.exportTable('xls', {
 						fileName: 'Acquirely  Dashboard '
 					})
-				"
-			>
-			<img src="assets/images/excel.svg" /> Excel
+				">
+				<img src="assets/images/excel.svg" /> Excel
 			</button>
-		</div>	 
+		</div>
 		<div fxLayout fxLayoutAlign="right right" class="div-right-align">
 			<mat-form-field fxFlex="40%">
-				<input
-					matInput
-					type="text"
-					(keyup)="doFilter($event.target.value)"
-					placeholder="Search:"
-				/>
+				<input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search:" />
 			</mat-form-field>
 		</div>
 	</div>
 
 	<div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
 		<kendo-pdf-export #pdf margin="2cm">
-			<mat-table
-				class="lmat-elevation-z8"
-				matTableExporter
-				#table
-				[dataSource]="dataSource"
-				matSort
-				#matSort="matSort"
-				matSortActive="id"
-				matSortDirection="asc"
-				matSortDisableClear
-				#exporter="matTableExporter"
-				matSort
-				(matSortChange)="sortColumn($event)"
-			>
+			<mat-table class="lmat-elevation-z8" matTableExporter #table [dataSource]="dataSource" matSort
+				#matSort="matSort" matSortActive="id" matSortDirection="asc" matSortDisableClear
+				#exporter="matTableExporter" matSort (matSortChange)="sortColumn($event)">
 				<ng-container matColumnDef="Sr.No">
 					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Sr.No</mat-header-cell
-					>
+						Sr.No</mat-header-cell>
 					<mat-cell *matCellDef="let element; let i = index" class="firstCellCollumn">
 						{{ i + 1 }}
 						<span class="d-print-none">Sr.No</span>
@@ -212,12 +156,8 @@
                         placeholder="Search:"> -->
 					</mat-header-cell>
 					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						<input
-							matInput
-							type="text"
-							(keyup)="doFilterRevtotal($event.target.value)"
-							placeholder="Search:"
-						/>
+						<input matInput type="text" (keyup)="doFilterRevtotal($event.target.value)"
+							placeholder="Search:" />
 					</mat-header-cell>
 					<mat-cell *matCellDef="let element">
 						{{ element.gpper }}
@@ -236,20 +176,13 @@
 					</mat-cell>
 				</ng-container>
 
-				<mat-header-row
-					*matHeaderRowDef="displayedColumns"
-				></mat-header-row>
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
 				<div>
-					<mat-row
-						*matRowDef="let row; columns: displayedColumns"
-					></mat-row>
+					<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 				</div>
 			</mat-table>
 			<div *ngIf="loading" style="text-align: center">
-				<img
-					style="padding: 10px; height: 100px"
-					src="assets/images/loader.gif"
-				/>
+				<img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
 			</div>
 		</kendo-pdf-export>
 
@@ -264,10 +197,7 @@
 		<!-- <mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner> -->
 		<!-- MATERIAL PAGINATOR | Binded to dasources -->
 		<!-- See off.documentations 'https://material.angular.io/components/paginator/overview' -->
-		<mat-paginator
-			[pageSize]="10"
-			[pageSizeOptions]="[10, 20, 25, 100]"
-			[showFirstLastButtons]="true"
-		></mat-paginator>
+		<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 25, 100]"
+			[showFirstLastButtons]="true"></mat-paginator>
 	</div>
 </div>

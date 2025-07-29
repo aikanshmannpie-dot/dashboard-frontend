@@ -61,6 +61,7 @@ export class AgentReportComponent implements OnInit {
   areNoRecords = false;
   search = true;
   download = true;
+  countrySelected = "au";
   searchButton() {
     this.search = !this.search;
   }
@@ -120,7 +121,7 @@ export class AgentReportComponent implements OnInit {
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.report_type = this.router.url.includes("/2") ? "2" : "1";
@@ -141,12 +142,14 @@ export class AgentReportComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
-
-    getCallcenterList() {
+  CountryChangingValue(data) {
+    this.countrySelected = data.target.value;
+  }
+  getCallcenterList() {
     this.auth.getCallcenterList().subscribe(
       (data) => {
         if (data) {
-         
+
           this.callcenterListingData = data.apiData;
         } else {
         }
@@ -252,7 +255,7 @@ export class AgentReportComponent implements OnInit {
       let searchString = JSON.parse(filter);
       return (
         data.agentname.toString().trim().indexOf(searchString.agentname) !==
-          -1 &&
+        -1 &&
         data.totalcountuniq
           .toString()
           .trim()

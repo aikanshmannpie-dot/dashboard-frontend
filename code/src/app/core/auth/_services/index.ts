@@ -1,5 +1,5 @@
 export { AuthService } from './auth.service.fake'; 
-
+export { SupplierService } from './supplier.service';
 // export class ManeUrl {
 
 //     let  abcd =""
