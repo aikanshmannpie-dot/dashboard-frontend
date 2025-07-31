@@ -38,6 +38,7 @@ export class OverallQuesTickReportComponent implements OnInit {
 	isDataSource = true;		
 	search = true;
 	download = true;
+	countrySelected = "au";
 	searchButton() {
 		this.search = !this.search;
 	  };
@@ -95,7 +96,9 @@ export class OverallQuesTickReportComponent implements OnInit {
 		);
 		this.dataSource.filterPredicate = this.customFilterPredicate();
 	}
-
+	CountryChangingValue(data){
+		this.countrySelected = data.target.value;
+	  }
 	ngAfterViewInit(): void {
 		this.dataSource.sort = this.sort;
 		this.dataSource.paginator = this.paginator;

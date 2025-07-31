@@ -38,6 +38,7 @@ export class OverallReportComponent implements OnInit {
   report_type;
   search = true;
   download = true;
+  countrySelected = "au";
   searchButton() {
     this.search = !this.search;
   }
@@ -135,7 +136,9 @@ export class OverallReportComponent implements OnInit {
   ChangingValue(data) {
     this.selectedValue = data.target.value;
   }
-
+  CountryChangingValue(data){
+    this.countrySelected = data.target.value;
+  }
   public downloadAsPDF() {
     var data = document.getElementById("pdfTable");
     html2canvas(data).then((canvas) => {
