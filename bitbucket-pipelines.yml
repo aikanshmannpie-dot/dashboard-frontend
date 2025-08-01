@@ -20,11 +20,12 @@ pipelines:
             - nvm alias default 18.19
             - nvm use 18.19
             - npm -v
-    uat-*:
+    # uat-*:
+    main:
       - step:
           name: 1.Running Initial Tests
           script:
-            # - apt-get update -y
+            - apt-get update -y
             - apt-get install -y zip
             - apt-get install sshpass -y
             - apt-get install -y rsync
