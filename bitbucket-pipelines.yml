@@ -1,5 +1,5 @@
 #  Bitbucket Pipeline for Dashboard
-image: node:lts
+image: node:14.20
 
 pipelines:
   branches:
@@ -25,15 +25,15 @@ pipelines:
       - step:
           name: 1.Running Initial Tests
           script:
-            - apt-get update -y
+            # - apt-get update -y
             - apt-get install -y zip
             - apt-get install sshpass -y
             - apt-get install -y rsync
             - pwd
             - ls -la
             - cd code
-            - apt-get install -y python3 make g++
-            - export PYTHON=$(which python3)
+            # - apt-get install -y python3 make g++
+            # - export PYTHON=$(which python3)
             - npm install
             - npm install -g @angular/cli
             - npm i ngx-daterangepicker-material@2.1.7
