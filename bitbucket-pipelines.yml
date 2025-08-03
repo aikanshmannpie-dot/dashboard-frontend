@@ -26,9 +26,9 @@ pipelines:
           name: 1.Running Initial Tests
           script:
             # - apt-get update -y
-            - apt-get install -y zip
-            - apt-get install sshpass -y
-            - apt-get install -y rsync
+            # - apt-get install -y zip
+            # - apt-get install sshpass -y
+            # - apt-get install -y rsync
             - pwd
             - ls -la
             - cd code
