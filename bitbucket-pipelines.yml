@@ -33,7 +33,7 @@ pipelines:
             - ls -la
             - cd code
             - apt-get install -y python3 make g++
-            - npm config set python python3
+            - export PYTHON=$(which python3)
             - npm install
             - npm install -g @angular/cli
             - npm i ngx-daterangepicker-material@2.1.7
