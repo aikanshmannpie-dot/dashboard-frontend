@@ -1,5 +1,5 @@
 #  Bitbucket Pipeline for Dashboard
-image: node:16.20
+image: node:lts
 
 pipelines:
   branches:
@@ -32,6 +32,8 @@ pipelines:
             - pwd
             - ls -la
             - cd code
+            - apt-get install -y python2
+            - ln -sf /usr/bin/python2 /usr/bin/python
             - npm install
             - npm install -g @angular/cli
             - npm i ngx-daterangepicker-material@2.1.7
