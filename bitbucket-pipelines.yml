@@ -32,8 +32,8 @@ pipelines:
             - pwd
             - ls -la
             - cd code
-            - apt-get install -y python2
-            - ln -sf /usr/bin/python2 /usr/bin/python
+            - apt-get install -y python3 make g++
+            - npm config set python python3
             - npm install
             - npm install -g @angular/cli
             - npm i ngx-daterangepicker-material@2.1.7
