@@ -209,7 +209,7 @@ export class ClickoutReportComponent implements OnInit {
     this.avaible = false;
     this.dataSource = new MatTableDataSource([]);
     const report_type = this.router.url.includes("/2") ? "2" : "1";
-    this.auth.getClickOutReport(start, end, report_type).subscribe(
+    this.auth.getClickOutReport(start, end, report_type,this.countrySelected).subscribe(
       (data) => {
         if (data) {
           this.avaible = true;
