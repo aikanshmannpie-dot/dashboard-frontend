@@ -1,0 +1,30 @@
+<div class="pageContainer">
+  <div class="pageTopBar">
+    <h2 style="padding: 10px 0px; float: left">Microsite lead Report</h2>
+    <button class="calendarBtn">
+      <img src="assets/images/calendar.svg" />
+    </button>
+    <div class="searchBox" class="searchBoxShow">
+      <div ngbDropdown class="dropdown searcBar threeColumn">
+        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
+          endKey="end" [(ngModel)]="model1" />
+        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
+          endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
+
+        <!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
+        <button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="searchRange()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" style="text-align: center">
+    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
+  </div>
+  <div class="row col-12">
+    <figure Sclass="highcharts-figure" class="col-12">
+      <div id="activeLastWeek" style="width: 100%; height: 600px;"></div>
+    </figure>
+  </div>
+</div>
