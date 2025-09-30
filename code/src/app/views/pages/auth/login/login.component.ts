@@ -153,8 +153,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.auth.login(authData.email, authData.password).subscribe(
       (data) => {
         this.store.dispatch(new Login({ authToken: data.response.token }));
-        // localStorage.setItem("authToken", data.response.token);
-        localStorage.setItem("authTokenValue", data.response.token);
         localStorage.setItem(
           "authToken",
           "uiu85_*n4999rkfld+_=yeu-y6i9-489h585g-bbyt75"

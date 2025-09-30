@@ -76,7 +76,7 @@ export class MicrositeLeadsComponent implements OnInit {
     "api_status",
     "sms_body",
     "section_second_header",
-    "api_client_name"
+    "api_client_name",
   ];
   displayedColumns1: string[] = [
     "site_name",
@@ -118,7 +118,7 @@ export class MicrositeLeadsComponent implements OnInit {
     "question_10",
     "answer_10",
     "api_status",
-    "api_client_name"
+    "api_client_name",
   ];
 
   columnIds = [];
@@ -282,6 +282,7 @@ export class MicrositeLeadsComponent implements OnInit {
       .getListOfMicrosite(start, end, this.offset, this.siteName)
       .subscribe(
         (data) => {
+          console.log("data", data);
           if (data) {
 
             const apiData = data.apiData.map((lead) => {

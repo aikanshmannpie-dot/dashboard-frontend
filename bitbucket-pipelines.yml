@@ -20,17 +20,20 @@ pipelines:
             - nvm alias default 18.19
             - nvm use 18.19
             - npm -v
-    uat-*:
+    # uat-*:
+    main:
       - step:
           name: 1.Running Initial Tests
           script:
-            - apt-get update -y
-            - apt-get install -y zip
-            - apt-get install sshpass -y
-            - apt-get install -y rsync
+            # - apt-get update -y
+            # - apt-get install -y zip
+            # - apt-get install sshpass -y
+            # - apt-get install -y rsync
             - pwd
             - ls -la
             - cd code
+            # - apt-get install -y python3 make g++
+            # - export PYTHON=$(which python3)
             - npm install
             - npm install -g @angular/cli
             - npm i ngx-daterangepicker-material@2.1.7

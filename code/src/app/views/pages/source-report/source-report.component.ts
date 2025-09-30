@@ -10,7 +10,8 @@ import {
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { AuthNoticeService, AuthService, Login } from "../../../core/auth";
+import { AuthNoticeService, AuthService, Login, SupplierService } from "../../../core/auth";
+
 import { Observable, Subject } from "rxjs";
 import { finalize, takeUntil, tap } from "rxjs/operators";
 import moment from "moment";
@@ -19,6 +20,7 @@ import html2canvas from "html2canvas";
 import * as jspdf from "jspdf";
 declare var $: any;
 import { Router } from "@angular/router";
+
 
 @Component({
   selector: "kt-source-report",
@@ -32,6 +34,8 @@ export class SourceReportComponent implements OnInit {
   loading = false;
   model1;
   affilateListData = [];
+  countrySelected= "au";
+  // supplierListData = [];
   endDate;
   startDate;
   globalFilter = "";
@@ -98,7 +102,8 @@ export class SourceReportComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    private supplierService: SupplierService
   ) {}
 
   ngOnInit() {
@@ -111,6 +116,7 @@ export class SourceReportComponent implements OnInit {
     );
     this.dataSource.filterPredicate = this.customFilterPredicate();
     this.getAffilateList();
+    // this.getSuppliersList();
   }
 
   ngAfterViewInit(): void {
@@ -176,9 +182,25 @@ export class SourceReportComponent implements OnInit {
       )
       .subscribe();
   }
+  // getSuppliersList(){
+  //   this.supplierService.getSuppliers().pipe(
+  //     tap((data) => {
+  //       if (data.data.length > 0) {
+  //         this.supplierListData = data.data;
+  //       }
+  //     }),
+  //     finalize(() => {
+  //       this.cdr.markForCheck();
+  //     })
+  //   )
+  //   .subscribe();
+  // }
 
   ChangingValue(data) {
     this.isSelected = data.target.value;
+  }
+  CountryChangingValue(data){
+    this.countrySelected = data.target.value;
   }
   showTable() {
     var vm = this;
@@ -307,7 +329,7 @@ export class SourceReportComponent implements OnInit {
     const report_type = this.router.url.includes("/2") ? "2" : "1";
 
     this.auth
-      .getSourceReportList(start, end, this.isSelected, "list", report_type)
+      .getSourceReportList(start, end, this.isSelected, "list", report_type,this.countrySelected)
       .pipe(
         tap((user) => {
           if (user) {

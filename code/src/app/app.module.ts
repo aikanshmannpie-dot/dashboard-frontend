@@ -5,7 +5,7 @@ import {
 } from "@angular/platform-browser";
 import { APP_INITIALIZER, NgModule } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { GestureConfig, MatProgressSpinnerModule } from "@angular/material";
 import { OverlayModule } from "@angular/cdk/overlay";
@@ -55,7 +55,7 @@ import {
 } from "./core/_base/layout";
 // Auth
 import { AuthModule } from "./views/pages/auth/auth.module";
-import { AuthService } from "./core/auth";
+import { AuthService, SupplierService } from "./core/auth";
 // CRUD
 import {
 	HttpUtilsService,
@@ -70,6 +70,7 @@ import * as typescript from "highlight.js/lib/languages/typescript";
 import * as scss from "highlight.js/lib/languages/scss";
 import * as xml from "highlight.js/lib/languages/xml";
 import * as json from "highlight.js/lib/languages/json";
+import { AuthInterceptor } from "./auth.interceptor";
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -106,9 +107,9 @@ export function hljsLanguages(): HighlightLanguage[] {
 		HttpClientModule,
 		environment.isMockEnabled
 			? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
-					passThruUnknownUrl: true,
-					dataEncapsulation: false,
-			  })
+				passThruUnknownUrl: true,
+				dataEncapsulation: false,
+			})
 			: [],
 		NgxPermissionsModule.forRoot(),
 		PartialsModule,
@@ -127,6 +128,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 	exports: [],
 	providers: [
 		AuthService,
+		SupplierService,
 		LayoutConfigService,
 		LayoutRefService,
 		MenuConfigService,
@@ -160,7 +162,12 @@ export function hljsLanguages(): HighlightLanguage[] {
 		HttpUtilsService,
 		TypesUtilsService,
 		LayoutUtilsService,
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor	,
+			multi: true
+		}
 	],
 	bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

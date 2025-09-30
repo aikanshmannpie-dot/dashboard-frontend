@@ -1,6 +1,6 @@
 {
     "name": "acquirely_angular_dashboard2",
-    "version": "6.1.8",
+    "version": "6.1.9",
     "description": "Acquirely || Latest updates and statistic charts",
     "scripts": {
         "ng": "ng",

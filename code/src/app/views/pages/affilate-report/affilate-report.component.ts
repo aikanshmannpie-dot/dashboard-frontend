@@ -44,6 +44,7 @@ export class AffilateReportComponent implements OnInit {
   timeZomeValue;
   search = true;
   download = true;
+  countrySelected = "au";
   searchButton() {
     this.search = !this.search;
   }
@@ -118,7 +119,9 @@ export class AffilateReportComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
+  CountryChangingValue(data) {
+    this.countrySelected = data.target.value;
+  }
   sortColumn(data) {
     this.dataSource.sort = this.sort;
   }
@@ -228,12 +231,12 @@ export class AffilateReportComponent implements OnInit {
           .trim()
           .indexOf(searchString.has_affiliate_name) !== -1 &&
         data.totalcount.toString().trim().indexOf(searchString.totalcount) !==
-          -1 &&
+        -1 &&
         data.signup.toString().trim().indexOf(searchString.signup) !== -1 &&
         data.revtotal.toString().trim().indexOf(searchString.revtotal) !== -1 &&
         data.payout.toString().trim().indexOf(searchString.payout) !== -1 &&
         data.allprofit.toString().trim().indexOf(searchString.allprofit) !==
-          -1 &&
+        -1 &&
         data.allprofitmargin
           .toString()
           .trim()

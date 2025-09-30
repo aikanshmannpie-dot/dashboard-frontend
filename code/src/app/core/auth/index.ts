@@ -112,3 +112,4 @@ export { SocialNetworks } from './_models/social-networks.model';
 export { AuthNotice } from './auth-notice/auth-notice.interface';
 
 export { AuthDataContext } from './_server/auth.data-context';
+export { SupplierService } from './_services/supplier.service';

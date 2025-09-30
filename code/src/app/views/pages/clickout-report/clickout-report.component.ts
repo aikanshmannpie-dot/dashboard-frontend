@@ -35,6 +35,7 @@ export class ClickoutReportComponent implements OnInit {
   globalFilter = "";
   search = true;
   download = true;
+  countrySelected = "au";
   searchButton() {
     this.search = !this.search;
   }
@@ -118,7 +119,9 @@ export class ClickoutReportComponent implements OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
-
+  CountryChangingValue(data){
+    this.countrySelected = data.target.value;
+  }
   public downloadAsPDF() {
     var data = document.getElementById("pdfTable");
     html2canvas(data).then((canvas) => {
