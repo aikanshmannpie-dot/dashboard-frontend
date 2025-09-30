@@ -347,10 +347,9 @@ export class AuthService {
   }
 
   getListOfMicrositeLeadByClient(startDate, endDate, offSet, siteName): Observable<any> {
-    var authToken = localStorage.getItem("authToken");
     const httpHeaders = new HttpHeaders({
       "Content-Type": "application/json",
-      Authorization: authToken,
+      Authorization: `Bearer ${this.currentToken}`,
     });
 
     return this.http.get<User>(

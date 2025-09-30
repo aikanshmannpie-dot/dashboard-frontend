@@ -64,7 +64,6 @@ export class MicrositeLeadReportByClientComponent implements OnInit {
   getListOfMicrositeLeadByClient(startDate, endDate) {
     this.loading = true;
     this.auth.getListOfMicrositeLeadByClient(startDate, endDate, this.offset, this.siteName).subscribe((res) => {
-      if (res) console.log(res);
       this.leadsReportByClient = res;
       this.loading = false;
       this.getLeadsOfClient();
