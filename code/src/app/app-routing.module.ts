@@ -81,6 +81,14 @@ const routes: Routes = [
             (m) => m.MicrositeLeadsModule
           ),
       },
+            {
+        path: "microsite/:type/:id",
+
+        loadChildren: () =>
+          import("./views/pages/microsite-lead-detail/microsite-lead-detail.module").then(
+            (m) => m.MicrositeLeadDetailModule
+          ),
+      },
 
       {
         path: "microsite-source-report/:type",

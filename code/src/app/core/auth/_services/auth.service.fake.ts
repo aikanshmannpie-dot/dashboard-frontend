@@ -766,4 +766,9 @@ export class AuthService {
       headers: this.getBaseHeaders(),
     });
   }
+  getLeadDetail(leadId: number): Observable<any> {
+    return this.http.get<User>(`${environment.baseUrl}/microsite/getleadlogs/${leadId}`, {
+      headers: this.getAuthHeaders(),
+    });
+  }
 }
