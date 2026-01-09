@@ -71,6 +71,7 @@ export class DashboardComponent implements OnInit {
   avaible1 = true;
   search = true;
   download = true;
+  countrySelected = "au";
   searchButton() {
     this.search = !this.search;
   }
@@ -228,7 +229,7 @@ export class DashboardComponent implements OnInit {
     this.dataSourceValue = new MatTableDataSource([]);
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getLeftSideDataTable(start, end, report_type)
+      .getLeftSideDataTable(start, end, report_type,this.countrySelected)
       .pipe(
         tap((data) => {
           if (data) {
@@ -256,7 +257,7 @@ export class DashboardComponent implements OnInit {
     document.getElementById("container8").style.display = "none";
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getGpCorag(start, end, report_type)
+      .getGpCorag(start, end, report_type,this.countrySelected)
       .pipe(
         tap((data) => {
           if (data) {
@@ -310,7 +311,7 @@ export class DashboardComponent implements OnInit {
     this.lineChartagraphData = "";
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getLineChart(start, end, report_type)
+      .getLineChart(start, end, report_type,this.countrySelected)
       .pipe(
         tap((data) => {
           if (data) {
@@ -413,7 +414,7 @@ export class DashboardComponent implements OnInit {
     document.getElementById("container4").style.display = "none";
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getTicksGraph(start, end, report_type)
+      .getTicksGraph(start, end, report_type,this.countrySelected)
       .pipe(
         tap((data) => {
           if (data) {
@@ -490,7 +491,7 @@ export class DashboardComponent implements OnInit {
     document.getElementById("container5").style.display = "none";
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getTicksGraphAc(start, end, report_type)
+      .getTicksGraphAc(start, end, report_type,this.countrySelected)
       .pipe(
         tap((data) => {
           if (data) {
@@ -558,7 +559,9 @@ export class DashboardComponent implements OnInit {
       )
       .subscribe();
   }
-
+  CountryChangingValue(data){
+    this.countrySelected = data.target.value;
+  }
   getAffilateData(start, end) {
     var vm = this;
     this.loading = true;
@@ -567,7 +570,7 @@ export class DashboardComponent implements OnInit {
     document.getElementById("container3").style.display = "none";
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getAffilate(start, end, "dashboard", report_type)
+      .getAffilate(start, end, "dashboard", report_type, this.countrySelected)
       .pipe(
         tap((data) => {
           if (data) {
@@ -643,7 +646,7 @@ export class DashboardComponent implements OnInit {
     const report_type = this.router.url.includes("/2") ? "2" : "1";
 
     this.auth
-      .getCampanigns(start, end, "dashboard", report_type, "undefined")
+      .getCampanigns(start, end, "dashboard", report_type, "undefined", this.countrySelected)
       .pipe(
         tap((res) => {
           if (res) {
@@ -719,7 +722,7 @@ export class DashboardComponent implements OnInit {
     document.getElementById("container").style.display = "none";
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getOverAllReport(start, end, "dashboard", report_type, "undefined")
+      .getOverAllReport(start, end, "dashboard", report_type, "undefined", this.countrySelected)
       .pipe(
         tap((res) => {
           if (res) {
@@ -807,7 +810,7 @@ export class DashboardComponent implements OnInit {
     document.getElementById("container10").style.display = "none";
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getSourceReportGraph(start, end, undefined, "dashboard", report_type)
+      .getSourceReportGraph(start, end, undefined, "dashboard", report_type,this.countrySelected)
       .pipe(
         tap((res) => {
           if (res) {

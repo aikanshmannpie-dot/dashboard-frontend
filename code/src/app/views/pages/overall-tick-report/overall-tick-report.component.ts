@@ -196,7 +196,7 @@ export class OverallTickReportComponent implements OnInit {
     const report_type = this.router.url.includes("/2") ? "2" : "1";
 
     this.auth
-      .getOverAllClick(start, end, report_type, "0")
+      .getOverAllClick(start, end, report_type, "0","au")
       .pipe(
         tap((user) => {
           if (user) {

@@ -209,7 +209,7 @@ export class OverallQuesTickReportComponent implements OnInit {
 		this.dataSource = new MatTableDataSource([]);
 		const report_type = this.router.url.includes("/2") ? "2" : "1";
 		this.auth
-			.getOverAllClick(start, end, report_type, this.switchToSeptNov)
+			.getOverAllClick(start, end, report_type, this.switchToSeptNov,this.countrySelected)
 			.subscribe(
 				(data) => {
 					if (data) {

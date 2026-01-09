@@ -220,7 +220,7 @@ export class CampanignsReportComponent implements OnInit {
     this.avaible = false;
     this.dataSource = new MatTableDataSource([]);
     this.auth
-      .getCampanigns(start, end, "list", this.report_type, this.selectedValue)
+      .getCampanigns(start, end, "list", this.report_type, this.selectedValue,this.countrySelected)
       .subscribe(
         (data) => {
           if (data) {

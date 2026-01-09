@@ -217,7 +217,7 @@ export class TeleconnexRevenueReportComponent implements OnInit {
     this.avaible = false;
     this.dataSource = new MatTableDataSource([]);
     this.auth
-      .getCampanigns(start, end, "list", this.report_type, this.selectedValue)
+      .getCampanigns(start, end, "list", this.report_type, this.selectedValue,"au")
       .subscribe(
         (data) => {
           if (data) {

@@ -228,7 +228,8 @@ export class OverallReportComponent implements OnInit {
         end,
         "list",
         this.report_type,
-        this.selectedValue
+        this.selectedValue,
+        this.countrySelected
       )
       .subscribe(
         (data) => {

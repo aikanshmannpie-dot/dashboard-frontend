@@ -144,24 +144,25 @@ export class AuthService {
     endDate,
     isSelected,
     dashboard,
-    report_type
+    report_type,
+    country
   ): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/source-by-report-graph/${startDate}/${endDate}/${isSelected}/${this.timeZomeValue}/${dashboard}/${report_type}`,
+      `${environment.baseUrl}/source-by-report-graph/${startDate}/${endDate}/${isSelected}/${this.timeZomeValue}/${dashboard}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getAffilate(startDate, endDate, dashboard, report_type): Observable<any> {
+  getAffilate(startDate, endDate, dashboard, report_type,country): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/affiliate-by-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${report_type}`,
+      `${environment.baseUrl}/affiliate-by-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getLineChart(startDate, endDate, report_type): Observable<any> {
+  getLineChart(startDate, endDate, report_type,country): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/line-chart-data/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
+      `${environment.baseUrl}/line-chart-data/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
@@ -173,30 +174,30 @@ export class AuthService {
     );
   }
 
-  getLeftSideDataTable(startDate, endDate, report_type): Observable<any> {
+  getLeftSideDataTable(startDate, endDate, report_type,country): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/left-dashboard/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
+      `${environment.baseUrl}/left-dashboard/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getGpCorag(startDate, endDate, report_type): Observable<any> {
+  getGpCorag(startDate, endDate, report_type,country): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/gpReport/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
+      `${environment.baseUrl}/gpReport/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getTicksGraph(startDate, endDate, report_type): Observable<any> {
+  getTicksGraph(startDate, endDate, report_type,country): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/overall-tick-graph/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
+      `${environment.baseUrl}/overall-tick-graph/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getTicksGraphAc(startDate, endDate, report_type): Observable<any> {
+  getTicksGraphAc(startDate, endDate, report_type,country): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/overall-tick-ac/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
+      `${environment.baseUrl}/overall-tick-ac/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
@@ -206,10 +207,11 @@ export class AuthService {
     endDate,
     dashboard,
     type,
-    selectedValue
+    selectedValue,
+    country
   ): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/over-all-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${type}/${selectedValue}`,
+      `${environment.baseUrl}/over-all-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${type}/${selectedValue}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
@@ -219,10 +221,11 @@ export class AuthService {
     endDate,
     dashboard,
     type,
-    selectedValue
+    selectedValue,
+    country
   ): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/campaigns-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${type}/${selectedValue}`,
+      `${environment.baseUrl}/campaigns-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${type}/${selectedValue}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
@@ -288,17 +291,18 @@ export class AuthService {
     startDate,
     endDate,
     report_type,
-    isSeptToNov
+    isSeptToNov,
+    country
   ): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/overall-ticks/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${isSeptToNov}`,
+      `${environment.baseUrl}/overall-ticks/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${isSeptToNov}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getClickOutReport(startDate, endDate, report_type): Observable<any> {
+  getClickOutReport(startDate, endDate, report_type,country): Observable<any> {
     return this.http.get<User>(
-      `${environment.baseUrl}/clickout-report/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}`,
+      `${environment.baseUrl}/clickout-report/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
@@ -772,6 +776,11 @@ export class AuthService {
     const userid = localStorage.getItem("user_id");
     return this.http.post<UserVerifyModel>(`${environment.micrositeApiUrl}/verify-otp`, { userid: userid, token: otp }, {
       headers: this.getBaseHeaders(),
+    });
+  }
+  getLeadDetail(leadId: number): Observable<any> {
+    return this.http.get<User>(`${environment.baseUrl}/microsite/getleadlogs/${leadId}`, {
+      headers: this.getAuthHeaders(),
     });
   }
 }

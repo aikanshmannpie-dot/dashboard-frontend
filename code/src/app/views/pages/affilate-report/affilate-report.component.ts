@@ -268,7 +268,7 @@ export class AffilateReportComponent implements OnInit {
     this.dataSource = new MatTableDataSource([]);
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getAffilate(start, end, "list", report_type)
+      .getAffilate(start, end, "list", report_type,this.countrySelected)
       .pipe(
         tap((user) => {
           if (user) {
