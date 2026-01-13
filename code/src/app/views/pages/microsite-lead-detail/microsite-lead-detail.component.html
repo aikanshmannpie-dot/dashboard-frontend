@@ -5,18 +5,26 @@
 
   <div class="mat-table__wrapper tableMobileView" *ngIf="avaible">
     <h2>Lead Information</h2>
-    <table class="detailTable">
+    <table class="detailTable table table-bordered table-striped table-hover table-responsive">
       <tr>
         <th>Id</th>
         <td>{{ detail.id }}</td>
       </tr>
       <tr>
-        <th>First Name</th>
-        <td>{{ detail.first_name }}</td>
+        <th>Created At</th>
+        <td>{{ detail.created_at }}</td>
       </tr>
       <tr>
-        <th>Last Name</th>
-        <td>{{ detail.last_name }}</td>
+        <th>Site Name</th>
+        <td>{{ detail.site_name }}</td>
+      </tr>
+            <tr>
+        <th>Data</th>
+        <td>{{ detail.data }}</td>
+      </tr>
+      <tr>
+        <th>Full Name</th>
+        <td>{{ detail.full_name }}</td>
       </tr>
       <tr>
         <th>Email</th>
@@ -24,11 +32,63 @@
       </tr>
       <tr>
         <th>Phone</th>
-        <td>{{ detail.phone }}</td>
+        <td>{{ detail.phone_number }}</td>
       </tr>
       <tr>
-        <th>Created At</th>
-        <td>{{ detail.created_at }}</td>
+        <th>Age</th>
+        <td>{{ detail.age }}</td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td>{{ detail.gender }}</td>
+      </tr>
+      <tr>
+        <th>Postcode</th>
+        <td>{{ detail.postcode }}</td>
+      </tr>
+      <tr>
+        <th>State</th>
+        <td>{{ detail.state }}</td>
+      </tr>
+      <tr>
+        <th>Town/City</th>
+        <td>{{ detail.town_city }}</td>
+      </tr>
+      <tr>
+        <th>DOB</th>
+        <td>{{ detail.dob }}</td>
+      </tr>
+      <tr>
+        <th>API Client Name</th>
+        <td>{{ detail.api_client_name }}</td>
+      </tr>
+      <tr>
+        <th>API</th>
+        <td>{{ detail.api_name }}</td>
+      </tr>
+      <tr>
+        <th>API Response</th>
+        <td>{{ detail.api_response }}</td>
+      </tr>
+      <tr>
+        <th>API Status</th>
+        <td>{{ detail.api_status }}</td>
+      </tr>
+      <tr>
+        <th>Delivery Status</th>
+        <td>{{ detail.delivery_status }}</td>
+      </tr>
+      <tr>
+        <th>SMS Response</th>
+        <td>{{ detail.sms_response }}</td>
+      </tr>
+      <tr>
+        <th>IPV4</th>
+        <td>{{ detail.ipv4 }}</td>
+      </tr>
+      <tr>
+        <th>User Agent</th>
+        <td>{{ detail.user_agent }}</td>
       </tr>
     </table>
   </div>

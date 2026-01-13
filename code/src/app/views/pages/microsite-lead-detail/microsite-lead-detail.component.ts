@@ -58,22 +58,15 @@ export class MicrositeLeadDetailComponent implements OnInit {
         this.avaible = true;
         this.loading = false;
         this.cdr.markForCheck();
-        console.log("detail",this.detail);
-        console.log("loading",this.loading);
-        console.log("avaible",this.avaible);
       })
     ).subscribe(
       (data) => {
-        console.log("apiData",data.apiData, data.apiData.length > 0);
-
-          console.log("setting detail");
           this.detail = data.apiData.leadDetails;
           this.dataSource.data = data.apiData.leadLogs;
       },
       (error) => {
         this.loading = false;
         this.cdr.markForCheck();
-        console.log("error",error);
       }
     );
   }
