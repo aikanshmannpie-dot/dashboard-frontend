@@ -125,9 +125,11 @@ export class MicrositeLeadsComponent implements OnInit {
 
   columnIds = [];
   offsetPlus = 0;
+  token;
   constructor(private auth: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.token = this.auth.getToken();
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

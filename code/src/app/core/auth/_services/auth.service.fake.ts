@@ -83,7 +83,9 @@ export class AuthService {
       Authorization: `Bearer ${this.currentToken}`,
     });
   }
-
+  getToken(): string | null {
+    return this.currentToken;
+  }
   // Authentication/Authorization
   login(email: string, password: string): Observable<any> {
     if (!email || !password) {
