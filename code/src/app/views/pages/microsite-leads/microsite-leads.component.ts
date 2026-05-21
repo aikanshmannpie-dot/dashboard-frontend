@@ -72,7 +72,7 @@ export class MicrositeLeadsComponent implements OnInit {
     "full_name",
     "email",
     "phone_number",
-    "created_at",
+    "created_at_sydney",
     "api_status",
     "sms_body",
     "section_second_header",
@@ -95,7 +95,7 @@ export class MicrositeLeadsComponent implements OnInit {
     "postcode",
     "state",
     "data",
-    "created_at",
+    "created_at_sydney",
     "question_0",
     "answer_0",
     "question_1",
@@ -146,7 +146,7 @@ export class MicrositeLeadsComponent implements OnInit {
   }
 
   getFormat(activeTeam) {
-    return moment(activeTeam.created_at).format("YYYY-MM-DD hh:mm:ss");
+    return moment(activeTeam.created_at_sydney).format("YYYY-MM-DD hh:mm:ss A");
   }
 
   createSurveyQuestion(data, siteId) {
