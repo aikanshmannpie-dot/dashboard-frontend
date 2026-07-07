@@ -13,9 +13,7 @@
           </button>
         </h3>
         <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
-          endKey="end" [(ngModel)]="model1" />
-        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
-          endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
+          endKey="end" [ranges]="ranges" [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [(ngModel)]="model1" />
         <!-- <select
         multiple
           class="form-control dropdown-select-box"

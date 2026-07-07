@@ -166,3 +166,43 @@ table {
     padding: 0.3em 0.6em;
   }
 }
+
+/* Daterangepicker layout fix */
+::ng-deep .md-drppicker {
+  min-width: auto !important;
+  max-width: 680px !important;
+
+  .ranges {
+    float: left !important;
+    width: 140px !important;
+    text-align: left;
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      width: 100%;
+
+      li {
+        padding: 5px 12px;
+        cursor: pointer;
+        font-size: 13px;
+        white-space: nowrap;
+
+        &:hover, &.active {
+          background-color: #4285f4;
+          color: #fff;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  .calendar {
+    max-width: 260px !important;
+
+    &.left, &.right {
+      float: left !important;
+    }
+  }
+}
