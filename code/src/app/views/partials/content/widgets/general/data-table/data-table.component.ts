@@ -1,7 +1,8 @@
 // Angular
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 // RXJS
 import { tap } from 'rxjs/operators';
 import { merge } from 'rxjs';
@@ -12,6 +13,8 @@ import { DataTableItemModel, DataTableService } from '../../../../../../core/_ba
 import { DataTableDataSource } from './data-table.data-source';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-data-table',
 	templateUrl: './data-table.component.html',
 	styleUrls: ['./data-table.component.scss']

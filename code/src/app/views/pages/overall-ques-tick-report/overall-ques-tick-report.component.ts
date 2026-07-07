@@ -14,13 +14,14 @@ import { AuthNoticeService, AuthService, Login } from "../../../core/auth";
 import { Observable, Subject } from "rxjs";
 import { finalize, takeUntil, tap } from "rxjs/operators";
 import moment from "moment";
-import * as jsPDF from "jspdf";
+import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import * as jspdf from "jspdf";
+
 import { Router } from "@angular/router";
 
 @Component({
-	selector: "kt-overall-ques-tick-report",
+	standalone: false,
+selector: "kt-overall-ques-tick-report",
 	templateUrl: "./overall-ques-tick-report.component.html",
 	styleUrls: ["./overall-ques-tick-report.component.scss"],
 })

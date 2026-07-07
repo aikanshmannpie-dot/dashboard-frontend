@@ -11,6 +11,8 @@ export interface ToggleOptions {
  * Toggle
  */
 @Directive({
+	standalone: false,
+
 	selector: '[ktToggle]',
 	exportAs: 'ktToggle'
 })

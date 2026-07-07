@@ -22,6 +22,8 @@ export interface StickyStatus {
 }
 
 @Directive({
+	standalone: false,
+
 	selector: '[ktSticky]'
 })
 export class StickyDirective implements OnInit, AfterViewInit, OnDestroy {

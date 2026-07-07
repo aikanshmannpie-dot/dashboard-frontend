@@ -2,7 +2,9 @@
 import { Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 // Material
-import { MatPaginator, MatSort, MatDialog } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
 import { SelectionModel } from '@angular/cdk/collections';
 // RXJS
 import { debounceTime, distinctUntilChanged, tap, skip, delay } from 'rxjs/operators';
@@ -33,7 +35,8 @@ import {
 // https://v5.material.angular.io/components/table/overview#sorting
 // https://www.youtube.com/watch?v=NSt9CI3BXv4
 @Component({
-	// tslint:disable-next-line:component-selector
+	standalone: false,
+// tslint:disable-next-line:component-selector
 	selector: 'kt-products-list',
 	templateUrl: './products-list.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

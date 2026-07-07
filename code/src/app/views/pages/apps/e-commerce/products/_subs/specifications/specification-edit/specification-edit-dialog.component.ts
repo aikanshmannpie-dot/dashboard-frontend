@@ -3,7 +3,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import {Component, Inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 // Material
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // RxJS
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -11,7 +11,8 @@ import { delay } from 'rxjs/operators';
 import { SPECIFICATIONS_DICTIONARY } from '../../../../../../../../core/e-commerce';
 
 @Component({
-	// tslint:disable-next-line:component-selector
+	standalone: false,
+// tslint:disable-next-line:component-selector
 	selector: 'kt-specification-edit-dialog',
 	templateUrl: './specification-edit-dialog.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

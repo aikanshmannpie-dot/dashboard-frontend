@@ -12,10 +12,11 @@ import { AuthNoticeService, AuthService, Login } from "../../../core/auth";
 import { Observable, Subject } from "rxjs";
 import { finalize, takeUntil, tap } from "rxjs/operators";
 import moment from "moment";
-import { ExportToCsv } from "export-to-csv";
+import { mkConfig, generateCsv, download } from "export-to-csv";
 
 @Component({
-  selector: "kt-vicidial-leads",
+	standalone: false,
+selector: "kt-vicidial-leads",
   templateUrl: "./vicidial-leads.component.html",
   styleUrls: ["./vicidial-leads.component.scss"],
 })
@@ -183,21 +184,17 @@ export class VicidialLeadsComponent implements OnInit {
             this.apiresposne = "";
             if (Array.isArray(data.apiData) && data.apiData.length > 0) {
               var filen = `${camName}-${fromD}-${toD}-count-${data.apiData.length}`;
-              const options = {
+              const csvConfig = mkConfig({
                 filename: filen,
                 fieldSeparator: ",",
-                quoteStrings: '"',
+                quoteStrings: true,
                 decimalSeparator: ".",
-                showLabels: true,
-                showTitle: false,
-                useTextFile: false,
                 useBom: true,
                 useKeysAsHeaders: true,
-              };
+              });
 
-              const csvExporter = new ExportToCsv(options);
-
-              csvExporter.generateCsv(data.apiData);
+              const csv = generateCsv(csvConfig)(data.apiData);
+              download(csvConfig)(csv);
             }
             // this.message = data.apiData;
             // this.apiresposne = data.message;

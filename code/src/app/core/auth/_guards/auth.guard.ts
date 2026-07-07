@@ -1,17 +1,35 @@
 // Angular
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
 // RxJS
-import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 // NGRX
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 // Auth reducers and selectors
-import { AppState} from '../../../core/reducers/';
+import { AppState } from '../../../core/reducers/';
 import { isLoggedIn } from '../_selectors/auth.selectors';
 
-@Injectable()
-export class AuthGuard implements CanActivate {
+export const authGuardFn: CanActivateFn = (route, state) => {
+    const store = inject(Store<AppState>);
+    const router = inject(Router);
+
+    return store.select(isLoggedIn).pipe(
+        tap(loggedIn => {
+            if (!loggedIn) {
+                router.navigateByUrl('/auth/login');
+            }
+        })
+    );
+};
+
+// Keep class-based guard for backward compatibility during migration
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { select } from '@ngrx/store';
+
+@Injectable({ providedIn: 'root' })
+export class AuthGuard  {
     constructor(private store: Store<AppState>, private router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {

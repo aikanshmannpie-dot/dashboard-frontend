@@ -12,6 +12,8 @@ export interface OffcanvasOptions {
  * Setup off Convas
  */
 @Directive({
+	standalone: false,
+
 	selector: '[ktOffcanvas]',
 	exportAs: 'ktOffcanvas',
 })

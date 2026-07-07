@@ -2,6 +2,8 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-portlet-footer',
 	template: `
 		<ng-content></ng-content>`

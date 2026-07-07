@@ -6,7 +6,8 @@ import { LayoutConfigService, SplashScreenService, TranslationService } from '..
 import { AuthNoticeService } from '../../../core/auth';
 
 @Component({
-	selector: 'kt-auth',
+	standalone: false,
+selector: 'kt-auth',
 	templateUrl: './auth.component.html',
 	styleUrls: ['./auth.component.scss'],
 	encapsulation: ViewEncapsulation.None

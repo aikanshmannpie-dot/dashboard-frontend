@@ -22,6 +22,8 @@ import { AppState } from "../../../core/reducers";
 import { Router } from "@angular/router";
 
 @Component({
+	standalone: false,
+
   selector: "kt-base",
   templateUrl: "./base.component.html",
   styleUrls: ["./base.component.scss"],

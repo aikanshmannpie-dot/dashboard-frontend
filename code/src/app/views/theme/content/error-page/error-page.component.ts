@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { LayoutConfigService } from '../../../../core/_base/layout';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-error-page',
 	templateUrl: './error-page.component.html',
 	styleUrls: ['./error-page.component.scss'],

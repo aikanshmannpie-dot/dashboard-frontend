@@ -16,6 +16,8 @@ import { LayoutConfigService, MenuAsideService, MenuOptions, OffcanvasOptions } 
 import { HtmlClassService } from '../html-class.service';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-aside-left',
 	templateUrl: './aside-left.component.html',
 	styleUrls: ['./aside-left.component.scss'],

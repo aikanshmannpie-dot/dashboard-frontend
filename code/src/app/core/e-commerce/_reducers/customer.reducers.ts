@@ -19,7 +19,6 @@ export interface CustomersState extends EntityState<CustomerModel> {
 export const adapter: EntityAdapter<CustomerModel> = createEntityAdapter<CustomerModel>();
 
 export const initialCustomersState: CustomersState = adapter.getInitialState({
-    customerForEdit: null,
     listLoading: false,
     actionsloading: false,
     totalCount: 0,

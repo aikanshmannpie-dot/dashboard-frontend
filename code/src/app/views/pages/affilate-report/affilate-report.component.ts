@@ -14,12 +14,13 @@ import { AuthNoticeService, AuthService, Login } from "../../../core/auth";
 import { Observable, Subject } from "rxjs";
 import { finalize, takeUntil, tap } from "rxjs/operators";
 import moment from "moment";
-import * as jsPDF from "jspdf";
+import { jsPDF } from "jspdf";
 import jstz from "jstz";
 import { Router } from "@angular/router";
 
 declare var $: any;
 @Component({
+  standalone: false,
   selector: "kt-affilate-report",
   templateUrl: "./affilate-report.component.html",
   styleUrls: ["./affilate-report.component.scss"],
@@ -126,20 +127,37 @@ export class AffilateReportComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  public downloadAsPDF() {
+  // public downloadAsPDF() {
+  //   const doc = new jsPDF();
+  //   const specialElementHandlers = {
+  //     "#editor": function (element, renderer) {
+  //       return true;
+  //     },
+  //   };
+
+  //   const pdfTable = this.pdfTable.nativeElement;
+  //   doc.fromHTML(pdfTable.innerHTML, 15, 15, {
+  //     width: 190,
+  //     elementHandlers: specialElementHandlers,
+  //   });
+  //   doc.save("tableToPdf.pdf");
+  // }
+
+
+
+  public async downloadAsPDF() {
     const doc = new jsPDF();
-    const specialElementHandlers = {
-      "#editor": function (element, renderer) {
-        return true;
-      },
-    };
 
     const pdfTable = this.pdfTable.nativeElement;
-    doc.fromHTML(pdfTable.innerHTML, 15, 15, {
-      width: 190,
-      elementHandlers: specialElementHandlers,
+
+    await doc.html(pdfTable, {
+      x: 15,
+      y: 15,
+      width: 180,
+      windowWidth: pdfTable.scrollWidth
     });
-    doc.save("tableToPdf.pdf");
+
+    doc.save('tableToPdf.pdf');
   }
 
   showTable() {
@@ -268,7 +286,7 @@ export class AffilateReportComponent implements OnInit {
     this.dataSource = new MatTableDataSource([]);
     const report_type = this.router.url.includes("/2") ? "2" : "1";
     this.auth
-      .getAffilate(start, end, "list", report_type,this.countrySelected)
+      .getAffilate(start, end, "list", report_type, this.countrySelected)
       .pipe(
         tap((user) => {
           if (user) {

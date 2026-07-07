@@ -3,11 +3,13 @@ import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
+	standalone: false,
 	selector: 'kt-notification',
 	templateUrl: './notification.component.html',
 	styleUrls: ['notification.component.scss']
 })
 export class NotificationComponent {
+	activeTab = 'tab-id-1';
 
 	// Show dot on top of the icon
 	@Input() dot: string;

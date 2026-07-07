@@ -6,6 +6,8 @@ import { Pipe, PipeTransform, OnDestroy, ChangeDetectorRef, NgZone } from '@angu
  * An Angular pipe for converting a date string into a time ago
  */
 @Pipe({
+	standalone: false,
+
 	name: 'kTimeElapsed'
 })
 export class TimeElapsedPipe implements PipeTransform, OnDestroy {

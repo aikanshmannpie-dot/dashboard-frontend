@@ -2,6 +2,8 @@
 import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-error',
 	templateUrl: './error.component.html',
 	styleUrls: ['./error.component.scss']

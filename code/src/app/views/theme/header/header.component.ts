@@ -19,6 +19,8 @@ import { HtmlClassService } from '../html-class.service';
 
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-header',
 	templateUrl: './header.component.html',
 	styleUrls: ['./header.component.scss'],

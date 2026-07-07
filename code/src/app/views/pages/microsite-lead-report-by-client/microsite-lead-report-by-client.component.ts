@@ -14,7 +14,8 @@ import f3d from "highcharts/modules/funnel3d";
 f3d(Highcharts);
 
 @Component({
-  selector: "kt-microsite-lead-report-by-client",
+	standalone: false,
+selector: "kt-microsite-lead-report-by-client",
   templateUrl: "./microsite-lead-report-by-client.component.html",
   styleUrls: ["./microsite-lead-report-by-client.component.scss"],
 })

@@ -13,7 +13,8 @@ import f3d from "highcharts/modules/funnel3d";
 f3d(Highcharts);
 
 @Component({
-  selector: "kt-analytics-dashboard",
+	standalone: false,
+selector: "kt-analytics-dashboard",
   templateUrl: "./analytics-dashboard.component.html",
   styleUrls: ["./analytics-dashboard.component.scss"],
 })
@@ -424,7 +425,7 @@ export class AnalyticsDashboardComponent implements OnInit {
                     },
                     animation: {
                       defer: 100,
-                    },
+                    } as any,
                     neckWidth: "30%",
                     neckHeight: "25%",
                     width: "80%",
@@ -439,7 +440,7 @@ export class AnalyticsDashboardComponent implements OnInit {
                     animation: {
                       duration: 2500,
                       defer: 100,
-                    },
+                    } as any,
                   },
                 ],
                 credits: {

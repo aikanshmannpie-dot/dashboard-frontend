@@ -11,7 +11,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthNoticeService, AuthService } from '../../../../core/auth';
 
 @Component({
-	selector: 'kt-forgot-password',
+	standalone: false,
+selector: 'kt-forgot-password',
 	templateUrl: './forgot-password.component.html',
 	encapsulation: ViewEncapsulation.None
 })
@@ -59,7 +60,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 	 * On destroy
 	 */
 	ngOnDestroy(): void {
-		this.unsubscribe.next();
+		this.unsubscribe.next(undefined);
 		this.unsubscribe.complete();
 		this.loading = false;
 	}

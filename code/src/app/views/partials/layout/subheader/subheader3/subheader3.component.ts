@@ -7,6 +7,8 @@ import { SubheaderService } from '../../../../../core/_base/layout';
 import { Breadcrumb } from '../../../../../core/_base/layout/services/subheader.service';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-subheader3',
 	templateUrl: './subheader3.component.html',
 	styleUrls: ['./subheader3.component.scss']

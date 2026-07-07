@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { finalize } from "rxjs/operators";
 import moment from "moment";
-import { ExportToCsv } from "export-to-csv";
 import { AuthService } from "../../../core/auth";
 
 @Component({
-  selector: "kt-setting",
+	standalone: false,
+selector: "kt-setting",
   templateUrl: "./setting.component.html",
   styleUrls: ["./setting.component.scss"],
 })

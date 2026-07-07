@@ -2,6 +2,8 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-cart',
 	templateUrl: './cart.component.html',
 	styleUrls: ['./cart.component.scss']

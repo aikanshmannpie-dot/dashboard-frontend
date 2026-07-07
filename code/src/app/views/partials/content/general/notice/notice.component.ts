@@ -2,6 +2,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-notice',
 	templateUrl: './notice.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush

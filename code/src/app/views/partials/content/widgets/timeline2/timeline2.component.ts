@@ -9,6 +9,8 @@ export interface Timeline2Data {
 }
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-timeline2',
 	templateUrl: './timeline2.component.html',
 	styleUrls: ['./timeline2.component.scss']

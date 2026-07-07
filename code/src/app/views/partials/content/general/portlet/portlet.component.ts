@@ -16,6 +16,8 @@ export interface PortletOptions {
 }
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-portlet',
 	templateUrl: './portlet.component.html',
 	exportAs: 'ktPortlet'

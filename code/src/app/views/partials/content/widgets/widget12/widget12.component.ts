@@ -7,6 +7,8 @@ import { LayoutConfigService } from '../../../../../core/_base/layout';
  * Sample components with sample data
  */
 @Component({
+	standalone: false,
+
 	selector: 'kt-widget12',
 	templateUrl: './widget12.component.html',
 	styleUrls: ['./widget12.component.scss']

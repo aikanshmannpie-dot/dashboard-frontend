@@ -6,6 +6,8 @@ import { HtmlClassService } from "../html-class.service";
 import { Router } from "@angular/router";
 
 @Component({
+	standalone: false,
+
 	selector: "kt-brand",
 	templateUrl: "./brand.component.html",
 })

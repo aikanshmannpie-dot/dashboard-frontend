@@ -5,6 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
  * Returns string from Array
  */
 @Pipe({
+	standalone: false,
+
 	name: 'join'
 })
 export class JoinPipe implements PipeTransform {

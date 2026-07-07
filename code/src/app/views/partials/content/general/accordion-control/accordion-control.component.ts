@@ -6,6 +6,7 @@ let nextId = 0;
  * This directive should be used to wrap accordion panel titles that need to contain HTML markup or other directives.
  */
 @Directive({
+	standalone: false,
 	// tslint:disable-next-line:directive-selector
 	selector: 'ng-template[AccordionControlPanelTitle]'
 })
@@ -17,6 +18,7 @@ export class AccordionControlPanelTitleDirective {
  * This directive must be used to wrap accordion panel content.
  */
 @Directive({
+	standalone: false,
 	// tslint:disable-next-line:directive-selector
 	selector: 'ng-template[AccordionControlPanelContent]'
 })
@@ -29,6 +31,7 @@ export class AccordionControlPanelContentDirective {
  * content
  */
 @Directive({
+	standalone: false,
 	// tslint:disable-next-line:directive-selector
 	selector: 'kt-accordion-control-panel'
 })
@@ -112,11 +115,12 @@ export interface AccordionControlPanelChangeEvent {
  * It can assure that only one panel can be opened at a time.
  */
 @Component({
+	standalone: false,
 	selector: 'kt-accordion-control',
 	exportAs: 'AccordionControl',
 	host: {
 		role: 'tablist',
-		'[attr.aria-multiselectable]': '!closeOtherPanels',
+		'[attr.aria-multiselectable]': '!closeOthers',
 		class: 'accordion'
 	},
 	templateUrl: './accordion-control.component.html',
@@ -128,7 +132,6 @@ export interface AccordionControlPanelChangeEvent {
 		}
 	`],
 	changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class AccordionControlComponent implements AfterContentChecked {
 	@ContentChildren(AccordionControlPanelDirective) panels: QueryList<AccordionControlPanelDirective>;
@@ -239,4 +242,3 @@ export class AccordionControlComponent implements AfterContentChecked {
 		this.activeIds = this.panels.filter(panel => panel.isOpen && !panel.disabled).map(panel => panel.id);
 	}
 }
-

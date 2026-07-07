@@ -12,7 +12,8 @@ import { AppState } from '../../../../../../core/reducers';
 import { Role, selectAllRoles } from '../../../../../../core/auth';
 
 @Component({
-	selector: 'kt-user-roles-list',
+	standalone: false,
+selector: 'kt-user-roles-list',
 	templateUrl: './user-roles-list.component.html'
 })
 export class UserRolesListComponent implements OnInit {

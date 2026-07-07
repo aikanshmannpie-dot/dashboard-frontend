@@ -28,7 +28,8 @@ const DEMO_PARAMS = {
 };
 
 @Component({
-  selector: "kt-login",
+	standalone: false,
+selector: "kt-login",
   templateUrl: "./login.component.html",
   encapsulation: ViewEncapsulation.None,
 })
@@ -92,7 +93,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     // this.authNoticeService.setNotice(null);
-    this.unsubscribe.next();
+    this.unsubscribe.next(undefined);
     this.unsubscribe.complete();
     this.loading = false;
   }

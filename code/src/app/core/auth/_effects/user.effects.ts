@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { mergeMap, map, tap } from 'rxjs/operators';
 import { Observable, defer, of, forkJoin } from 'rxjs';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
-import { Store, select, Action } from '@ngrx/store';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store, Action } from '@ngrx/store';
 // CRUD
 import { QueryResultsModel, QueryParamsModel } from '../../_base/crud';
 // Services
@@ -32,15 +32,14 @@ export class UserEffects {
     showActionLoadingDistpatcher = new UsersActionToggleLoading({ isLoading: true });
     hideActionLoadingDistpatcher = new UsersActionToggleLoading({ isLoading: false });
 
-    @Effect()
-    loadUsersPage$ = this.actions$
-        .pipe(
+    loadUsersPage$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<UsersPageRequested>(UserActionTypes.UsersPageRequested),
-            mergeMap(( { payload } ) => {
+            mergeMap(({ payload }) => {
                 this.store.dispatch(this.showPageLoadingDistpatcher);
                 const requestToServer = this.auth.findUsers(payload.page);
                 const lastQuery = of(payload.page);
-                return forkJoin(requestToServer, lastQuery);
+                return forkJoin([requestToServer, lastQuery]);
             }),
             map(response => {
                 const result: QueryResultsModel = response[0];
@@ -51,40 +50,39 @@ export class UserEffects {
                     page: lastQuery
                 });
             }),
-        );
+        )
+    );
 
-    @Effect()
-    deleteUser$ = this.actions$
-        .pipe(
+    deleteUser$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<UserDeleted>(UserActionTypes.UserDeleted),
-            mergeMap(( { payload } ) => {
-                    this.store.dispatch(this.showActionLoadingDistpatcher);
-                    return this.auth.deleteUser(payload.id);
-                }
-            ),
+            mergeMap(({ payload }) => {
+                this.store.dispatch(this.showActionLoadingDistpatcher);
+                return this.auth.deleteUser(payload.id);
+            }),
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        )
+    );
 
-    @Effect()
-    updateUser$ = this.actions$
-        .pipe(
+    updateUser$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<UserUpdated>(UserActionTypes.UserUpdated),
-            mergeMap(( { payload } ) => {
+            mergeMap(({ payload }) => {
                 this.store.dispatch(this.showActionLoadingDistpatcher);
                 return this.auth.updateUser(payload.user);
             }),
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        )
+    );
 
-    @Effect()
-    createUser$ = this.actions$
-        .pipe(
+    createUser$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<UserOnServerCreated>(UserActionTypes.UserOnServerCreated),
-            mergeMap(( { payload } ) => {
+            mergeMap(({ payload }) => {
                 this.store.dispatch(this.showActionLoadingDistpatcher);
                 return this.auth.createUser(payload.user).pipe(
                     tap(res => {
@@ -95,7 +93,8 @@ export class UserEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        )
+    );
 
     constructor(private actions$: Actions, private auth: AuthService, private store: Store<AppState>) { }
 }

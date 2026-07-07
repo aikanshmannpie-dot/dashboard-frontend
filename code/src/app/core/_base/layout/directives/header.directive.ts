@@ -13,6 +13,8 @@ export interface HeaderOptions {
  * Configure Header
  */
 @Directive({
+	standalone: false,
+
 	selector: '[ktHeader]',
 	exportAs: 'ktHeader',
 })

@@ -14,6 +14,8 @@ export interface MenuOptions {
  * Configure menu
  */
 @Directive({
+	standalone: false,
+
 	selector: '[ktMenu]',
 	exportAs: 'ktMenu',
 })

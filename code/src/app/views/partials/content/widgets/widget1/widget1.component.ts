@@ -11,6 +11,8 @@ export interface Widget1Data {
 }
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-widget1',
 	templateUrl: './widget1.component.html',
 	styleUrls: ['./widget1.component.scss']

@@ -2,6 +2,8 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-search-default',
 	templateUrl: './search-default.component.html',
 })

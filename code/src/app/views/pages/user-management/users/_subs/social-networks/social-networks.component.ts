@@ -14,7 +14,8 @@ import { LayoutUtilsService } from '../../../../../../core/_base/crud';
 
 
 @Component({
-	selector: 'kt-social-networks',
+	standalone: false,
+selector: 'kt-social-networks',
 	templateUrl: './social-networks.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

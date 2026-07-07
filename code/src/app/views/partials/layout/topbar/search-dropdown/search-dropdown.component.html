@@ -15,7 +15,7 @@
 					<div class="input-group-append"><span class="input-group-text"><i (click)="clear($event)" [ngStyle]="{'display': 'flex'}" [hidden]="!data || !data?.length" class="la la-close kt-quick-search__close"></i></span></div>
 				</div>
 			</form>
-			<div [perfectScrollbar]="{wheelPropagation: false}" [ngStyle]="{'max-height': '40vh', 'position': 'relative'}" class="kt-quick-search__wrapper">
+			<div [ngStyle]="{'max-height': '40vh', 'position': 'relative', 'overflow-y': 'auto'}" class="kt-quick-search__wrapper">
 				<kt-search-result [data]="data"></kt-search-result>
 			</div>
 		</div>

@@ -15,7 +15,8 @@ import { Subject } from 'rxjs';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
 
 @Component({
-	selector: 'kt-register',
+	standalone: false,
+selector: 'kt-register',
 	templateUrl: './register.component.html',
 	encapsulation: ViewEncapsulation.None
 })
@@ -64,7 +65,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     * On destroy
     */
 	ngOnDestroy(): void {
-		this.unsubscribe.next();
+		this.unsubscribe.next(undefined);
 		this.unsubscribe.complete();
 		this.loading = false;
 	}

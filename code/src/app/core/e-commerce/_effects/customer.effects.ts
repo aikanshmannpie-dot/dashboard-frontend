@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 // RxJS
 import { mergeMap, map, tap, delay } from 'rxjs/operators';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 // CRUD
 import { QueryResultsModel } from '../../_base/crud';
@@ -35,8 +35,7 @@ export class CustomerEffects {
     showActionLoadingDistpatcher = new CustomerActionToggleLoading({ isLoading: true });
     hideActionLoadingDistpatcher = new CustomerActionToggleLoading({ isLoading: false });
 
-    @Effect()
-    loadCustomersPage$ = this.actions$.pipe(
+    loadCustomersPage$ = createEffect(() => this.actions$.pipe(
         ofType<CustomersPageRequested>(CustomerActionTypes.CustomersPageRequested),
         mergeMap(( { payload } ) => {
             this.store.dispatch(this.showPageLoadingDistpatcher);
@@ -54,10 +53,9 @@ export class CustomerEffects {
             });
             return pageLoadedDispatch;
         })
-    );
+    ));
 
-    @Effect()
-    deleteCustomer$ = this.actions$
+    deleteCustomer$ = createEffect(() => this.actions$
         .pipe(
             ofType<OneCustomerDeleted>(CustomerActionTypes.OneCustomerDeleted),
             mergeMap(( { payload } ) => {
@@ -68,10 +66,9 @@ export class CustomerEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    deleteCustomers$ = this.actions$
+    deleteCustomers$ = createEffect(() => this.actions$
         .pipe(
             ofType<ManyCustomersDeleted>(CustomerActionTypes.ManyCustomersDeleted),
             mergeMap(( { payload } ) => {
@@ -82,10 +79,9 @@ export class CustomerEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    updateCustomer$ = this.actions$
+    updateCustomer$ = createEffect(() => this.actions$
         .pipe(
             ofType<CustomerUpdated>(CustomerActionTypes.CustomerUpdated),
             mergeMap(( { payload } ) => {
@@ -95,10 +91,9 @@ export class CustomerEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             })
-        );
+        ));
 
-    @Effect()
-    updateCustomersStatus$ = this.actions$
+    updateCustomersStatus$ = createEffect(() => this.actions$
         .pipe(
             ofType<CustomersStatusUpdated>(CustomerActionTypes.CustomersStatusUpdated),
             mergeMap(( { payload } ) => {
@@ -108,10 +103,9 @@ export class CustomerEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             })
-        );
+        ));
 
-    @Effect()
-    createCustomer$ = this.actions$
+    createCustomer$ = createEffect(() => this.actions$
         .pipe(
             ofType<CustomerOnServerCreated>(CustomerActionTypes.CustomerOnServerCreated),
             mergeMap(( { payload } ) => {
@@ -125,7 +119,7 @@ export class CustomerEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        ));
 
     constructor(private actions$: Actions, private customersService: CustomersService, private store: Store<AppState>) { }
 }

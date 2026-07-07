@@ -13,7 +13,8 @@ import { finalize } from "rxjs/operators";
 import moment from "moment";
 
 @Component({
-  selector: "kt-microsite-leads",
+	standalone: false,
+selector: "kt-microsite-leads",
   templateUrl: "./microsite-leads-by-api.component.html",
   styleUrls: ["./microsite-leads-by-api.component.scss"],
 })

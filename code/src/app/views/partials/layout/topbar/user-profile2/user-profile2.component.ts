@@ -9,6 +9,8 @@ import { AppState } from '../../../../../core/reducers';
 import { currentUser, Logout, User } from '../../../../../core/auth';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-user-profile2',
 	templateUrl: './user-profile2.component.html',
 })

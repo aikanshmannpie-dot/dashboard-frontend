@@ -11,13 +11,14 @@ import { MatTableDataSource } from "@angular/material/table";
 import { AuthService } from "../../../core/auth";
 import { finalize } from "rxjs/operators";
 import moment from "moment";
-import * as jsPDF from "jspdf";
+import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import * as jspdf from "jspdf";
+
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "kt-teleconnex-revenue-report",
+	standalone: false,
+selector: "kt-teleconnex-revenue-report",
   templateUrl: "./teleconnex-revenue-report.component.html",
   styleUrls: ["./teleconnex-revenue-report.component.scss"],
 })
@@ -136,7 +137,7 @@ export class TeleconnexRevenueReportComponent implements OnInit {
       var doc = new jsPDF("p", "mm", "a4");
 
       const contentDataURL = canvas.toDataURL("image/png");
-      let pdf = new jspdf("p", "mm", "a4"); // A4 size page of PDF
+      let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
       var position = 0;
       var width = doc.internal.pageSize.getWidth();
       var height = doc.internal.pageSize.getHeight();

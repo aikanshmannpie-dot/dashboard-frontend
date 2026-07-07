@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { LayoutConfigService, ToggleOptions } from '../../../../core/_base/layout';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-header-mobile',
 	templateUrl: './header-mobile.component.html',
 	styleUrls: ['./header-mobile.component.scss']

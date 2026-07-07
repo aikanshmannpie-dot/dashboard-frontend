@@ -3,10 +3,11 @@ import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { AuthService } from "../../../core/auth";
 import { finalize } from "rxjs/operators";
 import moment from "moment";
-import { ExportToCsv } from "export-to-csv";
+import { mkConfig, generateCsv, download } from "export-to-csv";
 
 @Component({
-  selector: "kt-mhi-to-teleconnex",
+	standalone: false,
+selector: "kt-mhi-to-teleconnex",
   templateUrl: "./mhi-to-teleconnex.component.html",
   styleUrls: ["./mhi-to-teleconnex.component.scss"],
 })
@@ -92,21 +93,17 @@ export class MHIToTeleconnexComponent implements OnInit {
               var filen = `${"MHIToTeleconnex"}-${fromD}-${toD}-${
                 data.apiData.length
               }`;
-              const options = {
+              const csvConfig = mkConfig({
                 filename: filen,
                 fieldSeparator: ",",
-                quoteStrings: '"',
+                quoteStrings: true,
                 decimalSeparator: ".",
-                showLabels: true,
-                showTitle: false,
-                useTextFile: false,
                 useBom: true,
                 useKeysAsHeaders: true,
-              };
+              });
 
-              const csvExporter = new ExportToCsv(options);
-
-              csvExporter.generateCsv(data.apiData);
+              const csv = generateCsv(csvConfig)(data.apiData);
+              download(csvConfig)(csv);
             }
             // this.message = data.apiData;
             // this.apiresposne = data.message;

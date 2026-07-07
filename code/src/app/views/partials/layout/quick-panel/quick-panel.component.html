@@ -5,22 +5,21 @@
 	<div class="kt-quick-panel__nav">
 		<ul ktTabClickEvent class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand kt-notification-item-padding-x" role="tablist">
 			<li class="nav-item">
-				<a class="nav-link active" href="javascript:;" (click)="tab.select('tab-id-1');" role="tab">Notifications</a>
+				<a class="nav-link" href="javascript:;" (click)="activeTab = 'tab-id-1';" [class.active]="activeTab === 'tab-id-1'" role="tab">Notifications</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="javascript:;" (click)="tab.select('tab-id-2');" role="tab">Audit Logs</a>
+				<a class="nav-link" href="javascript:;" (click)="activeTab = 'tab-id-2';" [class.active]="activeTab === 'tab-id-2'" role="tab">Audit Logs</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="javascript:;" (click)="tab.select('tab-id-3');" role="tab">Settings</a>
+				<a class="nav-link" href="javascript:;" (click)="activeTab = 'tab-id-3';" [class.active]="activeTab === 'tab-id-3'" role="tab">Settings</a>
 			</li>
 		</ul>
 	</div>
 
 	<div class="kt-quick-panel__content">
-		<ngb-tabset #tab="ngbTabset">
-			<ngb-tab id="tab-id-1">
-				<ng-template ngbTabContent>
-					<div [perfectScrollbar]="{wheelPropagation: false}" [ngStyle]="{'max-height': '85vh', 'position': 'relative'}" class="kt-notification">
+		<div>
+			<div [hidden]="activeTab !== 'tab-id-1'">
+					<div [ngStyle]="{'max-height': '85vh', 'position': 'relative', 'overflow-y': 'auto'}" class="kt-notification">
 						<a href="javascript:;" class="kt-notification__item">
 							<div class="kt-notification__item-icon">
 								<i class="flaticon2-line-chart kt-font-success"></i>
@@ -177,12 +176,10 @@
 								</div>
 							</div>
 						</a>
-					</div>
-				</ng-template>
-			</ngb-tab>
-			<ngb-tab id="tab-id-2">
-				<ng-template ngbTabContent>
-					<div perfectScrollbar [ngStyle]="{'max-height': '85vh', 'position': 'relative'}" class="kt-notification-v2">
+				</div>
+			</div>
+			<div [hidden]="activeTab !== 'tab-id-2'">
+				<div [ngStyle]="{'max-height': '85vh', 'position': 'relative', 'overflow-y': 'auto'}" class="kt-notification-v2">
 						<a href="javascript:;" class="kt-notification-v2__item">
 							<div class="kt-notification-v2__item-icon">
 								<i class="flaticon-bell kt-font-brand"></i>
@@ -295,11 +292,9 @@
 							</div>
 						</a>
 					</div>
-				</ng-template>
-			</ngb-tab>
-			<ngb-tab id="tab-id-3">
-				<ng-template ngbTabContent>
-					<div class="kt-quick-panel__content-padding-x">
+				</div>
+			<div [hidden]="activeTab !== 'tab-id-3'">
+				<div class="kt-quick-panel__content-padding-x">
 						<form class="kt-form">
 							<div class="kt-heading kt-heading--sm kt-heading--space-sm">Customer Care</div>
 
@@ -414,9 +409,8 @@
 							</div>
 						</form>
 					</div>
-				</ng-template>
-			</ngb-tab>
-		</ngb-tabset>
+				</div>
+		</div>
 	</div>
 </div>
 <!-- end::Offcanvas Toolbar Quick Actions -->

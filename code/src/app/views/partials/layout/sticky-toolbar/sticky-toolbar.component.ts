@@ -4,6 +4,8 @@ import {Component} from '@angular/core';
 import {LayoutConfigService, OffcanvasOptions} from '../../../../core/_base/layout';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-sticky-toolbar',
 	templateUrl: './sticky-toolbar.component.html',
 	styleUrls: ['./sticky-toolbar.component.scss'],

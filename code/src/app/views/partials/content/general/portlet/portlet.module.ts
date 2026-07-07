@@ -1,7 +1,8 @@
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressBarModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Module
 import { CoreModule } from '../../../../../core/core.module';
@@ -12,24 +13,24 @@ import { PortletBodyComponent } from './portlet-body.component';
 import { PortletFooterComponent } from './portlet-footer.component';
 
 @NgModule({
-	imports: [
-		CommonModule,
-		CoreModule,
-		MatProgressSpinnerModule,
-		MatProgressBarModule
-	],
-	declarations: [
-		PortletComponent,
-		PortletHeaderComponent,
-		PortletBodyComponent,
-		PortletFooterComponent,
-	],
-	exports: [
-		PortletComponent,
-		PortletHeaderComponent,
-		PortletBodyComponent,
-		PortletFooterComponent,
-	]
+    declarations: [
+        PortletComponent,
+        PortletHeaderComponent,
+        PortletBodyComponent,
+        PortletFooterComponent
+    ],
+    imports: [
+        CommonModule,
+        CoreModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+    ],
+    exports: [
+        PortletComponent,
+        PortletHeaderComponent,
+        PortletBodyComponent,
+        PortletFooterComponent,
+    ]
 })
 export class PortletModule {
 }

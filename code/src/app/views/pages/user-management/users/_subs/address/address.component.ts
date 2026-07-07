@@ -14,7 +14,8 @@ import { AppState } from '../../../../../../core/reducers';
 import { LayoutUtilsService } from '../../../../../../core/_base/crud';
 
 @Component({
-	selector: 'kt-address',
+	standalone: false,
+selector: 'kt-address',
 	templateUrl: './address.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })

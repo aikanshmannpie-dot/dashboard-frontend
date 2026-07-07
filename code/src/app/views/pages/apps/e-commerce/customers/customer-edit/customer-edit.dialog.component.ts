@@ -2,7 +2,7 @@
 import { Component, OnInit, Inject, ChangeDetectionStrategy, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Material
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // RxJS
 import { Subscription, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -17,7 +17,8 @@ import { TypesUtilsService } from '../../../../../../core/_base/crud';
 import { CustomerModel, CustomerUpdated, CustomerOnServerCreated, selectLastCreatedCustomerId, selectCustomersPageLoading, selectCustomersActionLoading } from '../../../../../../core/e-commerce';
 
 @Component({
-	// tslint:disable-next-line:component-selector
+	standalone: false,
+// tslint:disable-next-line:component-selector
 	selector: 'kt-customers-edit-dialog',
 	templateUrl: './customer-edit.dialog.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,

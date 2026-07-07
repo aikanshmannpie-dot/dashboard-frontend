@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
-import { MatTableModule } from "@angular/material";
+import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from "@angular/material/sort";
 // Core Module
 import { CoreModule } from "../../../core/core.module";
@@ -9,7 +9,7 @@ import { PartialsModule } from "../../partials/partials.module";
 import { VicidialLeadsComponent } from "./vicidial-leads.component";
 import { NgxDaterangepickerMd } from "ngx-daterangepicker-material";
 import { FormsModule } from "@angular/forms";
-import { MatPaginatorModule } from "@angular/material";
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";

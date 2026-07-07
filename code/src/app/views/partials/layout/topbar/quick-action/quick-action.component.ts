@@ -2,6 +2,8 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-quick-action',
 	templateUrl: './quick-action.component.html',
 })

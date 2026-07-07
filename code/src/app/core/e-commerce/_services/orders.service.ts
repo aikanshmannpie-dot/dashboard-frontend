@@ -8,10 +8,12 @@ const API_ORDERS_URL = 'api/orders';
 
 @Injectable()
 export class OrdersService {
-	httpOptions = this.httpUtils.getHTTPHeaders();
+	httpOptions: any;
 
 	constructor(private http: HttpClient,
-		           private httpUtils: HttpUtilsService) { }
+		           private httpUtils: HttpUtilsService) {
+		this.httpOptions = this.httpUtils.getHTTPHeaders();
+	}
 
 	// CREATE
 	// READ

@@ -17,6 +17,7 @@ import {
 import { Observable, Subscription } from 'rxjs';
 
 @Component({
+	standalone: false,
 	selector: 'kt-portlet-header',
 	styleUrls: ['portlet-header.component.scss'],
 	template: `
@@ -34,17 +35,11 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class PortletHeaderComponent implements OnInit, AfterViewInit, OnDestroy {
 	// Public properties
-	// append html class to the portlet header
 	@Input() class: string;
-	// a simple title text
 	@Input() title: string;
-	// icon name to be added to the i tag
 	@Input() icon: string;
-	// remove title container
 	@Input() noTitle: boolean;
-	// enable sticky portlet header
 	@Input() sticky: boolean;
-	// enable loading to display
 	@Input() viewLoading$: Observable<boolean>;
 	viewLoading = false;
 
@@ -66,12 +61,12 @@ export class PortletHeaderComponent implements OnInit, AfterViewInit, OnDestroy 
 	}
 
 	@HostListener('window:resize', ['$event'])
-	onResize() {
+	onResize(event?: any) {
 		this.updateStickyPosition();
 	}
 
 	@HostListener('window:scroll', ['$event'])
-	onScroll() {
+	onScroll(event?: any) {
 		this.updateStickyPosition();
 		const st = window.pageYOffset || document.documentElement.scrollTop;
 		this.isScrollDown = st > this.lastScrollTop;
@@ -81,7 +76,6 @@ export class PortletHeaderComponent implements OnInit, AfterViewInit, OnDestroy 
 	updateStickyPosition() {
 		if (this.sticky) {
 			Promise.resolve(null).then(() => {
-				// get boundary top margin for sticky header
 				const headerElement = document.querySelector('.kt-header') as HTMLElement;
 				const subheaderElement = document.querySelector('.kt-subheader') as HTMLElement;
 				const headerMobileElement = document.querySelector('.kt-header-mobile') as HTMLElement;
@@ -89,16 +83,12 @@ export class PortletHeaderComponent implements OnInit, AfterViewInit, OnDestroy 
 				let height = 0;
 
 				if (headerElement != null) {
-					// mobile header
 					if (window.getComputedStyle(headerElement).height === '0px') {
 						height += headerMobileElement.offsetHeight;
 					} else {
-						// desktop header
 						if (document.body.classList.contains('kt-header--minimize-topbar')) {
-							// hardcoded minimized header height
 							height = 60;
 						} else {
-							// normal fixed header
 							if (document.body.classList.contains('kt-header--fixed')) {
 								height += headerElement.offsetHeight;
 							}
@@ -114,56 +104,21 @@ export class PortletHeaderComponent implements OnInit, AfterViewInit, OnDestroy 
 		}
 	}
 
-	/**
-	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
-	 */
-
-	/**
-	 * On init
-	 */
 	ngOnInit() {
-		if (this.sticky) {
-			this.stickyDirective.ngOnInit();
-		}
-	}
-
-	ngAfterViewInit(): void {
-		// append custom class
-		this.classes += this.class ? ' ' + this.class : '';
-
-		// hide icon's parent node if no icon provided
-		this.hideIcon = this.refIcon.nativeElement.children.length === 0;
-
-		// hide tools' parent node if no tools template is provided
-		this.hideTools = this.refTools.nativeElement.children.length === 0;
-
-		if (this.sticky) {
-			this.updateStickyPosition();
-			this.stickyDirective.ngAfterViewInit();
-		}
-
-		// initialize loading dialog
 		if (this.viewLoading$) {
-			const loadingSubscription = this.viewLoading$.subscribe(res => this.toggleLoading(res));
-			this.subscriptions.push(loadingSubscription);
+			const sub = this.viewLoading$.subscribe(res => {
+				this.viewLoading = res;
+			});
+			this.subscriptions.push(sub);
 		}
 	}
 
-	toggleLoading(_incomingValue: boolean) {
-		this.viewLoading = _incomingValue;
-		if (_incomingValue && !this.ktDialogService.checkIsShown()) {
-			this.ktDialogService.show();
-		}
-
-		if (!this.viewLoading && this.ktDialogService.checkIsShown()) {
-			this.ktDialogService.hide();
-		}
+	ngAfterViewInit() {
+		this.hideIcon = this.refIcon.nativeElement.children.length === 0 && !this.icon;
+		this.hideTools = this.refTools.nativeElement.children.length === 0;
 	}
 
-	ngOnDestroy(): void {
+	ngOnDestroy() {
 		this.subscriptions.forEach(sb => sb.unsubscribe());
-		if (this.sticky) {
-			this.stickyDirective.ngOnDestroy();
-		}
 	}
 }

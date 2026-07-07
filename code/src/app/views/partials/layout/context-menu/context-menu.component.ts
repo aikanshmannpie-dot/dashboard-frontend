@@ -5,6 +5,8 @@ import { Component } from '@angular/core';
  * Sample context menu dropdown
  */
 @Component({
+	standalone: false,
+
 	selector: 'kt-context-menu',
 	templateUrl: './context-menu.component.html',
 	styleUrls: ['./context-menu.component.scss']

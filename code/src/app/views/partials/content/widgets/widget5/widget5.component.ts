@@ -13,6 +13,8 @@ export interface Widget5Data {
 }
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-widget5',
 	templateUrl: './widget5.component.html',
 	styleUrls: ['./widget5.component.scss']

@@ -14,6 +14,8 @@ interface LanguageFlag {
 }
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-language-selector',
 	templateUrl: './language-selector.component.html',
 })

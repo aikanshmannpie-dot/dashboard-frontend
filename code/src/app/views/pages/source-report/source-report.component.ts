@@ -15,15 +15,16 @@ import { AuthNoticeService, AuthService, Login, SupplierService } from "../../..
 import { Observable, Subject } from "rxjs";
 import { finalize, takeUntil, tap } from "rxjs/operators";
 import moment from "moment";
-import * as jsPDF from "jspdf";
+import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import * as jspdf from "jspdf";
+
 declare var $: any;
 import { Router } from "@angular/router";
 
 
 @Component({
-  selector: "kt-source-report",
+	standalone: false,
+selector: "kt-source-report",
   templateUrl: "./source-report.component.html",
   styleUrls: ["./source-report.component.scss"],
 })
@@ -147,7 +148,7 @@ export class SourceReportComponent implements OnInit {
     html2canvas(data).then((canvas) => {
       var doc = new jsPDF("p", "mm", "a4");
       const contentDataURL = canvas.toDataURL("image/png");
-      let pdf = new jspdf("p", "mm", "a4"); // A4 size page of PDF
+      let pdf = new jsPDF("p", "mm", "a4"); // A4 size page of PDF
       var position = 0;
       var width = doc.internal.pageSize.getWidth();
       var height = doc.internal.pageSize.getHeight();

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 // CRUD
 import { QueryResultsModel } from '../../_base/crud';
@@ -30,8 +30,7 @@ export class ProductSpecificationEffects {
     // showLoadingDistpatcher = new ProcutSpecificationsPageToggleLoading({ isLoading: true });
     hideLoadingDistpatcher = new ProductSpecificationsPageToggleLoading({ isLoading: false });
 
-    @Effect()
-    loadProductSpecificationsPage$ = this.actions$
+    loadProductSpecificationsPage$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductSpecificationsPageRequested>(ProductSpecificationActionTypes.ProductSpecificationsPageRequested),
             mergeMap(( { payload } ) => this.productSpecificationsService.findProductSpecs(payload.page, payload.productId)),
@@ -41,10 +40,9 @@ export class ProductSpecificationEffects {
                     totalCount: result.totalCount
                 });
             }),
-        );
+        ));
 
-    @Effect()
-    deleteProductSpecification$ = this.actions$
+    deleteProductSpecification$ = createEffect(() => this.actions$
         .pipe(
             ofType<OneProductSpecificationDeleted>(ProductSpecificationActionTypes.OneProductSpecificationDeleted),
             mergeMap(( { payload } ) => {
@@ -55,10 +53,9 @@ export class ProductSpecificationEffects {
             map(() => {
                 return this.hideLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    deleteProductSpecifications$ = this.actions$
+    deleteProductSpecifications$ = createEffect(() => this.actions$
         .pipe(
             ofType<ManyProductSpecificationsDeleted>(ProductSpecificationActionTypes.ManyProductSpecificationsDeleted),
             mergeMap(( { payload } ) => {
@@ -69,10 +66,9 @@ export class ProductSpecificationEffects {
             map(() => {
                 return this.hideLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    updateProductSpecification$ = this.actions$
+    updateProductSpecification$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductSpecificationUpdated>(ProductSpecificationActionTypes.ProductSpecificationUpdated),
             mergeMap(( { payload } ) => {
@@ -82,10 +78,9 @@ export class ProductSpecificationEffects {
             map(() => {
                 return this.hideLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    createProductSpecification$ = this.actions$
+    createProductSpecification$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductSpecificationOnServerCreated>(ProductSpecificationActionTypes.ProductSpecificationOnServerCreated),
             mergeMap(( { payload } ) => {
@@ -99,7 +94,7 @@ export class ProductSpecificationEffects {
             map(() => {
                 return this.hideLoadingDistpatcher;
             }),
-        );
+        ));
 
     constructor(private actions$: Actions, private productSpecificationsService: ProductSpecificationsService, private store: Store<AppState>) { }
 }

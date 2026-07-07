@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { of, Observable, defer, forkJoin } from 'rxjs';
 import { mergeMap, map, withLatestFrom, filter, tap } from 'rxjs/operators';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store, select, Action } from '@ngrx/store';
 // CRUD
 import { QueryResultsModel, QueryParamsModel } from '../../_base/crud';
@@ -37,27 +37,26 @@ export class RoleEffects {
     showActionLoadingDistpatcher = new RolesActionToggleLoading({ isLoading: true });
     hideActionLoadingDistpatcher = new RolesActionToggleLoading({ isLoading: false });
 
-    @Effect()
-    loadAllRoles$ = this.actions$
-        .pipe(
+    loadAllRoles$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<AllRolesRequested>(RoleActionTypes.AllRolesRequested),
             withLatestFrom(this.store.pipe(select(allRolesLoaded))),
             filter(([action, isAllRolesLoaded]) => !isAllRolesLoaded),
             mergeMap(() => this.auth.getAllRoles()),
             map(roles => {
-                return new AllRolesLoaded({roles});
+                return new AllRolesLoaded({ roles });
             })
-          );
+        )
+    );
 
-    @Effect()
-    loadRolesPage$ = this.actions$
-        .pipe(
+    loadRolesPage$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<RolesPageRequested>(RoleActionTypes.RolesPageRequested),
-            mergeMap(( { payload } ) => {
+            mergeMap(({ payload }) => {
                 this.store.dispatch(this.showPageLoadingDistpatcher);
                 const requestToServer = this.auth.findRoles(payload.page);
                 const lastQuery = of(payload.page);
-                return forkJoin(requestToServer, lastQuery);
+                return forkJoin([requestToServer, lastQuery]);
             }),
             map(response => {
                 const result: QueryResultsModel = response[0];
@@ -70,41 +69,39 @@ export class RoleEffects {
                     page: lastQuery
                 });
             }),
-        );
+        )
+    );
 
-    @Effect()
-    deleteRole$ = this.actions$
-        .pipe(
+    deleteRole$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<RoleDeleted>(RoleActionTypes.RoleDeleted),
-            mergeMap(( { payload } ) => {
-                    this.store.dispatch(this.showActionLoadingDistpatcher);
-                    return this.auth.deleteRole(payload.id);
-                }
-            ),
+            mergeMap(({ payload }) => {
+                this.store.dispatch(this.showActionLoadingDistpatcher);
+                return this.auth.deleteRole(payload.id);
+            }),
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        )
+    );
 
-    @Effect()
-    updateRole$ = this.actions$
-        .pipe(
+    updateRole$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<RoleUpdated>(RoleActionTypes.RoleUpdated),
-            mergeMap(( { payload } ) => {
+            mergeMap(({ payload }) => {
                 this.store.dispatch(this.showActionLoadingDistpatcher);
                 return this.auth.updateRole(payload.role);
             }),
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        )
+    );
 
-
-    @Effect()
-    createRole$ = this.actions$
-        .pipe(
+    createRole$ = createEffect(() =>
+        this.actions$.pipe(
             ofType<RoleOnServerCreated>(RoleActionTypes.RoleOnServerCreated),
-            mergeMap(( { payload } ) => {
+            mergeMap(({ payload }) => {
                 this.store.dispatch(this.showActionLoadingDistpatcher);
                 return this.auth.createRole(payload.role).pipe(
                     tap(res => {
@@ -115,12 +112,14 @@ export class RoleEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        )
+    );
 
-    @Effect()
-    init$: Observable<Action> = defer(() => {
-        return of(new AllRolesRequested());
-    });
+    init$: Observable<Action> = createEffect(() =>
+        defer(() => {
+            return of(new AllRolesRequested());
+        })
+    );
 
     constructor(private actions$: Actions, private auth: AuthService, private store: Store<AppState>) { }
 }

@@ -42,7 +42,8 @@ highcharts3D(Highcharts);
 
 import { Router } from "@angular/router";
 @Component({
-  selector: "kt-dashboard",
+	standalone: false,
+selector: "kt-dashboard",
   templateUrl: "./dashboard.component.html",
   styleUrls: ["dashboard.component.scss"],
 })

@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material'
+import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 // Core Module
 import { CoreModule } from '../../../core/core.module';
@@ -12,7 +12,7 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { FormsModule } from '@angular/forms';
 // import { BrowserModule } from '@angular/platform-browser';
 // import { DaterangepickerModule } from 'angular-2-daterangepicker';
-import { MatPaginatorModule } from '@angular/material';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableExporterModule } from 'mat-table-exporter';

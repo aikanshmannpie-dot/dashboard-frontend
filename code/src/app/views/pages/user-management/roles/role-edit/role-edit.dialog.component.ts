@@ -1,6 +1,6 @@
 // Angular
 import { Component, OnInit, Inject, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // RxJS
 import { Observable, of, Subscription} from 'rxjs';
 // Lodash
@@ -24,7 +24,8 @@ import {
 import { delay } from 'rxjs/operators';
 
 @Component({
-	selector: 'kt-role-edit-dialog',
+	standalone: false,
+selector: 'kt-role-edit-dialog',
 	templateUrl: './role-edit.dialog.component.html',
 	changeDetection: ChangeDetectionStrategy.Default,
 })

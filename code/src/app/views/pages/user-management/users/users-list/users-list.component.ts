@@ -4,7 +4,9 @@ import { Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy, OnDe
 import { ActivatedRoute, Router } from '@angular/router';
 // Material
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
 // RXJS
 import { debounceTime, distinctUntilChanged, tap, skip, take, delay } from 'rxjs/operators';
 import { fromEvent, merge, Observable, of, Subscription } from 'rxjs';
@@ -36,7 +38,8 @@ import { SubheaderService } from '../../../../../core/_base/layout';
 // https://v5.material.angular.io/components/table/overview#sorting
 // https://www.youtube.com/watch?v=NSt9CI3BXv4
 @Component({
-	selector: 'kt-users-list',
+	standalone: false,
+selector: 'kt-users-list',
 	templateUrl: './users-list.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -32,7 +32,8 @@ export class PasswordValidation {
 }
 
 @Component({
-	selector: 'kt-change-password',
+	standalone: false,
+selector: 'kt-change-password',
 	templateUrl: './change-password.component.html',
 	// changeDetection: ChangeDetectionStrategy.OnPush,
 })

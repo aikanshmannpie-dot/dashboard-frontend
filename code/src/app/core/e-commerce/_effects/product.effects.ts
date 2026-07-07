@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 // RxJS
 import { mergeMap, map, tap } from 'rxjs/operators';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Store, Action } from '@ngrx/store';
 // CRUD
 import { QueryResultsModel, QueryParamsModel } from '../../_base/crud';
@@ -33,8 +33,7 @@ export class ProductEffects {
     showLoadingDistpatcher = new ProductsPageToggleLoading({ isLoading: true });
     hideActionLoadingDistpatcher = new ProductsPageToggleLoading({ isLoading: false });
 
-    @Effect()
-    loadProductsPage$ = this.actions$
+    loadProductsPage$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductsPageRequested>(ProductActionTypes.ProductsPageRequested),
             mergeMap(( { payload } ) => {
@@ -52,10 +51,9 @@ export class ProductEffects {
                     page: lastQuery
                 });
             }),
-        );
+        ));
 
-    @Effect()
-    deleteProduct$ = this.actions$
+    deleteProduct$ = createEffect(() => this.actions$
         .pipe(
             ofType<OneProductDeleted>(ProductActionTypes.OneProductDeleted),
             mergeMap(( { payload } ) => {
@@ -66,10 +64,9 @@ export class ProductEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    deleteProducts$ = this.actions$
+    deleteProducts$ = createEffect(() => this.actions$
         .pipe(
             ofType<ManyProductsDeleted>(ProductActionTypes.ManyProductsDeleted),
             mergeMap(( { payload } ) => {
@@ -80,10 +77,9 @@ export class ProductEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    updateProductsStatus$ = this.actions$
+    updateProductsStatus$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductsStatusUpdated>(ProductActionTypes.ProductsStatusUpdated),
             mergeMap(( { payload } ) => {
@@ -93,10 +89,9 @@ export class ProductEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    updateProduct$ = this.actions$
+    updateProduct$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductUpdated>(ProductActionTypes.ProductUpdated),
             mergeMap(( { payload } ) => {
@@ -106,10 +101,9 @@ export class ProductEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    createProduct$ = this.actions$
+    createProduct$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductOnServerCreated>(ProductActionTypes.ProductOnServerCreated),
             mergeMap(( { payload } ) => {
@@ -123,13 +117,12 @@ export class ProductEffects {
             map(() => {
                 return this.hideActionLoadingDistpatcher;
             }),
-        );
+        ));
 
-    // @Effect()
-    // init$: Observable<Action> = defer(() => {
+    // // init$: Observable<Action> = createEffect(() => defer(() => {
     //     const queryParams = new QueryParamsModel({});
     //     return of(new ProductsPageRequested({ page: queryParams }));
-    // });
+    // }));
 
     constructor(private actions$: Actions, private productsService: ProductsService, private store: Store<AppState>) { }
 }

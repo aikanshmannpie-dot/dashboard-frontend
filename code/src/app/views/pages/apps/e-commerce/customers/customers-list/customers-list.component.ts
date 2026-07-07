@@ -2,7 +2,10 @@
 import { Component, OnInit, ElementRef, ViewChild, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 // Material
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatPaginator, MatSort, MatSnackBar, MatDialog } from '@angular/material';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 // RXJS
 import { debounceTime, distinctUntilChanged, tap, skip, delay, take } from 'rxjs/operators';
 import { fromEvent, merge, Subscription, of } from 'rxjs';
@@ -26,7 +29,8 @@ import { CustomerEditDialogComponent } from '../customer-edit/customer-edit.dial
 // https://v5.material.angular.io/components/table/overview#sorting
 // https://www.youtube.com/watch?v=NSt9CI3BXv4
 @Component({
-	// tslint:disable-next-line:component-selector
+	standalone: false,
+// tslint:disable-next-line:component-selector
 	selector: 'kt-customers-list',
 	templateUrl: './customers-list.component.html',
 	changeDetection: ChangeDetectionStrategy.OnPush,

@@ -15,6 +15,8 @@ export interface Widget4Data {
 }
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-widget4',
 	templateUrl: './widget4.component.html',
 	styleUrls: ['./widget4.component.scss']

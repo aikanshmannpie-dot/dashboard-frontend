@@ -6,7 +6,8 @@ import { AuthService, Logout } from "../../../core/auth";
 import { AppState } from "../../../core/reducers";
 
 @Component({
-  selector: "kt-verify",
+	standalone: false,
+selector: "kt-verify",
   templateUrl: "./verify.component.html",
   styleUrls: ["./verify.component.scss"],
 })

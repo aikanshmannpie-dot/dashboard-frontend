@@ -6,6 +6,8 @@ import { LayoutConfigService } from '../../../core/_base/layout';
 import * as objectPath from 'object-path';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-footer',
 	templateUrl: './footer.component.html',
 })

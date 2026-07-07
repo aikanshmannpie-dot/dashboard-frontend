@@ -4,6 +4,8 @@ import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
  * Listen Tab click
  */
 @Directive({
+	standalone: false,
+
 	selector: '[ktTabClickEvent]'
 })
 export class TabClickEventDirective {

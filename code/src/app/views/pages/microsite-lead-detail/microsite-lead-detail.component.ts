@@ -12,7 +12,8 @@ import { finalize } from "rxjs/operators";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: "kt-microsite-leads",
+	standalone: false,
+selector: "kt-microsite-leads",
   templateUrl: "./microsite-lead-detail.component.html",
   styleUrls: ["./microsite-lead-detail.component.scss"],
 })

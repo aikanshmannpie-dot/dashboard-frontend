@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SparklineChartOptions } from '../../../../../core/_base/layout';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-widget26',
 	templateUrl: './widget26.component.html',
 	styleUrls: ['./widget26.component.scss']

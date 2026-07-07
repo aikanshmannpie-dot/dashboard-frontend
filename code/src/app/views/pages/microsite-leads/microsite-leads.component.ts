@@ -14,7 +14,8 @@ import moment from "moment";
 import { FormControl } from "@angular/forms";
 
 @Component({
-  selector: "kt-microsite-leads",
+	standalone: false,
+selector: "kt-microsite-leads",
   templateUrl: "./microsite-leads.component.html",
   styleUrls: ["./microsite-leads.component.scss"],
 })

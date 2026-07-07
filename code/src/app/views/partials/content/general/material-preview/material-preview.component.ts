@@ -2,6 +2,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-material-preview',
 	templateUrl: './material-preview.component.html',
 	styleUrls: ['./material-preview.component.scss'],

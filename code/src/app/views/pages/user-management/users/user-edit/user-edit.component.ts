@@ -25,7 +25,8 @@ import {
 } from '../../../../../core/auth';
 
 @Component({
-	selector: 'kt-user-edit',
+	standalone: false,
+selector: 'kt-user-edit',
 	templateUrl: './user-edit.component.html',
 })
 export class UserEditComponent implements OnInit, OnDestroy {
@@ -144,7 +145,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 	 */
 	goBackWithId() {
 		const url = `/user-management/users`;
-		this.router.navigateByUrl(url, { relativeTo: this.activatedRoute });
+		this.router.navigateByUrl(url);
 	}
 
 	/**
@@ -161,7 +162,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 		}
 
 		url = `/user-management/users/edit/${id}`;
-		this.router.navigateByUrl(url, { relativeTo: this.activatedRoute });
+		this.router.navigateByUrl(url);
 	}
 
 	/**

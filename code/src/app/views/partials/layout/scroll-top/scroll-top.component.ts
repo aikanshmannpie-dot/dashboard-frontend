@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { ScrollTopOptions } from '../../../../core/_base/layout';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-scroll-top',
 	templateUrl: './scroll-top.component.html',
 })

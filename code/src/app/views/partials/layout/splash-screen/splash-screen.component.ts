@@ -6,6 +6,8 @@ import * as objectPath from 'object-path';
 import { LayoutConfigService, SplashScreenService } from '../../../../core/_base/layout';
 
 @Component({
+	standalone: false,
+
 	selector: 'kt-splash-screen',
 	templateUrl: './splash-screen.component.html',
 	styleUrls: ['./splash-screen.component.scss']

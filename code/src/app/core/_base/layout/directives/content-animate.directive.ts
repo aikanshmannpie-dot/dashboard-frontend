@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
  *
  */
 @Directive({
+	standalone: false,
+
 	selector: '[ktContentAnimate]'
 })
 export class ContentAnimateDirective implements OnInit, OnDestroy {

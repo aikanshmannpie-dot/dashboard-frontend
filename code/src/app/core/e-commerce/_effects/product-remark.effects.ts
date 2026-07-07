@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 // CRUD
 import { QueryResultsModel } from '../../_base/crud';
@@ -30,8 +30,7 @@ export class ProductRemarkEffects {
     // showLoadingDistpatcher = new ProcutRemarksPageToggleLoading({ isLoading: true });
     hideLoadingDistpatcher = new ProductRemarksPageToggleLoading({ isLoading: false });
 
-    @Effect()
-    loadProductRemarksPage$ = this.actions$
+    loadProductRemarksPage$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductRemarksPageRequested>(ProductRemarkActionTypes.ProductRemarksPageRequested),
             mergeMap(( { payload } ) => {
@@ -43,10 +42,9 @@ export class ProductRemarkEffects {
                     totalCount: result.totalCount
                 });
             }),
-        );
+        ));
 
-    @Effect()
-    deleteProductRemark$ = this.actions$
+    deleteProductRemark$ = createEffect(() => this.actions$
         .pipe(
             ofType<OneProductRemarkDeleted>(ProductRemarkActionTypes.OneProductRemarkDeleted),
             mergeMap(( { payload } ) => {
@@ -57,10 +55,9 @@ export class ProductRemarkEffects {
             map(() => {
                 return this.hideLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    deleteProductRemarks$ = this.actions$
+    deleteProductRemarks$ = createEffect(() => this.actions$
         .pipe(
             ofType<ManyProductRemarksDeleted>(ProductRemarkActionTypes.ManyProductRemarksDeleted),
             mergeMap(( { payload } ) => {
@@ -71,10 +68,9 @@ export class ProductRemarkEffects {
             map(() => {
                 return this.hideLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    updateProductRemark$ = this.actions$
+    updateProductRemark$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductRemarkUpdated>(ProductRemarkActionTypes.ProductRemarkUpdated),
             mergeMap(( { payload } ) => {
@@ -84,10 +80,9 @@ export class ProductRemarkEffects {
             map(() => {
                 return this.hideLoadingDistpatcher;
             }),
-        );
+        ));
 
-    @Effect()
-    createProductRemark$ = this.actions$
+    createProductRemark$ = createEffect(() => this.actions$
         .pipe(
             ofType<ProductRemarkOnServerCreated>(ProductRemarkActionTypes.ProductRemarkOnServerCreated),
             mergeMap(( { payload } ) => {
@@ -101,7 +96,7 @@ export class ProductRemarkEffects {
             map(() => {
                 return this.hideLoadingDistpatcher;
             }),
-        );
+        ));
 
     constructor(private actions$: Actions, private productRemarksService: ProductRemarksService, private store: Store<AppState>) { }
 }

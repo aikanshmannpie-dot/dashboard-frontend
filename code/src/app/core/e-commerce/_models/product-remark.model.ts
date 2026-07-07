@@ -6,7 +6,7 @@ export class ProductRemarkModel extends BaseModel {
 	text: string;
 	type: number; // Info, Note, Reminder
 	dueDate: string;
-	_isEditMode: boolean;
+
 
 	// Refs
 	_carName: string;
