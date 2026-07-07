@@ -3,33 +3,111 @@
     <h2 style="padding: 10px 0px; float: left">Lead Detail </h2>
   </div>
 
- 
+  <div class="mat-table__wrapper tableMobileView" *ngIf="avaible">
+    <h2>Lead Information</h2>
+    <table class="detailTable table table-bordered table-striped table-hover table-responsive">
+      <tr>
+        <th>Id</th>
+        <td>{{ detail.id }}</td>
+      </tr>
+      <tr>
+        <th>Created At</th>
+        <td>{{ detail.created_at }}</td>
+      </tr>
+      <tr>
+        <th>Site Name</th>
+        <td>{{ detail.site_name }}</td>
+      </tr>
+            <tr>
+        <th>Data</th>
+        <td>{{ detail.data }}</td>
+      </tr>
+      <tr>
+        <th>Full Name</th>
+        <td>{{ detail.full_name }}</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{ detail.email }}</td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td>{{ detail.phone_number }}</td>
+      </tr>
+      <tr>
+        <th>Age</th>
+        <td>{{ detail.age }}</td>
+      </tr>
+      <tr>
+        <th>Gender</th>
+        <td>{{ detail.gender }}</td>
+      </tr>
+      <tr>
+        <th>Postcode</th>
+        <td>{{ detail.postcode }}</td>
+      </tr>
+      <tr>
+        <th>State</th>
+        <td>{{ detail.state }}</td>
+      </tr>
+      <tr>
+        <th>Town/City</th>
+        <td>{{ detail.town_city }}</td>
+      </tr>
+      <tr>
+        <th>DOB</th>
+        <td>{{ detail.dob }}</td>
+      </tr>
+      <tr>
+        <th>API Client Name</th>
+        <td>{{ detail.api_client_name }}</td>
+      </tr>
+      <tr>
+        <th>API</th>
+        <td>{{ detail.api_name }}</td>
+      </tr>
+      <tr>
+        <th>API Response</th>
+        <td>{{ detail.api_response }}</td>
+      </tr>
+      <tr>
+        <th>API Status</th>
+        <td>{{ detail.api_status }}</td>
+      </tr>
+      <tr>
+        <th>Delivery Status</th>
+        <td>{{ detail.delivery_status }}</td>
+      </tr>
+      <tr>
+        <th>SMS Response</th>
+        <td>{{ detail.sms_response }}</td>
+      </tr>
+      <tr>
+        <th>IPV4</th>
+        <td>{{ detail.ipv4 }}</td>
+      </tr>
+      <tr>
+        <th>User Agent</th>
+        <td>{{ detail.user_agent }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3>Logs</h3>
   <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
     <kendo-pdf-export #pdf margin="2cm">
-      <mat-table
-        class="lmat-elevation-z8"
-        matTableExporter
-        #table
-        [dataSource]="dataSource"
-        matSort
-        #matSort="matSort"
-        matSortActive="id"
-        matSortDirection="asc"
-        matSortDisableClear
-        (matSortChange)="sortColumn($event)"
-      >
-        
+      <mat-table class="lmat-elevation-z8" matTableExporter #table [dataSource]="dataSource" matSort #matSort="matSort"
+        matSortActive="id" matSortDirection="asc" matSortDisableClear (matSortChange)="sortColumn($event)">
+
         <ng-container matColumnDef="payload">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Payload
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Payload
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.payload }}
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="payload_type">
-          <mat-header-cell *matHeaderCellDef mat-sort-header
-            >Payload Type
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Payload Type
           </mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.payload_type }}
@@ -37,37 +115,16 @@
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <div>
-          <mat-row
-            *matRowDef="
+          <mat-row *matRowDef="
               let row;
               columns: displayedColumns;
               columns: displayedColumns2
-            "
-          ></mat-row>
+            "></mat-row>
         </div>
       </mat-table>
 
       <div *ngIf="loading" style="text-align: center">
-        <img
-          style="padding: 10px; height: 100px"
-          src="assets/images/loader.gif"
-        />
+        <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
       </div>
-      <!-- <div style="text-align: center
-        ;">
-            <h3>Data not found!</h3>
-        </div> -->
     </kendo-pdf-export>
   </div>
-
-  <!-- start: BOTTOM -->
-  <div class="mat-table__bottom">
-    <!-- <button (click)="nextData()" class="button-next-pre">Next</button>
-    <button (click)="previusData()" class="button-next-pre" >Previous</button> -->
-    <mat-paginator
-      [pageSize]="20"
-      [pageSizeOptions]="[10, 20, 25, 100]"
-      [showFirstLastButtons]="true"
-    ></mat-paginator>
-  </div>
-</div>

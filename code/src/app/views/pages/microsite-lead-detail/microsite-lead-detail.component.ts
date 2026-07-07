@@ -2,16 +2,13 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-  ViewChild,
-  ElementRef,
+  ViewChild
 } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { AuthService } from "../../../core/auth";
 import { finalize } from "rxjs/operators";
-import moment from "moment";
-import { FormControl } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 
 @Component({
@@ -20,9 +17,11 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./microsite-lead-detail.component.scss"],
 })
 export class MicrositeLeadDetailComponent implements OnInit {
-  dataSource: MatTableDataSource<any>;
   avaible = false;
   loading = false;
+  detail: any = null;
+
+  dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
@@ -53,21 +52,23 @@ export class MicrositeLeadDetailComponent implements OnInit {
   }
 
   getLeadDetail(id: number ) {
-    this.auth.getLeadDetail(id).subscribe(
+    this.loading = true;
+    this.auth.getLeadDetail(id).pipe(
+      finalize(() => {
+        this.avaible = true;
+        this.loading = false;
+        this.cdr.markForCheck();
+      })
+    ).subscribe(
       (data) => {
-        this.dataSource.data = data.apiData;
+          this.detail = data.apiData.leadDetails;
+          this.dataSource.data = data.apiData.leadLogs;
       },
       (error) => {
         this.loading = false;
         this.cdr.markForCheck();
       }
-    ),
-      finalize(() => {
-        this.avaible = true;
-        this.loading = false;
-        this.dataSource.paginator = this.paginator;
-        this.cdr.markForCheck();
-      });
+    );
   }
 
 }

@@ -43,8 +43,13 @@ export class MicrositeLeadsComponent implements OnInit {
   ranges: any = {
     Today: [moment(), moment()],
     Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
-    "Last 7 Days": [moment().subtract(7, "days"), moment().subtract(1, "days")],
-    "Last 30 Days": [moment().subtract(30, "days"), moment().subtract(1, "days")],
+    "Last 7 Days": [moment().subtract(6, "days"), moment()],
+    "Last 30 Days": [moment().subtract(29, "days"), moment()],
+    "This Week": [moment().startOf("week"), moment().endOf("week")],
+    "Last Week": [
+      moment().subtract(1, "week").startOf("week"),
+      moment().subtract(1, "week").endOf("week"),
+    ],
     "This Month": [moment().startOf("month"), moment().endOf("month")],
     "Last Month": [
       moment().subtract(1, "month").startOf("month"),
@@ -72,11 +77,12 @@ export class MicrositeLeadsComponent implements OnInit {
     "full_name",
     "email",
     "phone_number",
-    "created_at",
+    "created_at_sydney",
     "api_status",
     "sms_body",
     "section_second_header",
     "api_client_name",
+    "source"
   ];
   displayedColumns1: string[] = [
     "site_name",
@@ -94,7 +100,7 @@ export class MicrositeLeadsComponent implements OnInit {
     "postcode",
     "state",
     "data",
-    "created_at",
+    "created_at_sydney",
     "question_0",
     "answer_0",
     "question_1",
@@ -119,13 +125,16 @@ export class MicrositeLeadsComponent implements OnInit {
     "answer_10",
     "api_status",
     "api_client_name",
+    "source"
   ];
 
   columnIds = [];
   offsetPlus = 0;
+  token;
   constructor(private auth: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.token = this.auth.getToken();
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -142,7 +151,7 @@ export class MicrositeLeadsComponent implements OnInit {
   }
 
   getFormat(activeTeam) {
-    return moment(activeTeam.created_at).format("YYYY-MM-DD hh:mm:ss");
+    return moment(activeTeam.created_at_sydney).format("YYYY-MM-DD hh:mm:ss A");
   }
 
   createSurveyQuestion(data, siteId) {
@@ -282,7 +291,6 @@ export class MicrositeLeadsComponent implements OnInit {
       .getListOfMicrosite(start, end, this.offset, this.siteName)
       .subscribe(
         (data) => {
-          console.log("data", data);
           if (data) {
 
             const apiData = data.apiData.map((lead) => {

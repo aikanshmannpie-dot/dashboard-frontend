@@ -83,7 +83,9 @@ export class AuthService {
       Authorization: `Bearer ${this.currentToken}`,
     });
   }
-
+  getToken(): string | null {
+    return this.currentToken;
+  }
   // Authentication/Authorization
   login(email: string, password: string): Observable<any> {
     if (!email || !password) {
@@ -153,14 +155,14 @@ export class AuthService {
     );
   }
 
-  getAffilate(startDate, endDate, dashboard, report_type,country): Observable<any> {
+  getAffilate(startDate, endDate, dashboard, report_type, country): Observable<any> {
     return this.http.get<User>(
       `${environment.baseUrl}/affiliate-by-report/${startDate}/${endDate}/${this.timeZomeValue}/${dashboard}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getLineChart(startDate, endDate, report_type,country): Observable<any> {
+  getLineChart(startDate, endDate, report_type, country): Observable<any> {
     return this.http.get<User>(
       `${environment.baseUrl}/line-chart-data/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
@@ -174,28 +176,28 @@ export class AuthService {
     );
   }
 
-  getLeftSideDataTable(startDate, endDate, report_type,country): Observable<any> {
+  getLeftSideDataTable(startDate, endDate, report_type, country): Observable<any> {
     return this.http.get<User>(
       `${environment.baseUrl}/left-dashboard/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getGpCorag(startDate, endDate, report_type,country): Observable<any> {
+  getGpCorag(startDate, endDate, report_type, country): Observable<any> {
     return this.http.get<User>(
       `${environment.baseUrl}/gpReport/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getTicksGraph(startDate, endDate, report_type,country): Observable<any> {
+  getTicksGraph(startDate, endDate, report_type, country): Observable<any> {
     return this.http.get<User>(
       `${environment.baseUrl}/overall-tick-graph/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
     );
   }
 
-  getTicksGraphAc(startDate, endDate, report_type,country): Observable<any> {
+  getTicksGraphAc(startDate, endDate, report_type, country): Observable<any> {
     return this.http.get<User>(
       `${environment.baseUrl}/overall-tick-ac/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
@@ -300,7 +302,7 @@ export class AuthService {
     );
   }
 
-  getClickOutReport(startDate, endDate, report_type,country): Observable<any> {
+  getClickOutReport(startDate, endDate, report_type, country): Observable<any> {
     return this.http.get<User>(
       `${environment.baseUrl}/clickout-report/${startDate}/${endDate}/${this.timeZomeValue}/${report_type}/${country}`,
       { headers: this.getAuthHeaders() }
@@ -385,70 +387,70 @@ export class AuthService {
 
   getTotalLeadsByPhone(source): Observable<any> {
     return this.http.get<any>(
-      `${environment.baseUrl}/import/gettotalleads/${source}`,{
-        headers:this.getAuthHeaders()
-      }
+      `${environment.baseUrl}/import/gettotalleads/${source}`, {
+      headers: this.getAuthHeaders()
+    }
     );
   }
 
   getActiveMonthly(): Observable<any> {
-    return this.http.get(`${environment.baseUrl}/import/getActiveMonthly`,{
-      headers:this.getAuthHeaders()
+    return this.http.get(`${environment.baseUrl}/import/getActiveMonthly`, {
+      headers: this.getAuthHeaders()
     });
   }
 
   getRepeatWeekly(): Observable<any> {
-     return this.http.get(`${environment.baseUrl}/import/getRepeatWeekly`,{
-      headers:this.getAuthHeaders()
+    return this.http.get(`${environment.baseUrl}/import/getRepeatWeekly`, {
+      headers: this.getAuthHeaders()
     });
   }
 
   getAgeData(): Observable<any> {
-    return this.http.get(`${environment.baseUrl}/import/getAgeData`,{
-      headers:this.getAuthHeaders()
+    return this.http.get(`${environment.baseUrl}/import/getAgeData`, {
+      headers: this.getAuthHeaders()
     });
   }
   getGenderCount(): Observable<any> {
-    return this.http.get(`${environment.baseUrl}/import/getGenderCount`,{
-      headers:this.getAuthHeaders()
+    return this.http.get(`${environment.baseUrl}/import/getGenderCount`, {
+      headers: this.getAuthHeaders()
     });
   }
 
   getTotalUniqueLeadsAcquirely(): Observable<any> {
     return this.http.get(
-      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirely`,{
-        headers:this.getAuthHeaders()
-      }
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirely`, {
+      headers: this.getAuthHeaders()
+    }
     );
   }
 
   getTotalUniqueLeadsAcquirelyAll(): Observable<any> {
     return this.http.get(
-      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyAll`,{
-        headers:this.getAuthHeaders()
-      }
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyAll`, {
+      headers: this.getAuthHeaders()
+    }
     );
   }
 
   getTotalUniqueLeadsAcquirelyPartners(): Observable<any> {
     return this.http.get(
-      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyPartners`,{
-        headers:this.getAuthHeaders()
-      }
+      `${environment.baseUrl}/import/getTotalUniqueLeadsAcquirelyPartners`, {
+      headers: this.getAuthHeaders()
+    }
     );
   }
 
   getTotalUniqueLeadsTeleconnex(): Observable<any> {
-     return this.http.get(
-      `${environment.baseUrl}/import/getTotalUniqueLeadsTeleconnex`,{
-        headers:this.getAuthHeaders()
-      }
+    return this.http.get(
+      `${environment.baseUrl}/import/getTotalUniqueLeadsTeleconnex`, {
+      headers: this.getAuthHeaders()
+    }
     );
   }
 
   getActiveLastWeek(): Observable<any> {
-    return this.http.get(`${environment.baseUrl}/import/getactivelastweek`,{
-      headers:this.getAuthHeaders()
+    return this.http.get(`${environment.baseUrl}/import/getactivelastweek`, {
+      headers: this.getAuthHeaders()
     });
   }
 
@@ -779,7 +781,7 @@ export class AuthService {
     });
   }
   getLeadDetail(leadId: number): Observable<any> {
-    return this.http.get<User>(`${environment.baseUrl}/microsite/getleadlogs/${leadId}`, {
+    return this.http.get<User>(`${environment.baseUrl}/microsite/getleaddetail/${leadId}`, {
       headers: this.getAuthHeaders(),
     });
   }

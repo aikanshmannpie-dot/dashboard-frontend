@@ -13,9 +13,7 @@
           </button>
         </h3>
         <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
-          endKey="end" [(ngModel)]="model1" />
-        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
-          endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
+          endKey="end" [ranges]="ranges" [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [(ngModel)]="model1" />
         <!-- <select
         multiple
           class="form-control dropdown-select-box"
@@ -76,9 +74,9 @@
         <ng-container matColumnDef="domain">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Site Name</mat-header-cell>
           <mat-cell *matCellDef="let element; let i = index" class="firstCellCollumn column100">
-            <a [href]="'/microsite/3/' + element.id" target="_blank" rel="noopener noreferrer" class="table-link">
+            <div title="{{element.id}}"  class="table-link">
               {{ element.domain }}
-            </a>
+            </div>
             <span class="d-print-none">Site Name</span>
           </mat-cell>
         </ng-container>
@@ -132,7 +130,7 @@
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="created_at">
+        <ng-container matColumnDef="created_at_sydney">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             Created At
           </mat-header-cell>
@@ -198,6 +196,14 @@
             </div>
             <!-- <span *ngIf="element.delivery_status">Yes</span> -->
             <span class="d-print-none">API Client Name</span>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="source">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Source
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.source }}            
+            <span class="d-print-none">Source</span>
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -336,7 +342,7 @@
           </mat-cell>
         </ng-container>
 
-        <ng-container matColumnDef="created_at">
+        <ng-container matColumnDef="created_at_sydney">
           <mat-header-cell *matHeaderCellDef mat-sort-header>
             Created At
           </mat-header-cell>
@@ -544,7 +550,13 @@
             {{ element.api_client_name }}
           </mat-cell>
         </ng-container>
-        <!--  end question and answers -->
+        <ng-container matColumnDef="source">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Source
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            {{ element.source }}
+          </mat-cell>
+        </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
         <div>
           <mat-row *matRowDef="
