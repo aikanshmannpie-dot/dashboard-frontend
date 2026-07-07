@@ -116,6 +116,14 @@ const routes: Routes = [
           ).then((m) => m.MicrositeLeadReportByDomainModule),
       },
       {
+        path: "microsite-lead-report-by-api-client/:type",
+
+        loadChildren: () =>
+          import(
+            "./views/pages/microsite-lead-report-by-client/microsite-lead-report-by-client.module"
+          ).then((m) => m.MicrositeLeadReportByClientModule),
+      },
+      {
         path: "microsite-lead-report-by-api/:type",
 
         loadChildren: () =>

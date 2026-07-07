@@ -196,6 +196,13 @@ export class MenuConfig {
           translate: "MENU.DASHBOARD",
         },
         {
+          title: "Lead Report By API Client",
+          root: true,
+          alignment: "left",
+          page: "/microsite-lead-report-by-api-client/3",
+          translate: "MENU.DASHBOARD",
+        },
+        {
           title: "Lead Report By API",
           root: true,
           alignment: "left",

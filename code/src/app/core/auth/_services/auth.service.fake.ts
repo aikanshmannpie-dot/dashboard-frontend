@@ -352,6 +352,18 @@ export class AuthService {
     );
   }
 
+  getListOfMicrositeLeadByClient(startDate, endDate, offSet, siteName): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${this.currentToken}`,
+    });
+
+    return this.http.get<User>(
+      `${environment.baseUrl}/micrositelistingbyclient/${startDate}/${endDate}/${offSet}/${siteName}`,
+      { headers: httpHeaders }
+    );
+  }
+
   getLeadsAccordingToApiClient(startDate, endDate, siteName): Observable<any> {
     return this.http.get<User>(
       `${environment.baseUrl}/microsite/get-leads-by-api-name/${startDate}/${endDate}/${siteName}`,
