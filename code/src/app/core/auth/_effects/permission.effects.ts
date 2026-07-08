@@ -1,5 +1,5 @@
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 // RxJS
 import { mergeMap, map } from 'rxjs/operators';
 import { defer, Observable, of } from 'rxjs';
@@ -19,6 +19,8 @@ import { Permission } from '../_models/permission.model';
 
 @Injectable()
 export class PermissionEffects {
+    private actions$ = inject(Actions);
+    private auth = inject(AuthService);
     loadAllPermissions$ = createEffect(() =>
         this.actions$.pipe(
             ofType<AllPermissionsRequested>(PermissionActionTypes.AllPermissionsRequested),
@@ -37,5 +39,5 @@ export class PermissionEffects {
         })
     );
 
-    constructor(private actions$: Actions, private auth: AuthService) { }
+    constructor() { }
 }

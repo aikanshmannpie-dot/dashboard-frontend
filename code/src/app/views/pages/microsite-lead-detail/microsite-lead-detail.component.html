@@ -114,12 +114,7 @@
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <div>
-          <mat-row *matRowDef="
-              let row;
-              columns: displayedColumns;
-"></mat-row>
-        </div>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
       </mat-table>
 
       <div *ngIf="loading" style="text-align: center">

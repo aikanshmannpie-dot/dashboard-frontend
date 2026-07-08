@@ -1,5 +1,5 @@
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 // RxJS
 import { of, Observable, defer, forkJoin } from 'rxjs';
 import { mergeMap, map, withLatestFrom, filter, tap } from 'rxjs/operators';
@@ -31,6 +31,9 @@ import {
 
 @Injectable()
 export class RoleEffects {
+    private actions$ = inject(Actions);
+    private auth = inject(AuthService);
+    private store = inject(Store<AppState>);
     showPageLoadingDistpatcher = new RolesPageToggleLoading({ isLoading: true });
     hidePageLoadingDistpatcher = new RolesPageToggleLoading({ isLoading: false });
 
@@ -121,5 +124,5 @@ export class RoleEffects {
         })
     );
 
-    constructor(private actions$: Actions, private auth: AuthService, private store: Store<AppState>) { }
+    constructor() { }
 }

@@ -1,5 +1,5 @@
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 // RxJS
 import { mergeMap, map, tap } from 'rxjs/operators';
 import { Observable, defer, of, forkJoin } from 'rxjs';
@@ -26,6 +26,9 @@ import {
 
 @Injectable()
 export class UserEffects {
+    private actions$ = inject(Actions);
+    private auth = inject(AuthService);
+    private store = inject(Store<AppState>);
     showPageLoadingDistpatcher = new UsersPageToggleLoading({ isLoading: true });
     hidePageLoadingDistpatcher = new UsersPageToggleLoading({ isLoading: false });
 
@@ -96,5 +99,5 @@ export class UserEffects {
         )
     );
 
-    constructor(private actions$: Actions, private auth: AuthService, private store: Store<AppState>) { }
+    constructor() { }
 }

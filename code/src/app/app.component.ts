@@ -12,10 +12,13 @@ import { locale as jpLang } from './core/_config/i18n/jp';
 import { locale as deLang } from './core/_config/i18n/de';
 import { locale as frLang } from './core/_config/i18n/fr';
 
+import { NgIf } from '@angular/common';
+import { PartialsModule } from './views/partials/partials.module';
+
 @Component({
   selector: 'body[kt-root]',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NgIf, PartialsModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

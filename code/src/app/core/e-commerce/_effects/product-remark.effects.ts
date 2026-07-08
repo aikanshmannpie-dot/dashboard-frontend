@@ -1,5 +1,5 @@
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 // RxJS
 import { of } from 'rxjs';
 import { mergeMap, map, catchError, tap } from 'rxjs/operators';
@@ -27,6 +27,9 @@ import {
 
 @Injectable()
 export class ProductRemarkEffects {
+    private actions$ = inject(Actions);
+    private productRemarksService = inject(ProductRemarksService);
+    private store = inject(Store<AppState>);
     // showLoadingDistpatcher = new ProcutRemarksPageToggleLoading({ isLoading: true });
     hideLoadingDistpatcher = new ProductRemarksPageToggleLoading({ isLoading: false });
 
@@ -98,5 +101,5 @@ export class ProductRemarkEffects {
             }),
         ));
 
-    constructor(private actions$: Actions, private productRemarksService: ProductRemarksService, private store: Store<AppState>) { }
+    constructor() { }
 }

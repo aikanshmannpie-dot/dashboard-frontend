@@ -1,5 +1,5 @@
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // RxJS
 import { filter, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
@@ -16,6 +16,10 @@ import { isUserLoaded } from '../_selectors/auth.selectors';
 
 @Injectable()
 export class AuthEffects {
+    private actions$ = inject(Actions);
+    private router = inject(Router);
+    private auth = inject(AuthService);
+    private store = inject(Store<AppState>);
     login$ = createEffect(() =>
         this.actions$.pipe(
             ofType<Login>(AuthActionTypes.Login),
@@ -78,12 +82,7 @@ export class AuthEffects {
 
     private returnUrl: string;
 
-    constructor(
-        private actions$: Actions,
-        private router: Router,
-        private auth: AuthService,
-        private store: Store<AppState>
-    ) {
+    constructor() {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 this.returnUrl = event.url;

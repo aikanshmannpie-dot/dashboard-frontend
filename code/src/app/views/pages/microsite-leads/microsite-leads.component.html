@@ -207,12 +207,10 @@
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <div>
-          <mat-row *matRowDef="
-              let row;
-              columns: displayedColumns;
-"></mat-row>
-        </div>
+        <mat-row *matRowDef="
+            let row;
+            columns: displayedColumns;
+        "></mat-row>
       </mat-table>
 
       <mat-table class="lmat-elevation-z8 sec-mat-tab" matTableExporter #table [dataSource]="dataSource" matSort
@@ -557,12 +555,10 @@
           </mat-cell>
         </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumns1"></mat-header-row>
-        <div>
-          <mat-row *matRowDef="
-              let row;
-              columns: displayedColumns1;
-"></mat-row>
-        </div>
+        <mat-row *matRowDef="
+            let row;
+            columns: displayedColumns1;
+        "></mat-row>
       </mat-table>
 
       <div *ngIf="loading" style="text-align: center">

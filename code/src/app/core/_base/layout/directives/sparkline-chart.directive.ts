@@ -69,7 +69,7 @@ export class SparklineChartDirective implements AfterViewInit {
 		fill = (typeof fill !== 'undefined') ? fill : false;
 		tooltip = (typeof tooltip !== 'undefined') ? tooltip : false;
 
-		const config = {
+		const config: any = {
 			type: 'line',
 			data: {
 				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October'],

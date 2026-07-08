@@ -1,6 +1,6 @@
 import { forkJoin } from 'rxjs';
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 // RxJS
 import { mergeMap, map, tap } from 'rxjs/operators';
 // NGRX
@@ -29,6 +29,9 @@ import { defer, Observable, of } from 'rxjs';
 
 @Injectable()
 export class ProductEffects {
+    private actions$ = inject(Actions);
+    private productsService = inject(ProductsService);
+    private store = inject(Store<AppState>);
     showPageLoadingDistpatcher = new ProductsPageToggleLoading({ isLoading: true });
     showLoadingDistpatcher = new ProductsPageToggleLoading({ isLoading: true });
     hideActionLoadingDistpatcher = new ProductsPageToggleLoading({ isLoading: false });
@@ -124,5 +127,5 @@ export class ProductEffects {
     //     return of(new ProductsPageRequested({ page: queryParams }));
     // }));
 
-    constructor(private actions$: Actions, private productsService: ProductsService, private store: Store<AppState>) { }
+    constructor() { }
 }

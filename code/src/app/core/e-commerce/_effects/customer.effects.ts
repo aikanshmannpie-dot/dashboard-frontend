@@ -1,7 +1,7 @@
 import { QueryParamsModel } from './../../_base/crud/models/query-models/query-params.model';
 import { forkJoin } from 'rxjs';
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 // RxJS
 import { mergeMap, map, tap, delay } from 'rxjs/operators';
 // NGRX
@@ -31,6 +31,9 @@ import { of } from 'rxjs';
 
 @Injectable()
 export class CustomerEffects {
+    private actions$ = inject(Actions);
+    private customersService = inject(CustomersService);
+    private store = inject(Store<AppState>);
     showPageLoadingDistpatcher = new CustomersPageToggleLoading({ isLoading: true });
     showActionLoadingDistpatcher = new CustomerActionToggleLoading({ isLoading: true });
     hideActionLoadingDistpatcher = new CustomerActionToggleLoading({ isLoading: false });
@@ -121,5 +124,5 @@ export class CustomerEffects {
             }),
         ));
 
-    constructor(private actions$: Actions, private customersService: CustomersService, private store: Store<AppState>) { }
+    constructor() { }
 }

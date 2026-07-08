@@ -2,8 +2,7 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideStore } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
+
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideRouterStore } from '@ngrx/router-store';
 import { TranslateModule } from '@ngx-translate/core';
@@ -36,7 +35,12 @@ import {
 } from './core/_base/crud';
 
 // Auth
-import { AuthService, SupplierService } from './core/auth';
+import { AuthService, SupplierService, authReducer, AuthEffects, AuthGuard } from './core/auth';
+
+import { ThemeModule } from './views/theme/theme.module';
+
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 // Config
 import { LayoutConfig } from './core/_config/layout.config';
@@ -54,19 +58,21 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
-    provideStore(reducers, { metaReducers }),
-    provideEffects([]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: environment.production,
     }),
     provideRouterStore(),
     importProvidersFrom(
+      StoreModule.forRoot({ ...reducers, auth: authReducer }, { metaReducers: metaReducers as any }),
+      EffectsModule.forRoot([AuthEffects]),
       TranslateModule.forRoot(),
       NgxPermissionsModule.forRoot(),
+      ThemeModule,
     ),
     // Layout services
     AuthService,
+    AuthGuard,
     SupplierService,
     LayoutConfigService,
     LayoutRefService,
