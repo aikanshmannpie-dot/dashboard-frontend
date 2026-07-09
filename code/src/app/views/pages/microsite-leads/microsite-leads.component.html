@@ -1,40 +1,23 @@
 <div class="pageContainer">
   <div class="pageTopBar">
-    <h2 style="padding: 10px 0px; float: left">Microsite lead Report </h2>
-    <button class="calendarBtn" (click)="searchButton()">
-      <img src="assets/images/calendar.svg" />
-    </button>
-    <div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
-      <div ngbDropdown class="dropdown searcBar threeColumn">
-        <h3>
-          Search lead Report
-          <button (click)="searchButton()" class="closeBtbn">
-            <img src="assets/images/close.svg" />
-          </button>
-        </h3>
-        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
+    <h2>Microsite Lead Report</h2>
+    <div class="inlineFilters">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Date Range</mat-label>
+        <input matInput type="text" ngxDaterangepickerMd startKey="start"
           endKey="end" [ranges]="ranges" [showCustomRangeLabel]="true" [alwaysShowCalendars]="true" [(ngModel)]="model1" />
-        <!-- <select
-        multiple
-          class="form-control dropdown-select-box"
-          (change)="ChangingValue($event)"
-        >
-          <option value="undefined">Search By Site Name</option>
-          <option *ngFor="let item of siteListingData" value="{{ item.id }}">
-            {{ item.name }}
-          </option>
-        </select> -->
-        <mat-form-field>
-          <mat-label>Microsites</mat-label>
-          <mat-select multiple [formControl]="micrositeIds">
-            <mat-option *ngFor="let item of siteListingData" value="{{item.id}}">{{item.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
-        <button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="searchRange()">
-          Search
-        </button>
-      </div>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Microsites</mat-label>
+        <mat-select multiple [formControl]="micrositeIds">
+          <mat-option *ngFor="let item of siteListingData" value="{{item.id}}">{{item.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <button class="filterSearchBtn" type="button" (click)="searchRange()">
+        Filter
+      </button>
     </div>
   </div>
 
@@ -60,90 +43,64 @@
         <img src="assets/images/excel.svg" /> Excel
       </button>
     </div>
-    <div fxLayout fxLayoutAlign="right right" class="div-right-align">
-      <mat-form-field fxFlex="40%">
-        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search:" />
+    <div class="searchFilterBox">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Search Leads</mat-label>
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Type to search..." />
       </mat-form-field>
     </div>
   </div>
 
-  <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
+  <div class="mat-table__wrapper table-responsive" id="pdfTable" #pdfTable>
     <kendo-pdf-export #pdf margin="2cm">
-      <mat-table class="lmat-elevation-z8" matTableExporter #table [dataSource]="dataSource" matSort #matSort="matSort"
+      <mat-table class="mat-elevation-z8" matTableExporter #table [dataSource]="dataSource" matSort #matSort="matSort"
         matSortActive="id" matSortDirection="asc" matSortDisableClear (matSortChange)="sortColumn($event)">
         <ng-container matColumnDef="domain">
           <mat-header-cell *matHeaderCellDef mat-sort-header>Site Name</mat-header-cell>
-          <mat-cell *matCellDef="let element; let i = index" class="firstCellCollumn column100">
-            <div title="{{element.id}}"  class="table-link">
+          <mat-cell *matCellDef="let element; let i = index">
+            <div title="{{element.id}}" class="table-link">
               {{ element.domain }}
             </div>
-            <span class="d-print-none">Site Name</span>
           </mat-cell>
         </ng-container>
-
-        <!-- <ng-container matColumnDef="form_type">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Form Type
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						<span *ngIf="element.form_type == 1" class="standardtext">Standard</span>
-						<span *ngIf="element.form_type == 2"  class="standardtext">Survey</span>
-						<span class="d-print-none">Form Type</span>
-					</mat-cell>
-				</ng-container> -->
 
         <ng-container matColumnDef="full_name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name
-          </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Full Name</mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.full_name }}
-            <span class="d-print-none">Full Name</span>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="email">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Email
-          </mat-header-cell>
 
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.email }}
-            <span class="d-print-none">Email</span>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="question_0">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Email
-          </mat-header-cell>
-
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.question_0 }}
-            <span class="d-print-none">Email</span>
           </mat-cell>
         </ng-container>
+
         <ng-container matColumnDef="phone_number">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number
-          </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Phone Number</mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.phone_number }}
-            <span class="d-print-none">Phone Number</span>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="created_at_sydney">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Created At
-          </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Created At</mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ getFormat(element) }}
-            <span class="d-print-none">Created At</span>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="api_status">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            API Status
-          </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>API Status</mat-header-cell>
           <mat-cell *matCellDef="let element">
             <div *ngIf="element.api_status === true" class="statusTrue" title=" {{ element.api_response }}">
               Accepted
@@ -151,30 +108,24 @@
             <div *ngIf="element.api_status === false" class="statusFalse" title=" {{ element.api_response }}">
               Rejected
             </div>
-            <span class="d-print-none">API Status</span>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="sms_body">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Confirmation SMS
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Confirmation SMS</mat-header-cell>
+          <mat-cell *matCellDef="let element">
             <div *ngIf="element.sms_body !== 'No SMS'" class="statusTrue" title=" {{ element.sms_body }}">
               Yes
             </div>
             <div *ngIf="element.sms_body === 'No SMS'" class="statusFalse" title=" {{ element.sms_body }}">
               No
             </div>
-            <span class="d-print-none"> Confirmation Status</span>
           </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="section_second_header">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>
-            Validation SMS
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Validation SMS</mat-header-cell>
+          <mat-cell *matCellDef="let element">
             <div *ngIf="element.section_second_header === 'yes'" class="statusTrue"
               title=" {{ element.section_second_header }}">
               Yes
@@ -183,29 +134,26 @@
               title=" {{ element.section_second_header }}">
               No
             </div>
-            <span class="d-print-none"> Validation Status</span>
           </mat-cell>
         </ng-container>
+
         <ng-container matColumnDef="api_client_name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>API Client Name
-          </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>API Client Name</mat-header-cell>
           <mat-cell *matCellDef="let element">
             {{ element.api_client_name }}
             <div *ngIf="element.delivery_status" class="badge badge-success">
-              <span class="icon">&#10003;</span> <!-- Unicode for checkmark -->
+              <span class="icon">&#10003;</span>
             </div>
-            <!-- <span *ngIf="element.delivery_status">Yes</span> -->
-            <span class="d-print-none">API Client Name</span>
           </mat-cell>
         </ng-container>
+
         <ng-container matColumnDef="source">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Source
-          </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Source</mat-header-cell>
           <mat-cell *matCellDef="let element">
-            {{ element.source }}            
-            <span class="d-print-none">Source</span>
+            {{ element.source }}
           </mat-cell>
         </ng-container>
+
         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
         <mat-row *matRowDef="
             let row;

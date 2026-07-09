@@ -1,31 +1,231 @@
 // import login css
 @import "sass/pages/login/login-1";
 
-kt-auth, .kt-login {
-	height: 100%;
+// Fullscreen Centered Container for modern minimalist login
+.kt-login-centered-container {
+  min-height: 100vh !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  // A beautiful, subtle modern light blue-gray gradient background
+  background: radial-gradient(circle at 10% 20%, rgba(216, 241, 230, 0.46) 0.1%, rgba(233, 226, 226, 0.28) 90.1%),
+              linear-gradient(109.6deg, rgba(209, 218, 255, 0.35) 11.2%, rgba(254, 215, 215, 0.35) 91.1%) !important;
+  background-color: #f1f5f9 !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  overflow: hidden !important;
 
-	.mat-form-field {
-		width: 100%;
-	}
-
-	// add extra right padding when displaying spinner in button
-	.kt-spinner {
-		padding-right: 3rem !important;
-	}
+  // Modern abstract grid background
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
 }
-@media only screen and (max-width: 540px) {
 
-	.kt-login.kt-login--v1 .kt-login__wrapper .kt-login__body{
-		margin-top: 0rem;
-	}
-	.kt-login.kt-login--v1 .kt-login__aside .kt-login__logo{
-		justify-content: center;
-	}
-	.kt-login.kt-login--v1 .kt-login__aside .kt-login__title{
-		font-size: 2rem;
-		margin-top:20px;
-		span{
-			font-size: 4rem;
-		}
-	}
+.kt-login-centered-wrapper {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Minimalist Form Card */
+.kt-login__form-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  border-radius: 16px !important;
+  padding: 40px 32px !important;
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 
+              0 8px 10px -6px rgba(15, 23, 42, 0.03) !important;
+  animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  box-sizing: border-box !important;
+
+  // Logo styles
+  .kt-login__logo-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 24px !important;
+
+    img.login-logo {
+      height: 32px !important;
+      width: auto !important;
+      filter: brightness(0) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05)) !important;
+    }
+  }
+
+  // Header styles
+  .kt-login__title {
+    margin-bottom: 28px !important;
+    text-align: center !important;
+
+    h3 {
+      font-size: 22px !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      letter-spacing: -0.5px !important;
+      margin: 0 0 6px 0 !important;
+    }
+
+    .kt-login__subtitle-sub {
+      font-size: 13px !important;
+      color: #64748b !important;
+      font-weight: 500 !important;
+      margin: 0 !important;
+    }
+  }
+}
+
+/* Universal Input Field overrides */
+.auth-form-field {
+  width: 100% !important;
+  margin-bottom: 8px !important;
+
+  .mat-mdc-text-field-wrapper {
+    background-color: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 10px !important;
+    height: 48px !important;
+    transition: all 0.2s ease !important;
+    box-shadow: none !important;
+    padding: 0 16px !important;
+
+    &:hover {
+      border-color: #94a3b8 !important;
+    }
+
+    &.mat-focused {
+      border-color: #3b82f6 !important;
+      background-color: #ffffff !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+    }
+  }
+
+  .mat-mdc-form-field-focus-indicator,
+  .mat-mdc-form-field-underline,
+  .mat-mdc-form-field-bottom-align {
+    display: none !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    padding-top: 13px !important;
+    padding-bottom: 13px !important;
+    min-height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .mat-mdc-form-field-label-wrapper {
+    top: -12px !important;
+    padding-top: 12px !important;
+  }
+
+  .mat-mdc-form-field-label {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+  }
+
+  input.mat-mdc-input-element {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #0f172a !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    outline: none !important;
+    padding: 0 !important;
+
+    &::placeholder {
+      color: #94a3b8 !important;
+    }
+  }
+
+  .auth-icon-prefix {
+    color: #94a3b8 !important;
+    margin-right: 12px !important;
+    font-size: 14px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+.invalid-credentials-msg {
+  color: #ef4444 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+  margin-top: 4px !important;
+  margin-bottom: 12px !important;
+}
+
+.kt-login__actions {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  margin-top: 24px !important;
+  margin-bottom: 0 !important;
+
+  button.kt-login__btn-primary {
+    width: 100% !important;
+    height: 44px !important;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: #ffffff !important;
+    padding: 0 24px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-transform: none !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 4px 6px rgba(59, 130, 246, 0.15) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    cursor: pointer !important;
+
+    &:hover {
+      background: linear-gradient(135deg, #2563eb, #1e40af) !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 6px 12px rgba(59, 130, 246, 0.25) !important;
+    }
+
+    &:active {
+      transform: translateY(1px) !important;
+    }
+  }
+
+  .kt-login__link-forgot {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #64748b !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    transition: color 0.2s ease !important;
+
+    &:hover {
+      color: #3b82f6 !important;
+    }
+  }
+}
+
+/* Animations */
+@keyframes floatUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

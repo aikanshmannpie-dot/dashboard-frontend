@@ -84,7 +84,7 @@
 }
 
 .tableMobileView {
-  .mat-cell {
+  mat-cell, .mat-cell, .mat-mdc-cell {
     span {
       display: none;
       &.whiteCol {
@@ -101,7 +101,7 @@
 }
 
 .agentReportTable {
-  .mat-cell {
+  mat-cell, .mat-cell, .mat-mdc-cell {
     span {
       display: none;
       &.whiteCol {
@@ -342,12 +342,12 @@
             border-radius: 5px;
             align-items: inherit;
             .hideColumn {
-              &.mat-cell {
+              &.mat-cell, &mat-cell, &.mat-mdc-cell {
                 display: none !important;
               }
             }
             .idCollumn {
-              &.mat-cell {
+              &.mat-cell, &mat-cell, &.mat-mdc-cell {
                 flex: 0 0 100px;
                 max-width: 100%;
                 background: #dbe3ff;
@@ -358,7 +358,7 @@
               max-width: calc(100% - 100px) !important;
               background: #dbe3ff;
             }
-            .mat-cell {
+            mat-cell, .mat-cell, .mat-mdc-cell {
               flex-wrap: wrap;
               text-align: left !important;
               justify-content: left !important;
@@ -486,7 +486,19 @@
     .mat-table__wrapper.tableMobileView
     .mat-table
     .mat-row
-    .mat-cell {
+    mat-cell,
+  body
+    .pageContainer
+    .mat-table__wrapper.tableMobileView
+    .mat-table
+    .mat-row
+    .mat-cell,
+  body
+    .pageContainer
+    .mat-table__wrapper.tableMobileView
+    .mat-table
+    .mat-row
+    .mat-mdc-cell {
     text-align: left !important;
   }
 

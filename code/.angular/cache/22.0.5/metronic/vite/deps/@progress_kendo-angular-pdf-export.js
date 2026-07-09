@@ -20,9 +20,9 @@ import {
   ɵɵprojection,
   ɵɵprojectionDef,
   ɵɵqueryRefresh
-} from "./chunk-6DMRTYP4.js";
-import "./chunk-YYNRWHHG.js";
+} from "./chunk-VL3LZLGD.js";
 import "./chunk-GVFRXGC7.js";
+import "./chunk-YYNRWHHG.js";
 import "./chunk-KHYTP7BM.js";
 import "./chunk-AT63LGFU.js";
 import "./chunk-AJZJRYBU.js";
@@ -16213,8 +16213,8 @@ var packageMetadata = {
   productName: "Kendo UI for Angular",
   productCode: "KENDOUIANGULAR",
   productCodes: ["KENDOUIANGULAR"],
-  publishDate: 1782892855,
-  version: "24.2.1",
+  publishDate: 1783511511,
+  version: "24.2.2",
   licensingDocsUrl: "https://www.telerik.com/kendo-angular-ui/my-license/"
 };
 var PDFExportTemplateDirective = class _PDFExportTemplateDirective {

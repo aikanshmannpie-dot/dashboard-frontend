@@ -19,6 +19,8 @@ import { MatTableExporterModule } from 'mat-table-exporter';
 import { MatSelectModule } from '@angular/material/select'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import {NgxPrintModule} from 'ngx-print';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 // import { FlexLayoutModule } from '@angular/flex-layout';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NgxDateRangeModule } from 'ngx-daterange';
@@ -34,6 +36,8 @@ import {NgxPrintModule} from 'ngx-print';
 		MatSelectModule,
 		MatFormFieldModule,
 		MatInputModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
 		NgxPrintModule,
 		PDFExportModule,
 		ReactiveFormsModule,

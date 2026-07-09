@@ -28,6 +28,8 @@ export class MicrositeLeadsComponent implements OnInit {
   siteName;
   endDate;
   startDate;
+  startDateValue;
+  endDateValue;
   globalFilter = "";
   offset = 0;
 
@@ -44,7 +46,7 @@ export class MicrositeLeadsComponent implements OnInit {
   ranges: any = {
     Today: [moment(), moment()],
     Yesterday: [moment().subtract(1, "days"), moment().subtract(1, "days")],
-    "Last 7 Days": [moment().subtract(6, "days"), moment()],
+    "Last 7 Days": [moment().subtract(7, "days"), moment().subtract(1, "days")],
     "Last 30 Days": [moment().subtract(29, "days"), moment()],
     "This Week": [moment().startOf("week"), moment().endOf("week")],
     "Last Week": [
@@ -139,9 +141,13 @@ export class MicrositeLeadsComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.startDate = moment(new Date()).format("YYYY-MM-DD");
-    this.endDate = moment(new Date()).format("YYYY-MM-DD");
-    this.getListOfMicrosite(this.startDate, this.startDate);
+    this.model1 = {
+      start: moment(),
+      end: moment()
+    };
+    this.startDate = this.model1.start.format("YYYY-MM-DD");
+    this.endDate = this.model1.end.format("YYYY-MM-DD");
+    this.getListOfMicrosite(this.startDate, this.endDate);
     this.dataSource.filterPredicate = this.customFilterPredicate();
     this.getSiteNameList();
   }
@@ -183,6 +189,8 @@ export class MicrositeLeadsComponent implements OnInit {
     var vm = this;
     this.avaible = true;
     this.dataSource = new MatTableDataSource(this.dataSource1);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   public doFilter = (value: string) => {
@@ -190,17 +198,13 @@ export class MicrositeLeadsComponent implements OnInit {
   };
 
   searchRange() {
-    this.endDate = this.model1.end
-      ? moment(this.model1.end._d).format("YYYY-MM-DD")
-      : moment(new Date()).format("YYYY-MM-DD");
-    this.startDate = this.model1.start
+    this.startDate = this.model1 && this.model1.start
       ? moment(this.model1.start._d).format("YYYY-MM-DD")
       : moment(new Date()).format("YYYY-MM-DD");
-    if (this.startDate) {
-      this.getListOfMicrosite(this.startDate, this.endDate);
-    } else {
-      this.getListOfMicrosite(this.startDate, this.endDate);
-    }
+    this.endDate = this.model1 && this.model1.end
+      ? moment(this.model1.end._d).format("YYYY-MM-DD")
+      : moment(new Date()).format("YYYY-MM-DD");
+    this.getListOfMicrosite(this.startDate, this.endDate);
   }
 
   customFilterPredicate() {
@@ -249,6 +253,7 @@ export class MicrositeLeadsComponent implements OnInit {
           this.siteListingData = data.data.sort((a, b) =>
             a.name.localeCompare(b.name)
           );
+          this.cdr.markForCheck();
         } else {
         }
       },
@@ -256,13 +261,7 @@ export class MicrositeLeadsComponent implements OnInit {
         this.loading = false;
         this.cdr.markForCheck();
       }
-    ),
-      finalize(() => {
-        this.avaible = true;
-        this.loading = false;
-        this.dataSource.paginator = this.paginator;
-        this.cdr.markForCheck();
-      });
+    );
   }
 
   // ChangingValue(data) {
@@ -319,7 +318,9 @@ export class MicrositeLeadsComponent implements OnInit {
             this.dataSource = new MatTableDataSource(apiData);
             this.dataSource1 = data.body;
             this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
             this.loading = false;
+            this.cdr.markForCheck();
           } else {
           }
           // Main page
@@ -328,12 +329,6 @@ export class MicrositeLeadsComponent implements OnInit {
           this.loading = false;
           this.cdr.markForCheck();
         }
-      ),
-      finalize(() => {
-        this.avaible = true;
-        this.loading = false;
-        this.dataSource.paginator = this.paginator;
-        this.cdr.markForCheck();
-      });
+      );
   }
 }

@@ -1,15 +1,15 @@
 import {
+  HttpBackend,
+  HttpClient
+} from "./chunk-ZXZMXLEC.js";
+import {
   APP_BASE_HREF,
   isPlatformBrowser,
   isPlatformServer
-} from "./chunk-D323Y7NA.js";
-import {
-  HttpBackend,
-  HttpClient
-} from "./chunk-AF7AEQUM.js";
+} from "./chunk-PBFWOT3S.js";
 import {
   PlatformLocation
-} from "./chunk-YZPWCAS5.js";
+} from "./chunk-3EXXPICE.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -36,9 +36,9 @@ import {
   ɵɵdefineNgModule,
   ɵɵdirectiveInject,
   ɵɵinject
-} from "./chunk-6DMRTYP4.js";
-import "./chunk-YYNRWHHG.js";
+} from "./chunk-VL3LZLGD.js";
 import "./chunk-GVFRXGC7.js";
+import "./chunk-YYNRWHHG.js";
 import {
   catchError,
   map,

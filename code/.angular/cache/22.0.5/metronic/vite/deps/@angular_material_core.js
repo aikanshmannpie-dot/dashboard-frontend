@@ -1,6 +1,19 @@
 import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE
+} from "./chunk-LBEVTP3V.js";
+import {
+  ErrorStateMatcher,
+  ShowOnDirtyErrorStateMatcher,
+  _ErrorStateTracker
+} from "./chunk-JUBQFCNW.js";
+import {
   _MatInternalFormField
-} from "./chunk-B6RHKBLG.js";
+} from "./chunk-7KC27CS5.js";
+import {
+  MatRippleLoader
+} from "./chunk-N3MBDWD3.js";
 import {
   MAT_OPTGROUP,
   MAT_OPTION_PARENT_COMPONENT,
@@ -12,23 +25,10 @@ import {
   MatPseudoCheckboxModule,
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition
-} from "./chunk-PPMOXLHA.js";
-import {
-  DateAdapter,
-  MAT_DATE_FORMATS,
-  MAT_DATE_LOCALE
-} from "./chunk-KNDAH76T.js";
-import {
-  ErrorStateMatcher,
-  ShowOnDirtyErrorStateMatcher,
-  _ErrorStateTracker
-} from "./chunk-YGNYKPEI.js";
-import {
-  MatRippleLoader
-} from "./chunk-7EFJIQRV.js";
+} from "./chunk-3XTTKRBO.js";
 import {
   MatRippleModule
-} from "./chunk-KJQNMVJ6.js";
+} from "./chunk-YCBNBBAK.js";
 import {
   MAT_RIPPLE_GLOBAL_OPTIONS,
   MatRipple,
@@ -36,33 +36,33 @@ import {
   RippleRenderer,
   RippleState,
   defaultRippleAnimationConfig
-} from "./chunk-K7XRLPVI.js";
+} from "./chunk-VBOT4OQU.js";
 import {
   _StructuralStylesLoader
-} from "./chunk-ZFMMB5P2.js";
-import "./chunk-KKRJ6M73.js";
+} from "./chunk-MRRROKFJ.js";
+import "./chunk-ASZXGBLT.js";
 import "./chunk-VON75VBJ.js";
-import "./chunk-5ONJ3SCE.js";
-import "./chunk-PLJ2QXBA.js";
-import "./chunk-FXBAXWYI.js";
-import "./chunk-SSXRZ7FY.js";
-import "./chunk-YUHOU7IQ.js";
+import "./chunk-ZCAQJ6L4.js";
+import "./chunk-QMXLTJJ7.js";
+import "./chunk-PKCB2QHV.js";
+import "./chunk-TGW2PNHK.js";
 import {
   MATERIAL_ANIMATIONS,
   _animationsDisabled,
   _getAnimationsState
-} from "./chunk-PWJH6OHT.js";
+} from "./chunk-XZ5EZMZB.js";
+import "./chunk-PLJ2QXBA.js";
 import "./chunk-N4DOILP3.js";
+import "./chunk-ZXZMXLEC.js";
 import "./chunk-GUGIMSVJ.js";
-import "./chunk-QBSYUVRL.js";
-import "./chunk-HSB3AZH4.js";
-import "./chunk-OU2PNTUC.js";
-import "./chunk-D323Y7NA.js";
 import {
   BidiModule
-} from "./chunk-74N4IVAH.js";
-import "./chunk-AF7AEQUM.js";
-import "./chunk-YZPWCAS5.js";
+} from "./chunk-PQSWMWST.js";
+import "./chunk-FSO4RUVH.js";
+import "./chunk-TF62UFC7.js";
+import "./chunk-PBFWOT3S.js";
+import "./chunk-7ENES7XB.js";
+import "./chunk-3EXXPICE.js";
 import {
   Directive,
   NgModule,
@@ -74,9 +74,9 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵdefineService
-} from "./chunk-6DMRTYP4.js";
-import "./chunk-YYNRWHHG.js";
+} from "./chunk-VL3LZLGD.js";
 import "./chunk-GVFRXGC7.js";
+import "./chunk-YYNRWHHG.js";
 import {
   startWith
 } from "./chunk-KHYTP7BM.js";
@@ -150,7 +150,7 @@ var MatLineModule = class _MatLineModule {
 })();
 
 // node_modules/@angular/material/fesm2022/core.mjs
-var VERSION = new Version("22.0.3");
+var VERSION = new Version("22.0.4");
 var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 var TIME_REGEX = /^(\d?\d)[:.](\d?\d)(?:[:.](\d?\d))?\s*(AM|PM)?$/i;
 function range(length, valueFunction) {
