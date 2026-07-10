@@ -1,228 +1,249 @@
-<!-- <input type="text" ngxDaterangepickerMd [(ngModel)]="selected" class="form-control"/> -->
-<div class="pageContainer">
-	<div class="pageTopBar">
-		<h2 style="padding: 10px 0px; float: left">Report By Affiliate</h2>
-		<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
-		<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
-			<div ngbDropdown class="dropdown searcBar">
-				<h3>Search Affiliate Report <button (click)="searchButton()" class="closeBtbn"><img
-							src="assets/images/close.svg" /></button></h3>
-				<select class="form-control mb-2 selectBox" (change)="CountryChangingValue($event)">
-					<option value="au">AU</option>
-					<option value="nz">NZ</option>
-				</select>
-				<input type="text" class="btn btn-default dropdown-toggle" ngxDaterangepickerMd startKey="start"
-					endKey="end" [(ngModel)]="model1" />
-				<input type="text" class="btn btn-default dropdown-toggle" ngxDaterangepickerMd startKey="start"
-					endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
-				<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="searchRange()"
-					(click)="searchButton()">
-					Search
-				</button>
-			</div>
-		</div>
-	</div>
+<div class="dash-page-container">
 
-	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
-		<button class="downloadIconBtn" (click)="downloadButton()"><img src="assets/images/download.svg" /></button>
-		<div class="downloadBtnsBox" [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'">
-			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="
-					exporter.exportTable('csv', {
-						fileName: 'Acquirely  Dashboard '
-					})
-				">
-				<img src="assets/images/csv.svg" /> CSV
-			</button>
-			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button"
-				(click)="pdf.saveAs('Acquirely  Dashboard.pdf')">
-				<img src="assets/images/pdf.svg" /> PDF
-			</button>
-			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" [useExistingCss]="true"
-				printSectionId="pdfTable" ngxPrint>
-				<img src="assets/images/print.svg" /> Print
-			</button>
-			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="
-					exporter.exportTable('xls', {
-						fileName: 'Acquirely  Dashboard '
-					})
-				">
-				<img src="assets/images/excel.svg" /> Excel
-			</button>
-		</div>
-		<div fxLayout fxLayoutAlign="right right" class="div-right-align">
-			<mat-form-field fxFlex="40%">
-				<input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search:" />
-			</mat-form-field>
-		</div>
-	</div>
-	<div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
-		<kendo-pdf-export #pdf margin="2cm">
-			<mat-table class="lmat-elevation-z8" matTableExporter #table [dataSource]="dataSource" matSort
-				#matSort="matSort" matSortActive="id" matSortDirection="asc" matSortDisableClear
-				#exporter="matTableExporter" (matSortChange)="sortColumn($event)">
-				<!-- Checkbox Column -->
+  <!-- ══════════════════════════════════════════
+       FILTER AND HEADER CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="filter-card">
+    <mat-card-header class="filter-card-header">
+      <div class="filter-card-title-row">
+        <mat-card-title class="dash-title">Report By Affiliate</mat-card-title>
+        <mat-card-subtitle class="dash-subtitle">Affiliate registration, revenue, cost and margins summary</mat-card-subtitle>
+      </div>
 
-				<!-- Table with selection -->
-				<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+      <!-- Action Toggle button (Mobile calendar trigger) -->
+      <button mat-icon-button (click)="searchButton()" class="mobile-calendar-btn" aria-label="Search filter">
+        <mat-icon>calendar_month</mat-icon>
+      </button>
 
-				<ng-container matColumnDef="Sr.No">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-rowq">
-						Sr.No</mat-header-cell>
-					<mat-cell *matCellDef="let element; let i = index" class="coustom-width-rowq firstCellCollumn">
-						{{ i + 1 }}
-						<span class="d-print-none">Sr.No</span>
-					</mat-cell>
-				</ng-container>
+      <!-- Search Filters Inline Row -->
+      <div class="filter-form-row" [class.filter-form-row--show]="!search">
+        
+        <!-- Country Selector -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--country">
+          <mat-label>Country</mat-label>
+          <select matNativeControl (change)="CountryChangingValue($event)">
+            <option value="au">Australia (AU)</option>
+            <option value="nz">New Zealand (NZ)</option>
+          </select>
+        </mat-form-field>
 
-				<ng-container matColumnDef="has_affiliate_name">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row">
-						Affiliate Name
-						<!-- <input matInput type="text" [ngModel]="globalFilter"
-                        (keyup)="doFilterAffilateName($event.target.value)" placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element" class="coustom-width-row font-cell-main secondCellCollumn">
-						{{ element.has_affiliate_name }}
-						<span class="d-print-none">Affiliate Name</span>
-					</mat-cell>
-				</ng-container>
+        <!-- Single Unified Date Range Picker -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--date">
+          <mat-label>Date Range</mat-label>
+          <input
+            matInput
+            ngxDaterangepickerMd
+            startKey="start"
+            endKey="end"
+            [ranges]="ranges"
+            [showCustomRangeLabel]="true"
+            [alwaysShowCalendars]="true"
+            [(ngModel)]="model1"
+            placeholder="Select date range" />
+          <mat-icon matSuffix>date_range</mat-icon>
+        </mat-form-field>
 
-				<ng-container matColumnDef="totalcount">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Emails
-						<!-- <input matInput type="text" [ngModel]="totalcountFilter"
-                    (keyup)="doFilterEmailName($event.target.value)" placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.totalcount }}
-						<span class="d-print-none">Emails</span>
-					</mat-cell>
-				</ng-container>
+        <!-- Apply Button -->
+        <button mat-flat-button color="accent" (click)="searchRange(); searchButton()" class="filter-search-btn">
+          <mat-icon>search</mat-icon>
+          <span>Apply Filters</span>
+        </button>
 
-				<ng-container matColumnDef="signup">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Sign ups
-						<!-- <input matInput type="text" [ngModel]="signUpFilter" (keyup)="doFilterSignupName($event.target.value)"
-                    placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.signup }}
-						<span class="d-print-none">Sign ups</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="revCorg">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Revenue Coreg (A$)
-						<!-- <input matInput type="text" [ngModel]="revtotalFilter" (keyup)="doFilterRevtotal($event.target.value)"
-                    placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.revCorg }}
-						<span class="d-print-none">Revenue Coreg (A$)</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="revClick">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Revenue Clickout (A$)
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">{{ element.revClick }}
-						<span class="d-print-none">Revenue Clickout (A$)</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="payout">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Cost (A$)
-						<!-- <input matInput type="text" [ngModel]="payoutFilter" (keyup)="doFilterPayout($event.target.value)"
-                    placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.payout }}
-						<span class="d-print-none">Cost (A$)</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="Rev total (A$)">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Rev total (A$)
-						<!-- <input matInput type="text" [ngModel]="revtotalFilter" (keyup)="doFilterRevtotal($event.target.value)"
-                    placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.revtotal }}
-						<span class="d-print-none">Rev total (A$)</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="allprofit">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Profit (A$)
-						<!-- <input matInput type="text" [ngModel]="allprofitFilter" (keyup)="doFilteAllProfit($event.target.value)"
-                    placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.allprofit }}
-						<span class="d-print-none">Profit (A$)</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="allprofitmargin">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Profit Margin %
-						<!-- <input matInput type="text" [ngModel]="allprofitmarginFilter" (keyup)="rofitmargin($event.target.value)"
-                    placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.allprofitmargin }}
-						<span class="d-print-none">Profit Margin %</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="arpecoreg">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						ARPE Coreg
-						<!-- <input matInput type="text" [ngModel]="arpecoregFilter" (keyup)="arpecoreg($event.target.value)"
-                    placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.arpecoreg }}
-						<span class="d-print-none">ARPE Coreg</span>
-					</mat-cell>
-				</ng-container>
+      </div>
+    </mat-card-header>
+  </mat-card>
 
-				<ng-container matColumnDef="ARPE Clickout">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						ARPE Clickout</mat-header-cell>
-					<mat-cell *matCellDef="let element"> 0.00 <span class="d-print-none">ARPE Clickout</span></mat-cell>
-				</ng-container>
+  <!-- ══════════════════════════════════════════
+       DATA TABLE REPORT CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="dash-mat-card table-card top-border-1">
+    <mat-card-header class="table-card-header">
+      <mat-card-title class="card-chart-title">Affiliate Stats Table</mat-card-title>
+      
+      <!-- Action panel containing search and export triggers -->
+      <div class="table-actions-row" *ngIf="avaible">
+        
+        <div class="export-buttons-group">
+          <button mat-stroked-button (click)="exporter.exportTable('csv', { fileName: 'Acquirely Affiliate Report' })">
+            <mat-icon>save_alt</mat-icon> CSV
+          </button>
+          <button mat-stroked-button (click)="pdf.saveAs('Acquirely Affiliate Report.pdf')">
+            <mat-icon>picture_as_pdf</mat-icon> PDF
+          </button>
+          <button mat-stroked-button [useExistingCss]="true" printSectionId="pdfTable" ngxPrint>
+            <mat-icon>print</mat-icon> Print
+          </button>
+          <button mat-stroked-button (click)="exporter.exportTable('xls', { fileName: 'Acquirely Affiliate Report' })">
+            <mat-icon>table_view</mat-icon> Excel
+          </button>
+        </div>
 
-				<ng-container matColumnDef="ARPE Total">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						ARPE Total
-						<!-- <input matInput type="text" [ngModel]="arpecoregFilter" (keyup)="arpecoreg($event.target.value)"
-                    placeholder="Search:"> -->
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element">
-						{{ element.arpecoreg }}
-						<span class="d-print-none">ARPE Total</span>
-					</mat-cell>
-				</ng-container>
-				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-				<div>
-					<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-				</div>
-			</mat-table>
+        <mat-form-field appearance="outline" class="table-search-field">
+          <mat-label>Filter records</mat-label>
+          <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search table..." />
+          <mat-icon matSuffix>filter_list</mat-icon>
+        </mat-form-field>
 
-			<div *ngIf="loading" style="text-align: center">
-				<img src="assets/images/loader.gif" style="height: 100px; padding: 10px" />
-			</div>
-		</kendo-pdf-export>
-		<!-- Message for empty data  -->
-		<!-- <div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>
-    <div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">Please wait....</div> -->
-	</div>
+      </div>
+    </mat-card-header>
 
-	<!-- start: BOTTOM -->
-	<div class="mat-table__bottom">
-		<!-- MATERIAL SPINNER | Url: 'https://material.angular.io/components/progress-spinner/overview' -->
-		<!-- <mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner> -->
-		<!-- MATERIAL PAGINATOR | Binded to dasources -->
-		<!-- See off.documentations 'https://material.angular.io/components/paginator/overview' -->
-		<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 25, 100]"
-			[showFirstLastButtons]="true"></mat-paginator>
-	</div>
+    <mat-card-content class="table-card-content">
+      <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
+        <kendo-pdf-export #pdf margin="2cm">
+          
+          <mat-table
+            class="lmat-elevation-z8 clean-material-table"
+            matTableExporter
+            #table
+            [dataSource]="dataSource"
+            matSort
+            #matSort="matSort"
+            matSortActive="id"
+            matSortDirection="asc"
+            matSortDisableClear
+            #exporter="matTableExporter"
+            (matSortChange)="sortColumn($event)">
+
+            <!-- Sr.No Column -->
+            <ng-container matColumnDef="Sr.No">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-rowq">Sr.No</mat-header-cell>
+              <mat-cell *matCellDef="let element; let i = index" class="coustom-width-rowq firstCellCollumn">
+                {{ i + 1 }}
+                <span class="d-print-none text-muted-mobile">Sr.No</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Affiliate Name Column -->
+            <ng-container matColumnDef="has_affiliate_name">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row">Affiliate Name</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="coustom-width-row font-cell-main secondCellCollumn">
+                {{ element.has_affiliate_name }}
+                <span class="d-print-none text-muted-mobile">Affiliate Name</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Emails Column -->
+            <ng-container matColumnDef="totalcount">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Emails</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.totalcount }}
+                <span class="d-print-none text-muted-mobile">Emails</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Sign ups Column -->
+            <ng-container matColumnDef="signup">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Sign ups</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.signup }}
+                <span class="d-print-none text-muted-mobile">Sign ups</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Revenue Coreg Column -->
+            <ng-container matColumnDef="revCorg">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Revenue Coreg (A$)</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.revCorg }}
+                <span class="d-print-none text-muted-mobile">Revenue Coreg (A$)</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Revenue Clickout Column -->
+            <ng-container matColumnDef="revClick">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Revenue Clickout (A$)</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.revClick }}
+                <span class="d-print-none text-muted-mobile">Revenue Clickout (A$)</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Cost Column -->
+            <ng-container matColumnDef="payout">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Cost (A$)</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.payout }}
+                <span class="d-print-none text-muted-mobile">Cost (A$)</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Rev Total Column -->
+            <ng-container matColumnDef="Rev total (A$)">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Rev total (A$)</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.revtotal }}
+                <span class="d-print-none text-muted-mobile">Rev total (A$)</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Profit Column -->
+            <ng-container matColumnDef="allprofit">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Profit (A$)</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.allprofit }}
+                <span class="d-print-none text-muted-mobile">Profit (A$)</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Profit Margin Column -->
+            <ng-container matColumnDef="allprofitmargin">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Profit Margin %</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.allprofitmargin }}
+                <span class="d-print-none text-muted-mobile">Profit Margin %</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- ARPE Coreg Column -->
+            <ng-container matColumnDef="arpecoreg">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>ARPE Coreg</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.arpecoreg }}
+                <span class="d-print-none text-muted-mobile">ARPE Coreg</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- ARPE Clickout Column -->
+            <ng-container matColumnDef="ARPE Clickout">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>ARPE Clickout</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                0.00
+                <span class="d-print-none text-muted-mobile">ARPE Clickout</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- ARPE Total Column -->
+            <ng-container matColumnDef="ARPE Total">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>ARPE Total</mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                {{ element.arpecoreg }}
+                <span class="d-print-none text-muted-mobile">ARPE Total</span>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+          </mat-table>
+
+          <!-- Loading Spinner overlay -->
+          <div *ngIf="loading" class="loader-overlay">
+            <mat-spinner diameter="40"></mat-spinner>
+            <span class="loader-text">Loading report statistics...</span>
+          </div>
+
+        </kendo-pdf-export>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer class="table-card-footer">
+      <mat-paginator
+        [pageSize]="10"
+        [pageSizeOptions]="[10, 20, 25, 100]"
+        [showFirstLastButtons]="true"
+        class="clean-paginator">
+      </mat-paginator>
+    </mat-card-footer>
+  </mat-card>
+
 </div>

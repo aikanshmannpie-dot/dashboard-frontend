@@ -1,121 +1,263 @@
-.mat-table{
-    width:100%;
-}
-.font-cell-main{
-  font-size: 12px;
-}
-.coustom-width-rowq{
-  padding: 3px;
-  padding: 0px;
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  flex: 0 0 7% !important;
-  width: 7% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
-.coustom-width-row{
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  flex: 0 0 12% !important;
-  width: 12% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  word-break: break-word;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
+// ─────────────────────────────────────────────────────────────────────────────
+//  Redesigned Affiliate Report SCSS
+// ─────────────────────────────────────────────────────────────────────────────
+
+$accent-indigo:   #6366f1;
+$card-border:     rgba(99, 102, 241, 0.08);
+$card-shadow:     0 10px 30px -10px rgba(0, 0, 0, 0.06);
+
+.dash-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
 }
 
-mat-header-cell {
-  font-size: 14px;
-  font-weight: 600;
-  // padding: 25px 0px;
-}
-.div-right-align{
-    float: right;
-}
-mat-cell{
-    display:flex !important;
-    justify-content:center!important;
-    
-  }
-  
-  mat-header-cell {
-    display:flex !important;
-    justify-content:center !important;
-  }
-  .mat-cell{
-    display:flex !important;
-    justify-content:center!important;
-  }
-  
-  .mat-header-cell {
-    display:flex !important;
-    justify-content:center !important;
-  }
-  table {
-  text-align: center !important;
-  width: 100%;
+// ── Typographical Titles ─────────────────────────────────────────────────────
+.dash-title {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #0f172a;
+  letter-spacing: -0.02em;
 }
 
-.mat-header-cell {
-  text-align: center;
-}
-.mat-table__wrapper .mat-table .mat-cell, .mat-table__wrapper .mat-table .mat-footer-cell, .mat-table__wrapper .mat-table .mat-header-cell {
-    text-align: center !important;
-    padding-right: 10px;
-    justify-content: center;
+.dash-subtitle {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.82rem !important;
+  color: #64748b !important;
+  margin-top: 2px;
 }
 
-// mat-header-cell:first-child {
-//   border-top:5px solid yellow;
-// }
-// mat-header-cell:nth-child(2) {
-//   border-top:5px solid rgb(0, 255, 242);
-// }
-// mat-header-cell:nth-child(3) {
-//   border-top:5px solid rgb(0, 255, 34);
-// }
-// mat-header-cell:nth-child(4) {
-//   border-top:5px solid rgb(255, 38, 0);
-// }
-// mat-header-cell:nth-child(5) {
-//   border-top:5px solid rgb(47, 0, 255);
-// }
-// mat-header-cell:nth-child(6) {
-//   border-top:5px solid rgb(255, 0, 200);
-// }
-// mat-header-cell:nth-child(7) {
-//   border-top:5px solid rgb(91, 170, 2);
-// }
-// mat-header-cell:nth-child(8) {
-//   border-top:5px solid rgb(162, 0, 255);
-// }
-// mat-header-cell:nth-child(9) {
-//   border-top:5px solid rgb(149, 140, 3);
-// }
-// mat-header-cell:nth-child(10) {
-//   border-top:5px solid rgb(47, 3, 149);
-// }
-// mat-header-cell:nth-child(11) {
-//   border-top:5px solid rgb(149, 61, 3);
-// }
-// mat-header-cell:nth-child(12) {
-//   border-top:5px solid rgb(3, 54, 149);
-// }
-// mat-header-cell:nth-child(13) {
-//   border-top:5px solid rgb(149, 140, 3);
-// }
-// mat-header-cell:nth-child(14) {
-//   border-top:5px solid rgb(3, 149, 59);
-// }
-// mat-header-cell:nth-child(15) {
-//   border-top:5px solid rgb(149, 3, 52);
-// }
+// ── Top Header / Filters Card ────────────────────────────────────────────────
+.filter-card {
+  background: #ffffff !important;
+  border: 1px solid $card-border !important;
+  box-shadow: $card-shadow !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+
+  .filter-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .filter-card-title-row {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  // Filter form inline wrapper
+  .filter-form-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+
+    .filter-field {
+      width: auto;
+      min-width: 140px;
+      margin-bottom: -1.25em !important; // Align mat-form-field outlines nicely
+      
+      &--date {
+        min-width: 220px;
+      }
+      &--country {
+        min-width: 110px;
+      }
+
+      ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+        display: none !important; // hide spacing subtext
+      }
+    }
+
+    .filter-search-btn {
+      height: 48px !important;
+      border-radius: 8px !important;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      gap: 6px;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.24) !important;
+    }
+  }
+
+  .mobile-calendar-btn {
+    display: none;
+    background: #f1f5f9;
+  }
+}
+
+// ── Generic Card Styles ──────────────────────────────────────────────────────
+.dash-mat-card {
+  background: #ffffff !important;
+  border: 1px solid $card-border !important;
+  box-shadow: $card-shadow !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .card-chart-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.96rem !important;
+    font-weight: 600 !important;
+    color: #1e293b;
+    letter-spacing: -0.01em;
+  }
+
+  .table-card-header {
+    padding: 20px 24px 10px 24px !important;
+    margin: 0 !important;
+  }
+}
+
+.top-border-1  { border-top: 4px solid #6366f1 !important; }
+
+// ── Table Card Specifics ─────────────────────────────────────────────────────
+.table-card {
+  min-height: 480px;
+
+  .table-card-content {
+    flex: 1;
+    padding: 0 20px !important;
+  }
+
+  .table-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+    width: 100%;
+
+    .export-buttons-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+
+      button {
+        border-radius: 6px !important;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        height: 38px;
+        color: #475569 !important;
+        border-color: #cbd5e1 !important;
+        transition: all 0.18s ease;
+
+        &:hover {
+          background-color: #f8fafc !important;
+          border-color: #94a3b8 !important;
+        }
+      }
+    }
+
+    .table-search-field {
+      width: 240px;
+      margin-bottom: -1.25em !important;
+      ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+        display: none !important;
+      }
+    }
+  }
+}
+
+// ── Material Table Styles ────────────────────────────────────────────────────
+.clean-material-table {
+  background: transparent !important;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: none !important;
+
+  ::ng-deep {
+    .mat-mdc-header-row {
+      background-color: #f1f5f9;
+      border-radius: 8px;
+      min-height: 46px;
+      border: none;
+    }
+
+    .mat-mdc-header-cell {
+      color: #334155 !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      justify-content: center !important;
+    }
+
+    .mat-mdc-row {
+      min-height: 44px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: background 0.15s ease;
+      &:hover {
+        background-color: rgba(99, 102, 241, 0.03);
+      }
+    }
+
+    .mat-mdc-cell {
+      color: #475569 !important;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.84rem;
+      justify-content: center !important;
+    }
+  }
+}
+
+// ── Loader Overlay ───────────────────────────────────────────────────────────
+.loader-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.70);
+  z-index: 10;
+  min-height: 200px;
+
+  .loader-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: $accent-indigo;
+    font-weight: 500;
+  }
+}
+
+// ── Paginators ───────────────────────────────────────────────────────────────
+.clean-paginator {
+  background: transparent !important;
+  border-top: 1px solid #f1f5f9;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+}
+
+// ── Responsive Layout Rules ──────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .filter-card {
+    .filter-form-row {
+      display: none;
+      &--show {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+
+        .filter-field {
+          width: 100%;
+        }
+      }
+    }
+
+    .mobile-calendar-btn {
+      display: inline-flex;
+    }
+  }
+}

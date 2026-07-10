@@ -1,188 +1,222 @@
-<div class="pageContainer">
-	<div class="pageTopBar">
-		<h2 style="padding: 10px 0px; float: left">Overall Ticks Report</h2>
-		<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
-		<div class="searchBox" [ngClass]="search  ? 'searchBoxHide' : 'searchBoxShow'">
-			<div ngbDropdown class="dropdown searcBar ">
-				<h3>Search Overall Ticks Report <button (click)="searchButton()" class="closeBtbn"><img
-							src="assets/images/close.svg" /></button></h3>
-				<div class="row">
-					<div class="col-2">
-						<select class="form-control selectBox" (change)="CountryChangingValue($event)">
-							<option value="au">AU</option>
-							<option value="nz">NZ</option>
-						</select>
-					</div>
-					<button class="btn btn-default switchtonovtick" id="ddllogout" type="button"
-						(click)="switchToSep_Nov()" style="margin-right: 10px; margin-bottom: 3px" [ngStyle]="{
-				'background-color':
-					this.switchToSeptNov == '1' ? '#383e5f' : '',
-				color: this.switchToSeptNov == '1' ? '#fff' : ''
-			}">
-						{{ switchToSeptNovText }}
-					</button>
+<div class="dash-page-container">
 
-					<input type="text" class="btn btn-default dropdown-toggle" ngxDaterangepickerMd startKey="start"
-						endKey="end" [(ngModel)]="model1" />
-					<input type="text" class="btn btn-default dropdown-toggle" ngxDaterangepickerMd startKey="start"
-						endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
-					<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button"
-						(click)="searchRange()">
-						Search
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
+  <!-- ══════════════════════════════════════════
+       FILTER AND HEADER CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="filter-card">
+    <mat-card-header class="filter-card-header">
+      <div class="filter-card-title-row">
+        <mat-card-title class="dash-title">Overall Ticks Report</mat-card-title>
+        <mat-card-subtitle class="dash-subtitle">Analysis of impressions, ticks, CR percentage, and questions by client</mat-card-subtitle>
+      </div>
 
-	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
-		<button class="downloadIconBtn" (click)="downloadButton()"><img src="assets/images/download.svg" /></button>
-		<div class="downloadBtnsBox" [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'">
-			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="
-					exporter.exportTable('csv', {
-						fileName: 'Acquirely  Dashboard '
-					})
-				">
-				<img src="assets/images/csv.svg" /> CSV
-			</button>
-			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button"
-				(click)="pdf.saveAs('Acquirely  Dashboard.pdf')">
-				<img src="assets/images/pdf.svg" /> PDF
-			</button>
-			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" [useExistingCss]="true"
-				printSectionId="pdfTable" ngxPrint>
-				<img src="assets/images/print.svg" /> Print
-			</button>
-			<button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="
-					exporter.exportTable('xls', {
-						fileName: 'Acquirely  Dashboard '
-					})
-				">
-				<img src="assets/images/excel.svg" /> Excel
-			</button>
-		</div>
-		<div fxLayout fxLayoutAlign="right right" class="div-right-align">
-			<mat-form-field fxFlex="40%">
-				<input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search:" />
-			</mat-form-field>
-		</div>
-	</div>
+      <!-- Action Toggle button (Mobile calendar trigger) -->
+      <button mat-icon-button (click)="searchButton()" class="mobile-calendar-btn" aria-label="Search filter">
+        <mat-icon>calendar_month</mat-icon>
+      </button>
 
-	<div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
-		<kendo-pdf-export #pdf margin="2cm">
-			<mat-table class="lmat-elevation-z8" matTableExporter #table [dataSource]="dataSource" matSort
-				#matSort="matSort" matSortActive="id" matSortDirection="asc" matSortDisableClear
-				#exporter="matTableExporter" (matSortChange)="sortColumn($event)">
+      <!-- Search Filters Inline Row -->
+      <div class="filter-form-row" [class.filter-form-row--show]="!search">
+        
+        <!-- Country Selector -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--country">
+          <mat-label>Country</mat-label>
+          <select matNativeControl (change)="CountryChangingValue($event)">
+            <option value="au">Australia (AU)</option>
+            <option value="nz">New Zealand (NZ)</option>
+          </select>
+        </mat-form-field>
 
-				<ng-container matColumnDef="Sr.No">
-					<mat-header-cell *matHeaderCellDef mat-sort-header>
-						Sr.No</mat-header-cell>
-					<mat-cell *matCellDef="let element; let i = index" class="firstCellCollumn">
-						{{ i + 1 }}
-						<span class="d-print-none">Sr.No</span>
-					</mat-cell>
-				</ng-container>
+        <!-- Toggle Period Button -->
+        <button
+          mat-flat-button
+          [color]="switchToSeptNov == '1' ? 'accent' : 'primary'"
+          (click)="switchToSep_Nov()"
+          class="filter-switch-btn">
+          <mat-icon>{{ switchToSeptNov == '1' ? 'history' : 'calendar_today' }}</mat-icon>
+          <span>{{ switchToSeptNovText }}</span>
+        </button>
 
-				<ng-container matColumnDef="tick_report_client">
-					<mat-header-cell *matHeaderCellDef mat-sort-header
-						class="coustom-width-row coustom-width-row-small">
-						Client</mat-header-cell>
-					<mat-cell *matCellDef="let element"
-						class="coustom-width-row coustom-width-row-small secondCellCollumn column100">
-						{{ element.tick_report_client }}
-						<span class="d-print-none">Client</span>
-					</mat-cell>
-				</ng-container>
+        <!-- Single Unified Date Range Picker -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--date">
+          <mat-label>Date Range</mat-label>
+          <input
+            matInput
+            ngxDaterangepickerMd
+            startKey="start"
+            endKey="end"
+            [ranges]="ranges"
+            [showCustomRangeLabel]="true"
+            [alwaysShowCalendars]="true"
+            [(ngModel)]="model1"
+            placeholder="Select date range" />
+          <mat-icon matSuffix>date_range</mat-icon>
+        </mat-form-field>
 
-				<ng-container matColumnDef="campaign_name" class="campname">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row">
-						Campaign Name</mat-header-cell>
-					<mat-cell *matCellDef="let element" class="coustom-width-row column100">
-						{{ element.campaign_name }}
-						<span class="d-print-none">Campaign Name</span>
-					</mat-cell>
-				</ng-container>
+        <!-- Apply Button -->
+        <button mat-flat-button color="accent" (click)="searchRange()" class="filter-search-btn">
+          <mat-icon>search</mat-icon>
+          <span>Apply Filters</span>
+        </button>
 
-				<ng-container matColumnDef="campaignid">
-					<mat-header-cell *matHeaderCellDef mat-sort-header
-						class="coustom-width-row coustom-width-row-small">
-						Campaign ID
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small">
-						{{ element.campaignid }}
-						<span class="d-print-none">Campaign ID</span>
-					</mat-cell>
-				</ng-container>
+      </div>
+    </mat-card-header>
+  </mat-card>
 
-				<ng-container matColumnDef="impression">
-					<mat-header-cell *matHeaderCellDef mat-sort-header
-						class="coustom-width-row coustom-width-row-small">Imp
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small">
-						{{ element.impression }}
-						<span class="d-print-none">Imp</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="ticks">
-					<mat-header-cell *matHeaderCellDef mat-sort-header
-						class="coustom-width-row coustom-width-row-small">Ticks
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small">
-						<span [ngClass]="{
-								whiteCol: element.ticks > 0,
-								redCol: element.ticks == 0
-							}">{{ element.ticks }}</span>
-						<span class="d-print-none">Ticks</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="cr">
-					<mat-header-cell *matHeaderCellDef mat-sort-header
-						class="coustom-width-row coustom-width-row-small">
-						CR
-					</mat-header-cell>
-					<mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small">
-						{{ element.cr }}
-						<span class="d-print-none">CR</span>
-					</mat-cell>
-				</ng-container>
-				<ng-container matColumnDef="qbtext">
-					<mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-text">Question
-					</mat-header-cell>
-					<mat-cell class="mat-cell-question" *matCellDef="let element" class="coustom-width-text">
-						{{ element.qbtext }}
-						<span class="d-print-none">Question</span>
-					</mat-cell>
-				</ng-container>
-				<mat-header-row *matHeaderRowDef="
-						switchToSeptNov == '0'
-							? displayedColumns
-							: displayedColumnsSept
-					"></mat-header-row>
-				<div>
-					<mat-row *matRowDef="
-							let row;
-							columns: switchToSeptNov == '0'
-								? displayedColumns
-								: displayedColumnsSept
-						"></mat-row>
-				</div>
-			</mat-table>
-			<div *ngIf="loading" style="text-align: center">
-				<img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
-			</div>
-			<div class="mat-table__message" *ngIf="!isDataSource && !loading">
-				{{
-				switchToSeptNov == "0"
-				? "No records found"
-				: "Please select date range from 1 september to 3rd november."
-				}}
-			</div>
-		</kendo-pdf-export>
-	</div>
+  <!-- ══════════════════════════════════════════
+       DATA TABLE REPORT CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="dash-mat-card table-card top-border-1">
+    <mat-card-header class="table-card-header">
+      <mat-card-title class="card-chart-title">Ticks Stats Table</mat-card-title>
+      
+      <!-- Action panel containing search and export triggers -->
+      <div class="table-actions-row" *ngIf="avaible">
+        
+        <div class="export-buttons-group">
+          <button mat-stroked-button (click)="exporter.exportTable('csv', { fileName: 'Acquirely Overall Ticks Report' })">
+            <mat-icon>save_alt</mat-icon> CSV
+          </button>
+          <button mat-stroked-button (click)="pdf.saveAs('Acquirely Overall Ticks Report.pdf')">
+            <mat-icon>picture_as_pdf</mat-icon> PDF
+          </button>
+          <button mat-stroked-button [useExistingCss]="true" printSectionId="pdfTable" ngxPrint>
+            <mat-icon>print</mat-icon> Print
+          </button>
+          <button mat-stroked-button (click)="exporter.exportTable('xls', { fileName: 'Acquirely Overall Ticks Report' })">
+            <mat-icon>table_view</mat-icon> Excel
+          </button>
+        </div>
 
-	<!-- start: BOTTOM -->
-	<div class="mat-table__bottom">
-		<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 25, 100]"
-			[showFirstLastButtons]="true"></mat-paginator>
-	</div>
+        <mat-form-field appearance="outline" class="table-search-field">
+          <mat-label>Filter records</mat-label>
+          <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search table..." />
+          <mat-icon matSuffix>filter_list</mat-icon>
+        </mat-form-field>
+
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="table-card-content">
+      <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
+        <kendo-pdf-export #pdf margin="2cm">
+          
+          <mat-table
+            class="lmat-elevation-z8 clean-material-table"
+            matTableExporter
+            #table
+            [dataSource]="dataSource"
+            matSort
+            #matSort="matSort"
+            matSortActive="id"
+            matSortDirection="asc"
+            matSortDisableClear
+            #exporter="matTableExporter"
+            (matSortChange)="sortColumn($event)">
+
+            <!-- Sr.No Column -->
+            <ng-container matColumnDef="Sr.No">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Sr.No</mat-header-cell>
+              <mat-cell *matCellDef="let element; let i = index" class="firstCellCollumn">
+                {{ i + 1 }}
+                <span class="d-print-none text-muted-mobile">Sr.No</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Client Column -->
+            <ng-container matColumnDef="tick_report_client">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row coustom-width-row-small">Client</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small secondCellCollumn column100">
+                {{ element.tick_report_client }}
+                <span class="d-print-none text-muted-mobile">Client</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Campaign Name Column -->
+            <ng-container matColumnDef="campaign_name" class="campname">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row">Campaign Name</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="coustom-width-row column100">
+                {{ element.campaign_name }}
+                <span class="d-print-none text-muted-mobile">Campaign Name</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Campaign ID Column -->
+            <ng-container matColumnDef="campaignid">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row coustom-width-row-small">Campaign ID</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small">
+                {{ element.campaignid }}
+                <span class="d-print-none text-muted-mobile">Campaign ID</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Impression Column -->
+            <ng-container matColumnDef="impression">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row coustom-width-row-small">Imp</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small">
+                {{ element.impression }}
+                <span class="d-print-none text-muted-mobile">Imp</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Ticks Column -->
+            <ng-container matColumnDef="ticks">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row coustom-width-row-small">Ticks</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small">
+                <span [ngClass]="element.ticks > 0 ? 'badge-active' : 'badge-zero'">{{ element.ticks }}</span>
+                <span class="d-print-none text-muted-mobile">Ticks</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- CR Column -->
+            <ng-container matColumnDef="cr">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row coustom-width-row-small">CR</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="coustom-width-row coustom-width-row-small">
+                {{ element.cr }}
+                <span class="d-print-none text-muted-mobile">CR</span>
+              </mat-cell>
+            </ng-container>
+
+            <!-- Question Column -->
+            <ng-container matColumnDef="qbtext">
+              <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-text">Question</mat-header-cell>
+              <mat-cell *matCellDef="let element" class="coustom-width-text mat-cell-question">
+                {{ element.qbtext }}
+                <span class="d-print-none text-muted-mobile">Question</span>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="switchToSeptNov == '0' ? displayedColumns : displayedColumnsSept"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: switchToSeptNov == '0' ? displayedColumns : displayedColumnsSept"></mat-row>
+
+          </mat-table>
+
+          <!-- Loading Spinner overlay -->
+          <div *ngIf="loading" class="loader-overlay">
+            <mat-spinner diameter="40"></mat-spinner>
+            <span class="loader-text">Loading ticks report...</span>
+          </div>
+
+          <!-- Empty records state -->
+          <div class="empty-state-message" *ngIf="!isDataSource && !loading">
+            <mat-icon class="empty-icon">info</mat-icon>
+            <span class="empty-text">
+              {{ switchToSeptNov == "0" ? "No records found" : "Please select date range from 1 September to 3rd November." }}
+            </span>
+          </div>
+
+        </kendo-pdf-export>
+      </div>
+    </mat-card-content>
+
+    <mat-card-footer class="table-card-footer">
+      <mat-paginator
+        [pageSize]="10"
+        [pageSizeOptions]="[10, 20, 25, 100]"
+        [showFirstLastButtons]="true"
+        class="clean-paginator">
+      </mat-paginator>
+    </mat-card-footer>
+  </mat-card>
+
 </div>

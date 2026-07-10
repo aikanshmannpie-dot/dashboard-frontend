@@ -3,26 +3,26 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { FormsModule } from '@angular/forms';
 // Core Module
 import { CoreModule } from '../../../core/core.module';
 import { PartialsModule } from '../../partials/partials.module';
 import { OverallQuesTickReportComponent } from './overall-ques-tick-report.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-import { FormsModule } from '@angular/forms';
-// import { BrowserModule } from '@angular/platform-browser';
-// import { DaterangepickerModule } from 'angular-2-daterangepicker';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { NgxPrintModule } from 'ngx-print';
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
-// import { FlexLayoutModule } from '@angular/flex-layout';
-// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { NgxDateRangeModule } from 'ngx-daterange';
+
 @NgModule({
 	imports: [
-		// DaterangepickerModule,
 		CommonModule,
 		PartialsModule,
 		CoreModule,
@@ -31,6 +31,11 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 		MatSortModule,
 		MatFormFieldModule,
 		MatInputModule,
+		MatCardModule,
+		MatButtonModule,
+		MatIconModule,
+		MatSelectModule,
+		MatChipsModule,
 		NgxPrintModule,
 		FormsModule,
 		PDFExportModule,
@@ -45,7 +50,6 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 			},
 		]),
 		MatTableExporterModule
-		// NgxDaterangepickerMd.forRoot()
 	],
 	providers: [],
 	declarations: [

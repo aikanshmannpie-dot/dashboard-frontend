@@ -1,353 +1,289 @@
-<div class="pageContainer">
-	<div class="row">
-		<div class="col-12">
-			<div class="pageTopBar">
-				<h2 style="padding: 10px 0px; float: left">Dashboard</h2>
-				<button class="calendarBtn" (click)="searchButton()"><img src="assets/images/calendar.svg" /></button>
-				<div class="searchBox" [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'">
-					<div ngbDropdown class="dropdown searcBar">
-						<h3>Search <button (click)="searchButton()" class="closeBtbn"><img src="assets/images/close.svg" /></button></h3>
-						<select class="form-control mb-2 selectBox" (change)="CountryChangingValue($event)">
-							<option value="au">AU</option>
-							<option value="nz">NZ</option>
-						</select>
-						<input
-							type="text"
-							class="btn btn-default dropdown-toggle"
-							ngxDaterangepickerMd
-							startKey="start"
-							endKey="end"
-							[(ngModel)]="model1"
-						/>
-						<input
-							type="text"
-							class="btn btn-default dropdown-toggle"
-							ngxDaterangepickerMd
-							startKey="start"
-							endKey="end"
-							[ranges]="ranges"
-							[(ngModel)]="model1"
-						/>
-						<button
-							class="btn btn-default dropdown-toggle"
-							id="ddllogout"
-							type="button"
-							(click)="searchRange()"
-						>
-							Search
-						</button>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<!-- <div class="col-sm-12 col-md-12 col-lg-6"> -->
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-1"
-					>
-						<div
-							ngbDropdown
-							class="dropdown"
-							*ngIf="avaible1"
-							class="main10-padding topBarList"
-						>
-							<button
-								class="btn btn-default dropdown-toggle"
-								id="ddllogout"
-								type="button"
-								(click)="
-									exporter.exportTable('csv', {
-										fileName: 'Acquirely  Dashboard '
-									})
-								"
-							>
-								CSV
-							</button>
-							<button
-								class="btn btn-default dropdown-toggle"
-								id="ddllogout"
-								type="button"
-								(click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
-							>
-								PDF
-							</button>
-							<button
-								class="btn btn-default dropdown-toggle"
-								id="ddllogout"
-								type="button"
-								[useExistingCss]="true"
-								printSectionId="pdfTable"
-								ngxPrint
-							>
-								Print
-							</button>
-							<button
-								class="btn btn-default dropdown-toggle"
-								id="ddllogout"
-								type="button"
-								(click)="
-									exporter.exportTable('xls', {
-										fileName: 'Acquirely  Dashboard '
-									})
-								"
-							>
-								Excel
-							</button>
-							<div
-								fxLayout
-								fxLayoutAlign="right right"
-								class="div-right-align"
-							>
-								<mat-form-field fxFlex="40%">
-									<input
-										matInput
-										type="text"
-										(keyup)="doFilter($event.target.value)"
-										placeholder="Search:"
-									/>
-								</mat-form-field>
-							</div>
-						</div>
+<div class="dash-page-container">
 
-						<div class="mat-table__wrapper" id="pdfTable" #pdfTable>
-							<kendo-pdf-export #pdf margin="2cm">
-								<mat-table
-									class="lmat-elevation-z8"
-									matTableExporter
-									#table
-									[dataSource]="dataSourceValue"
-									matSort
-									#matSort="matSort"
-									matSortActive="id"
-									matSortDirection="asc"
-									matSortDisableClear
-									#exporter="matTableExporter"
-									(matSortChange)="sortColumn($event)"
-								>
-									<ng-container matColumnDef="Sr.No">
-										<mat-header-cell
-											*matHeaderCellDef
-											mat-sort-header
-											class="coustom-width-row"
-										>
-											Sr.No</mat-header-cell
-										>
-										<mat-cell
-											*matCellDef="
-												let element;
-												let i = index
-											"
-											class="coustom-width-row"
-										>
-											{{ i + 1 }}
-										</mat-cell>
-									</ng-container>
+  <!-- ══════════════════════════════════════════
+       TOP HEADER & FILTER BAR CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="filter-card">
+    <mat-card-header class="filter-card-header">
+      <div class="filter-card-title-row">
+        <mat-card-title class="dash-title">Dashboard Overview</mat-card-title>
+        <mat-card-subtitle class="dash-subtitle">Real-time statistics & chart reports</mat-card-subtitle>
+      </div>
 
-									<ng-container matColumnDef="Description">
-										<mat-header-cell
-											*matHeaderCellDef
-											mat-sort-header
-											class="coustom-width-row"
-										>
-											Description
-										</mat-header-cell>
-										<mat-cell
-											*matCellDef="let element"
-											class="coustom-width-row"
-										>
-											{{ element.Description }}
-										</mat-cell>
-									</ng-container>
+      <!-- Action Toggle button (Mobile calendar trigger) -->
+      <button mat-icon-button (click)="searchButton()" class="mobile-calendar-btn" aria-label="Search filter">
+        <mat-icon>calendar_month</mat-icon>
+      </button>
 
-									<ng-container matColumnDef="Total">
-										<mat-header-cell
-											*matHeaderCellDef
-											mat-sort-header
-											class="coustom-width-text"
-											>Total
-										</mat-header-cell>
-										<mat-cell
-											class="mat-cell-question"
-											*matCellDef="let element"
-											class="coustom-width-text"
-										>
-											{{ element.Total }}
-										</mat-cell>
-									</ng-container>
+      <!-- Desktop Filters (Laid out horizontally) -->
+      <div class="filter-form-row" [class.filter-form-row--show]="!search">
+        
+        <!-- Country Select -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--country">
+          <mat-label>Country</mat-label>
+          <select matNativeControl (change)="CountryChangingValue($event)">
+            <option value="au">Australia (AU)</option>
+            <option value="nz">New Zealand (NZ)</option>
+          </select>
+        </mat-form-field>
 
-									<mat-header-row
-										*matHeaderRowDef="displayedColumns"
-									></mat-header-row>
-									<div>
-										<mat-row
-											*matRowDef="
-												let row;
-												columns: displayedColumns
-											"
-										></mat-row>
-									</div>
-								</mat-table>
-								<div
-									*ngIf="loading1"
-									style="text-align: center"
-								>
-									<img
-										style="padding: 10px; height: 100px"
-										src="assets/images/loader.gif"
-									/>
-								</div>
-							</kendo-pdf-export>
-						</div>
-						<!-- <div class="mat-Not__found" *ngIf="dataSource1.length==0" >
-							<h2>No Data Found!</h2>
-						</div> -->
-						<!-- start: BOTTOM -->
-						<div class="mat-table__bottom">
-							<mat-paginator
-								[pageSize]="10"
-								[pageSizeOptions]="[10, 20, 25, 100]"
-								[showFirstLastButtons]="true"
-							></mat-paginator>
-						</div>
-					</div>
-				</div>
+        <!-- Unified Date Range Picker -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--date">
+          <mat-label>Date Range</mat-label>
+          <input
+            matInput
+            ngxDaterangepickerMd
+            startKey="start"
+            endKey="end"
+            [ranges]="ranges"
+            [showCustomRangeLabel]="true"
+            [alwaysShowCalendars]="true"
+            [(ngModel)]="model1"
+            placeholder="Select date range" />
+          <mat-icon matSuffix>date_range</mat-icon>
+        </mat-form-field>
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-2"
-					>
-						<img
-							*ngIf="!lineChartagraphData"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
-						<figure Sclass="highcharts-figure">
-							<div id="container7"></div>
-						</figure>
-					</div>
-				</div>
+        <!-- Search Button -->
+        <button mat-flat-button color="accent" (click)="searchRange()" class="filter-search-btn">
+          <mat-icon>search</mat-icon>
+          <span>Apply Filters</span>
+        </button>
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-3"
-					>
-						<img
-							*ngIf="!lineChartagraphData"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
-						<figure Sclass="highcharts-figure">
-							<div id="container6"></div>
-						</figure>
-					</div>
-				</div>
+      </div>
+    </mat-card-header>
+  </mat-card>
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-4"
-					>
-						<img
-							*ngIf="!gpGraphData"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
-						<figure Sclass="highcharts-figure">
-							<div id="container8"></div>
-						</figure>
-					</div>
-				</div>
+  <!-- ══════════════════════════════════════════
+       MAIN CONTENT CARD GRID
+       ══════════════════════════════════════════ -->
+  <div class="dash-grid-layout">
+    
+    <!-- 1. Leads Table Card -->
+    <mat-card class="dash-mat-card table-card top-border-1">
+      <mat-card-header class="table-card-header">
+        <mat-card-title class="card-chart-title">Leads Summary</mat-card-title>
+        
+        <!-- Export & Search Actions bar -->
+        <div class="table-actions-row" *ngIf="avaible1">
+          
+          <div class="export-buttons-group">
+            <button mat-stroked-button (click)="exporter.exportTable('csv', { fileName: 'Acquirely Dashboard' })">
+              <mat-icon>save_alt</mat-icon> CSV
+            </button>
+            <button mat-stroked-button (click)="pdf.saveAs('Acquirely Dashboard.pdf')">
+              <mat-icon>picture_as_pdf</mat-icon> PDF
+            </button>
+            <button mat-stroked-button [useExistingCss]="true" printSectionId="pdfTable" ngxPrint>
+              <mat-icon>print</mat-icon> Print
+            </button>
+            <button mat-stroked-button (click)="exporter.exportTable('xls', { fileName: 'Acquirely Dashboard' })">
+              <mat-icon>table_view</mat-icon> Excel
+            </button>
+          </div>
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-5"
-					>
-						<img
-							*ngIf="!getAffilategraphData"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
-						<figure Sclass="highcharts-figure">
-							<div id="container3"></div>
-						</figure>
-					</div>
-				</div>
+          <mat-form-field appearance="outline" class="table-search-field">
+            <mat-label>Filter records</mat-label>
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search table..." />
+            <mat-icon matSuffix>filter_list</mat-icon>
+          </mat-form-field>
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-6"
-					>
-						<img
-							*ngIf="!getClickDatagraphData"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
-						<figure Sclass="highcharts-figure">
-							<div id="container4"></div>
-						</figure>
-					</div>
-				</div>
+        </div>
+      </mat-card-header>
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-7"
-					>
-						<img
-							*ngIf="!getClickDataAcgraphData"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
-						<figure Sclass="highcharts-figure">
-							<div id="container5"></div>
-						</figure>
-					</div>
-				</div>
+      <mat-card-content class="table-card-content">
+        <div class="mat-table__wrapper" id="pdfTable" #pdfTable>
+          <kendo-pdf-export #pdf margin="2cm">
+            
+            <mat-table
+              class="lmat-elevation-z8 clean-material-table"
+              matTableExporter
+              #table
+              [dataSource]="dataSourceValue"
+              matSort
+              #matSort="matSort"
+              matSortActive="id"
+              matSortDirection="asc"
+              matSortDisableClear
+              #exporter="matTableExporter"
+              (matSortChange)="sortColumn($event)">
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-8"
-					>
-						<img
-							*ngIf="!sourceReportList"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
-						<figure Sclass="highcharts-figure">
-							<div id="container10"></div>
-						</figure>
-					</div>
-				</div>
+              <!-- Sr.No Column -->
+              <ng-container matColumnDef="Sr.No">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row">Sr.No</mat-header-cell>
+                <mat-cell *matCellDef="let element; let i = index" class="coustom-width-row">{{ i + 1 }}</mat-cell>
+              </ng-container>
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-9"
-					>
-						<img
-							*ngIf="!campanignsData"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
-						<figure Sclass="highcharts-figure">
-							<div id="container1"></div>
-						</figure>
-					</div>
-				</div>
+              <!-- Description Column -->
+              <ng-container matColumnDef="Description">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-row">Description</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="coustom-width-row">{{ element.Description }}</mat-cell>
+              </ng-container>
 
-				<div class="col-sm-12 col-md-12 col-lg-6">
-					<div
-						class="kt-portlet kt-portlet--height-fluid top-border-10"
-					>
-						<img
-							*ngIf="!dataSource"
-							src="assets/images/ldr.gif"
-							class="img-loader"
-						/>
+              <!-- Total Column -->
+              <ng-container matColumnDef="Total">
+                <mat-header-cell *matHeaderCellDef mat-sort-header class="coustom-width-text">Total</mat-header-cell>
+                <mat-cell *matCellDef="let element" class="coustom-width-text">{{ element.Total }}</mat-cell>
+              </ng-container>
 
-						<figure Sclass="highcharts-figure">
-							<div id="container"></div>
-						</figure>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+            </mat-table>
+
+            <!-- Loading Spinner inside table -->
+            <div *ngIf="loading1" class="loader-overlay">
+              <mat-spinner diameter="40"></mat-spinner>
+              <span class="loader-text">Loading table data...</span>
+            </div>
+
+          </kendo-pdf-export>
+        </div>
+      </mat-card-content>
+
+      <mat-card-footer class="table-card-footer">
+        <mat-paginator
+          [pageSize]="10"
+          [pageSizeOptions]="[10, 20, 25, 100]"
+          [showFirstLastButtons]="true"
+          class="clean-paginator">
+        </mat-paginator>
+      </mat-card-footer>
+    </mat-card>
+
+    <!-- 2. Chart Card 7 -->
+    <mat-card class="dash-mat-card top-border-2">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">Line Chart Report 1</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!lineChartagraphData" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container7" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 3. Chart Card 6 -->
+    <mat-card class="dash-mat-card top-border-3">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">Line Chart Report 2</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!lineChartagraphData" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container6" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 4. Chart Card 8 -->
+    <mat-card class="dash-mat-card top-border-4">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">GP Graph Report</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!gpGraphData" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container8" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 5. Chart Card 3 -->
+    <mat-card class="dash-mat-card top-border-5">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">Affiliate Performance Graph</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!getAffilategraphData" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container3" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 6. Chart Card 4 -->
+    <mat-card class="dash-mat-card top-border-6">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">Click Data Performance</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!getClickDatagraphData" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container4" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 7. Chart Card 5 -->
+    <mat-card class="dash-mat-card top-border-7">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">Click Data AC Performance</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!getClickDataAcgraphData" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container5" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 8. Chart Card 10 -->
+    <mat-card class="dash-mat-card top-border-8">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">Source Report Graph</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!sourceReportList" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container10" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 9. Chart Card 1 -->
+    <mat-card class="dash-mat-card top-border-9">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">Campaigns Data Graph</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!campanignsData" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container1" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- 10. Chart Card 0 -->
+    <mat-card class="dash-mat-card top-border-10">
+      <mat-card-header class="chart-card-header">
+        <mat-card-title class="card-chart-title">General Performance Summary</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="chart-card-content">
+        <div *ngIf="!dataSource" class="loader-overlay">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <figure class="highcharts-figure">
+          <div id="container" class="highcharts-container-element"></div>
+        </figure>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
 </div>
