@@ -1,124 +1,183 @@
-<div class="pageContainer">
-  <div class="pageTopBar">
-    <h2 style="padding: 10px 0px; float: left">Lead Detail </h2>
+<div class="dash-page-container">
+  <div class="dash-title-row">
+    <h1 class="dash-title">Lead Details</h1>
+    <p class="dash-subtitle">View lead registration details, survey data responses, and system logs</p>
   </div>
 
-  <div class="mat-table__wrapper tableMobileView" *ngIf="avaible">
-    <h2>Lead Information</h2>
-    <table class="detailTable table table-bordered table-striped table-hover table-responsive">
-      <tr>
-        <th>Id</th>
-        <td>{{ detail.id }}</td>
-      </tr>
-      <tr>
-        <th>Created At</th>
-        <td>{{ detail.created_at }}</td>
-      </tr>
-      <tr>
-        <th>Site Name</th>
-        <td>{{ detail.site_name }}</td>
-      </tr>
-            <tr>
-        <th>Data</th>
-        <td>{{ detail.data }}</td>
-      </tr>
-      <tr>
-        <th>Full Name</th>
-        <td>{{ detail.full_name }}</td>
-      </tr>
-      <tr>
-        <th>Email</th>
-        <td>{{ detail.email }}</td>
-      </tr>
-      <tr>
-        <th>Phone</th>
-        <td>{{ detail.phone_number }}</td>
-      </tr>
-      <tr>
-        <th>Age</th>
-        <td>{{ detail.age }}</td>
-      </tr>
-      <tr>
-        <th>Gender</th>
-        <td>{{ detail.gender }}</td>
-      </tr>
-      <tr>
-        <th>Postcode</th>
-        <td>{{ detail.postcode }}</td>
-      </tr>
-      <tr>
-        <th>State</th>
-        <td>{{ detail.state }}</td>
-      </tr>
-      <tr>
-        <th>Town/City</th>
-        <td>{{ detail.town_city }}</td>
-      </tr>
-      <tr>
-        <th>DOB</th>
-        <td>{{ detail.dob }}</td>
-      </tr>
-      <tr>
-        <th>API Client Name</th>
-        <td>{{ detail.api_client_name }}</td>
-      </tr>
-      <tr>
-        <th>API</th>
-        <td>{{ detail.api_name }}</td>
-      </tr>
-      <tr>
-        <th>API Response</th>
-        <td>{{ detail.api_response }}</td>
-      </tr>
-      <tr>
-        <th>API Status</th>
-        <td>{{ detail.api_status }}</td>
-      </tr>
-      <tr>
-        <th>Delivery Status</th>
-        <td>{{ detail.delivery_status }}</td>
-      </tr>
-      <tr>
-        <th>SMS Response</th>
-        <td>{{ detail.sms_response }}</td>
-      </tr>
-      <tr>
-        <th>IPV4</th>
-        <td>{{ detail.ipv4 }}</td>
-      </tr>
-      <tr>
-        <th>User Agent</th>
-        <td>{{ detail.user_agent }}</td>
-      </tr>
-    </table>
+  <div class="row mt-4" *ngIf="avaible">
+    <!-- Left Column: Lead Info Card -->
+    <div class="col-lg-6 col-md-12 mb-4">
+      <mat-card class="dash-mat-card top-border-10 h-100">
+        <mat-card-header class="table-card-header">
+          <mat-card-title class="card-chart-title">Lead Information</mat-card-title>
+          <mat-card-subtitle class="card-subtitle mt-1 text-muted">Primary details collected from the user</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="p-4">
+          <div class="detail-grid">
+            <div class="detail-row">
+              <span class="detail-label">Lead ID</span>
+              <span class="detail-value text-mono">{{ detail.id }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Created At</span>
+              <span class="detail-value">{{ detail.created_at }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Site Name</span>
+              <span class="detail-value">
+                <span class="domain-badge">{{ detail.site_name }}</span>
+              </span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Full Name</span>
+              <span class="detail-value font-weight-bold text-dark">{{ detail.full_name }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Email</span>
+              <span class="detail-value text-primary font-weight-medium">{{ detail.email }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Phone</span>
+              <span class="detail-value text-mono">{{ detail.phone_number }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Age / Gender</span>
+              <span class="detail-value">{{ detail.age || '-' }} / {{ detail.gender || '-' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Date of Birth</span>
+              <span class="detail-value">{{ detail.dob || '-' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Location</span>
+              <span class="detail-value">{{ detail.town_city || '-' }} {{ detail.state || '' }} {{ detail.postcode || '' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">User IP (IPv4)</span>
+              <span class="detail-value text-mono">{{ detail.ipv4 || '-' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">User Agent</span>
+              <span class="detail-value user-agent-text" [title]="detail.user_agent || ''">{{ detail.user_agent || '-' }}</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- Right Column: API & Delivery Status Card -->
+    <div class="col-lg-6 col-md-12 mb-4">
+      <mat-card class="dash-mat-card top-border-10 h-100">
+        <mat-card-header class="table-card-header">
+          <mat-card-title class="card-chart-title">Integration & Dispatch Status</mat-card-title>
+          <mat-card-subtitle class="card-subtitle mt-1 text-muted">Real-time status updates and API callbacks</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="p-4">
+          <div class="detail-grid">
+            <div class="detail-row">
+              <span class="detail-label">API Client Name</span>
+              <span class="detail-value font-weight-bold text-dark">
+                {{ detail.api_client_name }}
+                <mat-icon *ngIf="detail.delivery_status" class="text-success small-icon align-middle ml-1" title="Delivered">check_circle</mat-icon>
+              </span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">API Destination</span>
+              <span class="detail-value text-mono">{{ detail.api_name || '-' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">API Status</span>
+              <span class="detail-value">
+                <span class="status-tag" [ngClass]="detail.api_status === 'success' || detail.api_status === '1' || detail.api_status === 'true' ? 'status-tag--success' : 'status-tag--danger'">
+                  {{ detail.api_status }}
+                </span>
+              </span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Delivery Status</span>
+              <span class="detail-value">
+                <span class="status-tag" [ngClass]="detail.delivery_status ? 'status-tag--success' : 'status-tag--danger'">
+                  {{ detail.delivery_status ? 'Delivered' : 'Failed' }}
+                </span>
+              </span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">SMS Status / Body</span>
+              <span class="detail-value text-muted">{{ detail.sms_response || '-' }}</span>
+            </div>
+            <div class="detail-row flex-column align-items-start gap-2 pt-3">
+              <span class="detail-label w-100">API Response Callback Payload</span>
+              <pre class="response-payload-box w-100">{{ detail.api_response || '-' }}</pre>
+            </div>
+            <div class="detail-row flex-column align-items-start gap-2 pt-3">
+              <span class="detail-label w-100">Survey Answers / Submission Data</span>
+              <pre class="response-payload-box w-100">{{ createSurveyQuestion(detail.data, detail.site_id) || '-' }}</pre>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 
-  <h3>Logs</h3>
-  <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
-    <kendo-pdf-export #pdf margin="2cm">
-      <mat-table class="lmat-elevation-z8" matTableExporter #table [dataSource]="dataSource" matSort #matSort="matSort"
-        matSortActive="id" matSortDirection="asc" matSortDisableClear (matSortChange)="sortColumn($event)">
+  <!-- System Logs section -->
+  <div class="row mt-4" *ngIf="avaible || loading">
+    <div class="col-12">
+      <mat-card class="dash-mat-card table-card top-border-10">
+        <mat-card-header class="table-card-header">
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <div>
+              <mat-card-title class="card-chart-title">System Execution Logs</mat-card-title>
+              <mat-card-subtitle class="card-subtitle mt-1 text-muted">Tracking execution steps and payload history for this lead</mat-card-subtitle>
+            </div>
+          </div>
+        </mat-card-header>
 
-        <ng-container matColumnDef="payload">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Payload
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            {{ element.payload }}
-          </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="payload_type">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Payload Type
-          </mat-header-cell>
-          <mat-cell *matCellDef="let element">
-            {{ element.payload_type }}
-          </mat-cell>
-        </ng-container>
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
+        <mat-card-content class="table-card-content position-relative">
+          <!-- Loading Overlay -->
+          <div *ngIf="loading" class="loader-overlay">
+            <mat-spinner diameter="45"></mat-spinner>
+            <span class="loader-text">Loading execution logs...</span>
+          </div>
 
-      <div *ngIf="loading" style="text-align: center">
-        <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
-      </div>
-    </kendo-pdf-export>
+          <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
+            <kendo-pdf-export #pdf margin="2cm">
+              <mat-table
+                class="lmat-elevation-z8"
+                [dataSource]="dataSource"
+                matSort
+                #matSort="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+                (matSortChange)="sortColumn($event)"
+              >
+                <!-- Payload Column -->
+                <ng-container matColumnDef="payload">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Payload</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <pre class="log-payload-box">{{ element.payload }}</pre>
+                    <span class="d-print-none">Payload</span>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Payload Type Column -->
+                <ng-container matColumnDef="payload_type">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Payload Type</mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <div class="source-tag">{{ element.payload_type }}</div>
+                    <span class="d-print-none">Payload Type</span>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns" class="animate-row"></mat-row>
+              </mat-table>
+            </kendo-pdf-export>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
+</div>

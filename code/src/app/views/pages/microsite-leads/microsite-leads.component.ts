@@ -73,7 +73,7 @@ export class MicrositeLeadsComponent implements OnInit {
   @ViewChild("content", { static: true }) content: ElementRef;
 
   @ViewChild("pdfTable", { static: false }) pdfTable: ElementRef;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   displayedColumns: string[] = [
     "domain",
@@ -148,13 +148,15 @@ export class MicrositeLeadsComponent implements OnInit {
     this.startDate = this.model1.start.format("YYYY-MM-DD");
     this.endDate = this.model1.end.format("YYYY-MM-DD");
     this.getListOfMicrosite(this.startDate, this.endDate);
-    this.dataSource.filterPredicate = this.customFilterPredicate();
     this.getSiteNameList();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.cdr.detectChanges();
+    });
   }
 
   getFormat(activeTeam) {
@@ -314,20 +316,19 @@ export class MicrositeLeadsComponent implements OnInit {
             // console.log("apidata", apiData);
             // console.log("data", data.apiData);
             this.avaible = true;
-
-            this.dataSource = new MatTableDataSource(apiData);
+            this.dataSource.data = apiData;
             this.dataSource1 = data.body;
+            this.loading = false;
+            this.cdr.detectChanges();
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-            this.loading = false;
-            this.cdr.markForCheck();
           } else {
           }
           // Main page
         },
         (error) => {
           this.loading = false;
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
         }
       );
   }

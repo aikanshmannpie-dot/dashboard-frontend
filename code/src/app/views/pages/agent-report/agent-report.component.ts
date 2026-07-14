@@ -89,7 +89,7 @@ export class AgentReportComponent implements OnInit {
   };
 
   @ViewChild("pdfTable", { static: false }) pdfTable: ElementRef;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   // @ViewChild('sort1', { static: true }) sort: MatSort;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
@@ -286,22 +286,17 @@ export class AgentReportComponent implements OnInit {
 
             this.dataSourceExport = new MatTableDataSource(data.apiData);
             this.dataSource1Export = data.body;
-            this.dataSource.paginator = this.paginator;
             this.loading = false;
+            this.cdr.detectChanges();
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
           } else {
           }
         },
         (error) => {
           this.loading = false;
-
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
         }
-      ),
-      finalize(() => {
-        this.avaible = true;
-        this.loading = false;
-        this.dataSource.paginator = this.paginator;
-        this.cdr.markForCheck();
-      });
+      );
   }
 }

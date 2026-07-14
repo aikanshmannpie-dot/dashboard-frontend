@@ -1,16 +1,118 @@
-:host {
-	::ng-deep {
-		ngb-tabset > .nav-tabs {
-			display: none;
-		}
-	}
-}
-.img-loader {
-	margin: auto;
-	width: 300px;
-	text-align: center;
+// Variables
+$accent-indigo:   #6366f1;
+$accent-light:    #818cf8;
+$card-border:     rgba(99, 102, 241, 0.08);
+$card-shadow:     0 10px 30px -10px rgba(0, 0, 0, 0.06);
+$card-shadow-hvr: 0 20px 40px -15px rgba(99, 102, 241, 0.12);
+
+.dash-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+  padding: 10px 20px 30px 20px;
 }
 
-.kt-portlet.kt-portlet--height-fluid {
-	max-height: 640px;
+// Title Typography
+.dash-title-row {
+  margin-bottom: 10px;
+}
+
+.dash-title {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.dash-subtitle {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.82rem !important;
+  color: #64748b !important;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
+// Material Card Styling
+.dash-mat-card {
+  background: #ffffff !important;
+  border: 1px solid $card-border !important;
+  box-shadow: $card-shadow !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $card-shadow-hvr !important;
+  }
+
+  .card-chart-title {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.96rem !important;
+    font-weight: 600 !important;
+    color: #1e293b;
+    letter-spacing: -0.01em;
+  }
+
+  .chart-card-header {
+    padding: 20px 24px 10px 24px !important;
+    margin: 0 !important;
+  }
+
+  .chart-card-content {
+    flex: 1;
+    position: relative;
+    padding: 0 16px 16px 16px !important;
+  }
+}
+
+// Top Border Colors
+.top-border-1  { border-top: 4px solid #64748b !important; }
+.top-border-2  { border-top: 4px solid #06b6d4 !important; }
+.top-border-3  { border-top: 4px solid #10b981 !important; }
+.top-border-4  { border-top: 4px solid #ef4444 !important; }
+.top-border-5  { border-top: 4px solid #6366f1 !important; }
+.top-border-6  { border-top: 4px solid #ec4899 !important; }
+.top-border-7  { border-top: 4px solid #84cc16 !important; }
+.top-border-8  { border-top: 4px solid #a855f7 !important; }
+.top-border-9  { border-top: 4px solid #eab308 !important; }
+.top-border-10 { border-top: 4px solid #3b82f6 !important; }
+
+// Highcharts and Loading Styles
+.highcharts-figure {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.highcharts-container-element {
+  width: 100%;
+  height: 350px;
+}
+
+.loader-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.75);
+  z-index: 10;
+  border-radius: 14px;
+
+  .loader-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: $accent-indigo;
+    font-weight: 500;
+  }
 }

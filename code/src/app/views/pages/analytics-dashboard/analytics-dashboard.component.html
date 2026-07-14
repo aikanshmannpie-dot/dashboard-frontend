@@ -1,69 +1,120 @@
-<div class="pageContainer">
+<div class="dash-page-container">
+    <div class="dash-title-row">
+        <h1 class="dash-title">Analytics Dashboard</h1>
+        <p class="dash-subtitle">Acquirely real-time lead analytics and user traffic breakdown</p>
+    </div>
+
     <div class="row">
-        <div class="col-12">
-            <div class="pageTopBar">
-                <h2 style="padding: 10px 0px; float: left">Analytics Dashboard</h2>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
-                        <img *ngIf="funnelLoading" src="assets/images/ldr.gif" class="img-loader" />
-                        <figure class="highcharts-figure">
-                            <div id="container"></div>
-                        </figure>
+        <!-- 1. Unique Leads Funnel Card -->
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+            <mat-card class="dash-mat-card top-border-5">
+                <mat-card-header class="chart-card-header">
+                    <mat-card-title class="card-chart-title">Unique Leads</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="chart-card-content">
+                    <div *ngIf="funnelLoading" class="loader-overlay">
+                        <mat-spinner diameter="40"></mat-spinner>
+                        <span class="loader-text">Loading funnel metrics...</span>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
-                        <img *ngIf="activeLastWeekLoading" src="assets/images/ldr.gif" class="img-loader" />
-                        <figure Sclass="highcharts-figure">
-                            <div id="activeLastWeek"></div>
-                        </figure>
-                    </div>
-                </div>
+                    <figure class="highcharts-figure">
+                        <div id="container" class="highcharts-container-element"></div>
+                    </figure>
+                </mat-card-content>
+            </mat-card>
+        </div>
 
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
-                        <img *ngIf="activeMonthlyLoading" src="assets/images/ldr.gif" class="img-loader" />
-                        <figure Sclass="highcharts-figure">
-                            <div id="activeMonthly"></div>
-                        </figure>
+        <!-- 2. Weekly Unique Active Users Card -->
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+            <mat-card class="dash-mat-card top-border-2">
+                <mat-card-header class="chart-card-header">
+                    <mat-card-title class="card-chart-title">Weekly Unique Active Users</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="chart-card-content">
+                    <div *ngIf="activeLastWeekLoading" class="loader-overlay">
+                        <mat-spinner diameter="40"></mat-spinner>
+                        <span class="loader-text">Loading weekly activity...</span>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
-                        <img *ngIf="repeatWeeklyLoading" src="assets/images/ldr.gif" class="img-loader" />
-                        <figure Sclass="highcharts-figure">
-                            <div id="repeatWeekly"></div>
-                        </figure>
+                    <figure class="highcharts-figure">
+                        <div id="activeLastWeek" class="highcharts-container-element"></div>
+                    </figure>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- 3. Month Wise Unique Active Users Card -->
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+            <mat-card class="dash-mat-card top-border-3">
+                <mat-card-header class="chart-card-header">
+                    <mat-card-title class="card-chart-title">Month-Wise Unique Active Users</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="chart-card-content">
+                    <div *ngIf="activeMonthlyLoading" class="loader-overlay">
+                        <mat-spinner diameter="40"></mat-spinner>
+                        <span class="loader-text">Loading monthly statistics...</span>
                     </div>
-                </div>
+                    <figure class="highcharts-figure">
+                        <div id="activeMonthly" class="highcharts-container-element"></div>
+                    </figure>
+                </mat-card-content>
+            </mat-card>
+        </div>
 
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
-                        <img *ngIf="genderGraphLoading" src="assets/images/ldr.gif" class="img-loader" />
-                        <figure Sclass="highcharts-figure">
-                            <div id="genderGraph"></div>
-                        </figure>
+        <!-- 4. Repeat Signups Per Week Card -->
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+            <mat-card class="dash-mat-card top-border-6">
+                <mat-card-header class="chart-card-header">
+                    <mat-card-title class="card-chart-title">Repeat Signups Per Week</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="chart-card-content">
+                    <div *ngIf="repeatWeeklyLoading" class="loader-overlay">
+                        <mat-spinner diameter="40"></mat-spinner>
+                        <span class="loader-text">Loading signup trends...</span>
                     </div>
-                </div>
+                    <figure class="highcharts-figure">
+                        <div id="repeatWeekly" class="highcharts-container-element"></div>
+                    </figure>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 
-                <div class="col-sm-12 col-md-12 col-lg-6">
-                    <div class="kt-portlet kt-portlet--height-fluid top-border-4">
-                        <img *ngIf="ageGraphLoading" src="assets/images/ldr.gif" class="img-loader" />
-                        <figure Sclass="highcharts-figure">
-                            <div id="ageGraph"></div>
-                        </figure>
+    <div class="row">
+        <!-- 5. Gender Wise Report Card -->
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+            <mat-card class="dash-mat-card top-border-8">
+                <mat-card-header class="chart-card-header">
+                    <mat-card-title class="card-chart-title">Gender Distribution</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="chart-card-content">
+                    <div *ngIf="genderGraphLoading" class="loader-overlay">
+                        <mat-spinner diameter="40"></mat-spinner>
+                        <span class="loader-text">Loading gender metrics...</span>
                     </div>
-                </div>
+                    <figure class="highcharts-figure">
+                        <div id="genderGraph" class="highcharts-container-element"></div>
+                    </figure>
+                </mat-card-content>
+            </mat-card>
+        </div>
 
-            </div>
+        <!-- 6. Age Wise Spread Card -->
+        <div class="col-sm-12 col-md-12 col-lg-6 mb-4">
+            <mat-card class="dash-mat-card top-border-10">
+                <mat-card-header class="chart-card-header">
+                    <mat-card-title class="card-chart-title">Age Demographics</mat-card-title>
+                </mat-card-header>
+                <mat-card-content class="chart-card-content">
+                    <div *ngIf="ageGraphLoading" class="loader-overlay">
+                        <mat-spinner diameter="40"></mat-spinner>
+                        <span class="loader-text">Loading age demographics...</span>
+                    </div>
+                    <figure class="highcharts-figure">
+                        <div id="ageGraph" class="highcharts-container-element"></div>
+                    </figure>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>

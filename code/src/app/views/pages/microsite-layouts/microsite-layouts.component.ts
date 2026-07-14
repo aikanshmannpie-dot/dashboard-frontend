@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
@@ -22,10 +22,12 @@ export class MicrositeLayoutsComponent implements OnInit {
     this.download = !this.download;
   }
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   @ViewChild("content", { static: true }) content: ElementRef;
 
   @ViewChild("pdfTable", { static: false }) pdfTable: ElementRef;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   displayedColumns: string[] = [
@@ -43,8 +45,11 @@ export class MicrositeLayoutsComponent implements OnInit {
     this.getMicrositeSourceReport();
   }
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.cdr.detectChanges();
+    });
   }
 
   sortColumn(data) {
@@ -167,8 +172,8 @@ export class MicrositeLayoutsComponent implements OnInit {
       },
     ];
     this.avaible = true;
-    this.dataSource = new MatTableDataSource(websiteData);
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.data = websiteData;
+    this.cdr.detectChanges();
     this.loading = false;
   }
 }

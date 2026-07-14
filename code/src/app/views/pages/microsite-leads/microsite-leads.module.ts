@@ -15,6 +15,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTableExporterModule } from 'mat-table-exporter';
 import { MatSelectModule } from '@angular/material/select'; 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +40,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 		MatSelectModule,
 		MatFormFieldModule,
 		MatInputModule,
+		MatCardModule,
+		MatProgressSpinnerModule,
+		MatButtonModule,
+		MatIconModule,
 		MatDatepickerModule,
 		MatNativeDateModule,
 		NgxPrintModule,

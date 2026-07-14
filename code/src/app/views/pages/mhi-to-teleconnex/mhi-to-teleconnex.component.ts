@@ -115,13 +115,8 @@ export class MHIToTeleconnexComponent implements OnInit {
 
           this.avaible = true;
           this.loading = false;
-        } else {
-          this.message =
-            "Something went wrong, please contact the administrator";
-          this.apiresposne = "";
-          this.avaible = true;
-          this.loading = false;
         }
+        this.cdr.markForCheck();
         // Main page
       },
       (error) => {

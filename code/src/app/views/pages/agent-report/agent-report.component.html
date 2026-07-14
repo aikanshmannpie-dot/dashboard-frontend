@@ -1,331 +1,292 @@
-<div class="pageContainer">
-  <div class="pageTopBar">
-    <h2 style="padding: 10px 0px; float: left">Report By Agent</h2>
-    <button class="calendarBtn" (click)="searchButton()">
-      <img src="assets/images/calendar.svg" />
-    </button>
-    <div
-      class="searchBox"
-      [ngClass]="search ? 'searchBoxHide' : 'searchBoxShow'"
-    >
-      <div ngbDropdown class="dropdown searcBar">
-        <h3>
-          Search Agent Report
-          <button (click)="searchButton()" class="closeBtbn">
-            <img src="assets/images/close.svg" />
-          </button>
-        </h3>
-        <input
-          type="text"
-          class="btn btn-default dropdown-toggle"
-          ngxDaterangepickerMd
-          startKey="start"
-          endKey="end"
-          [(ngModel)]="model1"
-        />
-        <input
-          type="text"
-          class="btn btn-default dropdown-toggle"
-          ngxDaterangepickerMd
-          startKey="start"
-          endKey="end"
-          [ranges]="ranges"
-          [(ngModel)]="model1"
-        />
-        <select
-          class="form-control dropdown-select-box"
-          (change)="ChangingValue($event)"
-          *ngIf="report_type == 2"
-        >
-          <option value="undefined">All</option>
-          <option
-            *ngFor="let item of callcenterListingData"
-            value="{{ item.id }}"
-          >
-            <div *ngIf="item.name != null">{{ item.name }}</div>
-          </option>
-        </select>
-        <button
-          class="btn btn-default dropdown-toggle"
-          id="ddllogout"
-          type="button"
-          (click)="searchRange()"
-          [disabled]="loading"
-        >
-          Search
+<div class="dash-page-container">
+
+  <!-- ══════════════════════════════════════════
+       FILTER AND HEADER CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="filter-card">
+    <mat-card-header class="filter-card-header">
+      <div class="filter-card-title-row">
+        <mat-card-title class="dash-title">Report By Agent</mat-card-title>
+        <mat-card-subtitle class="dash-subtitle">Analyze performance metrics and conversion breakdown by individual call center agents</mat-card-subtitle>
+      </div>
+
+      <!-- Action Toggle button (Mobile calendar trigger) -->
+      <button mat-icon-button (click)="searchButton()" class="mobile-calendar-btn" aria-label="Search filter">
+        <mat-icon>calendar_month</mat-icon>
+      </button>
+
+      <!-- Search Filters Inline Row -->
+      <div class="filter-form-row" [class.filter-form-row--show]="!search">
+        <!-- Date Range Picker Field -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--date">
+          <mat-label>Date Range</mat-label>
+          <input
+            matInput
+            ngxDaterangepickerMd
+            startKey="start"
+            endKey="end"
+            [ranges]="ranges"
+            [showCustomRangeLabel]="true"
+            [alwaysShowCalendars]="true"
+            [(ngModel)]="model1"
+            placeholder="Select date range"
+          />
+          <mat-icon matSuffix>date_range</mat-icon>
+        </mat-form-field>
+
+        <!-- Call Center Dropdown selector (conditional) -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--callcenter" *ngIf="report_type == '2'">
+          <mat-label>Call Center</mat-label>
+          <select matNativeControl (change)="ChangingValue($event)">
+            <option value="undefined">All</option>
+            <option *ngFor="let item of callcenterListingData" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+        </mat-form-field>
+
+        <!-- Apply Filters Button -->
+        <button mat-flat-button color="accent" class="filter-search-btn" (click)="searchRange(); searchButton()" [disabled]="loading">
+          <mat-icon>search</mat-icon>
+          <span>Search</span>
         </button>
       </div>
-    </div>
-  </div>
+    </mat-card-header>
+  </mat-card>
 
-  <div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
-    <button class="downloadIconBtn" (click)="downloadButton()">
-      <img src="assets/images/download.svg" />
-    </button>
-    <div
-      class="downloadBtnsBox"
-      [ngClass]="download ? 'webDownloadBtns' : 'mobileDownloadBtns'"
-    >
-      <button
-        class="btn btn-default dropdown-toggle"
-        id="ddllogout"
-        type="button"
-        (click)="
-          exporter.exportTable('csv', {
-            fileName: 'Acquirely  Dashboard '
-          })
-        "
-      >
-        <img src="assets/images/csv.svg" /> CSV
-      </button>
-      <button
-        class="btn btn-default dropdown-toggle"
-        id="ddllogout"
-        type="button"
-        (click)="pdf.saveAs('Acquirely  Dashboard.pdf')"
-      >
-        <img src="assets/images/pdf.svg" /> PDF
-      </button>
-      <button
-        class="btn btn-default dropdown-toggle"
-        id="ddllogout"
-        type="button"
-        [useExistingCss]="true"
-        printSectionId="pdfTable"
-        ngxPrint
-      >
-        <img src="assets/images/print.svg" /> Print
-      </button>
-      <button
-        class="btn btn-default dropdown-toggle"
-        id="ddllogout"
-        type="button"
-        (click)="
-          exporter.exportTable('xls', {
-            fileName: 'Acquirely  Dashboard '
-          })
-        "
-      >
-        <img src="assets/images/excel.svg" /> Excel
-      </button>
-    </div>
-    <div fxLayout fxLayoutAlign="right right" class="div-right-align">
-      <mat-form-field fxFlex="40%">
-        <input
-          matInput
-          type="text"
-          (keyup)="doFilter($event.target.value)"
-          placeholder="Search:"
-        />
-      </mat-form-field>
-    </div>
-  </div>
-
-  <div class="mat-table__wrapper agentReportTable" id="pdfTable" #pdfTable>
-    <kendo-pdf-export #pdf margin="2cm">
-      <table
-        mat-table
-        class="lmat-elevation-z8"
-        multiTemplateDataRows
-        [dataSource]="dataSource"
-        matTableExporter
-        #exporter="matTableExporter"
-        #table
-        matSort
-				#matSort="matSort"
-				matSortActive="id"
-				matSortDirection="asc"
-				matSortDisableClear
-			
-				(matSortChange)="sortColumn($event)"
-      >
-        <ng-container matColumnDef="Sr.No">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Sr.No</th>
-          <td
-            mat-cell
-            *matCellDef="let element; let j = dataIndex"
-            class="hideColumn"
-          >
-            {{ j + 1 }}
-            <span class="d-print-none">Sr.No</span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="agentname">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Agent Id</th>
-          <td mat-cell *matCellDef="let element" class="firstCellCollumn">
-            {{ element.agentname }}
-            <span class="d-print-none">Agent Id</span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Agent Name</th>
-          <td mat-cell *matCellDef="let element" class="secondCellCollumn">
-            {{ element.name }}
-            <span class="d-print-none">Agent Name</span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="slackname">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Slack Name</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.slackname }}
-            <span class="d-print-none">Slack Name</span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="totalcountuniq">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Unique Leads</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.totalcountuniq }}
-            <span class="d-print-none">Unique Leads</span>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="totalrevenue">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Revenue($)</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.totalrevenue }}
-            <span class="d-print-none">Total Revenue($)</span>
-          </td>
-        </ng-container>
-
-        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-        <ng-container matColumnDef="expandedDetail">
-          <td
-            mat-cell
-            *matCellDef="let element"
-            [attr.colspan]="displayedColumns.length"
-          >
-            <div
-              class="example-element-detail"
-              [@detailExpand]="
-                element == expandedElement ? 'expanded' : 'collapsed'
-              "
-            >
-              <div
-                class="example-element-description"
-                *ngIf="element.campArray.length != 0"
-              >
-                <table id="expandableTable" class="lmat-elevation-z8">
-                  <thead>
-                    <tr>
-                      <th>Campaign Name</th>
-                      <th>Unique Leads</th>
-                      <th>Total Revenue($)</th>
-                      <!-- <th>Total Leads</th> -->
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let columnNested of element.campArray">
-                      <td>
-                        {{ columnNested.campaign_name }}
-                      </td>
-                      <td>
-                        {{ columnNested.totalcountuniq }}
-                      </td>
-                      <td>
-                        {{ columnNested.totalrevenue }}
-                      </td>
-                      <!-- <td>{{ columnNested.signup }}</td> -->
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+  <!-- ══════════════════════════════════════════
+       DATA TABLE REPORT CARD
+       ══════════════════════════════════════════ -->
+  <div class="row" *ngIf="avaible || loading">
+    <div class="col-12">
+      <mat-card class="dash-mat-card table-card top-border-10">
+        <mat-card-header class="table-card-header">
+          <mat-card-title class="card-chart-title">Agent Records</mat-card-title>
+          <mat-card-subtitle class="card-subtitle mt-1 text-muted">Showing conversion count, unique leads and revenue by agent</mat-card-subtitle>
+          
+          <!-- Action panel containing search and export triggers -->
+          <div class="table-actions-row">
+            <div class="export-buttons-group">
+              <button mat-stroked-button (click)="exporter.exportTable('csv', { fileName: 'Agent_Report' })">
+                <mat-icon>save_alt</mat-icon> CSV
+              </button>
+              <button mat-stroked-button (click)="pdf.saveAs('Agent_Report.pdf')">
+                <mat-icon>picture_as_pdf</mat-icon> PDF
+              </button>
+              <button mat-stroked-button [useExistingCss]="true" printSectionId="pdfTable" ngxPrint>
+                <mat-icon>print</mat-icon> Print
+              </button>
+              <button mat-stroked-button (click)="exporter.exportTable('xls', { fileName: 'Agent_Report' })">
+                <mat-icon>table_view</mat-icon> Excel
+              </button>
             </div>
-          </td>
-        </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr
-          mat-row
-          *matRowDef="let element; columns: displayedColumns"
-          class="example-element-row"
-          [class.example-expanded-row]="expandedElement === element"
-          (click)="
-            expandedElement = expandedElement === element ? null : element
-          "
-        ></tr>
-        <tr
-          mat-row
-          *matRowDef="let row; columns: ['expandedDetail']"
-          class="example-detail-row"
-        ></tr>
-      </table>
+            <!-- Search Filter Field -->
+            <mat-form-field appearance="outline" class="table-search-field">
+              <mat-label>Filter records</mat-label>
+              <input
+                matInput
+                type="text"
+                (keyup)="doFilter($event.target.value)"
+                placeholder="Search table..."
+              />
+              <mat-icon matSuffix>filter_list</mat-icon>
+            </mat-form-field>
+          </div>
+        </mat-card-header>
 
-      <table
-        mat-table
-        style="display: none"
-        class="mat-elevation-z8 sec-mat-tab"
-        matTableExporter
-        #table
-        [dataSource]="dataSourceExport"
-        #exporter="matTableExporter"
-        multiTemplateDataRows
-      >
-        <ng-container matColumnDef="agentname">
-          <th mat-header-cell *matHeaderCellDef>Agent Id</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.agentname }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Agent Name</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.name }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="slackname">
-          <th mat-header-cell *matHeaderCellDef>Slack Name</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.slackname }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="campaign_name">
-          <th mat-header-cell *matHeaderCellDef>Campaign Name</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.campaign_name }}
-          </td>
-        </ng-container>
+        <mat-card-content class="table-card-content position-relative">
+          <!-- Loading Overlay -->
+          <div *ngIf="loading" class="loader-overlay">
+            <mat-spinner diameter="45"></mat-spinner>
+            <span class="loader-text">Loading agent records...</span>
+          </div>
 
-        <ng-container matColumnDef="totalcountuniq">
-          <th mat-header-cell *matHeaderCellDef>Unique Leads</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.totalcountuniq }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="totalrevenue">
-          <th mat-header-cell *matHeaderCellDef>Total Revenue($)</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.totalrevenue }}
-          </td>
-        </ng-container>
+          <div class="mat-table__wrapper agentReportTable" id="pdfTable" #pdfTable>
+            <kendo-pdf-export #pdf margin="2cm">
+              <table
+                mat-table
+                class="lmat-elevation-z8"
+                multiTemplateDataRows
+                [dataSource]="dataSource"
+                matTableExporter
+                #exporter="matTableExporter"
+                #table
+                matSort
+                #matSort="matSort"
+                matSortActive="id"
+                matSortDirection="asc"
+                matSortDisableClear
+                (matSortChange)="sortColumn($event)"
+              >
+                <!-- Sr.No Column -->
+                <ng-container matColumnDef="Sr.No">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Sr.No</th>
+                  <td mat-cell *matCellDef="let element; let j = dataIndex" class="hideColumn">
+                    {{ j + 1 }}
+                    <span class="d-print-none">Sr.No</span>
+                  </td>
+                </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumnsNested"></tr>
-        <tr
-          mat-row
-          *matRowDef="let element; columns: displayedColumnsNested"
-          class="example-element-row"
-          [class.example-expanded-row]="expandedElement === element"
-          (click)="
-            expandedElement = expandedElement === element ? null : element
-          "
-        ></tr>
-      </table>
-    </kendo-pdf-export>
-    <div class="mat-table__message" *ngIf="areNoRecords && !loading">
-      No records found
+                <!-- Agent Id Column -->
+                <ng-container matColumnDef="agentname">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Agent Id</th>
+                  <td mat-cell *matCellDef="let element" class="firstCellCollumn">
+                    {{ element.agentname }}
+                    <span class="d-print-none">Agent Id</span>
+                  </td>
+                </ng-container>
+
+                <!-- Agent Name Column -->
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Agent Name</th>
+                  <td mat-cell *matCellDef="let element" class="secondCellCollumn">
+                    {{ element.name }}
+                    <span class="d-print-none">Agent Name</span>
+                  </td>
+                </ng-container>
+
+                <!-- Slack Name Column -->
+                <ng-container matColumnDef="slackname">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Slack Name</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.slackname }}
+                    <span class="d-print-none">Slack Name</span>
+                  </td>
+                </ng-container>
+
+                <!-- Unique Leads Column -->
+                <ng-container matColumnDef="totalcountuniq">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Unique Leads</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.totalcountuniq }}
+                    <span class="d-print-none">Unique Leads</span>
+                  </td>
+                </ng-container>
+
+                <!-- Total Revenue Column -->
+                <ng-container matColumnDef="totalrevenue">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Revenue($)</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.totalrevenue }}
+                    <span class="d-print-none">Total Revenue($)</span>
+                  </td>
+                </ng-container>
+
+                <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+                <ng-container matColumnDef="expandedDetail">
+                  <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                    <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                      <div class="example-element-description w-100" *ngIf="element.campArray.length != 0">
+                        <table id="expandableTable" class="table table-bordered mb-0">
+                          <thead>
+                            <tr>
+                              <th>Campaign Name</th>
+                              <th>Unique Leads</th>
+                              <th>Total Revenue($)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let columnNested of element.campArray">
+                              <td>{{ columnNested.campaign_name }}</td>
+                              <td>{{ columnNested.totalcountuniq }}</td>
+                              <td>{{ columnNested.totalrevenue }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let element; columns: displayedColumns"
+                  class="example-element-row animate-row"
+                  [class.example-expanded-row]="expandedElement === element"
+                  (click)="expandedElement = expandedElement === element ? null : element"
+                ></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: ['expandedDetail']"
+                  class="example-detail-row"
+                ></tr>
+              </table>
+
+              <!-- Hidden Table for Exporter -->
+              <table
+                mat-table
+                style="display: none"
+                class="mat-elevation-z8 sec-mat-tab"
+                matTableExporter
+                #table
+                [dataSource]="dataSourceExport"
+                #exporter="matTableExporter"
+                multiTemplateDataRows
+              >
+                <ng-container matColumnDef="agentname">
+                  <th mat-header-cell *matHeaderCellDef>Agent Id</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.agentname }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                  <th mat-header-cell *matHeaderCellDef>Agent Name</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.name }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="slackname">
+                  <th mat-header-cell *matHeaderCellDef>Slack Name</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.slackname }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="campaign_name">
+                  <th mat-header-cell *matHeaderCellDef>Campaign Name</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.campaign_name }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="totalcountuniq">
+                  <th mat-header-cell *matHeaderCellDef>Unique Leads</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.totalcountuniq }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="totalrevenue">
+                  <th mat-header-cell *matHeaderCellDef>Total Revenue($)</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.totalrevenue }}
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsNested"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let element; columns: displayedColumnsNested"
+                  class="example-element-row"
+                  [class.example-expanded-row]="expandedElement === element"
+                  (click)="expandedElement = expandedElement === element ? null : element"
+                ></tr>
+              </table>
+            </kendo-pdf-export>
+            
+            <div class="mat-table__message text-center py-4 my-2 text-muted" *ngIf="areNoRecords && !loading">
+              No records found
+            </div>
+          </div>
+
+          <div class="mat-table__bottom clean-paginator mt-3">
+            <mat-paginator
+              [pageSize]="10"
+              [pageSizeOptions]="[10, 20, 25, 100]"
+              [showFirstLastButtons]="true"
+            ></mat-paginator>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
   </div>
-
-  <div class="mat-table__bottom">
-    <mat-paginator
-      [pageSize]="10"
-      [pageSizeOptions]="[10, 20, 25, 100]"
-      [showFirstLastButtons]="true"
-    ></mat-paginator>
-  </div>
-</div>
-<div *ngIf="loading" style="text-align: center">
-  <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
 </div>

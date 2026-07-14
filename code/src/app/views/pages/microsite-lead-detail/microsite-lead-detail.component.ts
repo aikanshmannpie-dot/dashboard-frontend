@@ -24,7 +24,7 @@ export class MicrositeLeadDetailComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   displayedColumns: string[] = [
     "payload",
@@ -44,8 +44,11 @@ export class MicrositeLeadDetailComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    setTimeout(() => {
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      this.cdr.detectChanges();
+    });
   }
 
   sortColumn(data) {
@@ -58,7 +61,9 @@ export class MicrositeLeadDetailComponent implements OnInit {
       finalize(() => {
         this.avaible = true;
         this.loading = false;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       })
     ).subscribe(
       (data) => {
@@ -67,7 +72,7 @@ export class MicrositeLeadDetailComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
       }
     );
   }

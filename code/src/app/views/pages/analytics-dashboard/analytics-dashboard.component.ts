@@ -61,14 +61,19 @@ export class AnalyticsDashboardComponent implements OnInit {
             Highcharts.chart("ageGraph", {
               chart: {
                 type: "pie",
+                backgroundColor: "transparent",
+                style: {
+                  fontFamily: "'Inter', sans-serif"
+                },
                 options3d: {
                   enabled: true,
                   alpha: 45,
                   beta: 0,
                 },
               },
+              colors: ["#6366f1", "#06b6d4", "#10b981", "#ec4899", "#f59e0b", "#8b5cf6"],
               title: {
-                text: "Acquirely Age wise spread",
+                text: "",
               },
               tooltip: {
                 pointFormat: "{point.name}:<b>{point.y:.1f}%</b>",
@@ -145,14 +150,19 @@ export class AnalyticsDashboardComponent implements OnInit {
             Highcharts.chart("genderGraph", {
               chart: {
                 type: "pie",
+                backgroundColor: "transparent",
+                style: {
+                  fontFamily: "'Inter', sans-serif"
+                },
                 options3d: {
                   enabled: true,
                   alpha: 45,
                   beta: 0,
                 },
               },
+              colors: ["#6366f1", "#ec4899"],
               title: {
-                text: "Acquirely Gender wise report",
+                text: "",
               },
               tooltip: {
                 pointFormat: "{point.name}:<b>{point.y:.1f}%</b>",
@@ -216,10 +226,15 @@ export class AnalyticsDashboardComponent implements OnInit {
             );
             Highcharts.chart("repeatWeekly", {
               chart: {
-                type: "line",
+                type: "areaspline",
+                backgroundColor: "transparent",
+                style: {
+                  fontFamily: "'Inter', sans-serif"
+                }
               },
+              colors: ["#ec4899", "#94a3b8"],
               title: {
-                text: "Acquirely Repeat signups per week",
+                text: "",
               },
               xAxis: {
                 categories: res.apiData.map((x: { date: any }) => {
@@ -235,7 +250,15 @@ export class AnalyticsDashboardComponent implements OnInit {
                 {
                   name: "Repeat signups per week",
                   data: seriesData,
-                  type: undefined,
+                  type: "areaspline",
+                  color: "#ec4899",
+                  fillColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                      [0, "rgba(236, 72, 153, 0.4)"],
+                      [1, "rgba(236, 72, 153, 0)"]
+                    ]
+                  }
                 },
                 {
                   name: "average",
@@ -243,8 +266,9 @@ export class AnalyticsDashboardComponent implements OnInit {
                     (x) =>
                       seriesData.reduce((a, b) => a + b) / seriesData.length
                   ),
-                  type: undefined,
-                  lineColor: "red",
+                  type: "line",
+                  color: "#94a3b8",
+                  dashStyle: "Dash" as any
                 },
               ],
               credits: {
@@ -275,10 +299,15 @@ export class AnalyticsDashboardComponent implements OnInit {
             );
             Highcharts.chart("activeMonthly", {
               chart: {
-                type: "line",
+                type: "areaspline",
+                backgroundColor: "transparent",
+                style: {
+                  fontFamily: "'Inter', sans-serif"
+                }
               },
+              colors: ["#10b981", "#94a3b8"],
               title: {
-                text: "Acquirely Month wise unique active users",
+                text: "",
               },
               xAxis: {
                 categories: res.apiData.map((x: { date: any }) => {
@@ -294,7 +323,15 @@ export class AnalyticsDashboardComponent implements OnInit {
                 {
                   name: "Month wise unique active users",
                   data: seriesData,
-                  type: undefined,
+                  type: "areaspline",
+                  color: "#10b981",
+                  fillColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                      [0, "rgba(16, 185, 129, 0.4)"],
+                      [1, "rgba(16, 185, 129, 0)"]
+                    ]
+                  }
                 },
                 {
                   name: "average",
@@ -302,8 +339,9 @@ export class AnalyticsDashboardComponent implements OnInit {
                     (x) =>
                       seriesData.reduce((a, b) => a + b) / seriesData.length
                   ),
-                  type: undefined,
-                  lineColor: "red",
+                  type: "line",
+                  color: "#94a3b8",
+                  dashStyle: "Dash" as any
                 },
               ],
               credits: {
@@ -334,10 +372,15 @@ export class AnalyticsDashboardComponent implements OnInit {
             );
             Highcharts.chart("activeLastWeek", {
               chart: {
-                type: "line",
+                type: "areaspline",
+                backgroundColor: "transparent",
+                style: {
+                  fontFamily: "'Inter', sans-serif"
+                }
               },
+              colors: ["#06b6d4", "#94a3b8"],
               title: {
-                text: "Acquirely Weekly Unique active users",
+                text: "",
               },
               xAxis: {
                 categories: res.apiData.map((x: { date: any }) => {
@@ -353,7 +396,15 @@ export class AnalyticsDashboardComponent implements OnInit {
                 {
                   name: "Weekly Unique active users",
                   data: seriesData,
-                  type: undefined,
+                  type: "areaspline",
+                  color: "#06b6d4",
+                  fillColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                      [0, "rgba(6, 182, 212, 0.4)"],
+                      [1, "rgba(6, 182, 212, 0)"]
+                    ]
+                  }
                 },
                 {
                   name: "Average",
@@ -361,8 +412,9 @@ export class AnalyticsDashboardComponent implements OnInit {
                     (x) =>
                       seriesData.reduce((a, b) => a + b) / seriesData.length
                   ),
-                  type: undefined,
-                  lineColor: "red",
+                  type: "line",
+                  color: "#94a3b8",
+                  dashStyle: "Dash" as any
                 },
               ],
               credits: {
@@ -401,6 +453,10 @@ export class AnalyticsDashboardComponent implements OnInit {
               {
                 chart: {
                   type: "funnel3d",
+                  backgroundColor: "transparent",
+                  style: {
+                    fontFamily: "'Inter', sans-serif"
+                  },
                   animation: {
                     duration: 3000,
                     defer: 100,
@@ -412,8 +468,9 @@ export class AnalyticsDashboardComponent implements OnInit {
                     viewDistance: 50,
                   },
                 },
+                colors: ["#6366f1", "#06b6d4", "#10b981", "#ec4899"],
                 title: {
-                  text: "Unique Leads",
+                  text: "",
                 },
                 plotOptions: {
                   funnel3d: {

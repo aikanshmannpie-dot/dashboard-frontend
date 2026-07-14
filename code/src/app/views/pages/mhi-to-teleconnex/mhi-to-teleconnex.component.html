@@ -1,47 +1,71 @@
-<div class="pageContainer">
-  <div class="pageTopBar">
-    <h2 style="padding: 10px 0px; float: left">
-      Lead Conversion Summary Report
-    </h2>
-    <div ngbDropdown class="dropdown searcBar threeColumn">
-      <div>
-        <input
-          type="text"
-          class="btn btn-default dropdown-toggle date-select-box"
-          ngxDaterangepickerMd
-          startKey="start"
-          endKey="end"
-          [(ngModel)]="model1"
-        />
-        <input
-          type="text"
-          class="btn btn-default dropdown-toggle date-select-box"
-          ngxDaterangepickerMd
-          startKey="start"
-          endKey="end"
-          [ranges]="ranges"
-          [(ngModel)]="model1"
-        />
-      </div>
-      <button
-        style="margin-left: 5px"
-        class="btn btn-default dropdown-toggle"
-        id="ddllogout"
-        type="button"
-        (click)="searchRange()"
-        [disabled]="!this.model1?.start || !this.model1?.end"
-      >
-        Download
-      </button>
+<div class="dash-page-container">
+    <div class="dash-title-row">
+        <h1 class="dash-title">Lead Conversion Summary</h1>
+        <p class="dash-subtitle">Export Lead Conversion reports within selected date ranges</p>
     </div>
-  </div>
 
-  <div *ngIf="loading" style="text-align: center">
-    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
-  </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-sm-12 col-md-8 col-lg-6">
+            <mat-card class="dash-mat-card top-border-5">
+                <mat-card-header class="chart-card-header d-block">
+                    <mat-card-title class="card-chart-title">Export Settings</mat-card-title>
+                    <mat-card-subtitle class="card-subtitle mt-1 text-muted">Choose a date range to generate and download the CSV report</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content class="chart-card-content p-4">
+                    
+                    <div class="form-group mb-4">
+                        <label class="form-label d-block mb-2">Select Date Range</label>
+                        <div class="date-picker-input-wrapper">
+                            <mat-icon class="calendar-icon">calendar_today</mat-icon>
+                            <input
+                                type="text"
+                                class="form-control date-select-input"
+                                ngxDaterangepickerMd
+                                startKey="start"
+                                endKey="end"
+                                [ranges]="ranges"
+                                [showCustomRangeLabel]="true"
+                                [alwaysShowCalendars]="true"
+                                [(ngModel)]="model1"
+                                placeholder="Click to select date range"
+                            />
+                        </div>
+                    </div>
 
-  <div style="text-align: center">
-    <h3>{{ message }}</h3>
-    <span>{{ apiresposne }}</span>
-  </div>
+                    <div class="d-grid mt-4">
+                        <button
+                            mat-raised-button
+                            color="primary"
+                            class="download-btn w-100 py-2"
+                            (click)="searchRange()"
+                            [disabled]="!this.model1?.start || !this.model1?.end"
+                        >
+                            <mat-icon class="mr-1">cloud_download</mat-icon>
+                            Download Report
+                        </button>
+                    </div>
+
+                    <!-- Loading Overlay -->
+                    <div *ngIf="loading" class="loader-overlay">
+                        <mat-spinner diameter="45"></mat-spinner>
+                        <span class="loader-text mt-2">Exporting data, please wait...</span>
+                    </div>
+
+                    <!-- Status Response Area -->
+                    <div class="status-response-area mt-4" *ngIf="message || apiresposne">
+                        <div class="alert" [ngClass]="apiresposne ? 'alert-warning' : 'alert-success'">
+                            <div class="d-flex align-items-center">
+                                <mat-icon class="status-icon mr-2">{{ apiresposne ? 'warning' : 'check_circle' }}</mat-icon>
+                                <div>
+                                    <h4 class="alert-heading mb-1">{{ message }}</h4>
+                                    <p class="mb-0 text-muted" *ngIf="apiresposne">{{ apiresposne }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
 </div>

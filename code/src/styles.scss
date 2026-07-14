@@ -24,8 +24,118 @@
 
 // Ensure daterangepicker popup sits on top of all other page components
 .md-drppicker {
+  position: absolute !important;
   z-index: 100000 !important;
+  width: 680px !important;
+  min-width: 680px !important;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
   border: 1px solid rgba(0, 0, 0, 0.08) !important;
   border-radius: 8px !important;
+  background-color: #ffffff !important;
+  font-family: 'Inter', sans-serif !important;
+  padding: 8px !important;
+
+  .ranges {
+    float: left !important;
+    width: 130px !important;
+    text-align: left;
+    margin-right: 8px !important;
+
+    ul {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      width: 100%;
+
+      li {
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 13px;
+        white-space: nowrap;
+        transition: background-color 0.12s ease;
+
+        &:hover,
+        &.active {
+          background-color: #6366f1 !important;
+          color: #fff !important;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+
+  .calendar {
+    float: left !important;
+    max-width: 260px !important;
+    padding: 4px !important;
+
+    &.left,
+    &.right {
+      float: left !important;
+    }
+
+    .calendar-table {
+      padding: 0 !important;
+    }
+
+    td.day, th {
+      height: 28px !important;
+      line-height: 28px !important;
+      width: 28px !important;
+      font-size: 12px !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+// Mobile responsive overrides for datepicker to prevent screen height/width overflow
+@media (max-width: 768px) {
+  .md-drppicker {
+    width: calc(100vw - 32px) !important;
+    min-width: 280px !important;
+    max-width: 340px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 12px !important;
+    left: 16px !important;
+    right: 16px !important;
+    margin: 0 auto !important;
+
+    .ranges {
+      width: 100% !important;
+      float: none !important;
+      margin-bottom: 12px !important;
+
+      ul {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+
+        li {
+          flex: 1 1 calc(50% - 6px) !important;
+          text-align: center !important;
+          padding: 8px !important;
+          font-size: 12px !important;
+        }
+      }
+    }
+
+    .calendar {
+      float: none !important;
+      max-width: 100% !important;
+      margin: 0 !important;
+
+      &.right {
+        display: none !important; // Hide second calendar month to prevent screen height overflow
+      }
+    }
+
+    .buttons {
+      display: flex !important;
+      justify-content: flex-end !important;
+      gap: 8px !important;
+      margin-top: 10px !important;
+      clear: both !important;
+    }
+  }
 }
