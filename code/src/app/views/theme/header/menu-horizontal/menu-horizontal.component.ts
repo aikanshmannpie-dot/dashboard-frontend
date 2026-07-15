@@ -223,7 +223,11 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
       return false;
     }
 
-    return this.currentRouteUrl.indexOf(item.page) !== -1;
+    const currentUrl = this.router.url;
+    const currentPath = currentUrl.split('?')[0].split('#')[0];
+    const itemPath = item.page.split('?')[0].split('#')[0];
+
+    return currentPath === itemPath;
   }
 
   /**

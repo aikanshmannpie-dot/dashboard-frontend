@@ -1,7 +1,7 @@
 <!-- begin: Header -->
 <div ktHeader #ktHeader class="kt-header kt-grid__item" [ngClass]="htmlClassService.getClasses('header', true)" id="kt_header">
 	<ngb-progressbar class="kt-loading-bar" *ngIf="(loader.progress$|async) > 0" [value]="loader.progress$|async" height="3px"></ngb-progressbar>
-	<div class="kt-header__top" style="background-color:#383e5f;">
+	<div class="kt-header__top" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);">
 		<div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
 			<!-- begin:: Brand -->
 			<kt-brand></kt-brand>

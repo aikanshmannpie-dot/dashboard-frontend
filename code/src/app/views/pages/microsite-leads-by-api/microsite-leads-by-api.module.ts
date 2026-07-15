@@ -3,6 +3,11 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
 // Core Module
 import { CoreModule } from '../../../core/core.module';
 import { PartialsModule } from '../../partials/partials.module';
@@ -31,6 +36,11 @@ import {NgxPrintModule} from 'ngx-print';
 		MatSortModule,
 		MatFormFieldModule,
 		MatInputModule,
+		MatCardModule,
+		MatButtonModule,
+		MatIconModule,
+		MatSelectModule,
+		MatChipsModule,
 		NgxPrintModule,
 		PDFExportModule,
 		FormsModule, 

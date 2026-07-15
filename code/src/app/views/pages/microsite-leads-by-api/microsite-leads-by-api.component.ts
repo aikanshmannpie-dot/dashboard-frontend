@@ -54,7 +54,7 @@ export class MicrositeLeadsByApiComponent implements OnInit {
   @ViewChild("content", { static: true }) content: ElementRef;
 
   @ViewChild("pdfTable", { static: false }) pdfTable: ElementRef;
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   displayedColumns: string[] = [
     "name",
@@ -178,26 +178,30 @@ export class MicrositeLeadsByApiComponent implements OnInit {
   }
 
   getSiteNameList() {
-    this.auth.getSiteNameList().subscribe(
-      (data) => {
-        if (data) {
-          this.siteListingData = data.data.sort((a, b) =>
-            a.name.localeCompare(b.name)
-          );
-        } else {
+    this.auth.getSiteNameList()
+      .pipe(
+        finalize(() => {
+          this.avaible = true;
+          this.loading = false;
+          if (this.dataSource) {
+            this.dataSource.paginator = this.paginator;
+          }
+          this.cdr.markForCheck();
+        })
+      )
+      .subscribe(
+        (data) => {
+          if (data) {
+            this.siteListingData = data.data.sort((a, b) =>
+              a.name.localeCompare(b.name)
+            );
+          }
+        },
+        (error) => {
+          this.loading = false;
+          this.cdr.markForCheck();
         }
-      },
-      (error) => {
-        this.loading = false;
-        this.cdr.markForCheck();
-      }
-    ),
-      finalize(() => {
-        this.avaible = true;
-        this.loading = false;
-        this.dataSource.paginator = this.paginator;
-        this.cdr.markForCheck();
-      });
+      );
   }
 
   ChangingValue(data) {
@@ -212,26 +216,28 @@ export class MicrositeLeadsByApiComponent implements OnInit {
 
     this.auth
       .getLeadsAccordingToApiClient(start, end, this.siteName)
+      .pipe(
+        finalize(() => {
+          this.avaible = true;
+          this.loading = false;
+          if (this.dataSource) {
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+          }
+          this.cdr.markForCheck();
+        })
+      )
       .subscribe(
         (data) => {
           if (data) {
-            this.avaible = true;
             this.dataSource = new MatTableDataSource(data.apiData);
             this.dataSource1 = data.body;
-            this.dataSource.paginator = this.paginator;
-            this.loading = false;
           }
         },
         (error) => {
           this.loading = false;
           this.cdr.markForCheck();
         }
-      ),
-      finalize(() => {
-        this.avaible = true;
-        this.loading = false;
-        this.dataSource.paginator = this.paginator;
-        this.cdr.markForCheck();
-      });
+      );
   }
 }

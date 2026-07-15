@@ -85,7 +85,8 @@
 <!-- item inner -->
 <ng-template #menuItemInnerTemplate let-item="item" let-parentItem="parentItem">
 	<!-- if menu item has icon -->
-	<i *ngIf="item.icon" class="kt-menu__link-icon" [ngClass]="item.icon"></i>
+	<i *ngIf="item.icon && !item.icon.startsWith('mat:')" class="kt-menu__link-icon" [ngClass]="item.icon"></i>
+	<mat-icon *ngIf="item.icon && item.icon.startsWith('mat:')" class="kt-menu__link-icon-mat">{{item.icon.split(':')[1]}}</mat-icon>
 
 	<ng-container *ngIf="!item.icon">
 		<!-- if menu item using bullet -->

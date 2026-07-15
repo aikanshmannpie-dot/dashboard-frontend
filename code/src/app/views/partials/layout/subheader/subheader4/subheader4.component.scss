@@ -1,5 +1,112 @@
-:host {
-	.kt-subheader__desc {
-		margin: 0;
-	}
+// ─────────────────────────────────────────────────────────────────────────────
+//  Redesigned Subheader4 SCSS
+// ─────────────────────────────────────────────────────────────────────────────
+
+$accent-indigo:   #6366f1;
+$text-color:      #64748b;
+$border-color:    #e2e8f0;
+
+.kt-subheader {
+  background-color: transparent !important;
+  border-bottom: 1px solid transparent !important;
+  padding: 12px 0 !important;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+.kt-subheader__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+}
+
+// ── Breadcrumb Navigation ────────────────────────────────────────────────────
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .breadcrumb-home-link {
+    color: $text-color;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $accent-indigo;
+    }
+
+    mat-icon {
+      font-size: 1.15rem !important;
+      width: 1.15rem !important;
+      height: 1.15rem !important;
+    }
+  }
+
+  .breadcrumb-separator {
+    color: #cbd5e1;
+    font-size: 1rem !important;
+    width: 1rem !important;
+    height: 1rem !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .breadcrumb-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: $text-color;
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: $accent-indigo;
+    }
+
+    &--active {
+      color: #0f172a !important;
+      font-weight: 600;
+      pointer-events: none;
+    }
+  }
+}
+
+// ── Meta Segment ─────────────────────────────────────────────────────────────
+.subheader-meta-section {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid $border-color;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+
+  .meta-icon {
+    font-size: 0.95rem !important;
+    width: 0.95rem !important;
+    height: 0.95rem !important;
+    color: #94a3b8;
+  }
+
+  .meta-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #475569;
+  }
+}
+
+@media (max-width: 768px) {
+  .kt-subheader__wrapper {
+    justify-content: center;
+    text-align: center;
+  }
 }

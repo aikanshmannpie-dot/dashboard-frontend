@@ -43,6 +43,10 @@ export class MicrositeLeadReportByClientComponent implements OnInit {
     "This Month": [moment().startOf("month"), moment().endOf("month")],
     "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")],
   };
+  search = true;
+  searchButton() {
+    this.search = !this.search;
+  }
   constructor(private auth: AuthService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit() {
@@ -118,43 +122,126 @@ getLeadsOfClient() {
   Highcharts.chart({
     chart: {
       renderTo: "activeLastWeek",
-      type: "column", // <-- Changed from "bar" to "column"
+      type: "column",
+      style: {
+        fontFamily: "'Inter', sans-serif"
+      },
+      backgroundColor: 'transparent'
     },
     title: {
-      text: "Lead Counts by Client",
+      text: "Lead Distribution by API Client",
+      style: {
+        fontFamily: "'Inter', sans-serif",
+        fontSize: "16px",
+        fontWeight: "700",
+        color: "#0f172a"
+      }
+    },
+    subtitle: {
+      text: "Comparing accepted vs rejected lead metrics",
+      style: {
+        fontFamily: "'Inter', sans-serif",
+        fontSize: "12px",
+        color: "#64748b"
+      }
     },
     xAxis: {
       categories: categories,
-      title: { text: "Client" },
+      lineColor: '#e2e8f0',
+      tickColor: '#e2e8f0',
+      labels: {
+        style: {
+          fontFamily: "'Inter', sans-serif",
+          color: "#64748b",
+          fontSize: "11px"
+        }
+      },
+      title: {
+        text: "Client Name",
+        style: {
+          fontFamily: "'Inter', sans-serif",
+          color: "#475569",
+          fontWeight: "600",
+          fontSize: "12px"
+        }
+      }
     },
     yAxis: {
       min: 0,
-      title: { text: "Total Leads" },
+      gridLineColor: '#f1f5f9',
+      title: {
+        text: "Total Leads Count",
+        style: {
+          fontFamily: "'Inter', sans-serif",
+          color: "#475569",
+          fontWeight: "600",
+          fontSize: "12px"
+        }
+      },
+      labels: {
+        style: {
+          fontFamily: "'Inter', sans-serif",
+          color: "#64748b",
+          fontSize: "11px"
+        }
+      },
       stackLabels: {
         enabled: true,
-        style: { fontWeight: "bold", color: "gray" },
-      },
+        style: {
+          fontFamily: "'Inter', sans-serif",
+          fontWeight: "700",
+          color: "#334155"
+        }
+      }
     },
     legend: {
       reversed: true,
+      align: 'center',
+      verticalAlign: 'bottom',
+      itemStyle: {
+        fontFamily: "'Inter', sans-serif",
+        fontWeight: "500",
+        color: "#475569",
+        fontSize: "12px"
+      }
+    },
+    tooltip: {
+      shared: true,
+      useHTML: true,
+      backgroundColor: '#ffffff',
+      borderWidth: 1,
+      borderColor: 'rgba(99, 102, 241, 0.15)',
+      borderRadius: 8,
+      shadow: {
+        color: 'rgba(0, 0, 0, 0.05)',
+        offsetX: 0,
+        offsetY: 4,
+        opacity: 1,
+        width: 10
+      },
+      headerFormat: '<span style="font-size: 11px; color: #64748b; font-family: Inter; font-weight: 500;">{point.key}</span><br/>',
+      pointFormat: '<span style="color:{series.color}; font-size: 12px; margin-right: 4px;">●</span> <span style="font-family: Inter; font-weight: 500; color: #475569;">{series.name}:</span> <b style="font-family: Inter; color: #0f172a; font-weight: 600;">{point.y}</b><br/>'
     },
     plotOptions: {
-      series: {
+      column: {
         stacking: "normal",
-      },
+        borderRadius: 4,
+        borderWidth: 0,
+        maxPointWidth: 40
+      }
     },
     series: [
       {
         type: "column",
         name: "Rejected Leads",
         data: rejectedData,
-        color: "#e74c3c", // red
+        color: "#f43f5e", // Rose Red
       },
       {
         type: "column",
         name: "Accepted Leads",
         data: acceptedData,
-        color: "#27ae60", // green
+        color: "#10b981", // Emerald Green
       },
     ],
     credits: { enabled: false },

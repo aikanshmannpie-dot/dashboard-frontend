@@ -1,14 +1,4 @@
 import {
-  MatRippleModule
-} from "./chunk-OUCUV5ON.js";
-import {
-  MatRipple
-} from "./chunk-U2YHG2S6.js";
-import {
-  _StructuralStylesLoader
-} from "./chunk-MRRROKFJ.js";
-import "./chunk-ASZXGBLT.js";
-import {
   OverlayConfig,
   OverlayModule,
   createFlexibleConnectedPositionStrategy,
@@ -19,6 +9,16 @@ import {
   DomPortalOutlet,
   TemplatePortal
 } from "./chunk-J525EG5D.js";
+import {
+  MatRippleModule
+} from "./chunk-OUCUV5ON.js";
+import {
+  MatRipple
+} from "./chunk-U2YHG2S6.js";
+import {
+  _StructuralStylesLoader
+} from "./chunk-MRRROKFJ.js";
+import "./chunk-ASZXGBLT.js";
 import "./chunk-VON75VBJ.js";
 import "./chunk-PLJ2QXBA.js";
 import {

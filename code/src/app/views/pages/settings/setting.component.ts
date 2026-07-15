@@ -25,7 +25,7 @@ export class SettingComponent implements OnInit {
 
   constructor(private auth: AuthService, private cdr: ChangeDetectorRef) { }
 
-  onSwitchChange(item: any) {
+  onSwitchChange(event: any) {
     if (this.isChecked) {
       this.generateSecret();
     }
@@ -34,68 +34,71 @@ export class SettingComponent implements OnInit {
     this.checkMfaEnabled();
   }
   checkMfaEnabled() {
-    this.auth.checkMfaEnabled().subscribe(
-      (data) => {
-        this.loading = false;
-        this.settingInit = data;
-        if (data.message.ismfaactive) {
-          this.getQrCode();
+    this.loading = true;
+    this.auth.checkMfaEnabled()
+      .pipe(
+        finalize(() => {
+          this.avaible = true;
+          this.loading = false;
+          this.cdr.markForCheck();
+        })
+      )
+      .subscribe(
+        (data) => {
+          this.settingInit = data;
+          if (data && data.message && data.message.ismfaactive) {
+            this.getQrCode();
+          }
+        },
+        (error) => {
+          this.cdr.markForCheck();
         }
-      },
-      (error) => {
-        this.loading = false;
-        this.cdr.markForCheck();
-      }
-    ),
-      finalize(() => {
-        this.avaible = true;
-        this.loading = false;
-        this.cdr.markForCheck();
-      });
+      );
   }
   ngAfterViewInit(): void { }
 
   getQrCode() {
     this.gsLoading = true;
-    this.auth.getQrCode().subscribe(
-      (data) => {
-        this.gsLoading = false;
-        if (!data.error) {
-          this.settingInit = {
-            ismfaactive: true
-          };
-          this.qrData = data.message;
+    this.auth.getQrCode()
+      .pipe(
+        finalize(() => {
+          this.gsLoading = false;
+          this.cdr.markForCheck();
+        })
+      )
+      .subscribe(
+        (data) => {
+          if (!data.error) {
+            this.settingInit = {
+              ismfaactive: true
+            };
+            this.qrData = data.message;
+          }
+        },
+        (error) => {
+          this.cdr.markForCheck();
         }
-        this.cdr.markForCheck();
-      },
-      (error) => {
-        this.gsLoading = false;
-        this.cdr.markForCheck();
-      }
-    ),
-      finalize(() => {
-        this.gsLoading = false;
-        this.cdr.markForCheck();
-      });
+      );
   }
 
   generateSecret() {
     this.gsLoading = true;
-    this.auth.generateSecret().subscribe(
-      (data) => {
-        this.gsLoading = false;
-        if (!data.error) {
-          this.getQrCode();
+    this.auth.generateSecret()
+      .pipe(
+        finalize(() => {
+          this.gsLoading = false;
+          this.cdr.markForCheck();
+        })
+      )
+      .subscribe(
+        (data) => {
+          if (!data.error) {
+            this.getQrCode();
+          }
+        },
+        (error) => {
+          this.cdr.markForCheck();
         }
-      },
-      (error) => {
-        this.gsLoading = false;
-        this.cdr.markForCheck();
-      }
-    ),
-      finalize(() => {
-        this.gsLoading = false;
-        this.cdr.markForCheck();
-      });
+      );
    }
 }

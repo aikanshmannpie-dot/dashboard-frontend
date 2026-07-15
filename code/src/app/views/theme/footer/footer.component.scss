@@ -1,0 +1,56 @@
+// Redesigned Footer SCSS
+$text-color: #64748b;
+$link-color: #6366f1;
+$border-color: #e2e8f0;
+
+.kt-footer {
+  background-color: #ffffff;
+  border-top: 1px solid $border-color;
+  padding: 16px 0;
+  width: 100%;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.kt-footer__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+}
+
+.kt-footer__copyright {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: $text-color;
+
+  a {
+    color: $link-color;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: darken($link-color, 10%);
+    }
+  }
+}
+
+.kt-footer__menu {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: $text-color;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .kt-footer__wrapper {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}

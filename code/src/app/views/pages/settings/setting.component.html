@@ -1,23 +1,81 @@
-<div class="pageContainer">
-  <div class="pageTopBar">
-    <h2 style="padding: 10px 0px; float: left">
-      Settings
-    </h2>
-  </div>
-  <div class="container mt-5">
-    <div  class="d-flex justify-content-between align-items-center mb-2">
-      <h4 class="text-bold">2-Factor Authentication</h4>
-      <div class="custom-control custom-switch" *ngIf="!settingInit.ismfaactive">
-        <input type="checkbox" class="custom-control-input" id="2_fa" [(ngModel)]="isChecked" (change)="onSwitchChange(isChecked)">
-        <label class="custom-control-label" for="2_fa"></label>
+<div class="dash-page-container">
+
+  <!-- ══════════════════════════════════════════
+       SETTINGS HEADER CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="filter-card">
+    <mat-card-header class="filter-card-header">
+      <div class="filter-card-title-row">
+        <mat-card-title class="dash-title">Account Settings</mat-card-title>
+        <mat-card-subtitle class="dash-subtitle">Manage your account credentials, notifications, and security preferences</mat-card-subtitle>
       </div>
-      <div *ngIf="gsLoading" >
-        <img style="padding: 10px; height: 10px" src="assets/images/loader.gif" alt="loader" />
+    </mat-card-header>
+  </mat-card>
+
+  <!-- ══════════════════════════════════════════
+       SECURITY CONFIGURATION CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="dash-mat-card settings-card top-border-1">
+    <mat-card-header class="settings-card-header">
+      <div class="settings-section-title">
+        <mat-icon class="section-icon">security</mat-icon>
+        <span>Security Settings</span>
       </div>
-    </div>
-    <img *ngIf="settingInit.ismfaactive" [src]="qrData" alt="QrCode" />
-  </div>
-  <div *ngIf="loading" style="text-align: center">
-    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" alt="loader" />
-  </div>
+    </mat-card-header>
+
+    <mat-card-content class="settings-card-content">
+      
+      <!-- 2-Factor Authentication Setting Block -->
+      <div class="settings-item-row">
+        <div class="settings-item-info">
+          <h4 class="settings-item-title">Two-Factor Authentication (2FA)</h4>
+          <p class="settings-item-description">
+            Protect your account with an extra layer of security. Once enabled, you will be required to input a secure verification code from your authenticator app during login.
+          </p>
+        </div>
+
+        <div class="settings-item-action">
+          <!-- Material Slide Toggle -->
+          <mat-slide-toggle
+            *ngIf="!settingInit.ismfaactive"
+            color="primary"
+            [(ngModel)]="isChecked"
+            (change)="onSwitchChange($event)"
+            [disabled]="gsLoading || loading">
+            {{ isChecked ? 'Enabled' : 'Disabled' }}
+          </mat-slide-toggle>
+
+          <!-- Status badge if active -->
+          <span class="mfa-active-badge" *ngIf="settingInit.ismfaactive">
+            <mat-icon>check_circle</mat-icon> Active & Configured
+          </span>
+        </div>
+      </div>
+
+      <!-- QR Code Configuration Area -->
+      <div class="qr-setup-box" *ngIf="settingInit.ismfaactive && qrData">
+        <div class="qr-setup-instructions">
+          <span class="setup-step">1</span>
+          <p>Scan this QR code with your authenticator app (Google Authenticator, Microsoft Authenticator, Authy, etc.) to set up 2FA.</p>
+        </div>
+        
+        <div class="qr-code-wrapper">
+          <img [src]="qrData" alt="MFA QR Code" class="qr-code-img" />
+        </div>
+        
+        <div class="qr-setup-warning">
+          <mat-icon>info</mat-icon>
+          <span>If you cannot scan the code, please verify your authenticator app configurations. Make sure to complete the setup process before logging out.</span>
+        </div>
+      </div>
+
+      <!-- Loading Indicator overlay -->
+      <div *ngIf="loading || gsLoading" class="loader-overlay">
+        <mat-spinner diameter="40"></mat-spinner>
+        <span class="loader-text">Updating authentication configurations...</span>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
 </div>

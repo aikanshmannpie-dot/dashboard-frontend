@@ -55,7 +55,15 @@
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/assets"
-              ]
+              ],
+              "sass": {
+                "silenceDeprecations": [
+                  "import",
+                  "slash-div",
+                  "color-functions",
+                  "global-builtin"
+                ]
+              }
             }
           },
           "configurations": {

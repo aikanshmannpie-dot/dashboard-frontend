@@ -10,6 +10,7 @@ import * as objectPath from 'object-path';
 
 	selector: 'kt-footer',
 	templateUrl: './footer.component.html',
+	styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
 	// Public properties

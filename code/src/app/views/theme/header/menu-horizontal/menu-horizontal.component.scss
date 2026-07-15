@@ -1,52 +1,120 @@
+// Redesigned Horizontal Menu SCSS
+$accent-indigo:   #6366f1;
+$active-bg:       rgba(99, 102, 241, 0.06);
+$border-color:    #f1f5f9;
+
 :host {
-	width: 100%;
+  width: 100%;
 
-	.kt-header-menu-wrapper {
-		height: 100%;
-	}
-	ul{
-		li{
-			a{
-				text-decoration: underline;
-			}
-		}
-	} 
-	// {
-		.kt-header .kt-header__bottom {
-			border-bottom:5px solid yellow;
-		}
+  .kt-header-menu-wrapper {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
 
-		.kt-menu__link{
-			background-color: #dedbdb;
-			color: #000 !important;
-			border: 1px solid #d6c3c3;
-		}
-	// }
-	// li:first-child {
-	// 	border-bottom:5px solid yellow;
-	//   }
-	//   li:nth-child(2) {
-	// 	border-bottom:5px solid rgb(0, 255, 242);
-	//   }
-	//   li:nth-child(3) {
-	// 	border-bottom:5px solid rgb(0, 255, 34);
-	//   }
-	//   li:nth-child(4) {
-	// 	border-bottom:5px solid rgb(255, 38, 0);
-	//   }
-	//   li:nth-child(5) {
-	// 	border-bottom:5px solid rgb(47, 0, 255);
-	//   }
-	//   li:nth-child(6) {
-	// 	border-bottom:5px solid rgb(255, 0, 200);
-	//   }
-	//   li:nth-child(7) {
-	// 	border-bottom:5px solid rgb(91, 170, 2);
-	//   }
-	//   li:nth-child(8) {
-	// 	border-bottom:5px solid rgb(162, 0, 255);
-	//   }
-	//   li:nth-child(9) {
-	// 	border-bottom:5px solid rgb(149, 140, 3);
-	//   }
+  .kt-header-menu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .kt-menu__nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  // ── Menu Links ─────────────────────────────────────────────────────────────
+  ::ng-deep {
+    .kt-menu__item {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .kt-menu__link {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      padding: 6px 12px !important;
+      background-color: transparent !important;
+      border: 1px solid transparent !important;
+      border-radius: 8px !important;
+      text-decoration: none !important;
+      font-family: 'Inter', sans-serif !important;
+      font-size: 0.8rem !important;
+      transition: all 0.15s ease !important;
+      height: 34px !important;
+      box-sizing: border-box;
+      white-space: nowrap !important;
+
+      .kt-menu__link-text {
+        color: #475569 !important;
+        font-weight: 550 !important;
+        transition: color 0.15s ease;
+      }
+
+      &:hover {
+        background-color: #f8fafc !important;
+
+        .kt-menu__link-text {
+          color: #0f172a !important;
+        }
+
+        .kt-menu__link-icon-mat {
+          color: $accent-indigo !important;
+        }
+      }
+
+      .kt-menu__link-icon-mat {
+        color: #94a3b8;
+        font-size: 1.1rem !important;
+        width: 1.1rem !important;
+        height: 1.1rem !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: color 0.15s ease;
+      }
+    }
+
+    // Active state highlighting
+    .kt-menu__item.kt-menu__item--active,
+    .kt-menu__item.kt-menu__item--here {
+      .kt-menu__link {
+        background-color: $active-bg !important;
+        border-color: rgba(99, 102, 241, 0.12) !important;
+
+        .kt-menu__link-text {
+          color: $accent-indigo !important;
+          font-weight: 600 !important;
+        }
+
+        .kt-menu__link-icon-mat {
+          color: $accent-indigo !important;
+        }
+      }
+    }
+
+    // Heavyweight Metronic overrides to prevent white font color
+    .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link .kt-menu__link-text,
+    .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--here > .kt-menu__link .kt-menu__link-text,
+    .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--active > .kt-menu__link .kt-menu__link-icon-mat,
+    .kt-header-menu .kt-menu__nav > .kt-menu__item.kt-menu__item--here > .kt-menu__link .kt-menu__link-icon-mat {
+      color: $accent-indigo !important;
+      font-weight: 600 !important;
+    }
+  }
 }

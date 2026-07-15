@@ -11,6 +11,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 // NgBootstrap
 import { NgbProgressbarModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 // SVG inline
@@ -96,6 +97,7 @@ import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from
         MatTabsModule,
         MatButtonModule,
         MatTooltipModule,
+        MatIconModule,
         TranslateModule.forChild(),
         LoadingBarModule,
         NgxDaterangepickerMd,

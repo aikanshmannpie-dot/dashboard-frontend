@@ -6,6 +6,7 @@ export class MenuConfig {
         {
           title: "Dashboards",
           root: true,
+          icon: "mat:dashboard",
           alignment: "left",
           page: "/dashboard/1",
           translate: "MENU.DASHBOARD",
@@ -13,6 +14,7 @@ export class MenuConfig {
         {
           title: "Overall Report",
           root: true,
+          icon: "mat:description",
           alignment: "left",
           page: "/overall/1",
           translate: "MENU.DASHBOARD",
@@ -20,6 +22,7 @@ export class MenuConfig {
         {
           title: "Report By Affliates",
           root: true,
+          icon: "mat:group",
           alignment: "left",
           page: "/affilate/1",
           translate: "MENU.DASHBOARD",
@@ -27,6 +30,7 @@ export class MenuConfig {
         {
           title: "Report By Source",
           root: true,
+          icon: "mat:source",
           alignment: "left",
           page: "/source-report/1",
           translate: "MENU.DASHBOARD",
@@ -41,6 +45,7 @@ export class MenuConfig {
         {
           title: "Overall Q/B Ticks Report",
           root: true,
+          icon: "mat:check_circle",
           alignment: "left",
           page: "/overall-ques-tick-report/1",
           translate: "MENU.DASHBOARD",
@@ -48,6 +53,7 @@ export class MenuConfig {
         {
           title: "Report By Campaigns",
           root: true,
+          icon: "mat:campaign",
           alignment: "left",
           page: "/campanigns-report/1",
           translate: "MENU.DASHBOARD",
@@ -55,6 +61,7 @@ export class MenuConfig {
         {
           title: "Clickout Report",
           root: true,
+          icon: "mat:ads_click",
           alignment: "left",
           page: "/clickout-report/1",
           translate: "MENU.DASHBOARD",
@@ -84,6 +91,7 @@ export class MenuConfig {
         {
           title: "Overall Report",
           root: true,
+          icon: "mat:description",
           alignment: "left",
           page: "/overall/2",
           translate: "MENU.DASHBOARD",
@@ -92,6 +100,7 @@ export class MenuConfig {
         {
           title: "Report By Campaigns",
           root: true,
+          icon: "mat:campaign",
           alignment: "left",
           page: "/campanigns-report/2",
           translate: "MENU.DASHBOARD",
@@ -99,6 +108,7 @@ export class MenuConfig {
         {
           title: "Report By Agent",
           root: true,
+          icon: "mat:person",
           alignment: "left",
           page: "/agent-report/2",
           translate: "MENU.DASHBOARD",
@@ -106,6 +116,7 @@ export class MenuConfig {
         {
           title: "Revenue Report",
           root: true,
+          icon: "mat:monetization_on",
           alignment: "left",
           page: "/teleconnex-revenue-report/2",
           translate: "MENU.DASHBOARD",
@@ -120,6 +131,7 @@ export class MenuConfig {
         {
           title: "Revenue By Supplier",
           root: true,
+          icon: "mat:store",
           alignment: "left",
           page: "/teleconnex-revenue-by-suppliers/2",
           translate: "MENU.DASHBOARD",
@@ -127,6 +139,7 @@ export class MenuConfig {
         {
           title: "Daily Progress",
           root: true,
+          icon: "mat:trending_up",
           alignment: "left",
           page: "/teleconnexdailyprogress/2",
           translate: "MENU.DASHBOARD",
@@ -134,6 +147,7 @@ export class MenuConfig {
         {
           title: "Daily Progress Co-Sponsor",
           root: true,
+          icon: "mat:handshake",
           alignment: "left",
           page: "/teleconnexdailyprogressco/2",
           translate: "MENU.DASHBOARD",
@@ -163,6 +177,7 @@ export class MenuConfig {
         {
           title: "Microsite-Layouts",
           root: true,
+          icon: "mat:dashboard_customize",
           alignment: "left",
           page: "/microsite-layouts/3",
           translate: "MENU.DASHBOARD",
@@ -170,6 +185,7 @@ export class MenuConfig {
         {
           title: "Microsite-leads",
           root: true,
+          icon: "mat:people",
           alignment: "left",
           page: "/microsite/3",
           translate: "MENU.DASHBOARD",
@@ -177,6 +193,7 @@ export class MenuConfig {
         {
           title: "Source-Report",
           root: true,
+          icon: "mat:source",
           alignment: "left",
           page: "/microsite-source-report/3",
           translate: "MENU.DASHBOARD",
@@ -184,6 +201,7 @@ export class MenuConfig {
         {
           title: "Affiliate-Report",
           root: true,
+          icon: "mat:group",
           alignment: "left",
           page: "/microsite-affiliate-report/3",
           translate: "MENU.DASHBOARD",
@@ -191,6 +209,7 @@ export class MenuConfig {
         {
           title: "Lead Report By Domains",
           root: true,
+          icon: "mat:domain",
           alignment: "left",
           page: "/microsite-lead-report-by-domains/3",
           translate: "MENU.DASHBOARD",
@@ -198,6 +217,7 @@ export class MenuConfig {
         {
           title: "Lead Report By API Client",
           root: true,
+          icon: "mat:api",
           alignment: "left",
           page: "/microsite-lead-report-by-api-client/3",
           translate: "MENU.DASHBOARD",
@@ -205,6 +225,7 @@ export class MenuConfig {
         {
           title: "Lead Report By API",
           root: true,
+          icon: "mat:code",
           alignment: "left",
           page: "/microsite-lead-report-by-api/3",
           translate: "MENU.DASHBOARD",
@@ -220,6 +241,7 @@ export class MenuConfig {
         {
           title: "Analytics Dashboard",
           root: true,
+          icon: "mat:analytics",
           alignment: "left",
           page: "/acquirely-analytics/4",
           translate: "MENU.DASHBOARD",
@@ -227,6 +249,7 @@ export class MenuConfig {
         {
           title: "Lead Conversion Summary Report",
           root: true,
+          icon: "mat:transform",
           alignment: "left",
           page: "/lead-conversion-summary/4",
           translate: "MENU.DASHBOARD",

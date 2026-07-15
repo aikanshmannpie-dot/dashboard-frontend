@@ -1,29 +1,66 @@
-<div class="pageContainer">
-  <div class="pageTopBar">
-    <h2 style="padding: 10px 0px; float: left">Microsite lead Report</h2>
-    <button class="calendarBtn">
-      <img src="assets/images/calendar.svg" />
-    </button>
-    <div class="searchBox" class="searchBoxShow">
-      <div ngbDropdown class="dropdown searcBar threeColumn">
-        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
-          endKey="end" [(ngModel)]="model1" />
-        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
-          endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
+<div class="dash-page-container">
 
-        <!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
-        <button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="searchRange()">
-          Search
-        </button>
+  <!-- ══════════════════════════════════════════
+       FILTER AND HEADER CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="filter-card">
+    <mat-card-header class="filter-card-header">
+      <div class="filter-card-title-row">
+        <mat-card-title class="dash-title">Lead Report by API Client</mat-card-title>
+        <mat-card-subtitle class="dash-subtitle">Analysis and visualization of accepted vs rejected lead counts per client</mat-card-subtitle>
       </div>
-    </div>
-  </div>
-  <div *ngIf="loading" style="text-align: center">
-    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
-  </div>
-  <div class="row col-12">
-    <figure Sclass="highcharts-figure" class="col-12">
-      <div id="activeLastWeek" style="width: 100%; height: 600px;"></div>
-    </figure>
-  </div>
+
+      <!-- Action Toggle button (Mobile calendar trigger) -->
+      <button mat-icon-button (click)="searchButton()" class="mobile-calendar-btn" aria-label="Search filter">
+        <mat-icon>calendar_month</mat-icon>
+      </button>
+
+      <!-- Search Filters Inline Row -->
+      <div class="filter-form-row" [class.filter-form-row--show]="!search">
+        
+        <!-- Single Unified Date Range Picker -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--date">
+          <mat-label>Date Range</mat-label>
+          <input
+            matInput
+            ngxDaterangepickerMd
+            startKey="start"
+            endKey="end"
+            [ranges]="ranges"
+            [showCustomRangeLabel]="true"
+            [alwaysShowCalendars]="true"
+            [(ngModel)]="model1"
+            placeholder="Select date range" />
+          <mat-icon matSuffix>date_range</mat-icon>
+        </mat-form-field>
+
+        <!-- Apply Button -->
+        <button mat-flat-button color="accent" (click)="searchRange(); searchButton()" class="filter-search-btn">
+          <mat-icon>search</mat-icon>
+          <span>Apply Filters</span>
+        </button>
+
+      </div>
+    </mat-card-header>
+  </mat-card>
+
+  <!-- ══════════════════════════════════════════
+       HIGHCHARTS REPORT CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="dash-mat-card chart-card top-border-1">
+    <mat-card-content class="chart-card-content">
+      <div class="chart-container-wrapper">
+        <figure class="highcharts-figure">
+          <div id="activeLastWeek" class="clean-chart-container"></div>
+        </figure>
+      </div>
+
+      <!-- Loading Spinner overlay -->
+      <div *ngIf="loading" class="loader-overlay">
+        <mat-spinner diameter="40"></mat-spinner>
+        <span class="loader-text">Analyzing client metrics...</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
 </div>

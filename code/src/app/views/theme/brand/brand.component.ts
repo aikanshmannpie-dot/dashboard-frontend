@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 
 	selector: "kt-brand",
 	templateUrl: "./brand.component.html",
+	styleUrls: ["./brand.component.scss"],
 })
 export class BrandComponent implements OnInit, AfterViewInit {
 	// Public properties
@@ -40,7 +41,7 @@ export class BrandComponent implements OnInit, AfterViewInit {
 	constructor(
 		private layoutConfigService: LayoutConfigService,
 		public htmlClassService: HtmlClassService,
-		private router: Router
+		public router: Router
 	) { }
 
 	/**

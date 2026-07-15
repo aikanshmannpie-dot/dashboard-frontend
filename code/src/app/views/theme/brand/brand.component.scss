@@ -1,0 +1,75 @@
+// Brand component styling
+$accent-indigo:   #6366f1;
+$active-bg:       rgba(99, 102, 241, 0.08);
+
+.header-menu-trigger-btn {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  padding: 4px 16px !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.5;
+  transition: all 0.15s ease !important;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+  }
+
+  mat-icon {
+    font-size: 1.15rem !important;
+    width: 1.15rem !important;
+    height: 1.15rem !important;
+    margin: 0 !important;
+    vertical-align: middle;
+  }
+}
+
+// Menu item active highlighting and icons
+::ng-deep {
+  .mat-mdc-menu-item {
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.86rem !important;
+    color: #475569 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    height: 44px !important;
+
+    .menu-item-icon {
+      color: #64748b !important;
+      font-size: 1.15rem !important;
+      width: 1.15rem !important;
+      height: 1.15rem !important;
+      margin: 0 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      transition: color 0.15s ease;
+    }
+
+    &:hover {
+      .menu-item-icon {
+        color: $accent-indigo !important;
+      }
+    }
+  }
+
+  .mat-mdc-menu-item.activeBtn {
+    background-color: $active-bg !important;
+    color: $accent-indigo !important;
+    font-weight: 600 !important;
+
+    span, .mdc-list-item__label {
+      color: $accent-indigo !important;
+    }
+
+    .menu-item-icon {
+      color: $accent-indigo !important;
+    }
+  }
+}

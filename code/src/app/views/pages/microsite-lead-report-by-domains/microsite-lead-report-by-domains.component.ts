@@ -50,6 +50,10 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
       moment().subtract(1, "month").endOf("month"),
     ],
   };
+  search = true;
+  searchButton() {
+    this.search = !this.search;
+  }
   constructor(private auth: AuthService, private cdr: ChangeDetectorRef) {
 
   }

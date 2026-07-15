@@ -1,44 +1,77 @@
-<div class="pageContainer">
-  <div class="pageTopBar">
-    <h2 style="padding: 10px 0px; float: left">Microsite lead Report by domains</h2>
-    <button class="calendarBtn">
-      <img src="assets/images/calendar.svg" />
-    </button>
-    <div class="searchBox" class="searchBoxShow">
-      <div ngbDropdown class="dropdown searcBar threeColumn">
-        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
-          endKey="end" [(ngModel)]="model1" />
-        <input type="text" class="btn btn-default dropdown-toggle date-select-box" ngxDaterangepickerMd startKey="start"
-          endKey="end" [ranges]="ranges" [(ngModel)]="model1" />
+<div class="dash-page-container">
 
-        <!-- <input matInput type="text" class="search-site-input" [(ngModel)]="siteName" placeholder="Search Site Name:"> -->
-        <button class="btn btn-default dropdown-toggle" id="ddllogout" type="button" (click)="searchRange()">
-          Search
+  <!-- ══════════════════════════════════════════
+       FILTER AND HEADER CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="filter-card">
+    <mat-card-header class="filter-card-header">
+      <div class="filter-card-title-row">
+        <mat-card-title class="dash-title">Lead Report by Domains</mat-card-title>
+        <mat-card-subtitle class="dash-subtitle">Visual analysis and trend tracking of lead generation counts across domains</mat-card-subtitle>
+      </div>
+
+      <!-- Action Toggle button (Mobile calendar trigger) -->
+      <button mat-icon-button (click)="searchButton()" class="mobile-calendar-btn" aria-label="Search filter">
+        <mat-icon>calendar_month</mat-icon>
+      </button>
+
+      <!-- Search Filters Inline Row -->
+      <div class="filter-form-row" [class.filter-form-row--show]="!search">
+        
+        <!-- Site Name Selector -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--site">
+          <mat-label>Search By Site Name</mat-label>
+          <select matNativeControl (change)="onDomainChanged($event)">
+            <option value="undefined">All Domains</option>
+            <option *ngFor="let item of siteListingData" value="{{ item?.id }}">
+              {{ item.name }} ({{ item.status ? 'Active' : 'In-Active' }})
+            </option>
+          </select>
+        </mat-form-field>
+
+        <!-- Single Unified Date Range Picker -->
+        <mat-form-field appearance="outline" class="filter-field filter-field--date">
+          <mat-label>Date Range</mat-label>
+          <input
+            matInput
+            ngxDaterangepickerMd
+            startKey="start"
+            endKey="end"
+            [ranges]="ranges"
+            [showCustomRangeLabel]="true"
+            [alwaysShowCalendars]="true"
+            [(ngModel)]="model1"
+            placeholder="Select date range" />
+          <mat-icon matSuffix>date_range</mat-icon>
+        </mat-form-field>
+
+        <!-- Apply Button -->
+        <button mat-flat-button color="accent" (click)="searchRange(); searchButton()" class="filter-search-btn">
+          <mat-icon>search</mat-icon>
+          <span>Apply Filters</span>
         </button>
-      </div>
-    </div>
-  </div>
 
-  <div *ngIf="loading" style="text-align: center">
-    <img style="padding: 10px; height: 100px" src="assets/images/loader.gif" />
-  </div>
-  <div ngbDropdown class="dropdown topBarList">
-    <div class="searchBox searchBoxShow">
-      <div ngbDropdown class="dropdown searcBar threeColumn">
-        <select class="form-control dropdown-select-box" (change)="onDomainChanged($event)">
-          <option value="undefined">Search By Site Name</option>
-          <option *ngFor="let item of siteListingData"   value="{{ item?.id }}">
-            {{ item.name }}
-            <span *ngIf="item.status" class="badge badge-success">Active</span>
-            <span *ngIf="!item.status" class="badge badge-danger">In-Active</span>
-          </option>
-        </select>
       </div>
-    </div>
-  </div>
-  <div class="row col-12">
-    <figure Sclass="highcharts-figure" class="col-12">
-      <div id="activeLastWeek"></div>
-    </figure>
-  </div>
+    </mat-card-header>
+  </mat-card>
+
+  <!-- ══════════════════════════════════════════
+       HIGHCHARTS REPORT CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="dash-mat-card chart-card top-border-1">
+    <mat-card-content class="chart-card-content">
+      <div class="chart-container-wrapper">
+        <figure class="highcharts-figure">
+          <div id="activeLastWeek" class="clean-chart-container"></div>
+        </figure>
+      </div>
+
+      <!-- Loading Spinner overlay -->
+      <div *ngIf="loading" class="loader-overlay">
+        <mat-spinner diameter="40"></mat-spinner>
+        <span class="loader-text">Analyzing domain analytics...</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
 </div>

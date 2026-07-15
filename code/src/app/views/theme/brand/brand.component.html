@@ -8,79 +8,44 @@
 	</div>
 	<div class="kt-header__brand-nav">
 		<div ngbDropdown class="dropdown">
-			<button mat-raised-button [matMenuTriggerFor]="menu" class="btn btn-success">Menu</button>
+			<button mat-flat-button [matMenuTriggerFor]="menu" class="header-menu-trigger-btn">
+				<span>Menu</span>
+				<mat-icon>expand_more</mat-icon>
+			</button>
 			<mat-menu #menu="matMenu">
 				<button mat-menu-item [ngClass]="{'activeBtn': this.is_analytics == true}" id="btnMicrositeReports"
 					(click)="redirectToDashboard('/acquirely-analytics/4')">
-					<span class="webText">{{ this.analytics_dashboard_text }}</span>
-					<span class="mobileText">
-						<span class="imgIcon iconNonActive">
-							<img src="assets/images/acq-icon.svg" alt="Acquirely" /></span>
-						<span class="imgIcon iconActive">
-							<img src="assets/images/acq-icon-active.svg" alt="Acquirely" /></span>
-						Acquirely
-					</span>
+					<mat-icon class="menu-item-icon">analytics</mat-icon>
+					<span>{{ this.analytics_dashboard_text }}</span>
 				</button>
 				<mat-divider></mat-divider>
 				<button mat-menu-item [ngClass]="{'activeBtn': this.is_mhi == true}" id="btnVicidialPush"
 					(click)="redirectToDashboard('/overall/1')">
-					<span class="webText">{{ this.mhi_text }}</span>
-					<span class="mobileText">
-						<span class="imgIcon iconNonActive">
-							<img src="assets/images/mhi-icon.svg" alt="MHI" /></span>
-						<span class="imgIcon iconActive">
-							<img src="assets/images/mhi-icon-active.svg" alt="MHI" /></span>
-						MustHaveIt
-					</span>
+					<mat-icon class="menu-item-icon">trending_up</mat-icon>
+					<span>{{ this.mhi_text }}</span>
 				</button>
 				<mat-divider></mat-divider>
 				<button mat-menu-item [ngClass]="{'activeBtn': this.is_teleconnex == true}" id="btnVicidialPush"
 					(click)="redirectToDashboard('/overall/2')">
-					<span class="webText">{{ this.teleconnex_text }}</span>
-					<span class="mobileText">
-						<span class="imgIcon iconNonActive">
-							<img src="assets/images/teleconnex-icon.svg" alt="teleconnex" /></span>
-						<span class="imgIcon iconActive">
-							<img src="assets/images/teleconnex-icon-active.svg" alt="teleconnex" /></span>
-						Teleconnex
-					</span>
+					<mat-icon class="menu-item-icon">call</mat-icon>
+					<span>{{ this.teleconnex_text }}</span>
 				</button>
 				<mat-divider></mat-divider>
 				<button mat-menu-item [ngClass]="{'activeBtn': this.is_microsite_report == true}"
 					id="btnMicrositeReports" (click)="redirectToDashboard('/microsite/3')">
-					<span class="webText">{{ this.microsite_reporting_text }}</span>
-					<span class="mobileText">
-						<span class="imgIcon iconNonActive">
-							<img src="assets/images/microsites-icon.svg" alt="microsite" /></span>
-						<span class="imgIcon iconActive">
-							<img src="assets/images/microsites-icon-active.svg" alt="microsite" /></span>
-						Microsites
-					</span>
+					<mat-icon class="menu-item-icon">language</mat-icon>
+					<span>{{ this.microsite_reporting_text }}</span>
 				</button>
 				<mat-divider></mat-divider>
-				<button mat-menu-item [ngClass]="{'activeBtn': this.is_analytics == true}" id="btnMicrositeReports"
+				<button mat-menu-item [ngClass]="{'activeBtn': this.router.url.includes('/settings')}" id="btnSettings"
 					(click)="redirectToDashboard('/settings')">
-					<span class="webText">Settings</span>
-					<span class="mobileText">
-						<span class="imgIcon iconNonActive">
-							<img src="assets/images/acq-icon.svg" alt="Settings" /></span>
-						<span class="imgIcon iconActive">
-							<img src="assets/images/acq-icon-active.svg" alt="Settings" /></span>
-						Settings
-					</span>
+					<mat-icon class="menu-item-icon">settings</mat-icon>
+					<span>Settings</span>
 				</button>
 				<mat-divider></mat-divider>
 				<button mat-menu-item id="ddllogout" type="button" (click)="logout()">
-					<span class="webText">Logout</span>
-					<span class="mobileText">
-						<span class="imgIcon iconNonActive">
-							<img src="assets/images/logout-icon.svg" alt="logout" />
-						</span>
-						<span class="imgIcon iconActive">
-							<img src="assets/images/logout-icon-active.svg" alt="logout" />
-						</span>
-						Logout
-					</span>
+					<mat-icon class="menu-item-icon">logout</mat-icon>
+					<span>Logout</span>
 				</button>
 			</mat-menu>
 
