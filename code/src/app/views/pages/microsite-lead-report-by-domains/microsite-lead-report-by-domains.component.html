@@ -7,7 +7,8 @@
     <mat-card-header class="filter-card-header">
       <div class="filter-card-title-row">
         <mat-card-title class="dash-title">Lead Report by Domains</mat-card-title>
-        <mat-card-subtitle class="dash-subtitle">Visual analysis and trend tracking of lead generation counts across domains</mat-card-subtitle>
+        <mat-card-subtitle class="dash-subtitle">Visual analysis and trend tracking of lead generation counts across
+          domains</mat-card-subtitle>
       </div>
 
       <!-- Action Toggle button (Mobile calendar trigger) -->
@@ -16,41 +17,52 @@
       </button>
 
       <!-- Search Filters Inline Row -->
-      <div class="filter-form-row" [class.filter-form-row--show]="!search">
-        
-        <!-- Site Name Selector -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--site">
-          <mat-label>Search By Site Name</mat-label>
-          <select matNativeControl (change)="onDomainChanged($event)">
-            <option value="undefined">All Domains</option>
-            <option *ngFor="let item of siteListingData" value="{{ item?.id }}">
-              {{ item.name }} ({{ item.status ? 'Active' : 'In-Active' }})
-            </option>
-          </select>
-        </mat-form-field>
+      <div class="filter-card-actions" [class.filter-card-actions--show]="!search">
+        <div class="filters-wrapper">
 
-        <!-- Single Unified Date Range Picker -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--date">
-          <mat-label>Date Range</mat-label>
-          <input
-            matInput
-            ngxDaterangepickerMd
-            startKey="start"
-            endKey="end"
-            [ranges]="ranges"
-            [showCustomRangeLabel]="true"
-            [alwaysShowCalendars]="true"
-            [(ngModel)]="model1"
-            placeholder="Select date range" />
-          <mat-icon matSuffix>date_range</mat-icon>
-        </mat-form-field>
+          <!-- Site Name Selector -->
+          <div class="filter-item">
+            <label class="filter-label">Search By Site Name</label>
+            <mat-form-field appearance="outline" class="form-field-custom">
+              <mat-select [value]="selectedDomainValue" (selectionChange)="onDomainChanged($event)">
+                <mat-option value="undefined">All Domains</mat-option>
+                <mat-option *ngFor="let item of siteListingData" [value]="item?.id">
+                  {{ item.name }} ({{ item.status ? 'Active' : 'In-Active' }})
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-        <!-- Apply Button -->
-        <button mat-flat-button color="accent" (click)="searchRange(); searchButton()" class="filter-search-btn">
-          <mat-icon>search</mat-icon>
-          <span>Apply Filters</span>
-        </button>
+          <!-- Single Unified Date Range Picker -->
+          <div class="filter-item">
+            <label class="filter-label">Date Range</label>
+            <div class="date-picker-input-wrapper">
+              <mat-icon class="calendar-icon">calendar_today</mat-icon>
+              <input
+                type="text"
+                class="form-control date-select-input"
+                ngxDaterangepickerMd
+                [opens]="'right'"
+                startKey="start"
+                endKey="end"
+                [ranges]="ranges"
+                [showCustomRangeLabel]="true"
+                [alwaysShowCalendars]="true"
+                [(ngModel)]="model1"
+                placeholder="Select date range" />
+            </div>
+          </div>
 
+          <!-- Apply Button -->
+          <div class="filter-item">
+            <label class="filter-label">&nbsp;</label>
+            <button mat-raised-button color="primary" (click)="searchRange(); searchButton()" class="filter-btn-submit">
+              <mat-icon>filter_list</mat-icon>
+              <span>Apply Filters</span>
+            </button>
+          </div>
+
+        </div>
       </div>
     </mat-card-header>
   </mat-card>

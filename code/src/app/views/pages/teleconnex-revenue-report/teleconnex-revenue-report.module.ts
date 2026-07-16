@@ -22,6 +22,8 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { NgxPrintModule } from "ngx-print";
 import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 
+import { MatSelectModule } from "@angular/material/select";
+
 @NgModule({
 	imports: [
 		CommonModule,
@@ -36,6 +38,7 @@ import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 		MatProgressSpinnerModule,
 		MatButtonModule,
 		MatIconModule,
+		MatSelectModule,
 		PDFExportModule,
 		FormsModule,
 		NgxPrintModule,

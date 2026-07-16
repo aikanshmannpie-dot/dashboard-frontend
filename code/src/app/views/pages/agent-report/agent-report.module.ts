@@ -24,6 +24,8 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { NgxPrintModule } from "ngx-print";
 import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 
+import { MatSelectModule } from "@angular/material/select";
+
 // import { FlexLayoutModule } from '@angular/flex-layout';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NgxDateRangeModule } from 'ngx-daterange';
@@ -42,6 +44,7 @@ import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 		MatProgressSpinnerModule,
 		MatButtonModule,
 		MatIconModule,
+		MatSelectModule,
 		PDFExportModule,
 		// FormsModule,
 		// FormsModule,

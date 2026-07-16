@@ -269,8 +269,27 @@ $card-shadow-hvr: 0 20px 40px -15px rgba(99, 102, 241, 0.12);
 .top-border-10 { border-top: 4px solid #3b82f6 !important; }
 
 // Angular Material Table redesign
+.mat-table__wrapper {
+  overflow-x: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+kendo-pdf-export {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 768px) {
+  .mat-table {
+    min-width: 1200px !important;
+    width: 100% !important;
+  }
+}
+
 .mat-table {
-  width: 100%;
   background: transparent !important;
   font-family: 'Inter', sans-serif !important;
 }
@@ -287,6 +306,10 @@ $card-shadow-hvr: 0 20px 40px -15px rgba(99, 102, 241, 0.12);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 14px 16px !important;
+  
+  // Ensure header text can wrap/break nicely if needed
+  word-wrap: break-word !important;
+  white-space: normal !important;
 }
 
 .mat-row {
@@ -302,6 +325,66 @@ $card-shadow-hvr: 0 20px 40px -15px rgba(99, 102, 241, 0.12);
   color: #334155 !important;
   font-size: 0.88rem !important;
   padding: 12px 16px !important;
+  
+  // Implement word wrap / cell text wrapping
+  word-wrap: break-word !important;
+  word-break: break-word !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+}
+
+// Column specific sizing and centering for a clean, balanced UI layout
+@media (min-width: 768px) {
+  .mat-column-domain {
+    flex: 1.5 0 15% !important;
+    min-width: 160px !important;
+  }
+  .mat-column-full_name {
+    flex: 1.2 0 12% !important;
+    min-width: 130px !important;
+  }
+  .mat-column-email {
+    flex: 1.8 0 18% !important;
+    min-width: 190px !important;
+    
+    // Explicitly enforce word-break for long email addresses
+    .text-muted {
+      word-break: break-all !important;
+      white-space: normal !important;
+    }
+  }
+  .mat-column-phone_number {
+    flex: 1.1 0 11% !important;
+    min-width: 115px !important;
+  }
+  .mat-column-created_at_sydney {
+    flex: 1.3 0 13% !important;
+    min-width: 140px !important;
+  }
+  .mat-column-api_status {
+    flex: 0.8 0 8% !important;
+    min-width: 95px !important;
+    justify-content: center !important;
+  }
+  .mat-column-sms_body {
+    flex: 0.8 0 8% !important;
+    min-width: 95px !important;
+    justify-content: center !important;
+  }
+  .mat-column-section_second_header {
+    flex: 0.8 0 8% !important;
+    min-width: 95px !important;
+    justify-content: center !important;
+  }
+  .mat-column-api_client_name {
+    flex: 1.2 0 12% !important;
+    min-width: 130px !important;
+  }
+  .mat-column-source {
+    flex: 0.9 0 9% !important;
+    min-width: 100px !important;
+    justify-content: center !important;
+  }
 }
 
 // Custom badges & elements

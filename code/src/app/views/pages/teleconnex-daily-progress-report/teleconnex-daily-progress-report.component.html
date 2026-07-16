@@ -7,7 +7,8 @@
     <mat-card-header class="filter-card-header">
       <div class="filter-card-title-row">
         <mat-card-title class="dash-title">Daily Progress Report</mat-card-title>
-        <mat-card-subtitle class="dash-subtitle">Track daily progression of lead volumes, operational expenses, and gross income stats</mat-card-subtitle>
+        <mat-card-subtitle class="dash-subtitle">Track daily progression of lead volumes, operational expenses, and
+          gross income stats</mat-card-subtitle>
       </div>
 
       <!-- Action Toggle button (Mobile calendar trigger) -->
@@ -16,39 +17,51 @@
       </button>
 
       <!-- Search Filters Inline Row -->
-      <div class="filter-form-row" [class.filter-form-row--show]="!search">
-        <!-- Date Range Picker Field -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--date">
-          <mat-label>Date Range</mat-label>
-          <input
-            matInput
-            ngxDaterangepickerMd
-            startKey="start"
-            endKey="end"
-            [ranges]="ranges"
-            [showCustomRangeLabel]="true"
-            [alwaysShowCalendars]="true"
-            [(ngModel)]="model1"
-            placeholder="Select date range"
-          />
-          <mat-icon matSuffix>date_range</mat-icon>
-        </mat-form-field>
+      <div class="filter-card-actions" [class.filter-card-actions--show]="!search">
+        <div class="filters-wrapper">
 
-        <!-- Call Center Selector (Conditional) -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--callcenter" *ngIf="report_type == 2">
-          <mat-label>Select Call Center</mat-label>
-          <select matNativeControl (change)="ChangingValue($event)">
-            <option *ngFor="let item of callcenterListingData" [value]="item.id" [selected]="item.id === selectedValue">
-              {{ item.name }}
-            </option>
-          </select>
-        </mat-form-field>
+          <!-- Date Range Picker Field -->
+          <div class="filter-item">
+            <label class="filter-label">Date Range</label>
+            <div class="date-picker-input-wrapper">
+              <mat-icon class="calendar-icon">calendar_today</mat-icon>
+              <input
+                type="text"
+                class="form-control date-select-input"
+                ngxDaterangepickerMd
+                [opens]="'right'"
+                startKey="start"
+                endKey="end"
+                [ranges]="ranges"
+                [showCustomRangeLabel]="true"
+                [alwaysShowCalendars]="true"
+                [(ngModel)]="model1"
+                placeholder="Select date range" />
+            </div>
+          </div>
 
-        <!-- Apply Filters Button -->
-        <button mat-flat-button color="accent" class="filter-search-btn" (click)="searchRange(); searchButton()" [disabled]="loading">
-          <mat-icon>search</mat-icon>
-          <span>Search</span>
-        </button>
+          <!-- Call Center Selector (Conditional) -->
+          <div class="filter-item" *ngIf="report_type == 2">
+            <label class="filter-label">Select Call Center</label>
+            <mat-form-field appearance="outline" class="form-field-custom">
+              <mat-select [(value)]="selectedValue" placeholder="Select Call Center">
+                <mat-option *ngFor="let item of callcenterListingData" [value]="item.id">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Apply Filters Button -->
+          <div class="filter-item">
+            <label class="filter-label">&nbsp;</label>
+            <button mat-raised-button color="primary" class="filter-btn-submit" (click)="searchRange(); searchButton()" [disabled]="loading">
+              <mat-icon>filter_list</mat-icon>
+              <span>Search</span>
+            </button>
+          </div>
+
+        </div>
       </div>
     </mat-card-header>
   </mat-card>
@@ -63,9 +76,10 @@
           <div class="d-flex justify-content-between align-items-center w-100 flex-wrap gap-3">
             <div>
               <mat-card-title class="card-chart-title">Daily Progress Stats</mat-card-title>
-              <mat-card-subtitle class="card-subtitle mt-1 text-muted">Showing daily unique active lead count and profit margins</mat-card-subtitle>
+              <mat-card-subtitle class="card-subtitle mt-1 text-muted">Showing daily unique active lead count and profit
+                margins</mat-card-subtitle>
             </div>
-            
+
             <!-- Action panel containing search and export triggers -->
             <div class="table-actions-row">
               <div class="export-buttons-group">
@@ -86,12 +100,7 @@
               <!-- Search Filter Field -->
               <mat-form-field appearance="outline" class="table-search-field">
                 <mat-label>Filter records</mat-label>
-                <input
-                  matInput
-                  type="text"
-                  (keyup)="doFilter($event.target.value)"
-                  placeholder="Search table..."
-                />
+                <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search table..." />
                 <mat-icon matSuffix>filter_list</mat-icon>
               </mat-form-field>
             </div>
@@ -107,19 +116,9 @@
 
           <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
             <kendo-pdf-export #pdf margin="2cm">
-              <mat-table
-                class="lmat-elevation-z8"
-                matTableExporter
-                #table
-                [dataSource]="dataSource"
-                matSort
-                #matSort="matSort"
-                matSortActive="id"
-                matSortDirection="asc"
-                matSortDisableClear
-                #exporter="matTableExporter"
-                (matSortChange)="sortColumn($event)"
-              >
+              <mat-table class="lmat-elevation-z8" matTableExporter #table [dataSource]="dataSource" matSort
+                #matSort="matSort" matSortActive="id" matSortDirection="asc" matSortDisableClear
+                #exporter="matTableExporter" (matSortChange)="sortColumn($event)">
                 <!-- Sr.No Column -->
                 <ng-container matColumnDef="Sr.No">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Sr.No</mat-header-cell>
@@ -176,11 +175,8 @@
           </div>
 
           <div class="mat-table__bottom clean-paginator mt-3">
-            <mat-paginator
-              [pageSize]="10"
-              [pageSizeOptions]="[10, 20, 25, 100]"
-              [showFirstLastButtons]="true"
-            ></mat-paginator>
+            <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 25, 100]"
+              [showFirstLastButtons]="true"></mat-paginator>
           </div>
         </mat-card-content>
       </mat-card>

@@ -16,39 +16,50 @@
       </button>
 
       <!-- Desktop Filters (Laid out horizontally) -->
-      <div class="filter-form-row" [class.filter-form-row--show]="!search">
-        
-        <!-- Country Select -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--country">
-          <mat-label>Country</mat-label>
-          <select matNativeControl (change)="CountryChangingValue($event)">
-            <option value="au">Australia (AU)</option>
-            <option value="nz">New Zealand (NZ)</option>
-          </select>
-        </mat-form-field>
+      <div class="filter-card-actions" [class.filter-card-actions--show]="!search">
+        <div class="filters-wrapper">
+          
+          <!-- Country Select -->
+          <div class="filter-item">
+            <label class="filter-label">Country</label>
+            <mat-form-field appearance="outline" class="form-field-custom">
+              <mat-select [(value)]="countrySelected">
+                <mat-option value="au">Australia (AU)</mat-option>
+                <mat-option value="nz">New Zealand (NZ)</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-        <!-- Unified Date Range Picker -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--date">
-          <mat-label>Date Range</mat-label>
-          <input
-            matInput
-            ngxDaterangepickerMd
-            startKey="start"
-            endKey="end"
-            [ranges]="ranges"
-            [showCustomRangeLabel]="true"
-            [alwaysShowCalendars]="true"
-            [(ngModel)]="model1"
-            placeholder="Select date range" />
-          <mat-icon matSuffix>date_range</mat-icon>
-        </mat-form-field>
+          <!-- Unified Date Range Picker -->
+          <div class="filter-item">
+            <label class="filter-label">Date Range</label>
+            <div class="date-picker-input-wrapper">
+              <mat-icon class="calendar-icon">calendar_today</mat-icon>
+              <input
+                type="text"
+                class="form-control date-select-input"
+                ngxDaterangepickerMd
+                [opens]="'right'"
+                startKey="start"
+                endKey="end"
+                [ranges]="ranges"
+                [showCustomRangeLabel]="true"
+                [alwaysShowCalendars]="true"
+                [(ngModel)]="model1"
+                placeholder="Select date range" />
+            </div>
+          </div>
 
-        <!-- Search Button -->
-        <button mat-flat-button color="accent" (click)="searchRange()" class="filter-search-btn">
-          <mat-icon>search</mat-icon>
-          <span>Apply Filters</span>
-        </button>
+          <!-- Search Button -->
+          <div class="filter-item">
+            <label class="filter-label">&nbsp;</label>
+            <button mat-raised-button color="primary" (click)="searchRange()" class="filter-btn-submit">
+              <mat-icon>filter_list</mat-icon>
+              <span>Apply Filters</span>
+            </button>
+          </div>
 
+        </div>
       </div>
     </mat-card-header>
   </mat-card>

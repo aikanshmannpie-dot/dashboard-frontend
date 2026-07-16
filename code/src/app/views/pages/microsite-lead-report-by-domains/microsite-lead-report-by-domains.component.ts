@@ -119,9 +119,9 @@ export class MicrositeLeadReportByDomainsComponent implements OnInit {
       });
   }
   onDomainChanged(event) {
-    this.selectedDomainValue = event.target.value;
+    this.selectedDomainValue = event.value !== undefined ? event.value : event.target?.value;
 
-    console.log(this.selectedDomainValue, event.target.value)
+    console.log(this.selectedDomainValue, this.selectedDomainValue)
     this.getLeadsOfDomain();
   }
   getLeadsOfDomain() {

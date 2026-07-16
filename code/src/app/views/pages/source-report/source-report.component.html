@@ -7,7 +7,8 @@
     <mat-card-header class="filter-card-header">
       <div class="filter-card-title-row">
         <mat-card-title class="dash-title">Report By Source</mat-card-title>
-        <mat-card-subtitle class="dash-subtitle">Analysis of email capture, signups, profit and cost metrics by source code</mat-card-subtitle>
+        <mat-card-subtitle class="dash-subtitle">Analysis of email capture, signups, profit and cost metrics by source
+          code</mat-card-subtitle>
       </div>
 
       <!-- Action Toggle button (Mobile calendar trigger) -->
@@ -16,50 +17,63 @@
       </button>
 
       <!-- Search Filters Inline Row -->
-      <div class="filter-form-row" [class.filter-form-row--show]="!search">
-        
-        <!-- Country Selector -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--country">
-          <mat-label>Country</mat-label>
-          <select matNativeControl (change)="CountryChangingValue($event)">
-            <option value="au">Australia (AU)</option>
-            <option value="nz">New Zealand (NZ)</option>
-          </select>
-        </mat-form-field>
+      <div class="filter-card-actions" [class.filter-card-actions--show]="!search">
+        <div class="filters-wrapper">
 
-        <!-- Affiliate Filter Selector -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--affiliate">
-          <mat-label>Filter By Affiliate</mat-label>
-          <select matNativeControl (change)="ChangingValue($event)">
-            <option value="undefined">All Affiliates</option>
-            <option *ngFor="let item of affilateListData" value="{{ item.has_affiliate_id }}">
-              {{ item.has_affiliate_name }}
-            </option>
-          </select>
-        </mat-form-field>
+          <!-- Country Selector -->
+          <div class="filter-item">
+            <label class="filter-label">Country</label>
+            <mat-form-field appearance="outline" class="form-field-custom">
+              <mat-select [(value)]="countrySelected">
+                <mat-option value="au">Australia (AU)</mat-option>
+                <mat-option value="nz">New Zealand (NZ)</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-        <!-- Single Unified Date Range Picker -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--date">
-          <mat-label>Date Range</mat-label>
-          <input
-            matInput
-            ngxDaterangepickerMd
-            startKey="start"
-            endKey="end"
-            [ranges]="ranges"
-            [showCustomRangeLabel]="true"
-            [alwaysShowCalendars]="true"
-            [(ngModel)]="model1"
-            placeholder="Select date range" />
-          <mat-icon matSuffix>date_range</mat-icon>
-        </mat-form-field>
+          <!-- Affiliate Filter Selector -->
+          <div class="filter-item">
+            <label class="filter-label">Filter By Affiliate</label>
+            <mat-form-field appearance="outline" class="form-field-custom">
+              <mat-select [(value)]="isSelected" placeholder="All Affiliates">
+                <mat-option value="undefined">All Affiliates</mat-option>
+                <mat-option *ngFor="let item of affilateListData" [value]="item.has_affiliate_id">
+                  {{ item.has_affiliate_name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-        <!-- Apply Button -->
-        <button mat-flat-button color="accent" (click)="searchRange(); searchButton()" class="filter-search-btn">
-          <mat-icon>search</mat-icon>
-          <span>Apply Filters</span>
-        </button>
+          <!-- Single Unified Date Range Picker -->
+          <div class="filter-item">
+            <label class="filter-label">Date Range</label>
+            <div class="date-picker-input-wrapper">
+              <mat-icon class="calendar-icon">calendar_today</mat-icon>
+              <input
+                type="text"
+                class="form-control date-select-input"
+                ngxDaterangepickerMd
+                [opens]="'right'"
+                startKey="start"
+                endKey="end"
+                [ranges]="ranges"
+                [showCustomRangeLabel]="true"
+                [alwaysShowCalendars]="true"
+                [(ngModel)]="model1"
+                placeholder="Select date range" />
+            </div>
+          </div>
 
+          <!-- Apply Button -->
+          <div class="filter-item">
+            <label class="filter-label">&nbsp;</label>
+            <button mat-raised-button color="primary" (click)="searchRange(); searchButton()" class="filter-btn-submit">
+              <mat-icon>filter_list</mat-icon>
+              <span>Apply Filters</span>
+            </button>
+          </div>
+
+        </div>
       </div>
     </mat-card-header>
   </mat-card>
@@ -70,10 +84,10 @@
   <mat-card class="dash-mat-card table-card top-border-1">
     <mat-card-header class="table-card-header">
       <mat-card-title class="card-chart-title">Source Stats Table</mat-card-title>
-      
+
       <!-- Action panel containing search and export triggers -->
       <div class="table-actions-row" *ngIf="avaible">
-        
+
         <div class="export-buttons-group">
           <button mat-stroked-button (click)="exporter.exportTable('csv', { fileName: 'Acquirely Source Report' })">
             <mat-icon>save_alt</mat-icon> CSV
@@ -101,19 +115,10 @@
     <mat-card-content class="table-card-content">
       <div class="mat-table__wrapper tableMobileView" id="pdfTable" #pdfTable>
         <kendo-pdf-export #pdf margin="2cm">
-          
-          <mat-table
-            class="lmat-elevation-z8 clean-material-table"
-            matTableExporter
-            #table
-            [dataSource]="dataSource"
-            matSort
-            #matSort="matSort"
-            matSortActive="id"
-            matSortDirection="asc"
-            matSortDisableClear
-            #exporter="matTableExporter"
-            (matSortChange)="sortColumn($event)">
+
+          <mat-table class="lmat-elevation-z8 clean-material-table" matTableExporter #table [dataSource]="dataSource"
+            matSort #matSort="matSort" matSortActive="id" matSortDirection="asc" matSortDisableClear
+            #exporter="matTableExporter" (matSortChange)="sortColumn($event)">
 
             <!-- Sr.No Column -->
             <ng-container matColumnDef="Sr.No">
@@ -230,10 +235,7 @@
     </mat-card-content>
 
     <mat-card-footer class="table-card-footer">
-      <mat-paginator
-        [pageSize]="10"
-        [pageSizeOptions]="[10, 20, 25, 100]"
-        [showFirstLastButtons]="true"
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 25, 100]" [showFirstLastButtons]="true"
         class="clean-paginator">
       </mat-paginator>
     </mat-card-footer>

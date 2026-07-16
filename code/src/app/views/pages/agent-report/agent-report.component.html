@@ -16,40 +16,53 @@
       </button>
 
       <!-- Search Filters Inline Row -->
-      <div class="filter-form-row" [class.filter-form-row--show]="!search">
-        <!-- Date Range Picker Field -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--date">
-          <mat-label>Date Range</mat-label>
-          <input
-            matInput
-            ngxDaterangepickerMd
-            startKey="start"
-            endKey="end"
-            [ranges]="ranges"
-            [showCustomRangeLabel]="true"
-            [alwaysShowCalendars]="true"
-            [(ngModel)]="model1"
-            placeholder="Select date range"
-          />
-          <mat-icon matSuffix>date_range</mat-icon>
-        </mat-form-field>
+      <div class="filter-card-actions" [class.filter-card-actions--show]="!search">
+        <div class="filters-wrapper">
+          
+          <!-- Date Range Picker Field -->
+          <div class="filter-item">
+            <label class="filter-label">Date Range</label>
+            <div class="date-picker-input-wrapper">
+              <mat-icon class="calendar-icon">calendar_today</mat-icon>
+              <input
+                type="text"
+                class="form-control date-select-input"
+                ngxDaterangepickerMd
+                [opens]="'right'"
+                startKey="start"
+                endKey="end"
+                [ranges]="ranges"
+                [showCustomRangeLabel]="true"
+                [alwaysShowCalendars]="true"
+                [(ngModel)]="model1"
+                placeholder="Select date range"
+              />
+            </div>
+          </div>
 
-        <!-- Call Center Dropdown selector (conditional) -->
-        <mat-form-field appearance="outline" class="filter-field filter-field--callcenter" *ngIf="report_type == '2'">
-          <mat-label>Call Center</mat-label>
-          <select matNativeControl (change)="ChangingValue($event)">
-            <option value="undefined">All</option>
-            <option *ngFor="let item of callcenterListingData" [value]="item.id">
-              {{ item.name }}
-            </option>
-          </select>
-        </mat-form-field>
+          <!-- Call Center Dropdown selector (conditional) -->
+          <div class="filter-item" *ngIf="report_type == '2'">
+            <label class="filter-label">Call Center</label>
+            <mat-form-field appearance="outline" class="form-field-custom">
+              <mat-select [(value)]="selectedValue" placeholder="All">
+                <mat-option value="undefined">All</mat-option>
+                <mat-option *ngFor="let item of callcenterListingData" [value]="item.id">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
-        <!-- Apply Filters Button -->
-        <button mat-flat-button color="accent" class="filter-search-btn" (click)="searchRange(); searchButton()" [disabled]="loading">
-          <mat-icon>search</mat-icon>
-          <span>Search</span>
-        </button>
+          <!-- Apply Filters Button -->
+          <div class="filter-item">
+            <label class="filter-label">&nbsp;</label>
+            <button mat-raised-button color="primary" class="filter-btn-submit" (click)="searchRange(); searchButton()" [disabled]="loading">
+              <mat-icon>filter_list</mat-icon>
+              <span>Search</span>
+            </button>
+          </div>
+
+        </div>
       </div>
     </mat-card-header>
   </mat-card>
