@@ -16,7 +16,11 @@ import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableExporterModule } from 'mat-table-exporter';
-import {NgxPrintModule} from 'ngx-print';
+import { NgxPrintModule } from 'ngx-print';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // import { FlexLayoutModule } from '@angular/flex-layout';
 // import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // import { NgxDateRangeModule } from 'ngx-daterange';
@@ -48,8 +52,11 @@ import {NgxPrintModule} from 'ngx-print';
 				component: MicrositeAffiliateReportComponent
 			},
 		]),
-		MatTableExporterModule
-		// NgxDaterangepickerMd.forRoot()
+		MatTableExporterModule,
+		MatCardModule,
+		MatButtonModule,
+		MatIconModule,
+		MatProgressSpinnerModule
 	],
 	providers: [],
 	declarations: [

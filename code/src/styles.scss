@@ -326,3 +326,27 @@
     width: 100% !important;
   }
 }
+
+// Global Table Header background and text styling
+.mat-header-row,
+.mat-mdc-header-row,
+table thead,
+table thead tr,
+table tr th,
+.mat-header-cell,
+.mat-mdc-header-cell {
+  background-color: #f8fafc !important;
+  background: #f8fafc !important;
+}
+
+.mat-header-cell,
+.mat-mdc-header-cell,
+table th,
+table thead th {
+  color: #1e293b !important;
+  font-weight: 600 !important;
+  font-size: 0.82rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}

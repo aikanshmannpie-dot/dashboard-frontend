@@ -1,103 +1,198 @@
+// ─────────────────────────────────────────────────────────────────────────────
+//  Redesigned Microsite Affiliate Report SCSS
+// ─────────────────────────────────────────────────────────────────────────────
+
+$accent-indigo: #6366f1;
+$card-border: rgba(99, 102, 241, 0.08);
+$card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06);
+
+.dash-page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+// ── Typographical Titles ─────────────────────────────────────────────────────
+.dash-title {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+}
+
+.dash-subtitle {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 0.82rem !important;
+  color: #64748b !important;
+  margin-top: 2px;
+}
+
+// ── Top Header / Filters Card ────────────────────────────────────────────────
+.filter-card {
+  background: #ffffff !important;
+  border: 1px solid $card-border !important;
+  box-shadow: $card-shadow !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+  position: relative;
+  z-index: 10;
+
+  .filter-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .filter-card-title-row {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+// ── Generic Card Styles ──────────────────────────────────────────────────────
+.dash-mat-card {
+  background: #ffffff !important;
+  border: 1px solid $card-border !important;
+  box-shadow: $card-shadow !important;
+  border-radius: 14px !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-border-10 {
+  border-top: 4px solid #3b82f6 !important;
+}
+
+// ── Table Card Redesign ──────────────────────────────────────────────────────
+.table-card {
+  .table-card-header {
+    padding: 20px 24px 10px 24px !important;
+    margin: 0 !important;
+  }
+
+  .table-card-content {
+    flex: 1;
+    padding: 0 20px !important;
+  }
+
+  .table-actions-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+    width: 100%;
+
+    .export-buttons-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+
+      button {
+        border-radius: 6px !important;
+        font-family: 'Inter', sans-serif;
+        font-size: 0.8rem;
+        height: 38px;
+        color: #475569 !important;
+        border-color: #cbd5e1 !important;
+        transition: all 0.18s ease;
+
+        &:hover {
+          background-color: #f8fafc !important;
+          border-color: #94a3b8 !important;
+        }
+
+        mat-icon {
+          font-size: 1rem;
+          width: 1rem;
+          height: 1rem;
+          margin-right: 4px;
+        }
+      }
+    }
+
+    .table-search-field {
+      width: 240px;
+      margin-bottom: 0 !important;
+
+      ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+        display: none !important;
+      }
+    }
+  }
+}
+
+// ── Table Redesign ───────────────────────────────────────────────────────────
+.mat-table__wrapper {
+  overflow-x: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+kendo-pdf-export {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 768px) {
+  .mat-table {
+    min-width: 1000px !important;
+    width: 100% !important;
+  }
+}
+
 .mat-table {
-	width: 100%;
-}
-.dropdown-select-box {
-	float: left;
-	width: 200px;
+  background: transparent !important;
+  font-family: 'Inter', sans-serif !important;
 }
 
-.date-select-box {
-	float: left;
+.mat-header-cell {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.button-next-pre {
-	padding: 6px;
-	border-radius: 10px;
-	margin: 6px;
-}
-
-.search-site-input {
-	width: 200px;
-	padding: 9px;
-	border: 1px solid #ebeef9;
+.mat-cell, .mat-header-cell {
+  padding: 12px 16px !important;
 }
 
 .sec-mat-tab {
-	display: none;
-}
-mat-header-cell {
-	font-size: 14px;
-	font-weight: 600;
+  display: none;
 }
 
-.mat-Not__found {
-	h2 {
-		text-align: center;
-	}
-}
-.coustom-width-row {
-	word-wrap: break-word !important;
-	white-space: unset !important;
-	flex: 0 0 10% !important;
-	width: 10% !important;
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-	word-break: break-word;
-	-ms-hyphens: auto;
-	-moz-hyphens: auto;
-	-webkit-hyphens: auto;
-	hyphens: auto;
+.column100 {
+  word-break: break-all;
 }
 
-.redCol {
-	background: #fd397a;
-	margin: 10px 0px;
-	display: table;
-	border-radius: 5px;
-	color: #fff;
-	padding: 5px 11px;
-}
-.div-right-align {
-	float: right;
-}
-mat-cell {
-	display: flex !important;
-	justify-content: center !important;
-}
+// ── Loader Overlay ───────────────────────────────────────────────────────────
+.loader-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.70);
+  z-index: 10;
+  min-height: 200px;
 
-mat-header-cell {
-	display: flex !important;
-	justify-content: center !important;
-}
-.mat-cell {
-	display: flex !important;
-	justify-content: center !important;
-}
-
-.mat-header-cell {
-	display: flex !important;
-	justify-content: center !important;
-}
-table {
-	text-align: center !important;
-	width: 100%;
-}
-
-.mat-header-cell {
-	text-align: center;
-}
-.mat-table__wrapper .mat-table .mat-cell,
-.mat-table__wrapper .mat-table .mat-footer-cell,
-.mat-table__wrapper .mat-table .mat-header-cell {
-	text-align: center !important;
-	padding-right: 10px;
-	justify-content: center;
-}
-.mat-cell-question {
-	white-space: unset !important;
-	flex: 0 0 15% !important;
-	width: 15% !important;
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-	word-break: break-word;
+  .loader-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: $accent-indigo;
+    font-weight: 500;
+  }
 }
