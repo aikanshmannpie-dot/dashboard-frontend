@@ -14,9 +14,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
 import { MatTableExporterModule } from "mat-table-exporter";
 import { NgxPrintModule } from "ngx-print";
 import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
+
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
 	imports: [
@@ -28,6 +32,9 @@ import { PDFExportModule } from "@progress/kendo-angular-pdf-export";
 		MatSortModule,
 		MatFormFieldModule,
 		MatInputModule,
+		MatSelectModule,
+		MatCardModule,
+		MatIconModule,
 		PDFExportModule,
 		FormsModule,
 		NgxPrintModule,

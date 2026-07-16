@@ -1,49 +1,64 @@
-<div class="pageContainer">
-	<div class="pageTopBar">
-		<h2 style="padding: 10px 0px; float: left">
-			Revenue Report By Suppliers
-		</h2>
-		<div ngbDropdown class="dropdown searcBar">
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[(ngModel)]="model1"
-			/>
-			<input
-				type="text"
-				class="btn btn-default dropdown-toggle"
-				ngxDaterangepickerMd
-				startKey="start"
-				endKey="end"
-				[ranges]="ranges"
-				[(ngModel)]="model1"
-			/>
-			<select
-				class="form-control dropdown-select-box"
-				(change)="ChangingValue($event)"
-				*ngIf="report_type == 2"
-			>
-				<option value="undefined">Search By Suppliers</option>
-				<option
-					*ngFor="let item of supplierListingData"
-					value="{{ item.id }}"
-				>
-					<div *ngIf="item.name != null">{{ item.name }}</div>
-				</option>
-			</select>
-			<button
-				class="btn btn-default dropdown-toggle"
-				id="ddllogout"
-				type="button"
-				(click)="searchRange()"
-			>
-				Search
-			</button>
-		</div>
-	</div>
+<div class="dash-page-container">
+
+  <!-- ══════════════════════════════════════════
+       FILTER & CONTROL CARD
+       ══════════════════════════════════════════ -->
+  <mat-card class="filter-card">
+    <mat-card-header class="filter-card-header">
+      <div class="filter-card-title-row">
+        <mat-card-title class="dash-title">Revenue Report By Suppliers</mat-card-title>
+        <mat-card-subtitle class="dash-subtitle">Analyze revenue statistics broken down by supplier data</mat-card-subtitle>
+      </div>
+
+      <div class="filter-card-actions">
+        <div class="filters-wrapper">
+
+          <!-- Date Range Picker Field -->
+          <div class="filter-item">
+            <label class="filter-label">Date Range</label>
+            <div class="date-picker-input-wrapper">
+              <mat-icon class="calendar-icon">calendar_today</mat-icon>
+              <input
+                type="text"
+                class="form-control date-select-input"
+                ngxDaterangepickerMd
+                [opens]="'right'"
+                startKey="start"
+                endKey="end"
+                [ranges]="ranges"
+                [showCustomRangeLabel]="true"
+                [alwaysShowCalendars]="true"
+                [(ngModel)]="model1"
+                placeholder="Select date range" />
+            </div>
+          </div>
+
+          <!-- Suppliers Select Selector Field (Conditional) -->
+          <div class="filter-item" *ngIf="report_type == 2">
+            <label class="filter-label">Select Supplier</label>
+            <mat-form-field appearance="outline" class="form-field-custom">
+              <mat-select [(value)]="selectedValue" placeholder="All Suppliers">
+                <mat-option value="undefined">All Suppliers</mat-option>
+                <mat-option *ngFor="let item of supplierListingData" [value]="item.id">
+                  {{ item.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Apply Filters Button -->
+          <div class="filter-item">
+            <label class="filter-label">&nbsp;</label>
+            <button mat-raised-button color="primary" class="filter-btn-submit" (click)="searchRange()" [disabled]="loading">
+              <mat-icon>filter_list</mat-icon>
+              <span>Search</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </mat-card-header>
+  </mat-card>
 
 	<div ngbDropdown class="dropdown topBarList" *ngIf="avaible">
 		<button

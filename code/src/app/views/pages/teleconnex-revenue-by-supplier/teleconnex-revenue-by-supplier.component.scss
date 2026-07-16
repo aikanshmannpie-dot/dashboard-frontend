@@ -243,7 +243,29 @@ tr.example-element-row:not(.example-expanded-row):active {
 .sec-mat-tab {
 	display: none;
 }
-.dropdown-select-box {
-	float: left;
-	width: 300px;
+
+// ── Responsive Layout Rules ──────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .filter-card {
+    .filter-card-actions {
+      display: block;
+      width: 100%;
+
+      .filters-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+
+        .filter-item {
+          width: 100%;
+
+          .date-picker-input-wrapper {
+            width: 100%;
+          }
+          .form-field-custom {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }

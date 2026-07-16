@@ -120,7 +120,28 @@ table {
 .col_response {
 	width: 23%;
 }
-.pageContainer .pageTopBar .searcBar {
-	float: right;
-	display: flex;
+// ── Responsive Layout Rules ──────────────────────────────────────────────────
+@media (max-width: 1024px) {
+  .filter-card {
+    .filter-card-actions {
+      display: block;
+      width: 100%;
+
+      .filters-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+
+        .filter-item {
+          width: 100%;
+
+          .date-picker-input-wrapper {
+            width: 100%;
+          }
+          .form-field-custom {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
