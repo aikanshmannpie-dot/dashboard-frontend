@@ -114,10 +114,14 @@
     width: calc(100vw - 32px) !important;
     min-width: 280px !important;
     max-width: 340px !important;
-    display: flex !important;
+    display: none;
     flex-direction: column !important;
     padding: 12px !important;
     margin: 0 !important;
+
+    &:not([style*="display: none"]):not([style*="display:none"]) {
+      display: flex !important;
+    }
 
     .ranges {
       width: 100% !important;
@@ -349,4 +353,19 @@ table thead th {
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
   border-bottom: 1px solid #e2e8f0 !important;
+}
+
+// Force CDK overlays to lay out and position left-to-right (preventing RTL layout overrides)
+.cdk-overlay-pane {
+  direction: ltr !important;
+}
+
+// Force mobile header to remain on top of page content/cards
+.kt-header-mobile {
+  z-index: 10000 !important;
+}
+
+// Ensure footer remains on top of page content (especially when fixed/sticky on mobile views)
+.kt-footer {
+  z-index: 10000 !important;
 }

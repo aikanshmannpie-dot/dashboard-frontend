@@ -55,12 +55,12 @@
 			<div class="kt-menu__submenu" [ngClass]="getItemMenuSubmenuClass(item)" [ngStyle]="{ 'width': item.submenu.width }">
 				<span class="kt-menu__arrow" [ngClass]="{ 'kt-menu__arrow--adjust': item.root }"></span>
 
-				<!-- <ul *ngIf="item.submenu?.length" class="kt-menu__subnav">
+				<ul *ngIf="item.submenu?.length" class="kt-menu__subnav">
 					<ng-container *ngFor="let child of item.submenu">
 						<ng-container [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: child, parentItem: item }">
 						</ng-container>
 					</ng-container>
-				</ul> -->
+				</ul>
 
 				<!-- <ul *ngIf="item.submenu.items?.length" class="kt-menu__subnav">
 					<ng-container *ngFor="let child of item.submenu.items">
