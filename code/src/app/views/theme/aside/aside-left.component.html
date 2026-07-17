@@ -1,5 +1,12 @@
 <!-- BEGIN: Left Aside -->
 <div ktOffcanvas [options]="menuCanvasOptions" class="kt-aside kt-aside--fixed kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
+	<!-- BEGIN: Aside Brand/Logo -->
+	<div class="kt-aside__brand" style="padding: 16px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #e2e8f0; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); width: 100%; box-sizing: border-box; flex-shrink: 0;">
+		<a href="javascript:;" routerLink="/overall/1" style="display: flex; align-items: center; justify-content: center; width: 100%; text-decoration: none;">
+			<img alt="logo" src="assets/images/logo.png" style="max-width: 180px; width: 100%; height: auto; object-fit: contain; display: block;" />
+		</a>
+	</div>
+	<!-- END: Aside Brand/Logo -->
 	<!-- BEGIN: Aside Menu -->
 	<div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
 		<div #asideMenu ktMenu [options]="menuOptions" [ngStyle]="{'max-height': '100vh', 'position': 'relative', 'overflow-y': 'auto'}" id="kt_aside_menu" class="kt-aside-menu"
@@ -40,7 +47,11 @@
 		[ngbTooltip]="item.tooltip" data-placement="right">
 
 		<!-- if menu item hasn't submenu -->
-		<a *ngIf="!item.submenu" [routerLink]="item.page" class="kt-menu__link kt-menu__toggle">
+		<a *ngIf="!item.submenu && item.page !== '/auth/logout'" [routerLink]="item.page" class="kt-menu__link kt-menu__toggle">
+			<ng-container [ngTemplateOutlet]="menuItemTextTemplate"
+				[ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+		</a>
+		<a *ngIf="!item.submenu && item.page === '/auth/logout'" (click)="logout()" class="kt-menu__link kt-menu__toggle" style="cursor: pointer;">
 			<ng-container [ngTemplateOutlet]="menuItemTextTemplate"
 				[ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
 		</a>

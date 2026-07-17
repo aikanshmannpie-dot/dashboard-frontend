@@ -65,21 +65,7 @@ export class BaseComponent implements OnInit, OnDestroy {
 
     // register configs by demos
     this.layoutConfigService.loadConfigs(new LayoutConfig().configs);
-    this.menuConfigService.loadConfigs(
-      router.url.includes("/2")
-        ? new MenuConfig().teleconnex_configs
-        : router.url.includes("/4")
-          ? new MenuConfig().analytics_configs
-          : router.url.includes("/3")
-            ? new MenuConfig().micrositeReporting_configs
-            : router.url.includes("/1")
-              ? new MenuConfig().configs
-              : router.url.includes("/vicidial-leads")
-                ? new MenuConfig().vicidial_configs
-                : router.url.includes("/settings")
-                  ? new MenuConfig().settings_config
-                  : new MenuConfig().configs
-    );
+    this.menuConfigService.loadConfigs(new MenuConfig().configs);
     this.pageConfigService.loadConfigs(new PageConfig().configs);
 
     // setup element classes

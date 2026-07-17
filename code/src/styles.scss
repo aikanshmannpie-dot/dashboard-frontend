@@ -369,3 +369,66 @@ table thead th {
 .kt-footer {
   z-index: 10000 !important;
 }
+
+// Aside sidebar global overrides
+.kt-aside {
+  background-color: #ffffff !important;
+  z-index: 10001 !important; // Position above mobile header (10000)
+}
+
+@media (min-width: 1025px) {
+  // Position aside sidebar persistently on desktop
+  .kt-aside {
+    position: fixed !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 256px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border-right: 1px solid #e2e8f0 !important;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.03) !important;
+  }
+
+  // Shift wrapper to the right
+  .kt-wrapper {
+    padding-left: 256px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  // Remove top padding meant for fixed header on desktop
+  body.kt-header--fixed {
+    padding-top: 0 !important;
+  }
+}
+
+// Aside close button styling
+.kt-aside-close {
+  background-color: #f1f5f9 !important;
+  border: none !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 6px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  z-index: 10002 !important; // Above aside sidebar
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+
+  .la-close {
+    font-size: 0.85rem !important;
+    color: #64748b !important;
+  }
+
+  &:hover {
+    background-color: #e2e8f0 !important;
+    .la-close {
+      color: #0f172a !important;
+    }
+  }
+}

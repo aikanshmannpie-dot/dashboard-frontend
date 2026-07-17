@@ -61,7 +61,7 @@ export class LayoutConfig {
 			},
 			menu: {
 				self: {
-					display: true,
+					display: false,
 					'root-arrow': false,
 				},
 				desktop: {
@@ -90,7 +90,7 @@ export class LayoutConfig {
 		aside: {
 			self: {
 				fixed: true,
-				display: false,
+				display: true,
 				minimize: {
 					toggle: true,
 					default: false,

@@ -2,77 +2,176 @@ export class MenuConfig {
   public defaults: any = {
     header: {
       self: {},
+      items: [],
+    },
+    aside: {
+      self: {},
       items: [
         {
-          title: "Dashboards",
+          title: "MHI / Acquirely",
           root: true,
-          icon: "mat:dashboard",
-          alignment: "left",
-          page: "/dashboard/1",
-          translate: "MENU.DASHBOARD",
+          icon: "la la-cubes",
+          toggle: "click",
+          submenu: [
+            {
+              title: "Dashboards",
+              page: "/dashboard/1",
+              icon: "la la-dashboard",
+            },
+            {
+              title: "Overall Report",
+              page: "/overall/1",
+              icon: "la la-file-text-o",
+            },
+            {
+              title: "Report By Affliates",
+              page: "/affilate/1",
+              icon: "la la-users",
+            },
+            {
+              title: "Report By Source",
+              page: "/source-report/1",
+              icon: "la la-external-link",
+            },
+            {
+              title: "Overall Q/B Ticks Report",
+              page: "/overall-ques-tick-report/1",
+              icon: "la la-check-circle",
+            },
+            {
+              title: "Report By Campaigns",
+              page: "/campanigns-report/1",
+              icon: "la la-bullhorn",
+            },
+            {
+              title: "Clickout Report",
+              page: "/clickout-report/1",
+              icon: "la la-mouse-pointer",
+            },
+          ],
         },
         {
-          title: "Overall Report",
+          title: "Teleconnex",
           root: true,
-          icon: "mat:description",
-          alignment: "left",
-          page: "/overall/1",
-          translate: "MENU.DASHBOARD",
+          icon: "la la-phone",
+          toggle: "click",
+          submenu: [
+            {
+              title: "Overall Report",
+              page: "/overall/2",
+              icon: "la la-file-text-o",
+            },
+            {
+              title: "Report By Campaigns",
+              page: "/campanigns-report/2",
+              icon: "la la-bullhorn",
+            },
+            {
+              title: "Report By Agent",
+              page: "/agent-report/2",
+              icon: "la la-user",
+            },
+            {
+              title: "Revenue Report",
+              page: "/teleconnex-revenue-report/2",
+              icon: "la la-money",
+            },
+            {
+              title: "Revenue By Supplier",
+              page: "/teleconnex-revenue-by-suppliers/2",
+              icon: "la la-industry",
+            },
+            {
+              title: "Daily Progress",
+              page: "/teleconnexdailyprogress/2",
+              icon: "la la-line-chart",
+            },
+            {
+              title: "Daily Progress Co-Sponsor",
+              page: "/teleconnexdailyprogressco/2",
+              icon: "la la-handshake-o",
+            },
+          ],
         },
         {
-          title: "Report By Affliates",
+          title: "Microsite",
           root: true,
-          icon: "mat:group",
-          alignment: "left",
-          page: "/affilate/1",
-          translate: "MENU.DASHBOARD",
+          icon: "la la-globe",
+          toggle: "click",
+          submenu: [
+            {
+              title: "Microsite-Layouts",
+              page: "/microsite-layouts/3",
+              icon: "la la-columns",
+            },
+            {
+              title: "Microsite-leads",
+              page: "/microsite/3",
+              icon: "la la-users",
+            },
+            {
+              title: "Source-Report",
+              page: "/microsite-source-report/3",
+              icon: "la la-file-text-o",
+            },
+            {
+              title: "Affiliate-Report",
+              page: "/microsite-affiliate-report/3",
+              icon: "la la-user-plus",
+            },
+            {
+              title: "Lead Report By Domains",
+              page: "/microsite-lead-report-by-domains/3",
+              icon: "la la-globe",
+            },
+            {
+              title: "Lead Report By API Client",
+              page: "/microsite-lead-report-by-api-client/3",
+              icon: "la la-plug",
+            },
+            {
+              title: "Lead Report By API",
+              page: "/microsite-lead-report-by-api/3",
+              icon: "la la-code",
+            },
+          ],
         },
         {
-          title: "Report By Source",
+          title: "Analytics",
           root: true,
-          icon: "mat:source",
-          alignment: "left",
-          page: "/source-report/1",
-          translate: "MENU.DASHBOARD",
+          icon: "la la-bar-chart",
+          toggle: "click",
+          submenu: [
+            {
+              title: "Analytics Dashboard",
+              page: "/acquirely-analytics/4",
+              icon: "la la-pie-chart",
+            },
+            {
+              title: "Lead Conversion Summary Report",
+              page: "/lead-conversion-summary/4",
+              icon: "la la-exchange",
+            },
+          ],
         },
         // {
-        // 	title: 'Overall Ticks Report',
-        // 	root: true,
-        // 	alignment: 'left',
-        // 	page: '/overall-tick-report',
-        // 	translate: 'MENU.DASHBOARD',
+        //   title: "Push to vicidial",
+        //   root: true,
+        //   icon: "la la-upload",
+        //   page: "/vicidial-leads",
         // },
         {
-          title: "Overall Q/B Ticks Report",
+          title: "Settings",
           root: true,
-          icon: "mat:check_circle",
-          alignment: "left",
-          page: "/overall-ques-tick-report/1",
-          translate: "MENU.DASHBOARD",
+          icon: "la la-cog",
+          page: "/settings",
         },
         {
-          title: "Report By Campaigns",
+          title: "Logout",
           root: true,
-          icon: "mat:campaign",
-          alignment: "left",
-          page: "/campanigns-report/1",
-          translate: "MENU.DASHBOARD",
+          icon: "la la-sign-out",
+          page: "/auth/logout",
         },
-        {
-          title: "Clickout Report",
-          root: true,
-          icon: "mat:ads_click",
-          alignment: "left",
-          page: "/clickout-report/1",
-          translate: "MENU.DASHBOARD",
-        },
-        // {
-        // 	title: "Microsite-leads",
-        // 	root: true,
-        // 	alignment: "left",
-        // 	page: "/microsite-leads/1",
-        // 	translate: "MENU.DASHBOARD",
-        // },
       ],
     },
   };
@@ -82,179 +181,53 @@ export class MenuConfig {
       self: {},
       items: [],
     },
-  }
+    aside: {
+      self: {},
+      items: [],
+    },
+  };
 
   public teleconnex_defaults: any = {
     header: {
       self: {},
-      items: [
-        {
-          title: "Overall Report",
-          root: true,
-          icon: "mat:description",
-          alignment: "left",
-          page: "/overall/2",
-          translate: "MENU.DASHBOARD",
-        },
-
-        {
-          title: "Report By Campaigns",
-          root: true,
-          icon: "mat:campaign",
-          alignment: "left",
-          page: "/campanigns-report/2",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Report By Agent",
-          root: true,
-          icon: "mat:person",
-          alignment: "left",
-          page: "/agent-report/2",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Revenue Report",
-          root: true,
-          icon: "mat:monetization_on",
-          alignment: "left",
-          page: "/teleconnex-revenue-report/2",
-          translate: "MENU.DASHBOARD",
-        },
-        // {
-        // 	title: "Revenue By Supplier",
-        // 	root: true,
-        // 	alignment: "left",
-        // 	page: "/teleconnex-revenue-by-supplier/2",
-        // 	translate: "MENU.DASHBOARD",
-        // },
-        {
-          title: "Revenue By Supplier",
-          root: true,
-          icon: "mat:store",
-          alignment: "left",
-          page: "/teleconnex-revenue-by-suppliers/2",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Daily Progress",
-          root: true,
-          icon: "mat:trending_up",
-          alignment: "left",
-          page: "/teleconnexdailyprogress/2",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Daily Progress Co-Sponsor",
-          root: true,
-          icon: "mat:handshake",
-          alignment: "left",
-          page: "/teleconnexdailyprogressco/2",
-          translate: "MENU.DASHBOARD",
-        },
-      ],
+      items: [],
+    },
+    aside: {
+      self: {},
+      items: [],
     },
   };
+
   public vicidial_defaults: any = {
     header: {
       self: {},
-      items: [
-        {
-          title: "Push to vicidial",
-          root: true,
-          alignment: "left",
-          page: "/vicidial-leads",
-          translate: "MENU.DASHBOARD",
-        },
-      ],
+      items: [],
+    },
+    aside: {
+      self: {},
+      items: [],
     },
   };
 
   public micrositeReporting_defaults: any = {
     header: {
       self: {},
-      items: [
-        {
-          title: "Microsite-Layouts",
-          root: true,
-          icon: "mat:dashboard_customize",
-          alignment: "left",
-          page: "/microsite-layouts/3",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Microsite-leads",
-          root: true,
-          icon: "mat:people",
-          alignment: "left",
-          page: "/microsite/3",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Source-Report",
-          root: true,
-          icon: "mat:source",
-          alignment: "left",
-          page: "/microsite-source-report/3",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Affiliate-Report",
-          root: true,
-          icon: "mat:group",
-          alignment: "left",
-          page: "/microsite-affiliate-report/3",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Lead Report By Domains",
-          root: true,
-          icon: "mat:domain",
-          alignment: "left",
-          page: "/microsite-lead-report-by-domains/3",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Lead Report By API Client",
-          root: true,
-          icon: "mat:api",
-          alignment: "left",
-          page: "/microsite-lead-report-by-api-client/3",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Lead Report By API",
-          root: true,
-          icon: "mat:code",
-          alignment: "left",
-          page: "/microsite-lead-report-by-api/3",
-          translate: "MENU.DASHBOARD",
-        },
-      ],
+      items: [],
+    },
+    aside: {
+      self: {},
+      items: [],
     },
   };
 
   public analytics_defaults: any = {
     header: {
       self: {},
-      items: [
-        {
-          title: "Analytics Dashboard",
-          root: true,
-          icon: "mat:analytics",
-          alignment: "left",
-          page: "/acquirely-analytics/4",
-          translate: "MENU.DASHBOARD",
-        },
-        {
-          title: "Lead Conversion Summary Report",
-          root: true,
-          icon: "mat:transform",
-          alignment: "left",
-          page: "/lead-conversion-summary/4",
-          translate: "MENU.DASHBOARD",
-        },
-      ],
+      items: [],
+    },
+    aside: {
+      self: {},
+      items: [],
     },
   };
 

@@ -234,4 +234,9 @@ export class AsideLeftComponent implements OnInit, AfterViewInit {
 
 		return toggle;
 	}
+
+	logout() {
+		localStorage.clear();
+		window.location.reload();
+	}
 }
